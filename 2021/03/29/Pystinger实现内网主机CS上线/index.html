@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>Pystinger实现内网主机CS上线 | MyBlogs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+      <meta name="google-site-verification" content="XXX" />
+    
+
+    
+
+    
+
+    
+
+    
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1637200696663.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1637200696663.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>MyBlogs</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">Home</a>
+                
+                <a href="/archives">Archives</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+    <a class="social" target="_blank" href="">
+        <box-icon type='' name=''></box-icon>
+    </a>
+
+    <a class="social" target="_blank" href="">
+        <box-icon type='' name=''></box-icon>
+    </a>
+
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">Home</a>
+                    
+                    <a href="/archives">Archives</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-ckw68hqsy001ijs4zfjvo8rfy" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      Pystinger实现内网主机CS上线
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2021-03-29T13:25:11.000Z" itemprop="datePublished">2021-03-29</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>,<a class="article-category-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a>
+            </div>
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li></ul>
+            </div>
+            
+
+            
+            <div class="article-busuanzi">
+                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+            </div>
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h2 id="一、Pystinger简介"><a href="#一、Pystinger简介" class="headerlink" title="一、Pystinger简介"></a>一、Pystinger简介</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;毒刺(pystinger)通过webshell实现内网SOCK4代理，端口映射。可直接用于metasploit-framework,viper,cobalt strike上线，主体使用python开发,当前支持php,jsp(x),aspx三种代理脚本。<br>repo:<a target="_blank" rel="noopener" href="https://github.com/FunnyWolf/pystinger/blob/master/readme_cn.md">https://github.com/FunnyWolf/pystinger/blob/master/readme_cn.md</a></p>
+<span id="more"></span>
+
+<h2 id="二、简化分析"><a href="#二、简化分析" class="headerlink" title="二、简化分析"></a>二、简化分析</h2><ul>
+<li><img src="https://img-blog.csdnimg.cn/img_convert/c0f606c127870777d0ed0735e4fb0ae6.png#pic_center" alt="在这里插入图片描述"></li>
+</ul>
+<h2 id="三、操作演示"><a href="#三、操作演示" class="headerlink" title="三、操作演示"></a>三、操作演示</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<h3 id="1-测试环境："><a href="#1-测试环境：" class="headerlink" title="1. 测试环境："></a>1. 测试环境：</h3><ol>
+<li>攻击机Cobaltstrike&nbsp;&lt;==&gt;  192.168.1.12<ol start="2">
+<li>Web站点 abc.com  &nbsp;&lt;==&gt;  192.168.1.10</li>
+<li>Web站点内网主机A&lt;==&gt;  192.168.1.5</li>
+</ol>
+</li>
+</ol>
+<h3 id="2-单台主机上线"><a href="#2-单台主机上线" class="headerlink" title="2. 单台主机上线"></a>2. 单台主机上线</h3><ol>
+<li><p>上传proxy文件，保证正常访问。</p>
+<p>  <img src="https://img-blog.csdnimg.cn/20210329201459385.png" alt="在这里插入图片描述"><br>  根据站点解析的语言自行选择对应的proxy文件。<br><img src="https://img-blog.csdnimg.cn/20210329201416716.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p>目标站点执行命令 <code>start stinger_server.exe</code><br><img src="https://img-blog.csdnimg.cn/20210329202836649.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p>攻击机：<br> <code>./stinger_client -w http://192.168.1.10/asdfbgnbvcsZvxbcxzseqewfrqegnjr.php -l 0.0.0.0 -p 60000</code><br> <img src="https://img-blog.csdnimg.cn/20210329203202528.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> RAT Config 配置: 设置listener为<code>127.0.0.1:60020</code>，payload连接的是<code>127.0.0.1:60020</code>，相当于通过proxy.php将web站点的60020端口映射到攻击机本地的60020端口。</p>
+</li>
+<li><p>CS配置<br><img src="https://img-blog.csdnimg.cn/20210329205139760.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>生成payload运行即可上线。<br><img src="https://img-blog.csdnimg.cn/20210329205229859.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+</ol>
+<h3 id="3-多台主机上线"><a href="#3-多台主机上线" class="headerlink" title="3. 多台主机上线"></a>3. 多台主机上线</h3><ol>
+<li><p>Web站点执行：<code>start stinger_server.exe 0.0.0.0</code><br><img src="https://img-blog.csdnimg.cn/20210329210238771.png" alt="在这里插入图片描述"></p>
+</li>
+<li><p>修改监听器重新生成payload并在A主机执行，其余执行命令不变，最后成功上线。<br><img src="https://img-blog.csdnimg.cn/2021032921044222.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210329210029353.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+</ol>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+<div class="article-copyright hairline">
+  <p>
+    本作品采用 <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a> 进行许可。
+  </p>
+</div>
+
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2021/04/03/IP%E5%9F%9F%E5%90%8D%E6%8F%90%E5%8F%96%E5%B0%8F%E5%B7%A5%E5%85%B7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          IP域名提取小工具
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/03/23/Java%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%86%E6%9E%90%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83%EF%BC%88%E4%BA%8C%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Java 反序列化分析从入门到放弃（二）</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=Pystinger实现内网主机CS上线 - MyBlogs&url=http://example.com/2021/03/29/Pystinger%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E4%B8%BB%E6%9C%BACS%E4%B8%8A%E7%BA%BF/">
+            <box-icon type='logo' name='twitter'></box-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=Pystinger实现内网主机CS上线 - MyBlogs&u=http://example.com/2021/03/29/Pystinger%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E4%B8%BB%E6%9C%BACS%E4%B8%8A%E7%BA%BF/">
+            <box-icon name='facebook-square' type='logo' ></box-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=Pystinger实现内网主机CS上线 - MyBlogs&url=http://example.com/2021/03/29/Pystinger%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E4%B8%BB%E6%9C%BACS%E4%B8%8A%E7%BA%BF/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E6%B8%97%E9%80%8F/">Web渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%AF%E6%BA%90%E5%8F%8D%E5%88%B6/">溯源反制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91/">脚本开发</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARL/" rel="tag">ARL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access/" rel="tag">Access</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bugku/" rel="tag">Bugku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Burpsuite/" rel="tag">Burpsuite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cap-Pwd/" rel="tag">Cap_Pwd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CobaltStrike/" rel="tag">CobaltStrike</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GetShell/" rel="tag">GetShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Goby/" rel="tag">Goby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lfi/" rel="tag">Lfi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pth/" rel="tag">Pth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql/" rel="tag">Sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VulLab/" rel="tag">VulLab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xff/" rel="tag">Xff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xray/" rel="tag">Xray</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2021/11/18/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/15/%E5%8F%8D%E5%88%B6Goby%E6%89%AB%E6%8F%8F%E4%B9%8BXSS%E7%82%B9%E5%87%BB%E4%B8%8A%E7%BA%BF/">反制Goby扫描之XSS点击上线</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/11/docx%E6%89%B9%E9%87%8F%E8%BD%ACmarkdown%E8%84%9A%E6%9C%AC%E5%88%86%E4%BA%AB/">docx批量转markdown脚本分享</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/02/CS%E5%88%86%E7%A6%BB%E5%85%8D%E6%9D%80%E5%AE%9E%E8%B7%B5/">CS分离免杀实践</a>
+          </li>
+        
+          <li>
+            <a href="/2021/06/17/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86-%E6%B3%A8%E5%85%A5%E7%B1%BB-1-SQL%E6%B3%A8%E5%85%A5-Oracle/">渗透测试知识梳理-注入类-1-SQL注入-Oracle</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            MyBlogs &copy; 2021<br>
+            Powered By Hexo · Theme By <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Aomori</a>
+        </div>
+    </div>
+
+</footer>
+
+
+
+
+
+
+<script src="/dist/build.js?1637200696663.js"></script>
+
+
+<script src="/dist/custom.js?1637200696663.js"></script>
+
+
+
+<!-- 百度链接提交 -->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+<!-- Google Analytics-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-X"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-XXXXX-X');
+</script>
+
+
+
+
+
+</body>
+
+</html>

