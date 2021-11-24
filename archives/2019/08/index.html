@@ -24,6 +24,8 @@
     
 
     
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    
 
     
 
@@ -38,6 +40,16 @@
     <script>
         window.isPost = false
         window.aomori = {
+            
+            gitalk: {
+                enable: true,
+                clientID: "1e42dab70ec4e2fd8191",
+                clientSecret: "f1affa73451031e968478d31426bde82f4526aed",
+                repo: "git-comments",
+                owner: "Hasaki-h2",
+                admin: ["Hasaki-h2","Hasaki-h2",],
+                distractionFreeMode: true  // Facebook-like distraction free mode
+            },
             
             
             
@@ -256,6 +268,8 @@
 
 </footer>
 
+
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
 
 

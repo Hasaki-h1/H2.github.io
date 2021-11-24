@@ -24,6 +24,8 @@
     
 
     
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    
 
     
 
@@ -38,6 +40,16 @@
     <script>
         window.isPost = true
         window.aomori = {
+            
+            gitalk: {
+                enable: true,
+                clientID: "1e42dab70ec4e2fd8191",
+                clientSecret: "f1affa73451031e968478d31426bde82f4526aed",
+                repo: "git-comments",
+                owner: "Hasaki-h2",
+                admin: ["Hasaki-h2","Hasaki-h2",],
+                distractionFreeMode: true  // Facebook-like distraction free mode
+            },
             
             
             
@@ -123,7 +135,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwcfmluj000edc4z06j97f9m" class="article article-type-post" itemscope
+    <article id="post-ckwdkc6y0000gp44zfrqk16l9" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -256,6 +268,10 @@
 
 
 
+<section class="comments">
+    <div id="gitalk-container"></div>
+</section>
+
 
 
 
@@ -376,6 +392,8 @@
 
 </footer>
 
+
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
 
 
