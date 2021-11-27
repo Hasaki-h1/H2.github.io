@@ -24,8 +24,6 @@
     
 
     
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-    
 
     
 
@@ -41,16 +39,12 @@
         window.isPost = true
         window.aomori = {
             
-            gitalk: {
-                enable: true,
-                clientID: "1e42dab70ec4e2fd8191",
-                clientSecret: "f1affa73451031e968478d31426bde82f4526aed",
-                repo: "Hasaki-h2.github.io",
-                owner: "Hasaki-h2",
-                admin: ["Hasaki-h2",],
-                distractionFreeMode: true  // Facebook-like distraction free mode
-            },
             
+            valine: {
+                enable: true,
+                appId: "xClBvTvhGrfI2roMnMSLmHUm-gzGzoHsz",
+                appKey: "Qi9SH982uKy3x14sNYdKegyJ",
+            },
             
             
         }
@@ -135,7 +129,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwgaaw3l000b3o4zgbs3gojs" class="article article-type-post" itemscope
+    <article id="post-ckwh9kd17000awg4zdmlj9w05" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -268,11 +262,12 @@
 
 
 
+
+
 <section class="comments">
-    <div id="gitalk-container"></div>
+    <div id="valine-container"></div>
 </section>
-
-
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
 
 
 
@@ -392,8 +387,6 @@
 
 </footer>
 
-
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
 
 
