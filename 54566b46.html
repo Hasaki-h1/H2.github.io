@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>LaZagne编译 | MyBlogs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+      <meta name="google-site-verification" content="XXX" />
+    
+
+    
+        <meta property="algolia:search" data-application-id="T8IRMXQO87" data-api-key="614acade121cd1054c73da7b48c66120" data-index-name="test">
+    
+
+    
+
+    
+
+    
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1637200696663.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1637200696663.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            valine: {
+                enable: true,
+                appId: "xClBvTvhGrfI2roMnMSLmHUm-gzGzoHsz",
+                appKey: "Qi9SH982uKy3x14sNYdKegyJ",
+            },
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = true
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+	
+    <div class="container">
+    <header class="header">
+		<meta name="baidu-site-verification" content="code-YWFjIbmZen" />
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>MyBlogs</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">Home</a>
+                
+                <a href="/archives">Archives</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+    <a class="social" target="_blank" href="">
+        <box-icon type='' name=''></box-icon>
+    </a>
+
+    <a class="social" target="_blank" href="">
+        <box-icon type='' name=''></box-icon>
+    </a>
+
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">Home</a>
+                    
+                    <a href="/archives">Archives</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-ckwhb1ppz0014i04z1n08gzk1" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      LaZagne编译
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2021-02-19T06:10:39.000Z" itemprop="datePublished">2021-02-19</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>,<a class="article-category-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a>
+            </div>
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cap-Pwd/" rel="tag">Cap_Pwd</a></li></ul>
+            </div>
+            
+
+            
+            <div class="article-busuanzi">
+                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+            </div>
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LaZagne项目是用于开源应用程序获取大量的密码存储在本地计算机上。每个软件都使用不同的技术（纯文本，API，自定义算法，数据库等）存储其密码。开发该工具的目的是为最常用的软件找到这些密码。该项目已作为开发后模块添加到 pupy中。Python代码将在不接触磁盘的情况下在内存中进行解释，并且可以在Windows和Linux主机上运行。<span id="more"></span></p>
+<h2 id="二、编译"><a href="#二、编译" class="headerlink" title="二、编译"></a>二、编译</h2><ul>
+<li>repo：<a target="_blank" rel="noopener" href="https://github.com/AlessandroZ/LaZagne">https://github.com/AlessandroZ/LaZagne</a></li>
+<li>How-to-compile：<a target="_blank" rel="noopener" href="https://github.com/AlessandroZ/LaZagne/wiki/How-to-compile">https://github.com/AlessandroZ/LaZagne/wiki/How-to-compile</a></li>
+<li>releases：<a target="_blank" rel="noopener" href="https://github.com/AlessandroZ/LaZagne/releases">https://github.com/AlessandroZ/LaZagne/releases</a></li>
+</ul>
+<p>安装依赖：<code>python -m pip install -r requirements.txt</code><br><img src="https://img-blog.csdnimg.cn/20210202105358455.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>安装pyinstaller：<code>python -m pip install pyinstaller</code><br>编译lazagne.spec文件：<code>pyinstaller --onefile -w lazagne.spec</code><br><img src="https://img-blog.csdnimg.cn/20210202105848211.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="三、编译中出现的问题"><a href="#三、编译中出现的问题" class="headerlink" title="三、编译中出现的问题"></a>三、编译中出现的问题</h2><ol>
+<li><p>Permission denied C:\……\ucrtbase.dll<br> <img src="https://img-blog.csdnimg.cn/20210202110858132.png" alt="在这里插入图片描述">解决办法：<br> 修改c:\users\administrator\appdata\local\programs\python\python37\lib\shutil.py文件如下：<br> <img src="https://img-blog.csdnimg.cn/20210202110940501.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+<li><p>缺失msvcr100.dll文件或者ucrtbase.dll文件<br> <img src="https://img-blog.csdnimg.cn/20210202111024608.png" alt="在这里插入图片描述"><br> <img src="https://img-blog.csdnimg.cn/20210202194351277.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>dll文件下载地址：<a target="_blank" rel="noopener" href="https://cn.dll-files.com/">https://cn.dll-files.com/</a><br><img src="https://img-blog.csdnimg.cn/20210202111108396.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/20210202194439838.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+</ol>
+<ol start="3">
+<li><p>C盘文件无法改动</p>
+<p>  禁用用户账户控制项：以管理员批准模式运行所有管理员<br>  <img src="https://img-blog.csdnimg.cn/20210202111156486.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+</ol>
+<h2 id="四、Lazagne减小打包一些尝试"><a href="#四、Lazagne减小打包一些尝试" class="headerlink" title="四、Lazagne减小打包一些尝试"></a>四、Lazagne减小打包一些尝试</h2><ul>
+<li><h3 id="1、Lazagne打包环境入手"><a href="#1、Lazagne打包环境入手" class="headerlink" title="1、Lazagne打包环境入手"></a>1、Lazagne打包环境入手</h3><img src="https://img-blog.csdnimg.cn/2021020211163666.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>尝试1、使用from * import * 导入具体模块减少文件大小，没啥效果。<br><img src="https://img-blog.csdnimg.cn/20210203225259705.png" alt="在这里插入图片描述"><br>尝试2、使用pipenv虚拟环境进行安装，本来是直接放弃了，后续越想越气。<br>执行命令：<code>pipenv install --python 3.7</code>，报错如下<br><img src="https://img-blog.csdnimg.cn/20210203230927472.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>后续继续看报错，其实原因出在python2的路径上：<br><img src="https://img-blog.csdnimg.cn/20210223113643651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>我为了区别python2和3修改了python2的python.exe导致找不到上述路径：<code>C:\Python27\python.exe</code>，修改为<code>python.exe</code>即可。<br><img src="https://img-blog.csdnimg.cn/20210223113905445.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>安装pip:<code>pipenv install pip --pypi-mirror http://mirrors.aliyun.com/pypi/simple/</code></li>
+</ul>
+<p>安装requirement.txt:<code>pip install -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/  --trusted-host mirrors.aliyun.com</code></p>
+<p>不用阿里云镜像速度会很慢。<br>其中有个报错如下：<code>AttributeError: module &#39;enum&#39; has no attribute &#39;IntFlag&#39;</code><br><img src="https://img-blog.csdnimg.cn/2021022311453020.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>解决办法：<code>pip uninstall enum34</code><br>之后重新发包：<code>pyinstaller --onefile -w lazagne.spec</code><br>打包用的还是减小模块之后的文件，我一看，文件大小还不是没变化，我真想给它个亲切问候。<br><img src="https://img-blog.csdnimg.cn/20210223114939997.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p> 尝试3、使用python的embedded版本，暂时由于路径找不到报错，暂未解决。<br>①、下载embed 32版本。<br><a target="_blank" rel="noopener" href="https://www.python.org/downloads/release/python-373/">https://www.python.org/downloads/release/python-373/</a><br> <img src="https://img-blog.csdnimg.cn/2021021910510161.png" alt="在这里插入图片描述"></p>
+<p>②、下载pip<br>curl <a target="_blank" rel="noopener" href="https://bootstrap.pypa.io/get-pip.py">https://bootstrap.pypa.io/get-pip.py</a> -o get-pip.py<br> <img src="https://img-blog.csdnimg.cn/20210219105113360.png" alt="在这里插入图片描述"></p>
+<p>③、安装pip：</p>
+<p><img src="https://img-blog.csdnimg.cn/20210219105122208.png" alt="在这里插入图片描述"><br>④、报错<code> File &quot;C:\Users\ADMINI~1\AppData\Local\Temp\pip-install-bc9u2mik\future_056aacedab064306af7d71fa0ae1c055\setup.py&quot;, line 86, in &lt;module&gt;         import src.future     ModuleNotFoundError: No module named &#39;src&#39;</code> 这块卡的时间最长。<br><img src="https://img-blog.csdnimg.cn/20210219111036882.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>其实看目录的话我是感觉没啥问题的，感觉是下载文件的问题，换种思路，手工安装：<code>python setup.py install</code>，最好是把future整个文件内容复制在python.exe目录下。<br><img src="https://img-blog.csdnimg.cn/20210223150307316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210223150509682.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>然后还是报错：<code>FileNotFoundError: [WinError 3] 系统找不到指定的路径。: &#39;c:\\users\\administrator\\downloads\\python-3.7.3-embed-win32\\python37.zip\\collections\\__init__.pyc</code> ，这个文件我确实是没找到。阿西吧。<br><img src="https://img-blog.csdnimg.cn/20210223153352328.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li><h3 id="2、Lazagne减少模块入手"><a href="#2、Lazagne减少模块入手" class="headerlink" title="2、Lazagne减少模块入手"></a>2、Lazagne减少模块入手</h3>Lazagne由多个模块组成，分析源文件大概可知：<br><img src="https://img-blog.csdnimg.cn/20210219110519335.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>其中配置文件中有模块管理设置：<br><img src="https://img-blog.csdnimg.cn/20210219110652272.png" alt="在这里插入图片描述"><br>若知道某一指定模块的依赖，就可以删除其他的无用模块对Lazagne进行改造，以火狐浏览器密码抓取为例。<br><img src="https://img-blog.csdnimg.cn/2021021911195753.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可以按需求删除lib文件夹下依赖然后进行打包。尝试下来依赖比较麻烦，很多情况下会少modules，并且文件大小还没有显著变化。<br><img src="https://img-blog.csdnimg.cn/20210219140953771.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>重新复制粘贴lazagne.softwares.windows 并且重新打包，因为之前为了减少打包后的体积删除了一部分文件，其中就有lazagne.softwares.windows。打包之后执行如下：<br><img src="https://img-blog.csdnimg.cn/20210223095754775.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>好家伙，问题没完没了了，这个其实是编码问题，本来不想看源码的（就是懒），大佬说看一下逻辑结构，大致跟一下函数，于是我就发现问题所在了。<br><img src="https://img-blog.csdnimg.cn/20210223100537943.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210223100624391.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>可以看到read函数没有进行encoding设置，改为<code>encoding=&#39;utf-8&#39;</code>应该就可以了，打包尝试结果如下：<br><img src="https://img-blog.csdnimg.cn/20210223103208715.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+</ul>
+<p>其实问题出在配置文件中存在中文，而lazagne是老外写的，导致中文识别部分可能就会有问题。<br><img src="https://img-blog.csdnimg.cn/20210223101443166.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>为啥会存在中文，因为多次测试后我自己生成了Firefox的配置文件。<code>firefox.exe -p --no-remote</code>，正常情况下是不会产生中文配置文件的。</p>
+<p><img src="https://img-blog.csdnimg.cn/20210223101707352.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>看下打包后的体积，小了一点，还行。<br><img src="https://img-blog.csdnimg.cn/20210223103422836.png" alt="在这里插入图片描述"><br>但还是很尴尬，从repo下载下来的体积只有6.33M，还是包括全部功能的，不知道怎么做到的。<br><img src="https://img-blog.csdnimg.cn/2021022310355086.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="五、参考链接"><a href="#五、参考链接" class="headerlink" title="五、参考链接"></a>五、参考链接</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wanderingfish/p/12022567.html">https://www.cnblogs.com/wanderingfish/p/12022567.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/blueberry-mint/p/13362737.html">https://www.cnblogs.com/blueberry-mint/p/13362737.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/77317765">https://zhuanlan.zhihu.com/p/77317765</a></li>
+<li><a target="_blank" rel="noopener" href="https://pip.pypa.io/en/stable/installing/#id7">https://pip.pypa.io/en/stable/installing/#id7</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/lambert310/article/details/52412059">https://blog.csdn.net/lambert310/article/details/52412059</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/AlessandroZ/LaZagne/issues?page=5&amp;q=is:issue+is:closed">https://github.com/AlessandroZ/LaZagne/issues?page=5&amp;q=is%3Aissue+is%3Aclosed</a></li>
+</ul>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+<div class="article-copyright hairline">
+  <p>
+    本作品采用 <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a> 进行许可。
+  </p>
+</div>
+
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/c2109259.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          HackBrowserData密码抓取
+        
+      </div>
+    </a>
+  
+  
+    <a href="/4a52e4a1.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">凭据传递攻击(Path The Hash)</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=LaZagne编译 - MyBlogs&url=http://hasaki-h2.github.io/54566b46.html">
+            <box-icon type='logo' name='twitter'></box-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=LaZagne编译 - MyBlogs&u=http://hasaki-h2.github.io/54566b46.html">
+            <box-icon name='facebook-square' type='logo' ></box-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=LaZagne编译 - MyBlogs&url=http://hasaki-h2.github.io/54566b46.html&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+<section class="comments">
+    <div id="valine-container"></div>
+</section>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar sidebar-search-fix">
+                
+
+    <div class="search">
+    <div class="has-icon-right">
+        <input type="text" class="form-input" id="search" placeholder="SEARCH" autocomplete="off">
+        <div class="form-icon">
+            <box-icon name='search' color="#3c4859"></box-icon>
+        </div>
+    </div>
+    <div class="search-result" id="search-ps"></div>
+</div>
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E6%B8%97%E9%80%8F/">Web渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%AF%E6%BA%90%E5%8F%8D%E5%88%B6/">溯源反制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91/">脚本开发</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARL/" rel="tag">ARL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access/" rel="tag">Access</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bugku/" rel="tag">Bugku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Burpsuite/" rel="tag">Burpsuite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cap-Pwd/" rel="tag">Cap_Pwd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CobaltStrike/" rel="tag">CobaltStrike</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GetShell/" rel="tag">GetShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Goby/" rel="tag">Goby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lfi/" rel="tag">Lfi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pth/" rel="tag">Pth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql/" rel="tag">Sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VulLab/" rel="tag">VulLab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xff/" rel="tag">Xff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xray/" rel="tag">Xray</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/4a17b156.html">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/1bfef19e.html">反制Goby扫描之XSS点击上线</a>
+          </li>
+        
+          <li>
+            <a href="/a7a10e0e.html">docx批量转markdown脚本分享</a>
+          </li>
+        
+          <li>
+            <a href="/243e66cd.html">CS分离免杀实践</a>
+          </li>
+        
+          <li>
+            <a href="/cc2daa49.html">渗透测试知识梳理-注入类-1-SQL注入-Oracle</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            MyBlogs &copy; 2021<br>
+            Powered By Hexo · Theme By <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Aomori</a>
+        </div>
+    </div>
+
+</footer>
+
+
+
+
+
+
+<script src="/dist/build.js?1637200696663.js"></script>
+
+
+<script src="/dist/custom.js?1637200696663.js"></script>
+
+
+
+<!-- 百度链接提交 -->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+<!-- Google Analytics-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-X"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-XXXXX-X');
+</script>
+
+
+
+
+
+</body>
+
+</html>

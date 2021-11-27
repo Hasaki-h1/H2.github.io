@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>Xray-反连平台搭建 | MyBlogs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+      <meta name="google-site-verification" content="XXX" />
+    
+
+    
+        <meta property="algolia:search" data-application-id="T8IRMXQO87" data-api-key="614acade121cd1054c73da7b48c66120" data-index-name="test">
+    
+
+    
+
+    
+
+    
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1637200696663.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1637200696663.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            valine: {
+                enable: true,
+                appId: "xClBvTvhGrfI2roMnMSLmHUm-gzGzoHsz",
+                appKey: "Qi9SH982uKy3x14sNYdKegyJ",
+            },
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = true
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+	
+    <div class="container">
+    <header class="header">
+		<meta name="baidu-site-verification" content="code-YWFjIbmZen" />
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>MyBlogs</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">Home</a>
+                
+                <a href="/archives">Archives</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+    <a class="social" target="_blank" href="">
+        <box-icon type='' name=''></box-icon>
+    </a>
+
+    <a class="social" target="_blank" href="">
+        <box-icon type='' name=''></box-icon>
+    </a>
+
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">Home</a>
+                    
+                    <a href="/archives">Archives</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-ckwhb1pqa001zi04zdkjtfmcy" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      Xray-反连平台搭建
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2021-05-12T08:45:10.000Z" itemprop="datePublished">2021-05-12</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a>
+            </div>
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Xray/" rel="tag">Xray</a></li></ul>
+            </div>
+            
+
+            
+            <div class="article-busuanzi">
+                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+            </div>
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><p>xray 是一款功能强大的安全评估工具，由多名经验丰富的一线安全从业者呕心打造而成，主要特性有:<br><strong>检测速度快。</strong> 发包速度快; 漏洞检测算法高效。<br><strong>支持范围广。</strong> 大至 OWASP Top 10 通用漏洞检测，小至各种 CMS 框架 POC，均可以支持。</p>
+<span id="more"></span>
+<p><strong>代码质量高。</strong> 编写代码的人员素质高, 通过 Code Review、单元测试、集成测试等多层验证来提高代码可靠性。<br><strong>高级可定制。</strong> 通过配置文件暴露了引擎的各种参数，通过修改配置文件可以极大的客制化功能。<br><strong>安全无威胁。</strong> xray 定位为一款安全辅助评估工具，而不是攻击工具，内置的所有 payload 和 poc 均为无害化检查。</p>
+<h1 id="二、下载安装"><a href="#二、下载安装" class="headerlink" title="二、下载安装"></a>二、下载安装</h1><p>参考：Repo: <a target="_blank" rel="noopener" href="https://docs.xray.cool/#/tutorial/prepare">https://docs.xray.cool/#/tutorial/prepare</a><br>安装：<br>Github: <a target="_blank" rel="noopener" href="https://github.com/chaitin/xray/releases">https://github.com/chaitin/xray/releases</a> （国外速度快）<br>网盘: <a target="_blank" rel="noopener" href="https://yunpan.360.cn/surl_y3Gu6cugi8u">https://yunpan.360.cn/surl_y3Gu6cugi8u</a> （国内速度快）</p>
+<h1 id="三、反连平台搭建"><a href="#三、反连平台搭建" class="headerlink" title="三、反连平台搭建"></a>三、反连平台搭建</h1><h2 id="3-1-前期准备"><a href="#3-1-前期准备" class="headerlink" title="3.1 前期准备"></a>3.1 前期准备</h2><p>1、需要一个可以自定义DNS host的域名，example.com。<br>2、需要一个可以运行xray的服务器 106.52.X.X。</p>
+<h2 id="3-2-VPS配置"><a href="#3-2-VPS配置" class="headerlink" title="3.2 VPS配置"></a>3.2 VPS配置</h2><p>1、放通端口UDP 53、TCP 8001<br><img src="https://img-blog.csdnimg.cn/img_convert/b2c149fc62439b865c2a3220e5329bba.png#id=X356S&originHeight=336&originWidth=1257&originalType=binary&status=done&style=none"></p>
+<h2 id="3-3-域名配置"><a href="#3-3-域名配置" class="headerlink" title="3.3 域名配置"></a>3.3 域名配置</h2><p>1、解析记录配置<br>增加ns1、ns2的A记录（ns1/2可以是别的名称，可自定义），其记录值为VPS的公网地址。<br><img src="https://img-blog.csdnimg.cn/20210512162729351.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>2、自定义DNS host<br>上述3.3.1 A记录值即为DNS服务器的解析设置，自定义DNS才能收到DNSlog的解析请求。配置如下：<br><img src="https://img-blog.csdnimg.cn/20210512162509694.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>3、 DNS 修改<br>创建自定义的DNShost 之后将Dns修改为自定义的DNS服务器。<br><img src="https://img-blog.csdnimg.cn/20210512162628497.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="3-4-Xray-配置"><a href="#3-4-Xray-配置" class="headerlink" title="3.4 Xray 配置"></a>3.4 Xray 配置</h2><p>1、生成配置文件config.yaml，修改配置，没有的就加上</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">reverse:</span></span><br><span class="line">  <span class="attr">db_file_path:</span> <span class="string">&quot;reverse.db&quot;</span>   <span class="comment"># 反连平台数据库文件位置, 这是一个 KV 数据库</span></span><br><span class="line">  <span class="attr">token:</span> <span class="string">&quot;你的密码&quot;</span> <span class="comment"># 反连平台认证的 Token, 独立部署时不能为空</span></span><br><span class="line">  <span class="attr">http:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">listen_ip:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> </span><br><span class="line">    <span class="attr">listen_port:</span> <span class="string">&quot;8001&quot;</span></span><br><span class="line">    <span class="attr">ip_header:</span> <span class="string">&quot;&quot;</span>                       </span><br><span class="line">  <span class="attr">dns:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">listen_ip:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> </span><br><span class="line">    <span class="attr">domain:</span> <span class="string">&quot;example.com&quot;</span>  <span class="comment"># DNS 域名配置</span></span><br><span class="line">    <span class="attr">is_domain_name_server:</span> <span class="literal">false</span>    </span><br><span class="line">    <span class="attr">resolve:</span>                            <span class="comment"># DNS 静态解析规则</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">type:</span> <span class="string">A</span>                           <span class="comment"># A, AAAA, TXT 三种</span></span><br><span class="line">      <span class="attr">record:</span> <span class="string">ns1</span></span><br><span class="line">      <span class="attr">value:</span> <span class="number">106.52</span><span class="string">.X.X</span></span><br><span class="line">      <span class="attr">ttl:</span> <span class="number">60</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">type:</span> <span class="string">A</span>                           <span class="comment"># A, AAAA, TXT 三种</span></span><br><span class="line">      <span class="attr">record:</span> <span class="string">ns2</span></span><br><span class="line">      <span class="attr">value:</span> <span class="number">106.52</span><span class="string">.X.X</span></span><br><span class="line">      <span class="attr">ttl:</span> <span class="number">60</span></span><br></pre></td></tr></table></figure>
+<p>2、执行命令：<code>Xray.exe reverse</code></p>
+<h1 id="四、踩坑总结"><a href="#四、踩坑总结" class="headerlink" title="四、踩坑总结"></a>四、踩坑总结</h1><p>1、防火墙开放端口一定得是UDP 不是TCP，安全组新增默认的是TCP。<br>2、Xray 的反连平台相当于是C/S构造的，默认配置文件config.yaml里就已经包含了DNS A记录值，不用新建DNS服务器。<br><img src="https://img-blog.csdnimg.cn/img_convert/774e988023dc222786d6065b6e197e39.png#id=ql0m3&originHeight=580&originWidth=1268&originalType=binary&status=done&style=none"></p>
+<h1 id="五、Fastjson漏洞测试"><a href="#五、Fastjson漏洞测试" class="headerlink" title="五、Fastjson漏洞测试"></a>五、Fastjson漏洞测试</h1><p>1、搭建环境：<br>​<br>下载文件：<a target="_blank" rel="noopener" href="https://github.com/vulhub/vulhub/blob/master/fastjson/1.2.24-rce/docker-compose.yml">https://github.com/vulhub/vulhub/blob/master/fastjson/1.2.24-rce/docker-compose.yml</a><br>​<br>启动：<code>[root@localhost fastjson]# docker-compose up -d</code><br>​<br>2、xray客户端配置如下</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/3faed4e6cedd649ce616121c2e8cc8de.png#clientId=uec0536a3-83e0-4&from=paste&height=270&id=u6c0e0b43&margin=[object%20Object]&name=image.png&originHeight=270&originWidth=825&originalType=binary&size=48362&status=done&style=none&taskId=u9ebaab56-94ba-499f-a6ff-f0e57221fc7&width=825" alt="image.png"><br>​<br>3、漏洞验证<br>​</p>
+<p>Burpsuite开启代理抓包，并开启流量转发至127.0.0.1:7001<br>​</p>
+<p><code>xray.exe webscan --listen 127.0.0.1:7001 --html-output 22222.html</code><br>​</p>
+<p>查看扫描结果，存在反序列化漏洞，不过有意思的是xray的POC进行了Unicode编码以及hex编码，不过服务端还能识别，确实没想到，一定程度上可以绕过防护。\x 代表空格，hex 编码的40表示@，2E表示一个点，4A表示大写J，其余如下图所示<br><img src="https://img-blog.csdnimg.cn/img_convert/6d49f7d75bfeeba7eccc65c82028ec84.png#clientId=u2be5aedc-abe3-4&from=paste&height=294&id=u1666d024&margin=[object%20Object]&name=image.png&originHeight=294&originWidth=632&originalType=binary&size=12180&status=done&style=none&taskId=u04656e1c-fe59-4799-a21f-ce95bd7fab0&width=632" alt="image.png"><br><img src="https://img-blog.csdnimg.cn/img_convert/ba3eab5d944d1a184374429c9e7aee7e.png#clientId=u2be5aedc-abe3-4&from=paste&height=293&id=u6acf87ca&margin=[object%20Object]&name=image.png&originHeight=293&originWidth=1004&originalType=binary&size=21047&status=done&style=none&taskId=u3e46623c-3541-4498-a226-08828c671f9&width=1004" alt="image.png"><br>​</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/a03ced87fa198c2e44bb7fbedb74c1eb.png#clientId=ud8b5e7db-33b3-4&from=paste&height=492&id=u6c76df4d&margin=[object%20Object]&name=image.png&originHeight=492&originWidth=1172&originalType=binary&size=43789&status=done&style=none&taskId=u43cbf1f3-2928-40f2-a7a1-254afda5eae&width=1172" alt="image.png"></p>
+<p>查看DNSlog平台，存在RMI记录，RMI测试需要结合的是IP+PORT格式的payload，如上图payload所示，如果用域名测试，需要换为LDAP。<br>​</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/5032e4f2a574bb160902ff384f0006ad.png#clientId=ud8b5e7db-33b3-4&from=paste&height=376&id=u7ae09de6&margin=[object%20Object]&name=image.png&originHeight=376&originWidth=1204&originalType=binary&size=28413&status=done&style=none&taskId=u0dafb69b-e272-40de-91b2-8d90d0058eb&width=1204" alt="image.png"></p>
+<p><img src="https://img-blog.csdnimg.cn/2021051216431967.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+<div class="article-copyright hairline">
+  <p>
+    本作品采用 <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a> 进行许可。
+  </p>
+</div>
+
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/4e19f76a.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          渗透测试懒人工具P2note
+        
+      </div>
+    </a>
+  
+  
+    <a href="/7711158b.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Apache 2.4 配置http代理及认证</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=Xray-反连平台搭建 - MyBlogs&url=http://hasaki-h2.github.io/d8d4b964.html">
+            <box-icon type='logo' name='twitter'></box-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=Xray-反连平台搭建 - MyBlogs&u=http://hasaki-h2.github.io/d8d4b964.html">
+            <box-icon name='facebook-square' type='logo' ></box-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=Xray-反连平台搭建 - MyBlogs&url=http://hasaki-h2.github.io/d8d4b964.html&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+<section class="comments">
+    <div id="valine-container"></div>
+</section>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar sidebar-search-fix">
+                
+
+    <div class="search">
+    <div class="has-icon-right">
+        <input type="text" class="form-input" id="search" placeholder="SEARCH" autocomplete="off">
+        <div class="form-icon">
+            <box-icon name='search' color="#3c4859"></box-icon>
+        </div>
+    </div>
+    <div class="search-result" id="search-ps"></div>
+</div>
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E6%B8%97%E9%80%8F/">Web渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%82%E9%A1%B9/">杂项</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%AF%E6%BA%90%E5%8F%8D%E5%88%B6/">溯源反制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91/">脚本开发</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARL/" rel="tag">ARL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access/" rel="tag">Access</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bugku/" rel="tag">Bugku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Burpsuite/" rel="tag">Burpsuite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cap-Pwd/" rel="tag">Cap_Pwd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CobaltStrike/" rel="tag">CobaltStrike</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GetShell/" rel="tag">GetShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Goby/" rel="tag">Goby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lfi/" rel="tag">Lfi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pth/" rel="tag">Pth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql/" rel="tag">Sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VulLab/" rel="tag">VulLab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xff/" rel="tag">Xff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xray/" rel="tag">Xray</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/4a17b156.html">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/1bfef19e.html">反制Goby扫描之XSS点击上线</a>
+          </li>
+        
+          <li>
+            <a href="/a7a10e0e.html">docx批量转markdown脚本分享</a>
+          </li>
+        
+          <li>
+            <a href="/243e66cd.html">CS分离免杀实践</a>
+          </li>
+        
+          <li>
+            <a href="/cc2daa49.html">渗透测试知识梳理-注入类-1-SQL注入-Oracle</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            MyBlogs &copy; 2021<br>
+            Powered By Hexo · Theme By <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Aomori</a>
+        </div>
+    </div>
+
+</footer>
+
+
+
+
+
+
+<script src="/dist/build.js?1637200696663.js"></script>
+
+
+<script src="/dist/custom.js?1637200696663.js"></script>
+
+
+
+<!-- 百度链接提交 -->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+<!-- Google Analytics-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-X"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-XXXXX-X');
+</script>
+
+
+
+
+
+</body>
+
+</html>
