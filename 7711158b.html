@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya20001us04z433ubu7h" class="article article-type-post" itemscope
+    <article id="post-ckwrjlygl001yys4z0blx4u2l" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -197,7 +197,18 @@
 <li><p>&nbsp;&nbsp;&nbsp;&nbsp;5、 增加认证配置，2.4没有Order了</p>
 </li>
 </ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ProxyRequests On</span><br><span class="line">ProxyVia Block   </span><br><span class="line"><span class="tag">&lt;<span class="name">Proxy</span> *&gt;</span></span><br><span class="line">    AuthType Basic</span><br><span class="line">    AuthName &quot;Restricted Resource&quot;</span><br><span class="line">    AuthUserFile &quot;$&#123;SRVROOT&#125;/conf/password.file&quot;</span><br><span class="line">    AuthGroupFile &quot;$&#123;SRVROOT&#125;/conf/group.file&quot;</span><br><span class="line">    <span class="tag">&lt;<span class="name">RequireAny</span>&gt;</span></span><br><span class="line">    Require all denied  </span><br><span class="line">    Require group usergroup</span><br><span class="line">    <span class="tag">&lt;/<span class="name">RequireAny</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Proxy</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs html">ProxyRequests On
+ProxyVia Block   
+<span class="hljs-tag">&lt;<span class="hljs-name">Proxy</span> *&gt;</span>
+    AuthType Basic
+    AuthName &quot;Restricted Resource&quot;
+    AuthUserFile &quot;$&#123;SRVROOT&#125;/conf/password.file&quot;
+    AuthGroupFile &quot;$&#123;SRVROOT&#125;/conf/group.file&quot;
+    <span class="hljs-tag">&lt;<span class="hljs-name">RequireAny</span>&gt;</span>
+    Require all denied  
+    Require group usergroup
+    <span class="hljs-tag">&lt;/<span class="hljs-name">RequireAny</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">Proxy</span>&gt;</span></code></pre>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>ProxyVia Block</code> 可以删除返回包中的via头，避免信息泄露，如果为<code>ProxyVia On</code>的话返回包如下：<br><img src="https://img-blog.csdnimg.cn/20210415145939433.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>AuthName</code> 是认证时的提示，有些某些浏览器不会提示，但必须设置。<br><img src="https://img-blog.csdnimg.cn/20210415150308172.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>RequireAny</code> 中设置先拒绝所有访问，再允许用户组文件中的用户访问。成功开启代理，配置测试如下：<br><img src="https://img-blog.csdnimg.cn/20210415150913370.png" alt="在这里插入图片描述"></p>
 <h1 id="三、一些补充"><a href="#三、一些补充" class="headerlink" title="三、一些补充"></a>三、一些补充</h1><ul>
 <li>AllowOverride参数就是指明Apache服务器是否去找.htacess文件作为配置文件，如果设置为none,那么服务器将忽略.htacess文件，如果设置为All,那么所有在.htaccess文件里有的指令都将被重写。</li>

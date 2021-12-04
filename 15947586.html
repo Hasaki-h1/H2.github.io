@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya3b0063s04z8f4669w9" class="article article-type-post" itemscope
+    <article id="post-ckwrjlyhl0063ys4z5xpa8aaf" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -179,35 +179,51 @@
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
             <h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><p>ARL(Asset Reconnaissance Lighthouse)旨在快速侦察与目标关联的互联网资产，构建基础资产信息库。 协助甲方安全团队或者渗透测试人员有效侦察和检索资产，发现存在的薄弱点和攻击面。<span id="more"></span></p>
 <h1 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h1><p>建议使用docke快速安装。docker 安装参考：<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/">https://docs.docker.com/engine/install/</a><br>如下是我本次安装命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir docker_arl;<span class="built_in">cd</span> docker_arl</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">mkdir docker_arl;<span class="hljs-built_in">cd</span> docker_arl</code></pre>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py;python3 get-pip.py</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py;python3 get-pip.py</code></pre>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple docker-compose</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple docker-compose</code></pre>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O docker2.3.1.zip https://github.com/TophantTechnology/ARL/releases/download/v2.3.1/docker.zip;unzip docker2.3.1.zip</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">wget -O docker2.3.1.zip https://github.com/TophantTechnology/ARL/releases/download/v2.3.1/docker.zip;unzip docker2.3.1.zip</code></pre>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker volume create --name=arl_db;docker-compose up -d</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">docker volume create --name=arl_db;docker-compose up -d</code></pre>
 <p>如果不使用这条命令<code>docker volume create --name=arl_db</code> ，docker启动则会报错。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost docker_arl]<span class="comment"># docker-compose up -d</span></span><br><span class="line">Creating network <span class="string">&quot;docker_arl_default&quot;</span> with the default driver</span><br><span class="line">ERROR: Volume arl_db declared as external, but could not be found. </span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">[root@localhost docker_arl]<span class="hljs-comment"># docker-compose up -d</span>
+Creating network <span class="hljs-string">&quot;docker_arl_default&quot;</span> with the default driver
+ERROR: Volume arl_db declared as external, but could not be found.</code></pre>
 <p>启动/停止：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">docker-compose up -d</code></pre>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose stop</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">docker-compose stop</code></pre>
 
 <h1 id="三、使用"><a href="#三、使用" class="headerlink" title="三、使用"></a>三、使用</h1><h2 id="1-更改密码"><a href="#1-更改密码" class="headerlink" title="1. 更改密码"></a>1. 更改密码</h2><p>重置密码为：admin/mypass：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost docker_arl]<span class="comment"># docker exec -ti arl_mongodb mongo -u admin -p admin</span></span><br><span class="line">MongoDB shell version v3.6.11</span><br><span class="line">connecting to: mongodb://127.0.0.1:27017/?gssapiServiceName=mongodb</span><br><span class="line">Implicit session: session &#123; <span class="string">&quot;id&quot;</span> : UUID(<span class="string">&quot;bb2f25af-8958-4936-bd1b-8bade4e8b1fd&quot;</span>) &#125;</span><br><span class="line">MongoDB server version: 3.6.11</span><br><span class="line">Welcome to the MongoDB shell.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">[root@localhost docker_arl]<span class="hljs-comment"># docker exec -ti arl_mongodb mongo -u admin -p admin</span>
+MongoDB shell version v3.6.11
+connecting to: mongodb://127.0.0.1:27017/?gssapiServiceName=mongodb
+Implicit session: session &#123; <span class="hljs-string">&quot;id&quot;</span> : UUID(<span class="hljs-string">&quot;bb2f25af-8958-4936-bd1b-8bade4e8b1fd&quot;</span>) &#125;
+MongoDB server version: 3.6.11
+Welcome to the MongoDB shell.
+</code></pre>
 <p>进入MongoDBshell后执行如下命令：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">&gt;</span> use arl</span><br><span class="line">switched <span class="keyword">to</span> db arl</span><br><span class="line"><span class="operator">&gt;</span> db.user.drop()</span><br><span class="line"><span class="literal">true</span></span><br><span class="line"><span class="operator">&gt;</span> db.user.insert(&#123; username: <span class="string">&#x27;admin&#x27;</span>,  password: hex_md5(<span class="string">&#x27;arlsalt!@#&#x27;</span><span class="operator">+</span><span class="string">&#x27;mypass&#x27;</span>) &#125;)</span><br><span class="line">WriteResult(&#123; &quot;nInserted&quot; : <span class="number">1</span> &#125;)</span><br><span class="line"><span class="operator">&gt;</span> exit</span><br><span class="line">bye</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs sql"><span class="hljs-operator">&gt;</span> use arl
+switched <span class="hljs-keyword">to</span> db arl
+<span class="hljs-operator">&gt;</span> db.user.drop()
+<span class="hljs-literal">true</span>
+<span class="hljs-operator">&gt;</span> db.user.insert(&#123; username: <span class="hljs-string">&#x27;admin&#x27;</span>,  password: hex_md5(<span class="hljs-string">&#x27;arlsalt!@#&#x27;</span><span class="hljs-operator">+</span><span class="hljs-string">&#x27;mypass&#x27;</span>) &#125;)
+WriteResult(&#123; &quot;nInserted&quot; : <span class="hljs-number">1</span> &#125;)
+<span class="hljs-operator">&gt;</span> exit
+bye</code></pre>
 
 <p><img src="https://img-blog.csdnimg.cn/20210611112428536.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h2 id="2-配置邮箱"><a href="#2-配置邮箱" class="headerlink" title="2. 配置邮箱"></a>2. 配置邮箱</h2><p>QQ邮箱配置没成功，授权码也是对的，暂时还没找到原因，不过163成功就行。开启对应服务，发送短信获取授权码。<br><img src="https://img-blog.csdnimg.cn/2021061115222411.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p>修改配置文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /root/docker_arl/config-docker.yaml</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">vim /root/docker_arl/config-docker.yaml</code></pre>
 <p>里边有邮件推送配置，分别对应：邮件服务器域名、端口、测试邮箱账户、授权码、收件人邮箱。<br><img src="https://img-blog.csdnimg.cn/20210611142335586.png" alt="在这里插入图片描述"></p>
 <h2 id="3-配置钉钉机器人"><a href="#3-配置钉钉机器人" class="headerlink" title="3. 配置钉钉机器人"></a>3. 配置钉钉机器人</h2><p>首先自己先创建个群聊，【群聊】-【群设置】-【智能群助手】-【添加更多】-【添加机器人】-【自定义】-【添加】<br><img src="https://img-blog.csdnimg.cn/20210611144905131.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p><img src="https://img-blog.csdnimg.cn/20210611144821433.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>分别对应配置文件的SECRET(以SEC开头的密钥)、ACCESS_TOKEN(webhook的token).<br><img src="https://img-blog.csdnimg.cn/20210611145012959.png" alt="在这里插入图片描述"><br>测试配置是否成功。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost docker_arl]<span class="comment"># docker-compose exec worker bash</span></span><br><span class="line">[root@f6eb78c82685 code]<span class="comment"># python3.6 -m test.test_utils_push</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">[root@localhost docker_arl]<span class="hljs-comment"># docker-compose exec worker bash</span>
+[root@f6eb78c82685 code]<span class="hljs-comment"># python3.6 -m test.test_utils_push</span></code></pre>
 <p>成功的话会收到邮件以及钉钉推送消息。<br><img src="https://img-blog.csdnimg.cn/20210611142653889.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210611145305164.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
         </div>

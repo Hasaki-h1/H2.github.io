@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya1e000vs04zcz4pf06i" class="article article-type-post" itemscope
+    <article id="post-ckwrjlyg6000zys4zhluwdudc" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -182,13 +182,20 @@
 <p> 1、泛型是在JDK1.5引进的语言特性，泛型通过一种类型或方法操纵各种类型的对象，同时又提供了编译时的类型安全保证。（个人的理解是就是把对象的类型在操作之前给确定了，避免出现不同类型对象之间的指向错误，像Java基本数据类型double与float转换要加类型转换，不然要出错，但是泛型针对的是对象实例）</p>
 <p> 2、 泛型技术的基本思想是类和方法的泛化，是通过参数实现的，因此泛型又被称作参数化类型，即通过定义含有一个或多个类型的类或接口，使得程序员可以对具有类似的特征与行为的类进行抽象。（对同一个类型的许多实例或同一个类型的接口进行操作）</p>
 <p> 3、<br>①. 在Java中，父类的变量可以指向子类的对象，子类可以认为是与父类兼容的类型，如下面代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object a = <span class="keyword">new</span> Object();</span><br><span class="line">Integer b = <span class="keyword">new</span> Integer(<span class="number">10</span>);</span><br><span class="line">a = b;  <span class="comment">//父变量指向子对象</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java">Object a = <span class="hljs-keyword">new</span> Object();
+Integer b = <span class="hljs-keyword">new</span> Integer(<span class="hljs-number">10</span>);
+a = b;  <span class="hljs-comment">//父变量指向子对象</span></code></pre>
 
 <p>②.  对于泛型来说：可以使用一个父类作为类型参数调用泛型，在对参数化类的访问中使用该父类的子类对象，代码如下（假定有个Number类型的B类）：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">B &lt;Number&gt; b= <span class="keyword">new</span> B&lt;Number&gt;();</span><br><span class="line">b.add(<span class="keyword">new</span> Integer(<span class="number">10</span>)); </span><br><span class="line">b.add(<span class="keyword">new</span>  Double(<span class="number">10.1</span>));</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java">B &lt;Number&gt; b= <span class="hljs-keyword">new</span> B&lt;Number&gt;();
+b.add(<span class="hljs-keyword">new</span> Integer(<span class="hljs-number">10</span>)); 
+b.add(<span class="hljs-keyword">new</span>  Double(<span class="hljs-number">10.1</span>));</code></pre>
 
 <p> 泛型也是同样适用，但是泛型这种到底存不存在父子关系呢?这不是证明了是父子关系了，但还是有问题的，假设Java中允许List  &lt;String&gt; 是 List &lt;Object&gt;的子类，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List &lt;String&gt; ls = <span class="keyword">new</span> Arraylist &lt;String&gt;();<span class="comment">//ls存放的是具有类型的对象</span></span><br><span class="line">List &lt;Object&gt; lo = <span class="keyword">new</span> ls;</span><br><span class="line">lo.add(<span class="keyword">new</span> Object());</span><br><span class="line">String s =ls.get(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java">List &lt;String&gt; ls = <span class="hljs-keyword">new</span> Arraylist &lt;String&gt;();<span class="hljs-comment">//ls存放的是具有类型的对象</span>
+List &lt;Object&gt; lo = <span class="hljs-keyword">new</span> ls;
+lo.add(<span class="hljs-keyword">new</span> Object());
+String s =ls.get(<span class="hljs-number">0</span>);</code></pre>
 
 <p>但是最后一行代码是不符合Java机制的，由于通过lo可以将Object 对象放入列表，从而出现通过String类型变量ls访问到Object对象情况，即ls.get(0)返回对象类型是Object的。String类型的变量s是不能够指向Object对象的，String类型要比Object弱。所以说假设是不成立的。</p>
 <p><strong>总结一下就是：</strong> 调用泛型的实参类型之间可以有有父子关系，调用后得到的参数化类型之间不会具有同样的父子关系。</p>

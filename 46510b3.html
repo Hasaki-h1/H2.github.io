@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya250026s04zh8zbhmum" class="article article-type-post" itemscope
+    <article id="post-ckwrjlygo002ays4z6ioihxh5" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -182,9 +182,55 @@
 
 
 <p>解压文件，得到代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">function encrypt($data,$key)</span><br><span class="line">&#123;</span><br><span class="line">    $key = md5(&#x27;ISCC&#x27;);</span><br><span class="line">    $x = 0;</span><br><span class="line">    $len = strlen($data);</span><br><span class="line">    $klen = strlen($key);</span><br><span class="line">    for ($i=0; $i &lt; $len; $i++) &#123; </span><br><span class="line">        if ($x == $klen)</span><br><span class="line">        &#123;</span><br><span class="line">            $x = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        $char .= $key[$x];//char变量的值为数组key的值，即MD5（ISCC）</span><br><span class="line">        $x+=1;</span><br><span class="line">    &#125;</span><br><span class="line">    for ($i=0; $i &lt; $len; $i++) &#123;</span><br><span class="line">        $str .= chr((ord($data[$i]) + ord($char[$i])) % 128);</span><br><span class="line">        //对数据data输出字符对应ASCII的值，chr() 函数从指定的 ASCII 值返回字符。</span><br><span class="line">    &#125;</span><br><span class="line">    return base64_encode($str);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">&lt;?php
+function encrypt($data,$key)
+&#123;
+    $key = md5(&#x27;ISCC&#x27;);
+    $x = 0;
+    $len = strlen($data);
+    $klen = strlen($key);
+    for ($i=0; $i &lt; $len; $i++) &#123; 
+        if ($x == $klen)
+        &#123;
+            $x = 0;
+        &#125;
+        $char .= $key[$x];//char变量的值为数组key的值，即MD5（ISCC）
+        $x+=1;
+    &#125;
+    for ($i=0; $i &lt; $len; $i++) &#123;
+        $str .= chr((ord($data[$i]) + ord($char[$i])) % 128);
+        //对数据data输出字符对应ASCII的值，chr() 函数从指定的 ASCII 值返回字符。
+    &#125;
+    return base64_encode($str);
+&#125;
+?&gt;</code></pre>
 <p>flag字段值被送入encrypt函数加密，最终得到str=fR4aHWwuFCYYVydFRxMqHhhCKBseH1dbFygrRxIWJ1UYFhotFjA=，只是没有输出。观摩大佬逆向解密代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"># import hashlib</span><br><span class="line">import base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def detrcy(b64):</span><br><span class="line">    int_b64 = []</span><br><span class="line">    b64de = base64.b64decode(b64)</span><br><span class="line">    for i in range(len(b64de)):</span><br><span class="line">        int_b64.append(ord(b64de[i]))#str的ord值</span><br><span class="line">    key = &#x27;729623334f0aa2784a1599fd374c120d729623&#x27;  # key= MD5(&#x27;ISCC&#x27;)</span><br><span class="line">    int_key = []</span><br><span class="line">    for i in range(len(key)):</span><br><span class="line">        int_key.append(ord(key[i]))#求key的ord值</span><br><span class="line">    flag = &#x27;&#x27;</span><br><span class="line">    for i in range(len(int_b64)):</span><br><span class="line">        flag += chr((int_b64[i]-int_key[i]+128) % 128) #涉及到同余加解密</span><br><span class="line">    print(flag)</span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    # str_b64 = eccrypt(&#x27;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&#x27;)</span><br><span class="line">    # print &#x27;str_b64--&gt;&#x27;, str_b64</span><br><span class="line">    str_b64 = &#x27;fR4aHWwuFCYYVydFRxMqHhhCKBseH1dbFygrRxIWJ1UYFhotFjA=&#x27;</span><br><span class="line">    # print &#x27;str_b64--&gt;&#x27;, str_b64</span><br><span class="line">    detrcy(str_b64)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext"># -*- coding: UTF-8 -*-
+# import hashlib
+import base64
+
+
+def detrcy(b64):
+    int_b64 = []
+    b64de = base64.b64decode(b64)
+    for i in range(len(b64de)):
+        int_b64.append(ord(b64de[i]))#str的ord值
+    key = &#x27;729623334f0aa2784a1599fd374c120d729623&#x27;  # key= MD5(&#x27;ISCC&#x27;)
+    int_key = []
+    for i in range(len(key)):
+        int_key.append(ord(key[i]))#求key的ord值
+    flag = &#x27;&#x27;
+    for i in range(len(int_b64)):
+        flag += chr((int_b64[i]-int_key[i]+128) % 128) #涉及到同余加解密
+    print(flag)
+
+if __name__ == &#x27;__main__&#x27;:
+    # str_b64 = eccrypt(&#x27;XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&#x27;)
+    # print &#x27;str_b64--&gt;&#x27;, str_b64
+    str_b64 = &#x27;fR4aHWwuFCYYVydFRxMqHhhCKBseH1dbFygrRxIWJ1UYFhotFjA=&#x27;
+    # print &#x27;str_b64--&gt;&#x27;, str_b64
+    detrcy(str_b64)
+</code></pre>
 <p>其实最主要一点就是同余的加密解密，类似凯撒密码，看大佬给的图片然后就秒懂了：<img src="https://img-blog.csdnimg.cn/20190326093743458.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">如果对代码还有思路上的疑问，请看下图(我是不会告诉你这是大佬给我画的~･✿(<em>￣▽￣</em>)✿･<br>)：<br><img src="https://img-blog.csdnimg.cn/20190326094044658.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
         </div>

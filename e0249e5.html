@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya1u001ms04zg2000fy0" class="article article-type-post" itemscope
+    <article id="post-ckwrjlygg001qys4z1x34029x" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -179,41 +179,61 @@
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
             <p>使用squid搭建 centos7代理服务器<span id="more"></span></p>
 <h2 id="Centos7服务器端"><a href="#Centos7服务器端" class="headerlink" title="Centos7服务器端"></a>Centos7服务器端</h2><p>1、开启IP_Forward：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash"><span class="hljs-built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward</code></pre>
 
 <p>2、安装squid</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install squid</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">yum install squid</code></pre>
 
 <p>3、修改配置文件/etc/squid/squid.conf</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/squid/squid.conf</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">vi /etc/squid/squid.conf</code></pre>
 <p>增加如下配置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">acl OverConnLimit maxconn 10       <span class="comment">#定义每个IP最大连接数</span></span><br><span class="line">auth_param basic program /usr/lib64/squid/basic_ncsa_auth /etc/squid/passwords <span class="comment">#配置的认证方式和认证文件</span></span><br><span class="line">auth_param basic children 5  <span class="comment">#认证程序的进程数</span></span><br><span class="line">auth_param basic realm superman<span class="string">&#x27;s squid server #代理连接提示信息,详见下图</span></span><br><span class="line"><span class="string">auth_param basic credentialsttl 5 hours #认证持续时间</span></span><br><span class="line"><span class="string">acl authenticated proxy_auth REQUIRED #设置代理需要认证</span></span><br><span class="line"><span class="string">http_access deny OverConnLimit #超出连接数则拒绝</span></span><br><span class="line"><span class="string">http_access allow authenticated #允许认证用户访问</span></span><br><span class="line"><span class="string">http_access deny all #拒绝其他访问</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">acl OverConnLimit maxconn 10       <span class="hljs-comment">#定义每个IP最大连接数</span>
+auth_param basic program /usr/lib64/squid/basic_ncsa_auth /etc/squid/passwords <span class="hljs-comment">#配置的认证方式和认证文件</span>
+auth_param basic children 5  <span class="hljs-comment">#认证程序的进程数</span>
+auth_param basic realm superman<span class="hljs-string">&#x27;s squid server #代理连接提示信息,详见下图</span>
+<span class="hljs-string">auth_param basic credentialsttl 5 hours #认证持续时间</span>
+<span class="hljs-string">acl authenticated proxy_auth REQUIRED #设置代理需要认证</span>
+<span class="hljs-string">http_access deny OverConnLimit #超出连接数则拒绝</span>
+<span class="hljs-string">http_access allow authenticated #允许认证用户访问</span>
+<span class="hljs-string">http_access deny all #拒绝其他访问</span></code></pre>
 <p><img src="https://img-blog.csdnimg.cn/20201011163855457.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注释如下配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># http_access deny !Safe_ports</span></span><br><span class="line"><span class="comment"># http_access deny CONNECT !SSL_ports</span></span><br><span class="line"><span class="comment"># http_access deny to_localhost</span></span><br><span class="line"><span class="comment"># http_access allow localnet</span></span><br><span class="line"><span class="comment"># http_access deny all</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash"><span class="hljs-comment"># http_access deny !Safe_ports</span>
+<span class="hljs-comment"># http_access deny CONNECT !SSL_ports</span>
+<span class="hljs-comment"># http_access deny to_localhost</span>
+<span class="hljs-comment"># http_access allow localnet</span>
+<span class="hljs-comment"># http_access deny all</span></code></pre>
 <p>修改如下配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Squid normally listens to port 3128</span></span><br><span class="line">http_port 6666 <span class="comment">#修改默认端口3128为自定义端口6666</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash"><span class="hljs-comment"># Squid normally listens to port 3128</span>
+http_port 6666 <span class="hljs-comment">#修改默认端口3128为自定义端口6666</span></code></pre>
 
 <p>4、生成密码文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install httpd</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">yum install httpd</code></pre>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">htpasswd -c -d /etc/squid/passwords superman <span class="comment">#创建一个密码文件名为passwords，账号名为superman</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">htpasswd -c -d /etc/squid/passwords superman <span class="hljs-comment">#创建一个密码文件名为passwords，账号名为superman</span></code></pre>
 <p>注意密码长度过长会截断为8个字符，即密码长度&lt;=8。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@vm228789 squid]<span class="comment"># htpasswd -c -d /etc/squid/passwords superman</span></span><br><span class="line">New password:</span><br><span class="line">Re-type new password:</span><br><span class="line">Warning: Password truncated to 8 characters by CRYPT algorithm.</span><br><span class="line">Adding password <span class="keyword">for</span> user surperman</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">[root@vm228789 squid]<span class="hljs-comment"># htpasswd -c -d /etc/squid/passwords superman</span>
+New password:
+Re-type new password:
+Warning: Password truncated to 8 characters by CRYPT algorithm.
+Adding password <span class="hljs-keyword">for</span> user surperman</code></pre>
 <p>5、重启服务并加入开机启动</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start squid.service</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">systemctl start squid.service</code></pre>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> squid.service</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">systemctl <span class="hljs-built_in">enable</span> squid.service</code></pre>
 <p>6、防火墙开放6666端口</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=6666/tcp --permanent</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">firewall-cmd --zone=public --add-port=6666/tcp --permanent</code></pre>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart firewalld.service <span class="comment">#重启防火墙生效</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">systemctl restart firewalld.service <span class="hljs-comment">#重启防火墙生效</span></code></pre>
 
 <h2 id="Centos7-客户端"><a href="#Centos7-客户端" class="headerlink" title="Centos7 客户端"></a>Centos7 客户端</h2><p>1、编辑配置文件(设置永久全局代理)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">vi /etc/profile</code></pre>
 <p>2、末尾增加http_proxy配置，用户名密码为服务器端配置的账户superman 和自定义的8位密码</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#add http_proxy</span></span><br><span class="line"><span class="built_in">export</span> http_proxy=http://用户名:密码@服务器IP:端口/</span><br><span class="line"><span class="built_in">export</span> http_proxy</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash"><span class="hljs-comment">#add http_proxy</span>
+<span class="hljs-built_in">export</span> http_proxy=http://用户名:密码@服务器IP:端口/
+<span class="hljs-built_in">export</span> http_proxy</code></pre>
 <p>3、测试连接</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost /]<span class="comment"># curl http://myip.ipip.net</span></span><br><span class="line">当前 IP：XXX.XXX.XXX.XXX  来自于：俄罗斯 新西伯利亚州 </span><br></pre></td></tr></table></figure>
+<pre><code class="hljs python">[root@localhost /]<span class="hljs-comment"># curl http://myip.ipip.net</span>
+当前 IP：XXX.XXX.XXX.XXX  来自于：俄罗斯 新西伯利亚州</code></pre>
 
 
 

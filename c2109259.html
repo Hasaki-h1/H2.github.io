@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya16000is04z7alf2xzj" class="article article-type-post" itemscope
+    <article id="post-ckwrjlyfw000cys4zbtjk93pq" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -180,7 +180,8 @@
             <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hack-browser-data是一个开源工具，可以帮助您从浏览器解密数据（密码|书签| cookie |历史记录|信用卡|下载链接）。它支持市场上最受欢迎的浏览器，并可以在Windows，macOS和Linux上运行。<span id="more"></span></p>
 <h2 id="二、编译"><a href="#二、编译" class="headerlink" title="二、编译"></a>二、编译</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;repo：<a target="_blank" rel="noopener" href="https://github.com/moonD4rk/HackBrowserData">https://github.com/moonD4rk/HackBrowserData</a><br>安装最新版本go1.16会报错，建议使用低版本编译。报错内容：<br><code>internal compiler error: &#39;wrap·1&#39;: Value live at entry. It shouldn&#39;t be. func wrap·1, node procLocalFree, value v35</code><br><img src="https://img-blog.csdnimg.cn/20210303102352966.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>尝试使用版本go1.15.8，成功编译运行，下载地址：<a target="_blank" rel="noopener" href="https://dl.google.com/go/go1.15.8.windows-amd64.msi">https://dl.google.com/go/go1.15.8.windows-amd64.msi</a>。<br><img src="https://img-blog.csdnimg.cn/2021030310284760.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h2 id="三、减小打包"><a href="#三、减小打包" class="headerlink" title="三、减小打包"></a>三、减小打包</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对比下来发现，伤害性不高，侮辱性极强，左边是下载人家打包好的，才2.1M，自己编译的16.5M。<br><img src="https://img-blog.csdnimg.cn/20210303103736973.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>加上参数<code>-ldflags &quot;-s -w&quot;</code> 再次进行打包尝试</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\&gt;<span class="keyword">go</span> get -v -t -d ./...</span><br><span class="line">C:\&gt;<span class="keyword">go</span> build -ldflags <span class="string">&quot;-s -w&quot;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs go">C:\&gt;<span class="hljs-keyword">go</span> get -v -t -d ./...
+C:\&gt;<span class="hljs-keyword">go</span> build -ldflags <span class="hljs-string">&quot;-s -w&quot;</span></code></pre>
 <p>其中<code>-ldflags</code> 隐藏所有代码实现相关的信息（gdb调试信息）， <code>-w</code>为去掉调试信息（无法使用gdb调试），<code>-s</code>为去掉符号表，现在小多了，6.06M。<br><img src="https://img-blog.csdnimg.cn/20210303104602960.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>其实还能更小，即使用upx 加壳压缩：<code>upx -9 hack-browser-data.exe</code>。<br><img src="https://img-blog.csdnimg.cn/20210303112950171.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>暂时没有别的骚操作了，有别的想法的大佬教教我。upx 下载地址：<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1MRzP2yfQK9bYlOIpmA4nhQ">https://pan.baidu.com/s/1MRzP2yfQK9bYlOIpmA4nhQ</a><br>提取码：6666<br>测试是否能够正常运行：<code>hack-browser-data.exe -b all -f json --dir results -cc</code><br><img src="https://img-blog.csdnimg.cn/2021030311394699.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p><img src="https://img-blog.csdnimg.cn/20210303113921614.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h2 id="四、关于杀软告警"><a href="#四、关于杀软告警" class="headerlink" title="四、关于杀软告警"></a>四、关于杀软告警</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;直接下载的HackBrowserData使用UPX 做了简单的压缩壳免杀，本次使用自己编译压缩的文件，6.06M的，并未使用UPX压缩情况下测试了几个杀软，结果如下：</p>

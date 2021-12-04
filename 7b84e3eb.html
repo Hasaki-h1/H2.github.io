@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya19000ns04zb3m55mku" class="article article-type-post" itemscope
+    <article id="post-ckwrjlyg1000nys4z7ime24o2" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -180,7 +180,14 @@
             <p>看了不少帖子，找了几种路子。链接如下（省的你们东翻西找的）：<br><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/l-cn-ipv6/">https://www.ibm.com/developerworks/cn/linux/l-cn-ipv6/</a><br><a target="_blank" rel="noopener" href="https://tsukkomi.org/post/get-free-ipv6-tunnel">https://tsukkomi.org/post/get-free-ipv6-tunnel</a></p>
 <p>我用的是<a target="_blank" rel="noopener" href="https://www.tunnelbroker.net/%E7%94%B3%E8%AF%B7%E7%9A%84%E8%B4%A6%E5%8F%B7%E3%80%82">https://www.tunnelbroker.net/申请的账号。</a><span id="more"></span></p>
 <h2 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h2><p>1、注册账号登录，然后填上你服务器的IP，下边的是提供IPv6服务的各个地区的节点。<br><img src="https://img-blog.csdnimg.cn/20200710203954264.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>我一般选择亚洲的，然后点击create Tunnel。<br><img src="https://img-blog.csdnimg.cn/20200710204209935.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>（最近貌似需要验证了，需要在服务器先创建一个txt文件）<br><img src="https://img-blog.csdnimg.cn/2020071021032778.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2、如果现实ICMP包不通的话需要设置VPS的防火墙策略，把ICMP协议的数据包放通，这样才能建IPv6隧道，应该是用ICMP包封装。<br>安全组放通ICMP配置：<br><img src="https://img-blog.csdnimg.cn/20200710211200549.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20200710211240678.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>出入方向都加即可。<br>之后创建的隧道信息如下图所示：<br><img src="https://img-blog.csdnimg.cn/20200710210858509.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>选择操作系统后自动会生成配置命令，感觉还行。<br><img src="https://img-blog.csdnimg.cn/20200710220103554.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>3、照着在CMD命令行敲即可。<br><img src="https://img-blog.csdnimg.cn/20200710212003389.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>4、事后随便找个IPv6测试网站测试即可。<br><a target="_blank" rel="noopener" href="http://test-ipv6.com/">http://test-ipv6.com</a><br><img src="https://img-blog.csdnimg.cn/20200710212230757.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h2 id="命令分析"><a href="#命令分析" class="headerlink" title="命令分析"></a>命令分析</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#网络接口禁用teredo（IPv6/IPv4 转换技术）协议</span></span><br><span class="line">netsh interface teredo <span class="built_in">set</span> state disabled</span><br><span class="line"><span class="comment"># 开启v6v4隧道，同时命名了接口的名称为IP6Tunnel，这个可以更改 。</span></span><br><span class="line">netsh interface ipv6 add v6v4tunnel interface=IP6Tunnel localaddress=VPS的IPV4地址 remoteaddress=远程免费提供的IPV4地址</span><br><span class="line"><span class="comment">#配置本地IPv6地址</span></span><br><span class="line">netsh interface ipv6 add address interface=IP6Tunnel address=免费分配的IPv6地址</span><br><span class="line"><span class="comment">#配置IPv6路由，下一跳都是设置好的</span></span><br><span class="line">netsh interface ipv6 add route prefix=::/0 interface=IP6Tunnel nexthop=2001:470:18:1403::1</span><br></pre></td></tr></table></figure>
+<h2 id="命令分析"><a href="#命令分析" class="headerlink" title="命令分析"></a>命令分析</h2><pre><code class="hljs bash"><span class="hljs-comment">#网络接口禁用teredo（IPv6/IPv4 转换技术）协议</span>
+netsh interface teredo <span class="hljs-built_in">set</span> state disabled
+<span class="hljs-comment"># 开启v6v4隧道，同时命名了接口的名称为IP6Tunnel，这个可以更改 。</span>
+netsh interface ipv6 add v6v4tunnel interface=IP6Tunnel localaddress=VPS的IPV4地址 remoteaddress=远程免费提供的IPV4地址
+<span class="hljs-comment">#配置本地IPv6地址</span>
+netsh interface ipv6 add address interface=IP6Tunnel address=免费分配的IPv6地址
+<span class="hljs-comment">#配置IPv6路由，下一跳都是设置好的</span>
+netsh interface ipv6 add route prefix=::/0 interface=IP6Tunnel nexthop=2001:470:18:1403::1</code></pre>
 
 
 <h1 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h1><p>Windows支持的隧道适配器技术的应该是三种：<br><img src="https://img-blog.csdnimg.cn/20200710213325387.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>有关三种技术的说明可见：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/iteye_9806/article/details/82357728">https://blog.csdn.net/iteye_9806/article/details/82357728</a><br>我用的这种把teredo给禁了，应该是默认用的6to4的技术。</p>

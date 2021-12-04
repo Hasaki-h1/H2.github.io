@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya22001ys04z7qataw57" class="article article-type-post" itemscope
+    <article id="post-ckwrjlygn0025ys4z35pgcj7t" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -187,7 +187,28 @@
 <p>2、自定义DNS host<br>上述3.3.1 A记录值即为DNS服务器的解析设置，自定义DNS才能收到DNSlog的解析请求。配置如下：<br><img src="https://img-blog.csdnimg.cn/20210512162509694.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p>3、 DNS 修改<br>创建自定义的DNShost 之后将Dns修改为自定义的DNS服务器。<br><img src="https://img-blog.csdnimg.cn/20210512162628497.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h2 id="3-4-Xray-配置"><a href="#3-4-Xray-配置" class="headerlink" title="3.4 Xray 配置"></a>3.4 Xray 配置</h2><p>1、生成配置文件config.yaml，修改配置，没有的就加上</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">reverse:</span></span><br><span class="line">  <span class="attr">db_file_path:</span> <span class="string">&quot;reverse.db&quot;</span>   <span class="comment"># 反连平台数据库文件位置, 这是一个 KV 数据库</span></span><br><span class="line">  <span class="attr">token:</span> <span class="string">&quot;你的密码&quot;</span> <span class="comment"># 反连平台认证的 Token, 独立部署时不能为空</span></span><br><span class="line">  <span class="attr">http:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">listen_ip:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> </span><br><span class="line">    <span class="attr">listen_port:</span> <span class="string">&quot;8001&quot;</span></span><br><span class="line">    <span class="attr">ip_header:</span> <span class="string">&quot;&quot;</span>                       </span><br><span class="line">  <span class="attr">dns:</span></span><br><span class="line">    <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">listen_ip:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> </span><br><span class="line">    <span class="attr">domain:</span> <span class="string">&quot;example.com&quot;</span>  <span class="comment"># DNS 域名配置</span></span><br><span class="line">    <span class="attr">is_domain_name_server:</span> <span class="literal">false</span>    </span><br><span class="line">    <span class="attr">resolve:</span>                            <span class="comment"># DNS 静态解析规则</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">type:</span> <span class="string">A</span>                           <span class="comment"># A, AAAA, TXT 三种</span></span><br><span class="line">      <span class="attr">record:</span> <span class="string">ns1</span></span><br><span class="line">      <span class="attr">value:</span> <span class="number">106.52</span><span class="string">.X.X</span></span><br><span class="line">      <span class="attr">ttl:</span> <span class="number">60</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">type:</span> <span class="string">A</span>                           <span class="comment"># A, AAAA, TXT 三种</span></span><br><span class="line">      <span class="attr">record:</span> <span class="string">ns2</span></span><br><span class="line">      <span class="attr">value:</span> <span class="number">106.52</span><span class="string">.X.X</span></span><br><span class="line">      <span class="attr">ttl:</span> <span class="number">60</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs yaml"><span class="hljs-attr">reverse:</span>
+  <span class="hljs-attr">db_file_path:</span> <span class="hljs-string">&quot;reverse.db&quot;</span>   <span class="hljs-comment"># 反连平台数据库文件位置, 这是一个 KV 数据库</span>
+  <span class="hljs-attr">token:</span> <span class="hljs-string">&quot;你的密码&quot;</span> <span class="hljs-comment"># 反连平台认证的 Token, 独立部署时不能为空</span>
+  <span class="hljs-attr">http:</span>
+    <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span>
+    <span class="hljs-attr">listen_ip:</span> <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span> 
+    <span class="hljs-attr">listen_port:</span> <span class="hljs-string">&quot;8001&quot;</span>
+    <span class="hljs-attr">ip_header:</span> <span class="hljs-string">&quot;&quot;</span>                       
+  <span class="hljs-attr">dns:</span>
+    <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span>
+    <span class="hljs-attr">listen_ip:</span> <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span> 
+    <span class="hljs-attr">domain:</span> <span class="hljs-string">&quot;example.com&quot;</span>  <span class="hljs-comment"># DNS 域名配置</span>
+    <span class="hljs-attr">is_domain_name_server:</span> <span class="hljs-literal">false</span>    
+    <span class="hljs-attr">resolve:</span>                            <span class="hljs-comment"># DNS 静态解析规则</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">type:</span> <span class="hljs-string">A</span>                           <span class="hljs-comment"># A, AAAA, TXT 三种</span>
+      <span class="hljs-attr">record:</span> <span class="hljs-string">ns1</span>
+      <span class="hljs-attr">value:</span> <span class="hljs-number">106.52</span><span class="hljs-string">.X.X</span>
+      <span class="hljs-attr">ttl:</span> <span class="hljs-number">60</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">type:</span> <span class="hljs-string">A</span>                           <span class="hljs-comment"># A, AAAA, TXT 三种</span>
+      <span class="hljs-attr">record:</span> <span class="hljs-string">ns2</span>
+      <span class="hljs-attr">value:</span> <span class="hljs-number">106.52</span><span class="hljs-string">.X.X</span>
+      <span class="hljs-attr">ttl:</span> <span class="hljs-number">60</span></code></pre>
 <p>2、执行命令：<code>Xray.exe reverse</code></p>
 <h1 id="四、踩坑总结"><a href="#四、踩坑总结" class="headerlink" title="四、踩坑总结"></a>四、踩坑总结</h1><p>1、防火墙开放端口一定得是UDP 不是TCP，安全组新增默认的是TCP。<br>2、Xray 的反连平台相当于是C/S构造的，默认配置文件config.yaml里就已经包含了DNS A记录值，不用新建DNS服务器。<br><img src="https://img-blog.csdnimg.cn/img_convert/774e988023dc222786d6065b6e197e39.png#id=ql0m3&originHeight=580&originWidth=1268&originalType=binary&status=done&style=none"></p>
 <h1 id="五、Fastjson漏洞测试"><a href="#五、Fastjson漏洞测试" class="headerlink" title="五、Fastjson漏洞测试"></a>五、Fastjson漏洞测试</h1><p>1、搭建环境：<br>​<br>下载文件：<a target="_blank" rel="noopener" href="https://github.com/vulhub/vulhub/blob/master/fastjson/1.2.24-rce/docker-compose.yml">https://github.com/vulhub/vulhub/blob/master/fastjson/1.2.24-rce/docker-compose.yml</a><br>​<br>启动：<code>[root@localhost fastjson]# docker-compose up -d</code><br>​<br>2、xray客户端配置如下</p>

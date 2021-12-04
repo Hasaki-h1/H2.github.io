@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya2l0038s04z1v4g9cca" class="article article-type-post" itemscope
+    <article id="post-ckwrjlygy0039ys4z7my5674n" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -191,7 +191,16 @@
 <li>%253 是<code>“？”</code>的两次url编码，绕过滤用的，自己解码试试就知道了。</li>
 </ol>
 <p><strong>部分源码：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// If we have a valid target, let&#x27;s load that script instead</span><br><span class="line">if (! empty($_REQUEST[&#x27;target&#x27;])</span><br><span class="line">    &amp;&amp; is_string($_REQUEST[&#x27;target&#x27;])</span><br><span class="line">    &amp;&amp; ! preg_match(&#x27;/^index/&#x27;, $_REQUEST[&#x27;target&#x27;])</span><br><span class="line">    &amp;&amp; ! in_array($_REQUEST[&#x27;target&#x27;], $target_blacklist)</span><br><span class="line">    &amp;&amp; Core::checkPageValidity($_REQUEST[&#x27;target&#x27;])</span><br><span class="line">) &#123;</span><br><span class="line">    include $_REQUEST[&#x27;target&#x27;];</span><br><span class="line">    exit;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">// If we have a valid target, let&#x27;s load that script instead
+if (! empty($_REQUEST[&#x27;target&#x27;])
+    &amp;&amp; is_string($_REQUEST[&#x27;target&#x27;])
+    &amp;&amp; ! preg_match(&#x27;/^index/&#x27;, $_REQUEST[&#x27;target&#x27;])
+    &amp;&amp; ! in_array($_REQUEST[&#x27;target&#x27;], $target_blacklist)
+    &amp;&amp; Core::checkPageValidity($_REQUEST[&#x27;target&#x27;])
+) &#123;
+    include $_REQUEST[&#x27;target&#x27;];
+    exit;
+&#125;</code></pre>
 <p><strong>完整版代码下载地址：</strong><br><a target="_blank" rel="noopener" href="https://www.phpmyadmin.net/files/4.8.1/">https://www.phpmyadmin.net/files/4.8.1/</a></p>
 
         </div>

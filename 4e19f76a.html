@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya2q003os04z4e3x6nz0" class="article article-type-post" itemscope
+    <article id="post-ckwrjlyh5003zys4z4h1t5e1q" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -185,12 +185,39 @@
 <!--more-->
 <p>repo:<a target="_blank" rel="noopener" href="https://github.com/SevenC-base/P2note">https://github.com/SevenC-base/P2note</a></p>
 <h2 id="二、自定义内容"><a href="#二、自定义内容" class="headerlink" title="二、自定义内容"></a>二、自定义内容</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此工具已经过优化，侧边栏和内容部分均可通过 <strong>data-note.json</strong> 文件修改，水平导航栏除外。 <strong>data-note.json</strong> 文件内容对应网页文件如下所示：<br><img src="https://img-blog.csdnimg.cn/3e8744191ac94abdb215ec9e59e166ac.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA55e05Lq66K-05qKm5qKm5Lit5Lq6,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
-<p><font color="red"><strong>注意:</strong><font></p>
+<p><font color="red"><strong>注意:</strong></font></p>
 <ol>
 <li>注释(<strong>annotation</strong>)的数量要和命令记录(<strong>content-h4</strong>)的数量一致，保持一一对应，不然无法区分谁是谁的注释。</li>
 <li>某些符号若要显示，则需要转义，避免json无法解析，目前有双引号、斜杠。以<code>”&gt;&lt;h1&gt;\123\&lt;/h1&gt;</code> 为例，则插入json文件中应改为<code>\”&gt;&lt;h1&gt;\\123\\&lt;/h1&gt;</code>。下面是一个简单的py脚本，方便转义。</li>
 </ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:UTF-8 -*-</span></span><br><span class="line"><span class="comment">#2021/06/06 周日 19:39:11.50</span></span><br><span class="line"><span class="comment"># By  Hasaki-h1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> signal</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quit_p</span>(<span class="params">signum, frame</span>):</span></span><br><span class="line">    sys.exit (<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encode_x</span>():</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        signal.signal (signal.SIGINT, quit_p)</span><br><span class="line">        i = <span class="built_in">input</span> (<span class="string">&quot;\n输入Payload:&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&quot;\\&quot;</span> <span class="keyword">in</span> i:</span><br><span class="line">            i = i.replace (<span class="string">&quot;\\&quot;</span>, <span class="string">&quot;\\\\&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&quot;\&quot;&quot;</span> <span class="keyword">in</span> i:</span><br><span class="line">            i = i.replace (<span class="string">&quot;\&quot;&quot;</span>, <span class="string">&quot;\\\&quot;&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span> (<span class="string">&quot;\n双引号、斜杠转义结果：\n\n&quot;</span>, i, <span class="string">&quot;\n&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    encode_x ()</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python</span>
+<span class="hljs-comment"># -*- coding:UTF-8 -*-</span>
+<span class="hljs-comment">#2021/06/06 周日 19:39:11.50</span>
+<span class="hljs-comment"># By  Hasaki-h1</span>
+
+
+<span class="hljs-keyword">import</span> signal
+<span class="hljs-keyword">import</span> sys
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">quit_p</span>(<span class="hljs-params">signum, frame</span>):</span>
+    sys.exit (<span class="hljs-number">0</span>)
+
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">encode_x</span>():</span>
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        signal.signal (signal.SIGINT, quit_p)
+        i = <span class="hljs-built_in">input</span> (<span class="hljs-string">&quot;\n输入Payload:&quot;</span>)
+        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;\\&quot;</span> <span class="hljs-keyword">in</span> i:
+            i = i.replace (<span class="hljs-string">&quot;\\&quot;</span>, <span class="hljs-string">&quot;\\\\&quot;</span>)
+        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;\&quot;&quot;</span> <span class="hljs-keyword">in</span> i:
+            i = i.replace (<span class="hljs-string">&quot;\&quot;&quot;</span>, <span class="hljs-string">&quot;\\\&quot;&quot;</span>)
+        <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;\n双引号、斜杠转义结果：\n\n&quot;</span>, i, <span class="hljs-string">&quot;\n&quot;</span>)
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    encode_x ()</code></pre>
+
 <p><strong>补充:</strong><br>为了方便增删改查 data-note.json文件，扣了一个add_gui，在PlanA文件夹下，源码就不发出来献丑了，各位凑合用。<br><img src="https://img-blog.csdnimg.cn/226f1a6c79a849b0971ba9ffe6f46714.jpg?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA55e05Lq66K-05qKm5qKm5Lit5Lq6,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <p><strong>tips:</strong></p>
 <ul>

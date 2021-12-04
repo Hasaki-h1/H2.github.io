@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya1a000ps04z8j8l2i27" class="article article-type-post" itemscope
+    <article id="post-ckwrjlyg2000pys4zd85nfdro" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -181,9 +181,61 @@
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IP域名提取工具，之前用HTML+js写了个，后来发现大文件复制粘贴之后直接卡死，之前也写过，比较短，零零碎碎的要么只有IP，要么只有域名，还没有多线程，索性就再用python 脚本写一个，权当练手，大佬轻喷。<span id="more"></span></p>
 <h1 id="一、流程设计"><a href="#一、流程设计" class="headerlink" title="一、流程设计"></a>一、流程设计</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这个没啥好说的，直接上图。从文件类型匹配，到大文件分割，最终返回要读取的文件列表，使用多线程读取文件并进行IP域名匹配，最终写入文件，下图只是初步设计的思路，可能跟最终代码某些部分不是很匹配。<br><img src="https://img-blog.csdnimg.cn/20210403205357999.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 <h1 id="二、实现功能"><a href="#二、实现功能" class="headerlink" title="二、实现功能"></a>二、实现功能</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本来以为可以简单写下，一码码了几百行，主要是因为分的情况有点多，端口、协议、去重、读文件、读目录、从文件分割、多线程读取。<br>repo:<a target="_blank" rel="noopener" href="https://github.com/SevenC-base/Gadgets/tree/master/IP_domain_name_extraction_tool/1-Python-scripts">https://github.com/SevenC-base/Gadgets/</a></p>
-<h3 id="1、大文件分割"><a href="#1、大文件分割" class="headerlink" title="1、大文件分割"></a>1、大文件分割</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打开分割的大文件</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span> (file_name, <span class="string">&quot;r&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f0:</span><br><span class="line">    buf = f0.readlines ()</span><br><span class="line">    all_line_num = <span class="built_in">len</span> (buf)</span><br><span class="line">    counter = all_line_num // LINE_NUM</span><br><span class="line">    <span class="built_in">print</span> (<span class="string">&quot;------------------------------------------分割总数： %s-------------------&quot;</span> % counter)</span><br><span class="line">    tail_counter = all_line_num % LINE_NUM</span><br><span class="line">    <span class="comment"># print (&quot;tail_counter-&gt; &quot;, tail_counter)</span></span><br><span class="line">    <span class="comment"># 行数不够直接跳出，前去匹配</span></span><br><span class="line">    <span class="keyword">if</span> all_line_num &lt;= LINE_NUM:</span><br><span class="line">        <span class="built_in">print</span> (<span class="string">&quot;行数不够&quot;</span>, all_line_num)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">while</span> n &lt; counter + <span class="number">2</span>:</span><br><span class="line">            <span class="comment"># 在data目录下构造需要分割的大文件的每一个小文件文件名，eg：abc.txt -&gt; abc-split-1.txt</span></span><br><span class="line">            filename_write_path = file_path1 + <span class="string">&quot;\\data---split\\&quot;</span> + filename0 + <span class="string">&quot;-split-%s&quot;</span> % n + <span class="string">&quot;.txt&quot;</span></span><br><span class="line">            <span class="comment"># 分割后的小文件名</span></span><br><span class="line">            <span class="comment"># filename_split = filename0 + &quot;-split-%s&quot; % n + file_suffix</span></span><br><span class="line">            <span class="comment"># 分割后小文件存储列表</span></span><br><span class="line">            filename_split_list.append (filename_write_path)</span><br><span class="line">            <span class="comment"># 最后不满2000000行的直接从末尾计算</span></span><br><span class="line">            <span class="keyword">if</span> n == counter + <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">with</span> <span class="built_in">open</span> (filename_write_path, <span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> f1:</span><br><span class="line">                    <span class="keyword">for</span> b <span class="keyword">in</span> buf[-tail_counter:]:</span><br><span class="line">                        f1.write (b)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">with</span> <span class="built_in">open</span> (filename_write_path, <span class="string">&quot;w&quot;</span>) <span class="keyword">as</span> f2:</span><br><span class="line">                    <span class="keyword">for</span> b1 <span class="keyword">in</span> buf[(n * LINE_NUM):((n + <span class="number">1</span>) * LINE_NUM)]:</span><br><span class="line">                        f2.write (b1)</span><br><span class="line">            n = n + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h3 id="1、大文件分割"><a href="#1、大文件分割" class="headerlink" title="1、大文件分割"></a>1、大文件分割</h3><pre><code class="hljs python"><span class="hljs-comment"># 打开分割的大文件</span>
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span> (file_name, <span class="hljs-string">&quot;r&quot;</span>, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>) <span class="hljs-keyword">as</span> f0:
+    buf = f0.readlines ()
+    all_line_num = <span class="hljs-built_in">len</span> (buf)
+    counter = all_line_num // LINE_NUM
+    <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;------------------------------------------分割总数： %s-------------------&quot;</span> % counter)
+    tail_counter = all_line_num % LINE_NUM
+    <span class="hljs-comment"># print (&quot;tail_counter-&gt; &quot;, tail_counter)</span>
+    <span class="hljs-comment"># 行数不够直接跳出，前去匹配</span>
+    <span class="hljs-keyword">if</span> all_line_num &lt;= LINE_NUM:
+        <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;行数不够&quot;</span>, all_line_num)
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">while</span> n &lt; counter + <span class="hljs-number">2</span>:
+            <span class="hljs-comment"># 在data目录下构造需要分割的大文件的每一个小文件文件名，eg：abc.txt -&gt; abc-split-1.txt</span>
+            filename_write_path = file_path1 + <span class="hljs-string">&quot;\\data---split\\&quot;</span> + filename0 + <span class="hljs-string">&quot;-split-%s&quot;</span> % n + <span class="hljs-string">&quot;.txt&quot;</span>
+            <span class="hljs-comment"># 分割后的小文件名</span>
+            <span class="hljs-comment"># filename_split = filename0 + &quot;-split-%s&quot; % n + file_suffix</span>
+            <span class="hljs-comment"># 分割后小文件存储列表</span>
+            filename_split_list.append (filename_write_path)
+            <span class="hljs-comment"># 最后不满2000000行的直接从末尾计算</span>
+            <span class="hljs-keyword">if</span> n == counter + <span class="hljs-number">1</span>:
+                <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span> (filename_write_path, <span class="hljs-string">&quot;w&quot;</span>) <span class="hljs-keyword">as</span> f1:
+                    <span class="hljs-keyword">for</span> b <span class="hljs-keyword">in</span> buf[-tail_counter:]:
+                        f1.write (b)
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span> (filename_write_path, <span class="hljs-string">&quot;w&quot;</span>) <span class="hljs-keyword">as</span> f2:
+                    <span class="hljs-keyword">for</span> b1 <span class="hljs-keyword">in</span> buf[(n * LINE_NUM):((n + <span class="hljs-number">1</span>) * LINE_NUM)]:
+                        f2.write (b1)
+            n = n + <span class="hljs-number">1</span></code></pre>
 
-<h3 id="2、多线程读文件"><a href="#2、多线程读文件" class="headerlink" title="2、多线程读文件"></a>2、多线程读文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">len</span> (files_list_all) &gt; <span class="number">10</span>:</span><br><span class="line">    <span class="comment"># list_num分割后单个列表长度</span></span><br><span class="line">    list_num = <span class="built_in">len</span> (files_list_all) // <span class="number">10</span></span><br><span class="line">    <span class="comment"># 线程池</span></span><br><span class="line">    threads = []</span><br><span class="line">    <span class="comment"># 列表存储结果</span></span><br><span class="line">    result = &#123;<span class="string">&#x27;r1&#x27;</span>: [], <span class="string">&#x27;r2&#x27;</span>: [], <span class="string">&#x27;r3&#x27;</span>: [], <span class="string">&#x27;r4&#x27;</span>: []&#125;</span><br><span class="line">    <span class="comment"># 按照10个线程拆分读取的文件列表</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span> (<span class="number">10</span>):</span><br><span class="line">        list_f = files_list_all[i * (list_num + <span class="number">1</span>):(i + <span class="number">1</span>) * (list_num + <span class="number">1</span>)]</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span> (list_f) != <span class="number">0</span>:</span><br><span class="line">            thread1 = MyThread (func=test.read_file_list, args=(files_list_all, args, pattern0))</span><br><span class="line">            thread1.start ()</span><br><span class="line">            threads.append (thread1)</span><br><span class="line">    <span class="comment"># 阻塞主线程，获取每个线程执行结果</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> threads:</span><br><span class="line">        j.join ()</span><br><span class="line">        ree = j.get_result ()</span><br><span class="line">        <span class="comment"># print (ree)</span></span><br><span class="line">        <span class="comment"># 判断key键是否存在</span></span><br><span class="line">        <span class="keyword">for</span> k, v <span class="keyword">in</span> ree.items ():</span><br><span class="line">            <span class="keyword">if</span> k <span class="keyword">in</span> result.keys ():</span><br><span class="line">                result[k] = ree[k] + result[k]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+<h3 id="2、多线程读文件"><a href="#2、多线程读文件" class="headerlink" title="2、多线程读文件"></a>2、多线程读文件</h3><pre><code class="hljs python"><span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span> (files_list_all) &gt; <span class="hljs-number">10</span>:
+    <span class="hljs-comment"># list_num分割后单个列表长度</span>
+    list_num = <span class="hljs-built_in">len</span> (files_list_all) // <span class="hljs-number">10</span>
+    <span class="hljs-comment"># 线程池</span>
+    threads = []
+    <span class="hljs-comment"># 列表存储结果</span>
+    result = &#123;<span class="hljs-string">&#x27;r1&#x27;</span>: [], <span class="hljs-string">&#x27;r2&#x27;</span>: [], <span class="hljs-string">&#x27;r3&#x27;</span>: [], <span class="hljs-string">&#x27;r4&#x27;</span>: []&#125;
+    <span class="hljs-comment"># 按照10个线程拆分读取的文件列表</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span> (<span class="hljs-number">10</span>):
+        list_f = files_list_all[i * (list_num + <span class="hljs-number">1</span>):(i + <span class="hljs-number">1</span>) * (list_num + <span class="hljs-number">1</span>)]
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span> (list_f) != <span class="hljs-number">0</span>:
+            thread1 = MyThread (func=test.read_file_list, args=(files_list_all, args, pattern0))
+            thread1.start ()
+            threads.append (thread1)
+    <span class="hljs-comment"># 阻塞主线程，获取每个线程执行结果</span>
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> threads:
+        j.join ()
+        ree = j.get_result ()
+        <span class="hljs-comment"># print (ree)</span>
+        <span class="hljs-comment"># 判断key键是否存在</span>
+        <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> ree.items ():
+            <span class="hljs-keyword">if</span> k <span class="hljs-keyword">in</span> result.keys ():
+                result[k] = ree[k] + result[k]
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-keyword">pass</span></code></pre>
 <h1 id="三、效果展示"><a href="#三、效果展示" class="headerlink" title="三、效果展示"></a>三、效果展示</h1><p><img src="https://img-blog.csdnimg.cn/20210403225915421.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 
         </div>

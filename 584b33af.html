@@ -127,7 +127,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwhbya1q001ds04z2lgm6k4x" class="article article-type-post" itemscope
+    <article id="post-ckwrjlygc001dys4zg7qy13ah" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -170,7 +170,7 @@
 
             
             <div class="article-busuanzi">
-                有 <span id="busuanzi_value_page_pv">N</span> 人看过
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
             </div>
             
 
@@ -179,7 +179,23 @@
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
             <h3 id="1-更改命令："><a href="#1-更改命令：" class="headerlink" title="1. 更改命令："></a>1. 更改命令：</h3><span id="more"></span>
 
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator<span class="operator">&gt;</span>sqlplus <span class="operator">/</span> <span class="keyword">as</span> sysdba</span><br><span class="line"></span><br><span class="line"><span class="keyword">SQL</span><span class="operator">*</span>Plus: <span class="keyword">Release</span> <span class="number">11.2</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span> Production <span class="keyword">on</span> 星期六 <span class="number">6</span>月 <span class="number">12</span> <span class="number">21</span>:<span class="number">12</span>:<span class="number">54</span> <span class="number">2021</span></span><br><span class="line"></span><br><span class="line">Copyright (c) <span class="number">1982</span>, <span class="number">2014</span>, Oracle.  <span class="keyword">All</span> rights reserved.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">连接到:</span><br><span class="line">Oracle Database <span class="number">11</span>g Express Edition <span class="keyword">Release</span> <span class="number">11.2</span><span class="number">.0</span><span class="number">.2</span><span class="number">.0</span> <span class="operator">-</span> <span class="number">64</span>bit Production</span><br><span class="line"></span><br><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> <span class="keyword">ALTER</span> <span class="keyword">USER</span> SYS ACCOUNT UNLOCK;</span><br><span class="line"></span><br><span class="line">用户已更改。</span><br><span class="line"></span><br><span class="line"><span class="keyword">SQL</span><span class="operator">&gt;</span> <span class="keyword">ALTER</span> <span class="keyword">USER</span> SYS IDENTIFIED <span class="keyword">BY</span> &quot;TEST@123&quot;;</span><br><span class="line"></span><br><span class="line">用户已更改。</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs sql">C:\Users\Administrator<span class="hljs-operator">&gt;</span>sqlplus <span class="hljs-operator">/</span> <span class="hljs-keyword">as</span> sysdba
+
+<span class="hljs-keyword">SQL</span><span class="hljs-operator">*</span>Plus: <span class="hljs-keyword">Release</span> <span class="hljs-number">11.2</span><span class="hljs-number">.0</span><span class="hljs-number">.2</span><span class="hljs-number">.0</span> Production <span class="hljs-keyword">on</span> 星期六 <span class="hljs-number">6</span>月 <span class="hljs-number">12</span> <span class="hljs-number">21</span>:<span class="hljs-number">12</span>:<span class="hljs-number">54</span> <span class="hljs-number">2021</span>
+
+Copyright (c) <span class="hljs-number">1982</span>, <span class="hljs-number">2014</span>, Oracle.  <span class="hljs-keyword">All</span> rights reserved.
+
+
+连接到:
+Oracle Database <span class="hljs-number">11</span>g Express Edition <span class="hljs-keyword">Release</span> <span class="hljs-number">11.2</span><span class="hljs-number">.0</span><span class="hljs-number">.2</span><span class="hljs-number">.0</span> <span class="hljs-operator">-</span> <span class="hljs-number">64</span>bit Production
+
+<span class="hljs-keyword">SQL</span><span class="hljs-operator">&gt;</span> <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">USER</span> SYS ACCOUNT UNLOCK;
+
+用户已更改。
+
+<span class="hljs-keyword">SQL</span><span class="hljs-operator">&gt;</span> <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">USER</span> SYS IDENTIFIED <span class="hljs-keyword">BY</span> &quot;TEST@123&quot;;
+
+用户已更改。</code></pre>
 <h3 id="2-Premium连接："><a href="#2-Premium连接：" class="headerlink" title="2. Premium连接："></a>2. Premium连接：</h3><p> 在使用Premium连接时报错：<code>ORA-28009: connection as SYS should be as SYSDBA or SYSOPER</code><br> 需要在高级选项中角色选择SYSDBA。如果是命令行的话：<code>connect sys/sys as sysdba</code>。</p>
 <p> <img src="https://img-blog.csdnimg.cn/2021061221161431.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>Oracle 11g默认的服务名为ORCL,Oracle 9i默认的服务名为OEMREP。</p>
 <p><img src="https://img-blog.csdnimg.cn/20210616220327902.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
