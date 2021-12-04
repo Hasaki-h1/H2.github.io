@@ -198,16 +198,19 @@ chcp <span class="hljs-number">65001</span>
 <span class="hljs-built_in">echo</span>.
 <span class="hljs-built_in">echo</span> --------------快速写博客----------------
 <span class="hljs-built_in">echo</span>.
-::设置变量
+::设置文章变量
 <span class="hljs-built_in">set</span> title= 
 <span class="hljs-built_in">echo</span>.
 <span class="hljs-built_in">set</span>/p title=设置文章标题：
 <span class="hljs-built_in">set</span> tags= 
 <span class="hljs-built_in">echo</span>.
 <span class="hljs-built_in">set</span>/p tags=设置文章标签：
-<span class="hljs-built_in">set</span> categories= 
+<span class="hljs-built_in">set</span> categories1= 
 <span class="hljs-built_in">echo</span>.
-<span class="hljs-built_in">set</span>/p categories=设置文章分类：
+<span class="hljs-built_in">set</span>/p categories1=设置文章分类<span class="hljs-number">1</span>：
+<span class="hljs-built_in">set</span> categories2= 
+<span class="hljs-built_in">echo</span>.
+<span class="hljs-built_in">set</span>/p categories2=设置文章分类<span class="hljs-number">2</span>：
 <span class="hljs-built_in">set</span> sticky= 
 <span class="hljs-built_in">echo</span>.
 <span class="hljs-built_in">set</span>/p sticky=设置文章排名权重：
@@ -218,8 +221,9 @@ chcp <span class="hljs-number">65001</span>
 <span class="hljs-built_in">echo</span> tags:%tags%&gt;&gt; %title%.md
 <span class="hljs-built_in">echo</span> comments: true&gt;&gt; %title%.md
 <span class="hljs-built_in">echo</span> categories:&gt;&gt; %title%.md
-<span class="hljs-built_in">echo</span>  --%categories%&gt;&gt; %title%.md
-<span class="hljs-built_in">echo</span> sticky:%sticky%&gt;&gt; %title%.md
+<span class="hljs-built_in">echo</span>   - - %categories1%&gt;&gt; %title%.md
+<span class="hljs-built_in">echo</span>   - - %categories2%&gt;&gt; %title%.md
+<span class="hljs-built_in">echo</span> sticky: %sticky%&gt;&gt; %title%.md
 <span class="hljs-built_in">echo</span> ---&gt;&gt; %title%.md
 
 :: 设置博客保存的路径（例如：<span class="hljs-string">&quot;D:\hexo\source\_posts&quot;</span>）
