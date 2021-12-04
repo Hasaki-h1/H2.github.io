@@ -205,59 +205,7 @@ class="article article-type-post"
     </header>
     <div class="article-entry post-inner-html">
         
-        <h1 id="云聚"><a href="#云聚" class="headerlink" title="云聚"></a>云聚</h1><p>​      最近使用hexo 进行博客搭建，踩了不少坑，一想到每次生成还要写博客前页（Front-matter）就很恼火，索性就写了个bat脚本，实现了快速设置前页以及使用编辑器打开，仅做参考，各位老板可自行魔改。</p>
-<h1 id="雨落"><a href="#雨落" class="headerlink" title="雨落"></a>雨落</h1><p>使用的话需要注意两点</p>
-<ul>
-<li><p>设置博客保存的路径</p>
-</li>
-<li><p>设置打开markdown文件的程序位置</p>
-</li>
-</ul>
-<pre><code class="hljs powershell">@<span class="hljs-built_in">echo</span> off
-REM
-chcp <span class="hljs-number">65001</span>
-<span class="hljs-built_in">CLS</span>
-<span class="hljs-built_in">echo</span>.
-<span class="hljs-built_in">echo</span> --------------快速写博客----------------
-<span class="hljs-built_in">echo</span>.
-::设置变量
-<span class="hljs-built_in">set</span> title= 
-<span class="hljs-built_in">echo</span>.
-<span class="hljs-built_in">set</span>/p title=设置文章标题：
-<span class="hljs-built_in">set</span> tags= 
-<span class="hljs-built_in">echo</span>.
-<span class="hljs-built_in">set</span>/p tags=设置文章标签：
-<span class="hljs-built_in">set</span> categories= 
-<span class="hljs-built_in">echo</span>.
-<span class="hljs-built_in">set</span>/p categories=设置文章分类：
-<span class="hljs-built_in">set</span> sticky= 
-<span class="hljs-built_in">echo</span>.
-<span class="hljs-built_in">set</span>/p sticky=设置文章排名权重：
-
-<span class="hljs-built_in">echo</span> ---&gt;%title%.md
-<span class="hljs-built_in">echo</span> %date:~<span class="hljs-number">6</span>,<span class="hljs-number">4</span>%-%date:~<span class="hljs-number">3</span>,<span class="hljs-number">2</span>%-%date:~<span class="hljs-number">0</span>,<span class="hljs-number">2</span>% %time:~<span class="hljs-number">0</span>,<span class="hljs-number">8</span>% &gt;&gt; %title%.md
-<span class="hljs-built_in">echo</span> title:%title%&gt;&gt; %title%.md
-<span class="hljs-built_in">echo</span> tags:%tags%&gt;&gt; %title%.md
-<span class="hljs-built_in">echo</span> comments: true&gt;&gt; %title%.md
-<span class="hljs-built_in">echo</span> categories:&gt;&gt; %title%.md
-<span class="hljs-built_in">echo</span>  --%categories%&gt;&gt; %title%.md
-<span class="hljs-built_in">echo</span> sticky:%sticky%&gt;&gt; %title%.md
-<span class="hljs-built_in">echo</span> ---&gt;&gt; %title%.md
-
-:: 设置博客保存的路径（例如：<span class="hljs-string">&quot;D:\hexo\source\_posts&quot;</span>）
-<span class="hljs-built_in">set</span> ppp=<span class="hljs-string">&quot;D:\hexo\source\_posts&quot;</span>
-
-:: 将当前目录下生成的markdown文件移动到博客路径下
-<span class="hljs-built_in">move</span> <span class="hljs-string">&quot;%~dp0\%title%.md&quot;</span> <span class="hljs-string">&quot;%ppp%\%title%.md&quot;</span>
-
-:: 设置打开markdown文件的程序位置（Typora是一款markdown文件编辑器）
-<span class="hljs-built_in">start</span> <span class="hljs-string">&quot;C:\Program Files\Typora\Typora.exe&quot;</span> <span class="hljs-string">&quot;%ppp%\%title%.md&quot;</span>
-<span class="hljs-keyword">exit</span></code></pre>
-
-<p>复制下来保存为bat后缀的文件即可，(例如：快速写博客.bat)，保存位置随意，放在桌面就行。</p>
-<h1 id="云散"><a href="#云散" class="headerlink" title="云散"></a>云散</h1><p>测试下来效果还行。</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/GIF23-51-40.gif" alt="GIF23-51-40"></p>
-
+        <h1 id="风起"><a href="#风起" class="headerlink" title="风起"></a>风起</h1><p>​      最近使用hexo 进行博客搭建，踩了不少坑，一想到每次生成还要写博客前页（Front-matter）就很恼火，索性就写了个bat脚本，实现了快速设置前页以及使用编辑器打开，仅做参考，各位老板可自行魔改。</p>
         
     </div>
     </div>
