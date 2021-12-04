@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Apache 2.4 配置http代理及认证 | MyBlogs</title>
+    <title>friends | MyBlogs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -34,7 +34,7 @@
 
 
     <script>
-        window.isPost = true
+        window.isPost = false
         window.aomori = {
             
             
@@ -71,6 +71,8 @@
                     <a class="header-type-title" id="typed" href="/"></a>
                 
     
+                
+                    <span class="header-type-page-title">| friends</span>
                 
             </div>
         </div>
@@ -126,185 +128,12 @@
         <div class="main">
             <section class="inner">
                 <section class="inner-main">
-                    <div class="post">
-    <article id="post-ckwrkkptx001yak4z0q2zdakw" class="article article-type-post" itemscope
-    itemprop="blogPost">
-
-    <div class="article-inner">
-
-        
-          
-        
-        
-        
-
-        
-        <header class="article-header">
-            
-  
-    <h1 class="article-title" itemprop="name">
-      Apache 2.4 配置http代理及认证
-    </h1>
-  
-
-        </header>
-        
-
-        <div class="article-more-info article-more-info-post hairline">
-
-            <div class="article-date">
-  <time datetime="2021-04-15T08:12:12.000Z" itemprop="datePublished">2021-04-15</time>
-</div>
-
-            
-            <div class="article-category">
-                <a class="article-category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
-            </div>
-            
-
-            
-            <div class="article-tag">
-                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li></ul>
-            </div>
-            
-
-            
-            <div class="article-busuanzi">
-                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
-            </div>
-            
-
-        </div>
-
-        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <h1 id="一、apache下载安装"><a href="#一、apache下载安装" class="headerlink" title="一、apache下载安装"></a>一、apache下载安装</h1><span id="more"></span>
-
-<ul>
-<li>&nbsp;windows：<a target="_blank" rel="noopener" href="https://www.apachehaus.com/cgi-bin/download.plx">https://www.apachehaus.com/cgi-bin/download.plx</a></li>
-<li>&nbsp;linux : <a target="_blank" rel="noopener" href="http://directory.apache.org/studio/download/download-linux.html">http://directory.apache.org/studio/download/download-linux.html</a></li>
-<li>安装可以参考自带 <code>readme_first.html</code><br><img src="https://img-blog.csdnimg.cn/20210415151205478.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
-</ul>
-<h1 id="二、配置注意事项"><a href="#二、配置注意事项" class="headerlink" title="二、配置注意事项"></a>二、配置注意事项</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本次测试以Windows系统为例。步骤如下：</p>
-<ul>
-<li><p>&nbsp;&nbsp;&nbsp;&nbsp;1、配置 <code>Apache24/bin/httpd.conf</code> 文件中服务器根路径<br><img src="https://img-blog.csdnimg.cn/2021041514410573.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-</li>
-<li><p>&nbsp;&nbsp;&nbsp;&nbsp;2、使用 <code>htpasswd.exe</code> 生成密码文件以及用户组文件:  <code>htpasswd.exe -c password.file username</code><br><img src="https://img-blog.csdnimg.cn/20210415144614549.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-</li>
-<li><p>&nbsp;&nbsp;&nbsp;&nbsp;3、记事本新建用户组文件 ，<code>group.file</code><br><img src="https://img-blog.csdnimg.cn/20210415144930968.png" alt="在这里插入图片描述"></p>
-</li>
-<li><p>&nbsp;&nbsp;&nbsp;&nbsp;4、配置代理端口 1234<br><img src="https://img-blog.csdnimg.cn/20210415145235572.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20210415163553909.png" alt="在这里插入图片描述"></p>
-</li>
-<li><p>&nbsp;&nbsp;&nbsp;&nbsp;5、 增加认证配置，2.4没有Order了</p>
-</li>
-</ul>
-<pre><code class="hljs html">ProxyRequests On
-ProxyVia Block   
-<span class="hljs-tag">&lt;<span class="hljs-name">Proxy</span> *&gt;</span>
-    AuthType Basic
-    AuthName &quot;Restricted Resource&quot;
-    AuthUserFile &quot;$&#123;SRVROOT&#125;/conf/password.file&quot;
-    AuthGroupFile &quot;$&#123;SRVROOT&#125;/conf/group.file&quot;
-    <span class="hljs-tag">&lt;<span class="hljs-name">RequireAny</span>&gt;</span>
-    Require all denied  
-    Require group usergroup
-    <span class="hljs-tag">&lt;/<span class="hljs-name">RequireAny</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">Proxy</span>&gt;</span></code></pre>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>ProxyVia Block</code> 可以删除返回包中的via头，避免信息泄露，如果为<code>ProxyVia On</code>的话返回包如下：<br><img src="https://img-blog.csdnimg.cn/20210415145939433.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>AuthName</code> 是认证时的提示，有些某些浏览器不会提示，但必须设置。<br><img src="https://img-blog.csdnimg.cn/20210415150308172.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>RequireAny</code> 中设置先拒绝所有访问，再允许用户组文件中的用户访问。成功开启代理，配置测试如下：<br><img src="https://img-blog.csdnimg.cn/20210415150913370.png" alt="在这里插入图片描述"></p>
-<h1 id="三、一些补充"><a href="#三、一些补充" class="headerlink" title="三、一些补充"></a>三、一些补充</h1><ul>
-<li>AllowOverride参数就是指明Apache服务器是否去找.htacess文件作为配置文件，如果设置为none,那么服务器将忽略.htacess文件，如果设置为All,那么所有在.htaccess文件里有的指令都将被重写。</li>
-<li>授权容器指令</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="center">授权容器指令</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">&#x3c;&#x52;&#x65;&#x71;&#x75;&#x69;&#x72;&#x65;&#x41;&#x6c;&#x6c;&#x3e;&#x0a;&#x3c;&#x2f;&#x52;&#x65;&#x71;&#x75;&#x69;&#x72;&#x65;&#x41;&#x6c;&#x6c;&#x3e;</td>
-<td align="center">在此元素中包含的规则，拒绝优先执行</td>
-</tr>
-<tr>
-<td align="center">&#x3c;&#x52;&#x65;&#x71;&#x75;&#x69;&#x72;&#x65;&#x41;&#x6e;&#x79;&#x3e;&#x3c;&#x2f;&#x52;&#x65;&#x71;&#x75;&#x69;&#x72;&#x65;&#x41;&#x6e;&#x79;&#x3e;</td>
-<td align="center">在此元素中包含的规则，允许优先执行</td>
-</tr>
-<tr>
-<td align="center">&#x3c;&#x52;&#x65;&#x71;&#x75;&#x69;&#x72;&#x65;&#x4e;&#x6f;&#x6e;&#x65;&#x3e;&#x0a;&#x3c;&#x52;&#x65;&#x71;&#x75;&#x69;&#x72;&#x65;&#x4e;&#x6f;&#x6e;&#x65;&#x2f;&#x3e;</td>
-<td align="center">授权指令中的任何一个都必须成功才能使封闭指令不失败,永远不会返回成功的结果</td>
-</tr>
-</tbody></table>
-<h1 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/liluxiang/p/9450826.html">https://www.cnblogs.com/liluxiang/p/9450826.html</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/wangkepermit/article/details/72954976">https://blog.csdn.net/wangkepermit/article/details/72954976</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wcwnina/p/8029156.html">https://www.cnblogs.com/wcwnina/p/8029156.html</a></li>
-<li><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/2.4/mod/mod_authz_core.html#requireany">https://httpd.apache.org/docs/2.4/mod/mod_authz_core.html#requireany</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.51cto.com/fanqie/1576811">https://blog.51cto.com/fanqie/1576811</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaoyi23000/article/details/79914842">https://blog.csdn.net/xiaoyi23000/article/details/79914842</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaoyi23000/article/details/79914842">https://blog.csdn.net/xiaoyi23000/article/details/79914842</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zemliu/archive/2012/04/18/2454655.html">https://www.cnblogs.com/zemliu/archive/2012/04/18/2454655.html</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.it1352.com/213388.html">https://www.it1352.com/213388.html</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.it1352.com/213388.html">https://www.it1352.com/213388.html</a></li>
-</ul>
-
-        </div>
-
-    </div>
-
-    
-
-    
-
-    
-
-    
-<div class="article-copyright hairline">
-  <p>
-    本作品采用 <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a> 进行许可。
-  </p>
-</div>
+                    
 
 
-    
-
-    
-<nav class="article-nav">
-  
-    <a href="/d8d4b964.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-caption">下一篇</div>
-      <div class="article-nav-title">
-        
-          Xray-反连平台搭建
-        
-      </div>
-    </a>
+<div class="page">
   
   
-    <a href="/dbdb0474.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-caption">上一篇</div>
-      <div class="article-nav-title">一次失败的CTF尝试记录（SSRF利用）</div>
-    </a>
-  
-</nav>
-
-
-    <section class="share">
-        <div class="share-title">分享</div>
-        <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=Apache 2.4 配置http代理及认证 - MyBlogs&url=http://hasaki-h2.github.io/7711158b.html">
-            <box-icon type='logo' name='twitter'></box-icon>
-        </a>
-        <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=Apache 2.4 配置http代理及认证 - MyBlogs&u=http://hasaki-h2.github.io/7711158b.html">
-            <box-icon name='facebook-square' type='logo' ></box-icon>
-        </a>
-        <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=Apache 2.4 配置http代理及认证 - MyBlogs&url=http://hasaki-h2.github.io/7711158b.html&pic=">
-            <div class="n-icon n-icon-weibo"></div>
-        </a> -->
-    </section>
-
-</article>
 
 
 
@@ -321,10 +150,9 @@ ProxyVia Block
 
 
 
-
-<script src="./js/busuanzi.pure.mini.js"></script>
-
 </div>
+
+
                 </section>
             </section>
 
@@ -346,12 +174,6 @@ ProxyVia Block
 <div class="widget" id="widget">
     
       
-  <div class="widget-wrap">
-    <div class="widget-inner">
-      <div class="toc post-toc-html"></div>
-    </div>
-  </div>
-
     
       
   <div class="widget-wrap widget-cate">
