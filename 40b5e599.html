@@ -131,7 +131,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwtfdaus002px44z12nif7mv" class="article article-type-post" itemscope
+    <article id="post-ckwtksebu002wj04z0if0cstl" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -181,7 +181,7 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <h1 id="内网学习笔记一-内网信息搜集"><a href="#内网学习笔记一-内网信息搜集" class="headerlink" title="内网学习笔记一 | 内网信息搜集"></a>内网学习笔记一 | 内网信息搜集</h1><h2 id="1-内网信息搜集概述"><a href="#1-内网信息搜集概述" class="headerlink" title="1. 内网信息搜集概述"></a>1. 内网信息搜集概述</h2><p>我是谁?   一对当前机器角色的判断。</p>
+            <h2 id="1-内网信息搜集概述"><a href="#1-内网信息搜集概述" class="headerlink" title="1. 内网信息搜集概述"></a>1. 内网信息搜集概述</h2><p>我是谁?   一对当前机器角色的判断。</p>
 <p>这是哪?   一对当前机器所处网络环境的拓扑结构进行分析和判断。</p>
 <p>我在哪?   一对当前机器所处区域的判断。</p>
 <span id="more"></span>
@@ -266,19 +266,23 @@ wmic path win32_terminalservicesetting <span class="hljs-built_in">where</span> 
 <span class="hljs-comment">#在windows server 2008开启3389端口</span>
 wmic /namespace:\\root\cimv2\terminalservices path win32_terminalservicesetting <span class="hljs-built_in">where</span> (__CLASS !=<span class="hljs-string">&quot;&quot;</span>) call setallowtsconnections <span class="hljs-number">1</span>
 
-<span class="hljs-comment">#在windows server 2012开启3389端口（2012没有tsconfig.msc,存在RDMS限制远程桌面登录，需要修改fSingleSessionPerUser）</span>
+<span class="hljs-comment">#在windows server 2012开启3389端口，实际测试下来win32_tsgeneralsetting 设置并未成功开启3389端口，还是用win2008的命令开启</span>
 wmic /namespace:\\root\cimv2\terminalservices path win32_tsgeneralsetting <span class="hljs-built_in">where</span> (TerminalName=<span class="hljs-string">&#x27;RDP-Tcp&#x27;</span>) call setuserauthenticationrequired <span class="hljs-number">1</span>
+
+<span class="hljs-comment">#2012没有tsconfig.msc,存在RDMS限制远程桌面登录，需要修改fSingleSessionPerUser</span>
 reg add <span class="hljs-string">&quot;HKLM\SYSTEM\CURRENT\CONTROLSET\CONTROL\TERMINAL SERVER&quot;</span> /v fSingleSessionPerUser /t REG_DWORD /d <span class="hljs-number">0</span> /f
 
 <span class="hljs-comment">#正常情况下开启3389端口：通过cmd</span>
 REG ADD <span class="hljs-string">&quot;HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server&quot;</span> /v fDenyTSConnections /t REG_DWORD /d <span class="hljs-number">00000000</span> /f
 REG ADD <span class="hljs-string">&quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot;</span> /v PortNumber /t REG_DWORD /d <span class="hljs-number">0</span>x00000d3d /f
+
 <span class="hljs-comment">#通过reg文件</span>
 Windows Registry Editor Version <span class="hljs-number">5.00</span>
 [<span class="hljs-type">HKEY_LOCAL_MACHINE</span>\<span class="hljs-type">SYSTEM</span>\<span class="hljs-type">CurrentControlSet</span>\<span class="hljs-type">Control</span>\<span class="hljs-type">Terminal</span> <span class="hljs-type">Server</span>]
 <span class="hljs-string">&quot;fDenyTSConnections&quot;</span>=dword:<span class="hljs-number">00000000</span>
 [<span class="hljs-type">HKEY_LOCAL_MACHINE</span>\<span class="hljs-type">SYSTEM</span>\<span class="hljs-type">CurrentControlSet</span>\<span class="hljs-type">Control</span>\<span class="hljs-type">Terminal</span> <span class="hljs-type">Server</span>\<span class="hljs-type">WinStations</span>\<span class="hljs-type">RDP</span>-<span class="hljs-type">Tcp</span>]
 <span class="hljs-string">&quot;PortNumber&quot;</span>=dword:<span class="hljs-number">00000</span>d3d
+
 <span class="hljs-comment">#导入注册表：</span>
 regedit /s a.reg</code></pre>
 
@@ -331,7 +335,16 @@ regedit /s a.reg</code></pre>
 <td>BitDefender</td>
 </tr>
 </tbody></table>
-<h3 id="2-2-自动搜集信息"><a href="#2-2-自动搜集信息" class="headerlink" title="2.2 自动搜集信息"></a>2.2 自动搜集信息</h3><p>通过使用Windows管理工具命令行（WMIC）进行搜集。</p>
+<h3 id="2-2-自动搜集信息"><a href="#2-2-自动搜集信息" class="headerlink" title="2.2 自动搜集信息"></a>2.2 自动搜集信息</h3><ol>
+<li><p>通过bat脚本进行搜集。</p>
+<p>repo: <a target="_blank" rel="noopener" href="https://github.com/SevenC-base/PostExploitation/tree/master/windows/%E4%B8%BB%E6%9C%BA%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86">https://github.com/SevenC-base/PostExploitation/</a></p>
+</li>
+<li><p>通过Empire的信息搜集模块</p>
+<p><code>usemodule situational_awareness/host/winenum</code></p>
+<p><code>usemodule situational_awareness/host/computerdetails</code></p>
+</li>
+</ol>
+<p>​    </p>
 <h2 id="3-查询当前权限"><a href="#3-查询当前权限" class="headerlink" title="3. 查询当前权限"></a>3. 查询当前权限</h2><p>77</p>
 <p>010</p>
 <h2 id="4-判断是否存在域"><a href="#4-判断是否存在域" class="headerlink" title="4. 判断是否存在域"></a>4. 判断是否存在域</h2><h2 id="5-探测域内存活主机"><a href="#5-探测域内存活主机" class="headerlink" title="5. 探测域内存活主机"></a>5. 探测域内存活主机</h2><h2 id="6-扫描域内端口"><a href="#6-扫描域内端口" class="headerlink" title="6. 扫描域内端口"></a>6. 扫描域内端口</h2><h2 id="7-搜集域内基础信息"><a href="#7-搜集域内基础信息" class="headerlink" title="7. 搜集域内基础信息"></a>7. 搜集域内基础信息</h2><h2 id="8-查找域控制器"><a href="#8-查找域控制器" class="headerlink" title="8. 查找域控制器"></a>8. 查找域控制器</h2><h2 id="9-获取域内的用户和管理员信息"><a href="#9-获取域内的用户和管理员信息" class="headerlink" title="9. 获取域内的用户和管理员信息"></a>9. 获取域内的用户和管理员信息</h2><h2 id="10-定位域管理员"><a href="#10-定位域管理员" class="headerlink" title="10.定位域管理员"></a>10.定位域管理员</h2><h2 id="11-查找域管理进程"><a href="#11-查找域管理进程" class="headerlink" title="11. 查找域管理进程"></a>11. 查找域管理进程</h2><h2 id="12-域管理员方法模拟简介"><a href="#12-域管理员方法模拟简介" class="headerlink" title="12. 域管理员方法模拟简介"></a>12. 域管理员方法模拟简介</h2><h2 id="13-利用power-shell收集域内信息"><a href="#13-利用power-shell收集域内信息" class="headerlink" title="13. 利用power shell收集域内信息"></a>13. 利用power shell收集域内信息</h2><h2 id="14-域分析工具-Blood-Hound"><a href="#14-域分析工具-Blood-Hound" class="headerlink" title="14. 域分析工具 Blood Hound"></a>14. 域分析工具 Blood Hound</h2><h2 id="15-敏感数据的防护"><a href="#15-敏感数据的防护" class="headerlink" title="15.敏感数据的防护"></a>15.敏感数据的防护</h2><h2 id="16-分析内网段划分情况以及拓扑结构"><a href="#16-分析内网段划分情况以及拓扑结构" class="headerlink" title="16. 分析内网段划分情况以及拓扑结构"></a>16. 分析内网段划分情况以及拓扑结构</h2>
