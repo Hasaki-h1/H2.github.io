@@ -131,7 +131,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwxfqi46000j6g4z4sgh34ki" class="article article-type-post" itemscope
+    <article id="post-ckwxoyksf000jb04z4mlp3bfz" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -181,11 +181,11 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <h1 id="1-简述"><a href="#1-简述" class="headerlink" title="1.简述"></a>1.简述</h1><p>Empire一款只针对win系统的后渗透神器，该工具是基于Poweshell脚本的攻击框架</p>
+            <h1 id="1-简述"><a href="#1-简述" class="headerlink" title="1. 简述"></a>1. 简述</h1><p>Empire一款只针对win系统的后渗透神器，该工具是基于Poweshell脚本的攻击框架</p>
 <p>主要实现对内网、对域的攻击，提权横向移动等。</p>
 <span id="more"></span>
 
-<h1 id="2-环境配置"><a href="#2-环境配置" class="headerlink" title="2.环境配置"></a>2.环境配置</h1><p>正常安装过程中BUG比较多，安装各种报错，属实恼火，本次以docker安装测试为主。</p>
+<h1 id="2-环境配置"><a href="#2-环境配置" class="headerlink" title="2. 环境配置"></a>2. 环境配置</h1><p>正常安装过程中BUG比较多，安装各种报错，属实恼火，本次以docker安装测试为主。</p>
 <p>Linux安装，需要python2.7环境。</p>
 <pre><code class="hljs shell">git clone https://github.com/EmpireProject/Empire.git
 sudo ./Empire/setup/install.sh
@@ -194,7 +194,7 @@ sudo ./Empire/empire</code></pre>
 
 <p>Docker安装</p>
 <pre><code class="hljs shell">docker pull empireproject/empire
-docker run -it --name empire empireproject/empire /bin/bash
+docker run -it -p 4567:4567 -p 4568:4568 --name empire empireproject/empire /bin/bash
 sudo ./setup/reset.sh
 sudo ./empire</code></pre>
 
@@ -215,7 +215,33 @@ docker run -it 4</code></pre>
 <p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211207210530569.png" alt="image-20211207210530569"></p>
 <p>终于成功跑起来了，T.T</p>
 <p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/lx_clip1638806200654.png" alt="img"></p>
-<h1 id="3-基本功能概述"><a href="#3-基本功能概述" class="headerlink" title="3.基本功能概述"></a>3.基本功能概述</h1>
+<h1 id="3-基本功能概述"><a href="#3-基本功能概述" class="headerlink" title="3. 基本功能概述"></a>3. 基本功能概述</h1><h1 id="4-基本使用"><a href="#4-基本使用" class="headerlink" title="4. 基本使用"></a>4. 基本使用</h1><h2 id="4-1-设置监听器"><a href="#4-1-设置监听器" class="headerlink" title="4.1 设置监听器"></a>4.1 设置监听器</h2><p>首先要进入监听器模块，之后选择监听器类型，设置URL，生成名称为test1的监听器，注意大小写敏感。</p>
+<pre><code class="hljs shell">listeners
+uselistener http
+set Name test1
+set Host http://172.17.0.2:4567
+set Port 4567
+execute</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211208214705069.png" alt="image-20211208214705069"></p>
+<p>查看刚刚设置的监听器（返回使用back）：</p>
+<pre><code class="hljs shell">list listeners</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211208215020219.png" alt="image-20211208215020219"></p>
+<p><font color="red"> <strong>注意：</strong> </font></p>
+<p>由于我是在docker中启动的empire，而docker环境在未进行配置的情况下不能被外部访问，只能通过-p指定端口，所以生成木马的时候上线主机应设置为宿主机的IP，之后得再改回来，比较麻烦。</p>
+<p>宿主机 IP：192.168.2.8</p>
+<p>docker IP：172.17.0.2</p>
+<p>先使用宿主机IP生成木马：</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211208230234085.png" alt="image-20211208230234085"></p>
+<p>生成后更改IP为dockerIP，并重启监听器：</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211208230343717.png" alt="image-20211208230343717"></p>
+<h3 id="4-2-上线操作"><a href="#4-2-上线操作" class="headerlink" title="4.2 上线操作"></a>4.2 上线操作</h3><p> 受害主机运行ps脚本，成功上线。首先重命名为win8，后续进入交互界面。</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211208230529437.png" alt="image-20211208230529437"></p>
+<p>查看主机上线列表可以使用<code>agents</code>命令：</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211208230914313.png" alt="image-20211208230914313"></p>
+<p>获取uid</p>
+
         </div>
 
     </div>
