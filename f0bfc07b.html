@@ -131,7 +131,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckwz7cklx000gvc4z4epp0qof" class="article article-type-post" itemscope
+    <article id="post-ckx0g9ycc000ok44z1s4iamrp" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -215,7 +215,49 @@ docker run -it 434 /bin/bash</code></pre>
 <p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211207210530569.png" alt="image-20211207210530569"></p>
 <p>终于成功跑起来了，T.T</p>
 <p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/lx_clip1638806200654.png" alt="img"></p>
-<h1 id="3-模块概述"><a href="#3-模块概述" class="headerlink" title="3. 模块概述"></a>3. 模块概述</h1><p>看了官网描述，大概模块分类如下：</p>
+<h1 id="3-模块概述"><a href="#3-模块概述" class="headerlink" title="3. 模块概述"></a>3. 模块概述</h1><p>看了官网描述，大概内容如下：</p>
+<pre><code class="hljs shell">├── Fundamentals
+│   ├── Listeners
+│   ├── Stagers
+│   ├── Agents
+│   └── Logging-and-Downloads
+├── Mimikatz
+│   ├── Credentials
+│   └── Kerberos
+├── Situational-Awareness
+│   ├── Host
+│   └── Network
+├── Privesc
+│   ├── UAC-Bypass
+│   ├── PowerUp
+│   └── GPP
+├── Collection
+│   ├── ClipboardTheft
+│   ├── Keylogging
+│   ├── Screenshots
+│   └── Misc.
+├── Lateral-Movement
+│   ├── Pass-the-hash
+│   ├── Invoke-WMI
+│   ├── Invoke-PsExec
+│   └── PSRemoting
+├── Persistence
+│   ├── PowerBreach
+│   ├── Userland
+│   ├── Elevated
+│   ├── Debuggers
+│   └── Misc.
+├── MSF-Integration
+│   ├── Empire-as-a-Payload
+│   └── Foreign-MSF-Listeners
+└── Misc.
+    ├── Empire-Staging
+    ├── Module-Development
+    ├── Process-Injection
+    └── Session-Passing</code></pre>
+
+
+
 <h1 id="4-基本使用"><a href="#4-基本使用" class="headerlink" title="4. 基本使用"></a>4. 基本使用</h1><h2 id="4-1-设置监听器"><a href="#4-1-设置监听器" class="headerlink" title="4.1 设置监听器"></a>4.1 设置监听器</h2><p>首先要进入监听器模块，之后选择监听器类型，设置URL，生成名称为test1的监听器，注意大小写敏感。</p>
 <pre><code class="hljs shell">listeners
 uselistener http
@@ -262,10 +304,12 @@ docker exec -it 3f791 /bin/bash</code></pre>
 <p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211209221754119.png" alt="image-20211209221754119"></p>
 <p>一些基本的信息搜集：<code>systeminfo</code>，<code>getuid</code>，<code>creds</code></p>
 <p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211209222134918.png" alt="image-20211209222133970"></p>
-<p>使用模块搜集信息（存在中文乱码情况，暂未解决）：</p>
+<p>使用模块搜集信息（存在中文乱码情况，暂未解决，后续测试换了English的环境…..）：</p>
 <pre><code class="hljs plaintext">usemodule situational_awareness/host/computerdetails
 usemodule situational_awareness/host/winenum</code></pre>
 
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211210202434575.png" alt="image-20211210202434575"></p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211210203228598.png" alt="image-20211210203228598"></p>
 <p>其他模块：</p>
 <pre><code class="hljs shell">collection/screenshot
 collection/keylogger
