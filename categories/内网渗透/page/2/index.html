@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>squid搭建代理服务器(centos7) | RainMaker</title>
+    <title>Category | 内网渗透 | RainMaker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -34,7 +34,7 @@
 
 
     <script>
-        window.isPost = true
+        window.isPost = false
         window.aomori = {
             
             
@@ -130,200 +130,40 @@
         <div class="main">
             <section class="inner">
                 <section class="inner-main">
-                    <div class="post">
-    <article id="post-ckxflrc7s001t444zcbzsfbez" class="article article-type-post" itemscope
-    itemprop="blogPost">
+                    <section class="archives-cover"></section>
 
-    <div class="article-inner">
 
-        
-          
-        
-        
-        
-
-        
-        <header class="article-header">
-            
+    
+    
+    
+    
+    <section class="archives-wrap">
+        <div class="archive-year-wrap">
+        <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
   
-    <h1 class="article-title" itemprop="name">
-      squid搭建代理服务器(centos7)
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/110a209a.html">ICMP隧道学习（ptunnel学习）</a>
     </h1>
   
-
-        </header>
-        
-
-        <div class="article-more-info article-more-info-post hairline">
-
-            <div class="article-date">
-  <time datetime="2020-10-11T09:40:52.000Z" itemprop="datePublished">2020-10-11</time>
-</div>
-
-            
-            <div class="article-category">
-                <a class="article-category-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a>
-            </div>
-            
-
-            
-            <div class="article-tag">
-                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li></ul>
-            </div>
-            
-
-            
-            <div class="article-busuanzi">
-                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
-            </div>
-            
-
-        </div>
-
-        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <p>使用squid搭建 centos7代理服务器<span id="more"></span></p>
-<h2 id="Centos7服务器端"><a href="#Centos7服务器端" class="headerlink" title="Centos7服务器端"></a>Centos7服务器端</h2><p>1、开启IP_Forward：</p>
-<pre><code class="hljs bash"><span class="hljs-built_in">echo</span> 1 &gt; /proc/sys/net/ipv4/ip_forward</code></pre>
-
-<p>2、安装squid</p>
-<pre><code class="hljs bash">yum install squid</code></pre>
-
-<p>3、修改配置文件/etc/squid/squid.conf</p>
-<pre><code class="hljs bash">vi /etc/squid/squid.conf</code></pre>
-<p>增加如下配置</p>
-<pre><code class="hljs bash">acl OverConnLimit maxconn 10       <span class="hljs-comment">#定义每个IP最大连接数</span>
-auth_param basic program /usr/lib64/squid/basic_ncsa_auth /etc/squid/passwords <span class="hljs-comment">#配置的认证方式和认证文件</span>
-auth_param basic children 5  <span class="hljs-comment">#认证程序的进程数</span>
-auth_param basic realm superman<span class="hljs-string">&#x27;s squid server #代理连接提示信息,详见下图</span>
-<span class="hljs-string">auth_param basic credentialsttl 5 hours #认证持续时间</span>
-<span class="hljs-string">acl authenticated proxy_auth REQUIRED #设置代理需要认证</span>
-<span class="hljs-string">http_access deny OverConnLimit #超出连接数则拒绝</span>
-<span class="hljs-string">http_access allow authenticated #允许认证用户访问</span>
-<span class="hljs-string">http_access deny all #拒绝其他访问</span></code></pre>
-<p><img src="https://img-blog.csdnimg.cn/20201011163855457.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>注释如下配置：</p>
-<pre><code class="hljs bash"><span class="hljs-comment"># http_access deny !Safe_ports</span>
-<span class="hljs-comment"># http_access deny CONNECT !SSL_ports</span>
-<span class="hljs-comment"># http_access deny to_localhost</span>
-<span class="hljs-comment"># http_access allow localnet</span>
-<span class="hljs-comment"># http_access deny all</span></code></pre>
-<p>修改如下配置：</p>
-<pre><code class="hljs bash"><span class="hljs-comment"># Squid normally listens to port 3128</span>
-http_port 6666 <span class="hljs-comment">#修改默认端口3128为自定义端口6666</span></code></pre>
-
-<p>4、生成密码文件</p>
-<pre><code class="hljs bash">yum install httpd</code></pre>
-
-<pre><code class="hljs bash">htpasswd -c -d /etc/squid/passwords superman <span class="hljs-comment">#创建一个密码文件名为passwords，账号名为superman</span></code></pre>
-<p>注意密码长度过长会截断为8个字符，即密码长度&lt;=8。</p>
-<pre><code class="hljs bash">[root@vm228789 squid]<span class="hljs-comment"># htpasswd -c -d /etc/squid/passwords superman</span>
-New password:
-Re-type new password:
-Warning: Password truncated to 8 characters by CRYPT algorithm.
-Adding password <span class="hljs-keyword">for</span> user surperman</code></pre>
-<p>5、重启服务并加入开机启动</p>
-<pre><code class="hljs bash">systemctl start squid.service</code></pre>
-
-<pre><code class="hljs bash">systemctl <span class="hljs-built_in">enable</span> squid.service</code></pre>
-<p>6、防火墙开放6666端口</p>
-<pre><code class="hljs bash">firewall-cmd --zone=public --add-port=6666/tcp --permanent</code></pre>
-
-<pre><code class="hljs bash">systemctl restart firewalld.service <span class="hljs-comment">#重启防火墙生效</span></code></pre>
-
-<h2 id="Centos7-客户端"><a href="#Centos7-客户端" class="headerlink" title="Centos7 客户端"></a>Centos7 客户端</h2><p>1、编辑配置文件(设置永久全局代理)</p>
-<pre><code class="hljs bash">vi /etc/profile</code></pre>
-<p>2、末尾增加http_proxy配置，用户名密码为服务器端配置的账户superman 和自定义的8位密码</p>
-<pre><code class="hljs bash"><span class="hljs-comment">#add http_proxy</span>
-<span class="hljs-built_in">export</span> http_proxy=http://用户名:密码@服务器IP:端口/
-<span class="hljs-built_in">export</span> http_proxy</code></pre>
-<p>3、测试连接</p>
-<pre><code class="hljs python">[root@localhost /]<span class="hljs-comment"># curl http://myip.ipip.net</span>
-当前 IP：XXX.XXX.XXX.XXX  来自于：俄罗斯 新西伯利亚州</code></pre>
-
-
-
-<h2 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h2><ul>
-<li>1、squid配置文件格式不对启动不起来的，需要仔细检查，重点区分/<code>etc/squid3</code>和<code>/etc/squid</code>、<code>/usr/lib64/squid/</code>和<code>/usr/lib/squid/</code>,其实也就是关注有无该路径或者文件。</li>
-<li>2、<code>http_access allow authenticated</code><br>该项不要简写为auth_user，我测试的时候是没成功的，头铁的多试试</li>
-</ul>
-
-        </div>
-
-    </div>
-
-    
-
-    
-
-    
-
-    
-<div class="article-copyright hairline">
-  <p>
-    本作品采用 <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a> 进行许可。
-  </p>
-</div>
-
-
-    
-
-    
-<nav class="article-nav">
-  
-    <a href="/dbdb0474.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-caption">下一篇</div>
-      <div class="article-nav-title">
-        
-          一次失败的CTF尝试记录（SSRF利用）
-        
-      </div>
-    </a>
-  
-  
-    <a href="/7b84e3eb.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-caption">上一篇</div>
-      <div class="article-nav-title">IPv6隧道搭建</div>
-    </a>
-  
-</nav>
-
-
-    <section class="share">
-        <div class="share-title">分享</div>
-        <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=squid搭建代理服务器(centos7) - RainMaker&url=http://hasaki-h2.github.io/e0249e5.html">
-            <box-icon type='logo' name='twitter'></box-icon>
-        </a>
-        <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=squid搭建代理服务器(centos7) - RainMaker&u=http://hasaki-h2.github.io/e0249e5.html">
-            <box-icon name='facebook-square' type='logo' ></box-icon>
-        </a>
-        <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=squid搭建代理服务器(centos7) - RainMaker&url=http://hasaki-h2.github.io/e0249e5.html&pic=">
-            <div class="n-icon n-icon-weibo"></div>
-        </a> -->
-    </section>
 
 </article>
 
 
+    </div></section>
 
 
 
+  <nav class="pagination">
+    
+    <a class="extend prev" rel="prev" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">上一篇</a><a class="page-number" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">1</a><span class="page-number current">2</span>
+  </nav>
 
 
-
-<section class="comments">
-    <div id="valine-container"></div>
-</section>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-
-
-
-
-
-<script src="./js/busuanzi.pure.mini.js"></script>
-
-</div>
                 </section>
             </section>
 
@@ -345,12 +185,6 @@ Adding password <span class="hljs-keyword">for</span> user surperman</code></pre
 <div class="widget" id="widget">
     
       
-  <div class="widget-wrap">
-    <div class="widget-inner">
-      <div class="toc post-toc-html"></div>
-    </div>
-  </div>
-
     
       
   <div class="widget-wrap widget-cate">
