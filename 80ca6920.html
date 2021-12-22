@@ -131,7 +131,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckxflvmze004db84zd86d4twn" class="article article-type-post" itemscope
+    <article id="post-ckxhhwrj1004b8s4zcj6e2sno" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -181,8 +181,13 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <p>老表发我一个SSRF的CTF题，感觉还不错，还能练习下SSRF挖掘技巧，权作学习记录。</p>
-<h1 id="审题"><a href="#审题" class="headerlink" title="审题"></a>审题</h1><p>docker搭建好基本上就是一个seo站长工具界面，撸了一遍接口发现如下接口存在漏洞。<span id="more"></span></p>
+            <p>老表发我一个SSRF的CTF题，感觉还不错，还能练习下SSRF挖掘技巧，权作学习记录。<span id="more"></span></p>
+<h1 id="审题"><a href="#审题" class="headerlink" title="审题"></a>审题</h1><p>环境搭建：</p>
+<pre><code class="hljs shell">git clone https://github.com/sqlsec/ByteCTF2021-Final-SEO.git
+cd ByteCTF2021-Final-SEO/Dockerfile
+docker-compose up -d</code></pre>
+
+<p>docker搭建好基本上就是一个seo站长工具界面，撸了一遍接口发现如下接口存在漏洞。</p>
 <p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211219225804012.png" alt="image-20211219225804012"></p>
 <h1 id="做题"><a href="#做题" class="headerlink" title="做题"></a>做题</h1><p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211219225930395.png" alt="image-20211219225930395"></p>
 <p>到这基本上就确定SSRF点了，不过这个是我测试方法，一般情况下还要测试下外网域名是否能够访问。</p>
