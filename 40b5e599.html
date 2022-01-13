@@ -131,7 +131,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckxo4x1n8002uwk4zeffd09x1" class="article article-type-post" itemscope
+    <article id="post-ckyd9v92i006uxg4z7bmy2ef7" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -181,12 +181,13 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <h2 id="1-内网信息搜集概述"><a href="#1-内网信息搜集概述" class="headerlink" title="1. 内网信息搜集概述"></a>1. 内网信息搜集概述</h2><p>我是谁?   一对当前机器角色的判断。</p>
+            <h2 id="2-1-内网信息搜集概述"><a href="#2-1-内网信息搜集概述" class="headerlink" title="2.1 内网信息搜集概述"></a>2.1 内网信息搜集概述</h2><p>我是谁?   一对当前机器角色的判断。</p>
 <p>这是哪?   一对当前机器所处网络环境的拓扑结构进行分析和判断。</p>
 <p>我在哪?   一对当前机器所处区域的判断。</p>
 <span id="more"></span>
-<h2 id="2-收集本机信息"><a href="#2-收集本机信息" class="headerlink" title="2. 收集本机信息"></a>2. 收集本机信息</h2><p>本机信息：操作系统、权限、内网IP段、杀毒软件、端口、服务、补丁更新频率、网络连接、共享、会话等。</p>
-<h3 id="2-1-手动搜集信息"><a href="#2-1-手动搜集信息" class="headerlink" title="2.1 手动搜集信息"></a>2.1 手动搜集信息</h3><pre><code class="hljs powershell"><span class="hljs-comment">#查询网络配置信息</span>
+
+<h2 id="2-2-收集本机信息"><a href="#2-2-收集本机信息" class="headerlink" title="2. 2 收集本机信息"></a>2. 2 收集本机信息</h2><p>本机信息：操作系统、权限、内网IP段、杀毒软件、端口、服务、补丁更新频率、网络连接、共享、会话等。</p>
+<h3 id="2-2-1-手动搜集信息"><a href="#2-2-1-手动搜集信息" class="headerlink" title="2.2.1 手动搜集信息"></a>2.2.1 手动搜集信息</h3><pre><code class="hljs powershell"><span class="hljs-comment">#查询网络配置信息</span>
 ipconfig    /all
 netstat <span class="hljs-literal">-ano</span> | findstr ESTABLISHED
 
@@ -335,19 +336,266 @@ regedit /s a.reg</code></pre>
 <td>BitDefender</td>
 </tr>
 </tbody></table>
-<h3 id="2-2-自动搜集信息"><a href="#2-2-自动搜集信息" class="headerlink" title="2.2 自动搜集信息"></a>2.2 自动搜集信息</h3><ol>
-<li><p>通过bat脚本进行搜集。</p>
+<h3 id="2-2-2-自动搜集信息"><a href="#2-2-2-自动搜集信息" class="headerlink" title="2.2.2 自动搜集信息"></a>2.2.2 自动搜集信息</h3><p>通过bat脚本进行搜集。</p>
 <p>repo: <a target="_blank" rel="noopener" href="https://github.com/SevenC-base/PostExploitation/tree/master/windows/%E4%B8%BB%E6%9C%BA%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86">https://github.com/SevenC-base/PostExploitation/</a></p>
-</li>
-<li><p>通过Empire的信息搜集模块</p>
+<h3 id="2-2-3-通过Empire的信息搜集模块"><a href="#2-2-3-通过Empire的信息搜集模块" class="headerlink" title="2.2.3 通过Empire的信息搜集模块"></a>2.2.3 通过Empire的信息搜集模块</h3><p>可以参考博文：<a href="https://hasaki-h2.github.io/f0bfc07b.html">Empire-配置安装和基本使用</a></p>
 <p><code>usemodule situational_awareness/host/winenum</code></p>
 <p><code>usemodule situational_awareness/host/computerdetails</code></p>
+<p>​    <img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211210203228598.png"></p>
+<h2 id="2-3-查询当前权限"><a href="#2-3-查询当前权限" class="headerlink" title="2.3 查询当前权限"></a>2.3 查询当前权限</h2><h3 id="1-查看当前权限"><a href="#1-查看当前权限" class="headerlink" title="1.查看当前权限"></a>1.查看当前权限</h3><pre><code class="hljs powershell">whoami</code></pre>
+
+<ul>
+<li><p>本地普通用户只能查询本机相关信息，不能查询域内信息。</p>
 </li>
-</ol>
-<p>​    </p>
-<h2 id="3-查询当前权限"><a href="#3-查询当前权限" class="headerlink" title="3. 查询当前权限"></a>3. 查询当前权限</h2><p>77</p>
-<p>010</p>
-<h2 id="4-判断是否存在域"><a href="#4-判断是否存在域" class="headerlink" title="4. 判断是否存在域"></a>4. 判断是否存在域</h2><h2 id="5-探测域内存活主机"><a href="#5-探测域内存活主机" class="headerlink" title="5. 探测域内存活主机"></a>5. 探测域内存活主机</h2><h2 id="6-扫描域内端口"><a href="#6-扫描域内端口" class="headerlink" title="6. 扫描域内端口"></a>6. 扫描域内端口</h2><h2 id="7-搜集域内基础信息"><a href="#7-搜集域内基础信息" class="headerlink" title="7. 搜集域内基础信息"></a>7. 搜集域内基础信息</h2><h2 id="8-查找域控制器"><a href="#8-查找域控制器" class="headerlink" title="8. 查找域控制器"></a>8. 查找域控制器</h2><h2 id="9-获取域内的用户和管理员信息"><a href="#9-获取域内的用户和管理员信息" class="headerlink" title="9. 获取域内的用户和管理员信息"></a>9. 获取域内的用户和管理员信息</h2><h2 id="10-定位域管理员"><a href="#10-定位域管理员" class="headerlink" title="10.定位域管理员"></a>10.定位域管理员</h2><h2 id="11-查找域管理进程"><a href="#11-查找域管理进程" class="headerlink" title="11. 查找域管理进程"></a>11. 查找域管理进程</h2><h2 id="12-域管理员方法模拟简介"><a href="#12-域管理员方法模拟简介" class="headerlink" title="12. 域管理员方法模拟简介"></a>12. 域管理员方法模拟简介</h2><h2 id="13-利用power-shell收集域内信息"><a href="#13-利用power-shell收集域内信息" class="headerlink" title="13. 利用power shell收集域内信息"></a>13. 利用power shell收集域内信息</h2><h2 id="14-域分析工具-Blood-Hound"><a href="#14-域分析工具-Blood-Hound" class="headerlink" title="14. 域分析工具 Blood Hound"></a>14. 域分析工具 Blood Hound</h2><h2 id="15-敏感数据的防护"><a href="#15-敏感数据的防护" class="headerlink" title="15.敏感数据的防护"></a>15.敏感数据的防护</h2><h2 id="16-分析内网段划分情况以及拓扑结构"><a href="#16-分析内网段划分情况以及拓扑结构" class="headerlink" title="16. 分析内网段划分情况以及拓扑结构"></a>16. 分析内网段划分情况以及拓扑结构</h2>
+<li><p>本地管理员账户和域内用户可以查询域内信息。</p>
+</li>
+</ul>
+<p>原理：域内的所有查询都是通过域控制器实现的（基于LDAP协议），而这个查询需要经过权限认证，所以只有域用户才拥有这个权限。当域用户执行查询命令时，会自动使用Kerberos协议，无须额外输入账号和密码。本地管理员administrator权限可以直接提升为Ntauthority或System权限，因此在域中，除普通用户外，所有机器都有一个机器用户（用户名是机器名加上”$”）。在本质上，机器的system用户对应的就是域里边的机器用户。所以使用System权限可以运行域内的查询命令。</p>
+<h3 id="2-获取域SID"><a href="#2-获取域SID" class="headerlink" title="2.获取域SID"></a>2.获取域SID</h3><pre><code class="hljs powershell">whoami /all</code></pre>
+
+<p>当前域test.com的SID为：S-1-5-21-636858252-868354219-2394751447</p>
+<p>域用户zs的SID为：S-1-5-21-636858252-868354219-2394751447-1111</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220112130243601.png" alt="image-20220112130243601"></p>
+<h3 id="3-查询指定用户的详细信息"><a href="#3-查询指定用户的详细信息" class="headerlink" title="3.查询指定用户的详细信息"></a>3.查询指定用户的详细信息</h3><pre><code class="hljs plaintext">net user XXX /domain</code></pre>
+
+<p>可以查询到当前用户的权限，组，登录时间等信息。</p>
+<h2 id="2-4-判断是否存在域"><a href="#2-4-判断是否存在域" class="headerlink" title="2.4. 判断是否存在域"></a>2.4. 判断是否存在域</h2><h3 id="1-Ipconfig"><a href="#1-Ipconfig" class="headerlink" title="1. Ipconfig"></a>1. Ipconfig</h3><pre><code class="hljs powershell">ipconfig /all
+
+<span class="hljs-comment">#通过反向解析查询命令</span>
+nslookup test.com</code></pre>
+
+<h3 id="2-查看系统详细信息"><a href="#2-查看系统详细信息" class="headerlink" title="2. 查看系统详细信息"></a>2. 查看系统详细信息</h3><p>登录服务器为域控制器，如果域为”WORKGROUP”，表示当前服务器不在域内。</p>
+<pre><code class="hljs plaintext">systeminfo</code></pre>
+
+<h3 id="3-查询当前登录域及登录用户信息"><a href="#3-查询当前登录域及登录用户信息" class="headerlink" title="3. 查询当前登录域及登录用户信息"></a>3. 查询当前登录域及登录用户信息</h3><p>“工作站域 DNS 名称” 为域名，”登录域” 用户表示当前登录的用户是域用户还是本地用户。</p>
+<pre><code class="hljs plaintext">net config workstation</code></pre>
+
+<h3 id="4-判断主域"><a href="#4-判断主域" class="headerlink" title="4.判断主域"></a>4.判断主域</h3><pre><code class="hljs plaintext">net time /domain</code></pre>
+
+<p>存在域，但当前用户不是域用户。</p>
+<p>存在域，且当前用户是域用户。</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220112134922646.png" alt="image-20220112134922646"></p>
+<p>不存在域，当前网络环境为工作组。</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220112134931825.png" alt="image-20220112134931825"></p>
+<h2 id="2-5-探测域内存活主机"><a href="#2-5-探测域内存活主机" class="headerlink" title="2.5. 探测域内存活主机"></a>2.5. 探测域内存活主机</h2><h3 id="2-5-1-利用NetBIOS快速探测内网"><a href="#2-5-1-利用NetBIOS快速探测内网" class="headerlink" title="2.5.1 利用NetBIOS快速探测内网"></a>2.5.1 利用NetBIOS快速探测内网</h3><p> NetBIOS是局域网程序使用的一种应用程序编程接口（API），为程序提供了请求低级别服务 的统一的命令集，为局域网提供了网络及其他特殊功能。几乎所有的局域网都是在NetBIOS协议 的基础上工作的。NetBIOS也是计算机的标识名，主要用于局域网中计算机的互访。NetBIOS的 工作流程就是正常的机器名解析查询应答过程，因此推荐优先使用。</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/3b292df5e0fe9925bc31581f48f849df8db1cb13db66" alt="img"></p>
+<p>nbtscan是—个命令行工具，用于扫描本地或远程 TCP/IP 网络上的开放 NetBIOS 名称服务器。nbtscan有Windows和Linux两个版本，体积小，不需要安装特殊的库或DLL就能使用。</p>
+<p>repo：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/scallywag/nbtscan">https://github.com/scallywag/nbtscan</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/lifenjoiner/nbtscan">https://github.com/lifenjoiner/nbtscan</a></p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220112142228726.png" alt="image-20220112142228726"></p>
+<p>第—列为IP地址，第二列为机器名和所在域的名称，最后一列是机器所开启的服务的列表，具体含义如表所示：</p>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SHARING</td>
+<td>该机器种存在正在运行的文件和打印共享服务，但不一定有内容共享</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>该机器可能是域控制器</td>
+</tr>
+<tr>
+<td>U=USER</td>
+<td>该机其中有登录名为User的用户（不太准确）</td>
+</tr>
+<tr>
+<td>IIS</td>
+<td>该机器种可能安装了IIS服务器</td>
+</tr>
+<tr>
+<td>EXCHANGE</td>
+<td>该机器种可能安装了Exchange</td>
+</tr>
+<tr>
+<td>NOTES</td>
+<td>该机器种可能安装了Lotus Notes电子邮件客户端</td>
+</tr>
+<tr>
+<td>?</td>
+<td>没有识别处该机器的NetBIOS资源（可以使用-F选项再次扫描）</td>
+</tr>
+</tbody></table>
+<h3 id="2-5-2-利用ICMP协议快速探测内网"><a href="#2-5-2-利用ICMP协议快速探测内网" class="headerlink" title="2.5.2 利用ICMP协议快速探测内网"></a>2.5.2 利用ICMP协议快速探测内网</h3><pre><code class="hljs powershell"><span class="hljs-keyword">for</span> /L %I <span class="hljs-keyword">in</span> (<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">254</span>) <span class="hljs-keyword">DO</span> @ping <span class="hljs-literal">-w</span> <span class="hljs-number">1</span> <span class="hljs-literal">-n</span> <span class="hljs-number">1</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">2</span>.%I | findstr <span class="hljs-string">&quot;TTL=&quot;</span></code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220112144310180.png" alt="image-20220112144310180"></p>
+<p>需要修改IP地址段以及保存结果的路径（默认保存在<code>C:\Windows\Temp\Result.txt</code>），VBS脚本如下：</p>
+<pre><code class="hljs vbscript">strSubNet = <span class="hljs-string">&quot;192.168.0.&quot;</span>
+<span class="hljs-keyword">Set</span> objFSO= <span class="hljs-built_in">CreateObject</span>(<span class="hljs-string">&quot;Scripting.Filesystemobject&quot;</span>)
+<span class="hljs-keyword">Set</span> objTs = objfso.CreateTextFile(<span class="hljs-string">&quot;C:\Windows\Temp\Result.txt&quot;</span>)
+<span class="hljs-keyword">For</span> i = <span class="hljs-number">1</span> <span class="hljs-keyword">To</span> <span class="hljs-number">254</span>
+strComputer = strsubNet &amp; i
+blnResult = Ping(strComputer)
+<span class="hljs-keyword">If</span> blnResult = <span class="hljs-literal">True</span> <span class="hljs-keyword">Then</span>
+objTS.WriteLine strComputer &amp; <span class="hljs-string">&quot; is alived ! :) &quot;</span>
+<span class="hljs-keyword">End</span> <span class="hljs-keyword">If</span>
+<span class="hljs-keyword">Next</span>
+objTS.close
+WScript.Echo <span class="hljs-string">&quot;All Ping Scan , All Done ! :) &quot;</span>
+<span class="hljs-keyword">Function</span> Ping(strComputer)
+<span class="hljs-keyword">Set</span> objWMIService = <span class="hljs-built_in">Getobject</span>(<span class="hljs-string">&quot;winmgmts:\\.\root\cimv2&quot;</span>)
+<span class="hljs-keyword">Set</span> colItems = objwMIService.ExecQuery(<span class="hljs-string">&quot;Select * From Win32_PingStatus Where Address=&#x27;&quot;</span> &amp; strComputer &amp; <span class="hljs-string">&quot;&#x27;&quot;</span>)
+<span class="hljs-keyword">For</span> <span class="hljs-keyword">Each</span> objItem <span class="hljs-keyword">In</span> colItems
+<span class="hljs-keyword">Select</span> <span class="hljs-keyword">case</span> objItem.StatusCode
+<span class="hljs-keyword">Case</span> <span class="hljs-number">0</span>
+Ping = <span class="hljs-literal">True</span>
+<span class="hljs-keyword">Case</span> <span class="hljs-keyword">Else</span>
+Ping = <span class="hljs-literal">False</span>
+<span class="hljs-keyword">End</span> <span class="hljs-keyword">select</span>
+<span class="hljs-keyword">Exit</span> <span class="hljs-keyword">For</span>
+<span class="hljs-keyword">Next</span>
+<span class="hljs-keyword">End</span> <span class="hljs-keyword">Function</span></code></pre>
+
+<p>运行：</p>
+<pre><code class="hljs powershell">cscript host<span class="hljs-literal">-scan</span>.vbs</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220112232902425.png" alt="image-20220112232902425"></p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220113013129248.png" alt="image-20220113013129248"></p>
+<h3 id="2-5-3-通过ARP扫描探测内网"><a href="#2-5-3-通过ARP扫描探测内网" class="headerlink" title="2.5.3 通过ARP扫描探测内网"></a>2.5.3 通过ARP扫描探测内网</h3><h4 id="1-arp-scan工具"><a href="#1-arp-scan工具" class="headerlink" title="1. arp-scan工具"></a>1. arp-scan工具</h4><p>repo:</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/QbsuranAlang/arp-scan-windows-">https://github.com/QbsuranAlang/arp-scan-windows-</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/royhills/arp-scan/releases/tag/1.9">https://github.com/royhills/arp-scan/releases/tag/1.9</a></p>
+<p>打包需要修改<code>msvcbuild.bat</code> 文件中的<code>vcvarsall.bat</code>的路径。</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220113001042955.png" alt="image-20220113001042955"></p>
+<p>用法：</p>
+<pre><code class="hljs powershell">arp<span class="hljs-literal">-scan</span>.exe <span class="hljs-literal">-t</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">2.1</span>/<span class="hljs-number">24</span></code></pre>
+
+<p>扫描结果如下：</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220113022642792.png" alt="image-20220113022642792"></p>
+<h4 id="2-Empire中的arpscan模块"><a href="#2-Empire中的arpscan模块" class="headerlink" title="2. Empire中的arpscan模块"></a>2. Empire中的arpscan模块</h4><p>repo:<a target="_blank" rel="noopener" href="https://github.com/EmpireProject/Empire/releases/tag/2.5">https://github.com/EmpireProject/Empire/releases/tag/2.5</a></p>
+<pre><code class="hljs shell">usemodule powershell/situational_awareness/network/arpscan</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220113022020793.png" alt="image-20220113022020793"></p>
+<h4 id="3-Nishang中的Invoke-ARPScan-ps1脚本"><a href="#3-Nishang中的Invoke-ARPScan-ps1脚本" class="headerlink" title="3. Nishang中的Invoke-ARPScan.ps1脚本"></a>3. Nishang中的<code>Invoke-ARPScan.ps1</code>脚本</h4><p>repo:<a target="_blank" rel="noopener" href="https://github.com/samratashok/nishang/releases">https://github.com/samratashok/nishang/releases</a></p>
+<p>通外网的话可以直接远程加载，否则的话就上传到目标服务器中运行。并没有在Nishang中发现该脚本，但是在Empire中发现了该PS1脚本。</p>
+<pre><code class="hljs powershell">powershell.exe <span class="hljs-literal">-exec</span> bypass <span class="hljs-literal">-Command</span> <span class="hljs-string">&quot;&amp; &#123;Import-Module C:\test\Invoke-ARPScan.ps1; Invoke-ARPScan -CIDR 192.168.2.0/24&#125;&quot;</span> &gt;&gt; C:\test\log.txt</code></pre>
+
+<p>执行结果如下：</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220113024355457.png" alt="image-20220113024355457"></p>
+<h3 id="2-5-4-通过常规TCP-UDP端口扫描探测内网"><a href="#2-5-4-通过常规TCP-UDP端口扫描探测内网" class="headerlink" title="2.5.4 通过常规TCP/UDP端口扫描探测内网"></a>2.5.4 通过常规TCP/UDP端口扫描探测内网</h3><p>ScanLine 是—款经典的端口扫描工具，可以在所有版本的Windows操作系统中使用，体积小，仅使用单个文件，同时支持TCP／UDP 端口扫描，命令如下：</p>
+<pre><code class="hljs powershell">scanline <span class="hljs-literal">-ht</span> <span class="hljs-number">21</span><span class="hljs-literal">-23</span>,<span class="hljs-number">25</span>,<span class="hljs-number">80</span><span class="hljs-literal">-89</span>,<span class="hljs-number">110</span>,<span class="hljs-number">135</span><span class="hljs-literal">-139</span>,<span class="hljs-number">143</span>,<span class="hljs-number">389</span>,<span class="hljs-number">443</span>,<span class="hljs-number">445</span>,<span class="hljs-number">1099</span>,<span class="hljs-number">1433</span>,<span class="hljs-number">1521</span>,<span class="hljs-number">2049</span>,<span class="hljs-number">3306</span>,<span class="hljs-number">3389</span>,<span class="hljs-number">5432</span>,<span class="hljs-number">5556</span>,<span class="hljs-number">5631</span>,<span class="hljs-number">5900</span>,<span class="hljs-number">6379</span>,<span class="hljs-number">7001</span>,<span class="hljs-number">8080</span> <span class="hljs-literal">-hu</span> <span class="hljs-number">53</span>,<span class="hljs-number">161</span>,<span class="hljs-number">137</span>,<span class="hljs-number">139</span> <span class="hljs-literal">-O</span> c:\test\log.txt <span class="hljs-literal">-p</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">2.1</span><span class="hljs-literal">-254</span> /b</code></pre>
+
+<p>不过现在会被查杀，一般用不到了，仅作了解。</p>
+<h2 id="2-6-扫描域内端口"><a href="#2-6-扫描域内端口" class="headerlink" title="2.6 扫描域内端口"></a>2.6 扫描域内端口</h2><ul>
+<li>端口banner信息</li>
+<li>端口上常见运行的服务</li>
+<li>常见应用的默认端口</li>
+</ul>
+<h3 id="2-6-1-Telnet扫描"><a href="#2-6-1-Telnet扫描" class="headerlink" title="2.6.1 Telnet扫描"></a>2.6.1 Telnet扫描</h3><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">单个命令</span>
+telnet 192.168.1.2 3389</code></pre>
+
+<p>bat脚本：<a target="_blank" rel="noopener" href="https://maikefee.com/archives/7c32cf47.html">https://maikefee.com/archives/7c32cf47.html</a></p>
+<pre><code class="hljs bat">@<span class="hljs-built_in">echo</span> off
+<span class="hljs-built_in">set</span> Cms=%*
+<span class="hljs-built_in">setlocal</span> enabledelayedexpansion
+<span class="hljs-built_in">chcp</span> <span class="hljs-number">65001</span>
+<span class="hljs-built_in">set</span> files=&quot;&quot;
+<span class="hljs-built_in">set</span> ports=&quot;&quot; 
+<span class="hljs-built_in">color</span> <span class="hljs-number">06</span>
+<span class="hljs-built_in">title</span> telnet-scan端口扫描工具
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">defined</span> Cms <span class="hljs-keyword">goto</span> main
+::-----------------参数分离开始-----------------------------------
+<span class="hljs-keyword">if</span> &quot;%<span class="hljs-number">1</span>&quot; == &quot;-l&quot; (
+<span class="hljs-built_in">set</span> files=%<span class="hljs-number">2</span>
+)
+<span class="hljs-keyword">if</span> &quot;%<span class="hljs-number">1</span>&quot; == &quot;-d&quot; (
+<span class="hljs-keyword">goto</span> del_history
+)
+<span class="hljs-keyword">if</span> &quot;%<span class="hljs-number">3</span>&quot; == &quot;-l&quot; (
+<span class="hljs-built_in">set</span> files=%<span class="hljs-number">4</span>
+)
+<span class="hljs-keyword">if</span> &quot;%<span class="hljs-number">1</span>&quot; == &quot;-p&quot; (
+<span class="hljs-built_in">set</span> ports=%<span class="hljs-number">2</span>
+)
+<span class="hljs-keyword">if</span> &quot;%<span class="hljs-number">3</span>&quot; == &quot;-p&quot; (
+<span class="hljs-built_in">set</span> ports=%<span class="hljs-number">4</span>
+)
+<span class="hljs-built_in">echo</span> <span class="hljs-variable">%ports%</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-variable">%files%</span>
+::-----------------参数分离结束-----------------------------------
+
+::计算域名总数
+<span class="hljs-built_in">set</span> /a num=<span class="hljs-number">0</span>
+<span class="hljs-keyword">for</span> /f <span class="hljs-variable">%%i</span> <span class="hljs-keyword">in</span> (<span class="hljs-variable">%files%</span>) <span class="hljs-keyword">do</span> (
+<span class="hljs-built_in">set</span> /a num=<span class="hljs-variable">!num!</span>+<span class="hljs-number">1</span>
+)
+
+
+::----------------------开始扫描----------------------------------
+<span class="hljs-built_in">set</span> /a a=<span class="hljs-number">1</span>
+:sxh
+<span class="hljs-built_in">set</span> port=&quot;&quot;
+<span class="hljs-keyword">for</span> /f &quot;tokens=<span class="hljs-variable">%a%</span> delims=.&quot; <span class="hljs-variable">%%i</span> <span class="hljs-keyword">in</span> (&#x27;<span class="hljs-built_in">echo</span> <span class="hljs-variable">%ports%</span>&#x27;) <span class="hljs-keyword">do</span> (
+<span class="hljs-built_in">set</span> port=<span class="hljs-variable">%%i</span>
+<span class="hljs-built_in">set</span> /a a=<span class="hljs-variable">%a%</span>+<span class="hljs-number">1</span>
+)
+<span class="hljs-keyword">if</span> <span class="hljs-variable">!port!</span> <span class="hljs-keyword">NEQ</span> &quot;&quot; (
+<span class="hljs-built_in">echo</span> --------------------程序正在扫描 <span class="hljs-variable">!port!</span> 端口,请稍后---------------------------------
+::设置扫描到第几个域名
+<span class="hljs-built_in">set</span> /a nm=<span class="hljs-number">0</span> 
+::设置提示保存
+<span class="hljs-built_in">set</span> /a tib=<span class="hljs-number">0</span>
+<span class="hljs-keyword">for</span> /f <span class="hljs-variable">%%b</span> <span class="hljs-keyword">in</span> (<span class="hljs-variable">%files%</span>) <span class="hljs-keyword">do</span> (
+<span class="hljs-built_in">start</span> /min <span class="hljs-built_in">cmd</span>.exe /k &quot;<span class="hljs-built_in">echo</span> q|telnet <span class="hljs-variable">%%b</span> <span class="hljs-variable">!port!</span>&amp;<span class="hljs-keyword">exit</span>&quot;
+timeout /NOBREAK /t <span class="hljs-number">1</span> &gt;<span class="hljs-built_in">nul</span>
+<span class="hljs-built_in">set</span> pd=&quot;&quot;
+<span class="hljs-keyword">for</span> /f &quot;tokens=<span class="hljs-number">1</span> delims= &quot; <span class="hljs-variable">%%a</span> <span class="hljs-keyword">in</span> (&#x27;tasklist /FI &quot;windowtitle eq Telnet <span class="hljs-variable">%%b</span>&quot;^|<span class="hljs-built_in">findstr</span> &quot;<span class="hljs-built_in">cmd</span>.exe&quot;&#x27;) <span class="hljs-keyword">do</span> (
+<span class="hljs-built_in">set</span> pd=<span class="hljs-variable">%%a</span>
+)
+<span class="hljs-keyword">if</span> <span class="hljs-variable">!pd!</span> <span class="hljs-keyword">EQU</span> &quot;&quot; (
+<span class="hljs-built_in">echo</span> <span class="hljs-variable">%%b</span> <span class="hljs-variable">!port!</span> Open
+<span class="hljs-built_in">echo</span> <span class="hljs-variable">%%b</span>&gt;&gt;<span class="hljs-variable">!port!</span>_Open.txt
+<span class="hljs-built_in">set</span> /a tib=<span class="hljs-number">1</span>
+) <span class="hljs-keyword">else</span> (
+<span class="hljs-built_in">echo</span> <span class="hljs-variable">%%b</span> <span class="hljs-variable">!port!</span> Close
+)
+<span class="hljs-built_in">set</span> /a nm=<span class="hljs-variable">!nm!</span>+<span class="hljs-number">1</span>
+<span class="hljs-built_in">title</span> telnet-scan端口扫描工具 进度 <span class="hljs-variable">!nm!</span>/<span class="hljs-variable">!num!</span>
+)
+<span class="hljs-keyword">if</span> <span class="hljs-variable">!tib!</span> == <span class="hljs-number">0</span> (
+<span class="hljs-built_in">echo</span> -------------------------端口 <span class="hljs-variable">!port!</span> 扫描完毕-----------------------------------------
+) <span class="hljs-keyword">else</span> (
+<span class="hljs-built_in">echo</span> -------------------------端口 <span class="hljs-variable">!port!</span> 扫描完毕,保存为 <span class="hljs-variable">!port!</span>_Open.txt-----------------------
+)
+timeout /NOBREAK /t <span class="hljs-number">35</span> &gt;<span class="hljs-built_in">nul</span>
+<span class="hljs-keyword">goto</span> sxh
+) <span class="hljs-keyword">else</span> (
+<span class="hljs-keyword">goto</span> tc
+)
+::----------------------扫描结束----------------------------------
+:del_history
+<span class="hljs-built_in">echo</span> 正在删除历史扫描记录,请稍后.......
+<span class="hljs-keyword">for</span> /l <span class="hljs-variable">%%i</span> <span class="hljs-keyword">in</span> (<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">10000</span>) <span class="hljs-keyword">do</span> (
+<span class="hljs-built_in">del</span> /f /q <span class="hljs-variable">%%i</span>_Open.txt <span class="hljs-number">1</span>&gt;<span class="hljs-built_in">nul</span> <span class="hljs-number">2</span>&gt;<span class="hljs-built_in">nul</span>
+)
+<span class="hljs-built_in">echo</span> 删除完毕<span class="hljs-variable">!!!</span>
+<span class="hljs-keyword">goto</span> tc
+:main
+<span class="hljs-built_in">mode</span> <span class="hljs-built_in">con</span>: cols=<span class="hljs-number">125</span> lines=<span class="hljs-number">45</span>
+<span class="hljs-built_in">echo</span>  _       _            _ 
+<span class="hljs-built_in">echo</span> ^| ^|_ ___^| ^|_ __   ___^| ^|_     ___  ___ __ _ _ __  
+<span class="hljs-built_in">echo</span> ^| __^/ _ ^\ ^| ^&#x27;_ ^\ ^/ _ ^\ __^|____^/ __^|^/ __^/ _^` ^| ^&#x27;_ ^\
+<span class="hljs-built_in">echo</span> ^| ^|^|  __^/ ^| ^| ^| ^|  __^/ ^|^|_____^\__ ^\ ^(_^| ^(_^| ^| ^| ^| ^|
+<span class="hljs-built_in">echo</span>  ^\__^\___^|_^|_^| ^|_^|^\___^|^\__^|    ^|___^/^\___^\__^,_^|_^| ^|_^|
+<span class="hljs-built_in">echo</span>.
+<span class="hljs-built_in">echo</span>      ^&lt;options^&gt;:
+<span class="hljs-built_in">echo</span>                  -l  list     :域名列表文件
+<span class="hljs-built_in">echo</span>                  -p  port     :要扫描的端口
+<span class="hljs-built_in">echo</span>                  -d  <span class="hljs-built_in">del</span>      :删除保存的历史记录(开放的端口号.txt)                       
+<span class="hljs-built_in">echo</span>.
+<span class="hljs-built_in">echo</span>       ^&lt;Example^&gt;:
+<span class="hljs-built_in">echo</span>                   scan.bat -l c:\host.txt -p <span class="hljs-number">21</span>   
+<span class="hljs-built_in">echo</span>                   scan.bat -l c:\host.txt -p <span class="hljs-number">21</span>.<span class="hljs-number">80</span>.<span class="hljs-number">3389</span>.<span class="hljs-number">1433</span>                
+<span class="hljs-built_in">echo</span>.
+:tc</code></pre>
+
+
+
+<h3 id="2-6-2-S扫描器"><a href="#2-6-2-S扫描器" class="headerlink" title="2.6.2 S扫描器"></a>2.6.2 S扫描器</h3><h3 id="2-6-3-Metasploit端口扫描"><a href="#2-6-3-Metasploit端口扫描" class="headerlink" title="2.6.3 Metasploit端口扫描"></a>2.6.3 Metasploit端口扫描</h3><h3 id="2-6-4-PowerSploit-的-Invoke-portscan-ps1-脚本"><a href="#2-6-4-PowerSploit-的-Invoke-portscan-ps1-脚本" class="headerlink" title="2.6.4 PowerSploit 的 Invoke-portscan.ps1 脚本"></a>2.6.4 PowerSploit 的 Invoke-portscan.ps1 脚本</h3><h3 id="2-6-5-Nishang-的-Invoke-Portscan-模块"><a href="#2-6-5-Nishang-的-Invoke-Portscan-模块" class="headerlink" title="2.6.5 Nishang 的 Invoke-Portscan 模块"></a>2.6.5 Nishang 的 Invoke-Portscan 模块</h3><h3 id="2-6-6-端口的banner信息"><a href="#2-6-6-端口的banner信息" class="headerlink" title="2.6.6 端口的banner信息"></a>2.6.6 端口的banner信息</h3><h2 id="2-7-搜集域内基础信息"><a href="#2-7-搜集域内基础信息" class="headerlink" title="2.7 搜集域内基础信息"></a>2.7 搜集域内基础信息</h2><h2 id="2-8-查找域控制器"><a href="#2-8-查找域控制器" class="headerlink" title="2.8 查找域控制器"></a>2.8 查找域控制器</h2><h2 id="2-9-获取域内的用户和管理员信息"><a href="#2-9-获取域内的用户和管理员信息" class="headerlink" title="2.9 获取域内的用户和管理员信息"></a>2.9 获取域内的用户和管理员信息</h2><h2 id="2-10-定位域管理员"><a href="#2-10-定位域管理员" class="headerlink" title="2.10 定位域管理员"></a>2.10 定位域管理员</h2><h2 id="2-11-查找域管理进程"><a href="#2-11-查找域管理进程" class="headerlink" title="2.11 查找域管理进程"></a>2.11 查找域管理进程</h2><h2 id="2-12-域管理员方法模拟简介"><a href="#2-12-域管理员方法模拟简介" class="headerlink" title="2.12 域管理员方法模拟简介"></a>2.12 域管理员方法模拟简介</h2><h2 id="2-13-利用power-shell收集域内信息"><a href="#2-13-利用power-shell收集域内信息" class="headerlink" title="2.13 利用power shell收集域内信息"></a>2.13 利用power shell收集域内信息</h2><h2 id="2-14-域分析工具-Blood-Hound"><a href="#2-14-域分析工具-Blood-Hound" class="headerlink" title="2.14 域分析工具 Blood Hound"></a>2.14 域分析工具 Blood Hound</h2><h2 id="2-15-敏感数据的防护"><a href="#2-15-敏感数据的防护" class="headerlink" title="2.15 敏感数据的防护"></a>2.15 敏感数据的防护</h2><h2 id="2-16-分析内网段划分情况以及拓扑结构"><a href="#2-16-分析内网段划分情况以及拓扑结构" class="headerlink" title="2.16 分析内网段划分情况以及拓扑结构"></a>2.16 分析内网段划分情况以及拓扑结构</h2>
         </div>
 
     </div>
@@ -530,7 +778,7 @@ regedit /s a.reg</code></pre>
 
     <div class="footer-wrap">
         <div class="footer-inner"> 
-            RainMaker &copy; 2021<br>
+            RainMaker &copy; 2022<br>
             Powered By Hexo · Theme By <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Aomori</a>
         </div>
     </div>
