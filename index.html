@@ -262,27 +262,7 @@ class="article article-type-post"
     </header>
     <div class="article-entry post-inner-html">
         
-        <p>在常规渗透测试或<code>SRC</code>挖掘中，经常使用<code>Xray</code>来进行漏洞扫描，当目标数量过大时往往会造成产生许多扫描结果，不便于快速定位有效漏洞站点。以下是某次<code>XRAY</code>扫描结果：</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220124114655671.png" alt="image-20220124114655671"></p>
-<p>可以看到扫描结果有很多，可以使用小脚本：<code>html_to_xlsx.py</code>进行提取。repo:<a target="_blank" rel="noopener" href="https://github.com/SevenC-base/Xray_Scripts">https://github.com/SevenC-base/Xray_Scripts</a></p>
-<p>主要就是利用正则对html的扫描结果进行提取。</p>
-<pre><code class="hljs python">vuln1_info = re.findall (<span class="hljs-string">r&quot;&lt;script class=&#x27;web-vulns&#x27;&gt;webVulns.push\((.*?)\)&lt;/script&gt;&quot;</span>, str1, re.M | re.I)</code></pre>
-
-<pre><code class="hljs shell">  _    _ _             _   _               _
- | |  | | |           | | | |             | |
- | |__| | |_ _ __ ___ | | | |_ ___   __  _| |_____  __
- |  __  | __| &#x27;_ ` _ \| | | __/ _ \  \ \/ / / __\ \/ /
- | |  | | |_| | | | | | | | || (_) |  &gt;  &lt;| \__ \&gt;  &lt;
- |_|  |_|\__|_| |_| |_|_|  \__\___/  /_/\_\_|___/_/\_
-
-
-eg: python html_to_xlsx.py results
-    python html_to_xlsx.py D:\test\results</code></pre>
-
-<p>指定扫描结果保存的目录，提取结果如下：</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/adalsndkanlasouahfalsnflanflfaksfnalf.png"></p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/2.png"></p>
-
+        <p>在常规渗透测试或<code>SRC</code>挖掘中，经常使用<code>Xray</code>来进行漏洞扫描，当目标数量过大时往往会造成产生许多扫描结果，不便于快速定位有效漏洞站点。以下是某次<code>XRAY</code>扫描结果：
         
     </div>
     </div>
