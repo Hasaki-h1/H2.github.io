@@ -131,7 +131,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckys88or500720g4zh7iuek8h" class="article article-type-post" itemscope
+    <article id="post-ckyszjy90007kq84z8zgz3q7v" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -404,10 +404,385 @@ tasklist /v | findstr &quot;calc.exe&quot;</code></pre>
 <p>因此，如果一个被 “<strong>适当</strong>” 命名的可执行程序被上传到受影响的目录中，服务一旦重启，该程序就会以System 权限运行（在大多数情况下）。</p>
 <h4 id="2-MetaSploit模块trusted-service-path"><a href="#2-MetaSploit模块trusted-service-path" class="headerlink" title="2. MetaSploit模块trusted_service_path"></a>2. MetaSploit模块<code>trusted_service_path</code></h4><p>​        使用<code>WMIC</code>进行漏洞检测，<strong>服务所对应的路径没有被引号引起来，且路径中包含空格</strong>：</p>
 <pre><code class="hljs powershell"><span class="hljs-comment"># 这个只是粗略筛选，服务路径是否包含空格还要自行判断</span>
-wmic service get name,displayname,pathname,startmode |findstr /i <span class="hljs-string">&quot;Auto&quot;</span> | findstr /i /v <span class="hljs-string">&quot;C:\Windows\\&quot;</span> | findstr /i /v <span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot;</span></code></pre>
+wmic service get name,displayname,pathname,startmode |findstr /i <span class="hljs-string">&quot;Auto&quot;</span> | findstr /i /v <span class="hljs-string">&quot;C:\Windows\\&quot;</span> | findstr /i /v <span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot;</span>
+<span class="hljs-string">icacls &quot;</span>C:\Program Files\phpstudy\phpstudy_pro\\<span class="hljs-string">&quot;</span></code></pre>
 
-<p>195</p>
-<h3 id="4-2-4-自动安装配置文件"><a href="#4-2-4-自动安装配置文件" class="headerlink" title="4.2.4 自动安装配置文件"></a>4.2.4 自动安装配置文件</h3><h3 id="4-2-5-计划任务"><a href="#4-2-5-计划任务" class="headerlink" title="4.2.5 计划任务"></a>4.2.5 计划任务</h3><h3 id="4-2-6-Empire-内置模块"><a href="#4-2-6-Empire-内置模块" class="headerlink" title="4.2.6 Empire 内置模块"></a>4.2.6 Empire 内置模块</h3><h2 id="4-3-组策略首选项提权分析及防范"><a href="#4-3-组策略首选项提权分析及防范" class="headerlink" title="4.3 组策略首选项提权分析及防范"></a>4.3 组策略首选项提权分析及防范</h2><h3 id="4-3-1-组策略首选项提权简介"><a href="#4-3-1-组策略首选项提权简介" class="headerlink" title="4.3.1 组策略首选项提权简介"></a>4.3.1 组策略首选项提权简介</h3><h3 id="4-3-2-组策略首选项提权分析"><a href="#4-3-2-组策略首选项提权分析" class="headerlink" title="4.3.2 组策略首选项提权分析"></a>4.3.2 组策略首选项提权分析</h3><h3 id="4-4-3-针对组策略首选项提权的防御"><a href="#4-4-3-针对组策略首选项提权的防御" class="headerlink" title="4.4.3 针对组策略首选项提权的防御"></a>4.4.3 针对组策略首选项提权的防御</h3><h2 id="4-4-绕过UAC-提权分析及防范"><a href="#4-4-绕过UAC-提权分析及防范" class="headerlink" title="4.4 绕过UAC 提权分析及防范"></a>4.4 绕过UAC 提权分析及防范</h2><h3 id="4-4-1-UAC简介"><a href="#4-4-1-UAC简介" class="headerlink" title="4.4.1 UAC简介"></a>4.4.1 UAC简介</h3><h3 id="4-4-2-BypassUAC-模块"><a href="#4-4-2-BypassUAC-模块" class="headerlink" title="4.4.2 BypassUAC 模块"></a>4.4.2 BypassUAC 模块</h3><h3 id="4-4-3-RunAs-模块"><a href="#4-4-3-RunAs-模块" class="headerlink" title="4.4.3 RunAs 模块"></a>4.4.3 RunAs 模块</h3><h3 id="4-4-4-Nishang-中的Invoke-PsUACme"><a href="#4-4-4-Nishang-中的Invoke-PsUACme" class="headerlink" title="4.4.4 Nishang 中的Invoke-PsUACme"></a>4.4.4 Nishang 中的Invoke-PsUACme</h3><h3 id="4-4-5-Empire-中的BypassUAC模块"><a href="#4-4-5-Empire-中的BypassUAC模块" class="headerlink" title="4.4.5 Empire 中的BypassUAC模块"></a>4.4.5 Empire 中的BypassUAC模块</h3><h3 id="4-4-6-针对UAC提权的防御分析"><a href="#4-4-6-针对UAC提权的防御分析" class="headerlink" title="4.4.6 针对UAC提权的防御分析"></a>4.4.6 针对UAC提权的防御分析</h3><h2 id="4-5-令牌窃取分析及防范"><a href="#4-5-令牌窃取分析及防范" class="headerlink" title="4.5 令牌窃取分析及防范"></a>4.5 令牌窃取分析及防范</h2><h3 id="4-5-1-令牌窃取"><a href="#4-5-1-令牌窃取" class="headerlink" title="4.5.1 令牌窃取"></a>4.5.1 令牌窃取</h3><h3 id="4-5-2-Rotten-Potato-本地提权分析"><a href="#4-5-2-Rotten-Potato-本地提权分析" class="headerlink" title="4.5.2 Rotten Potato 本地提权分析"></a>4.5.2 Rotten Potato 本地提权分析</h3><h3 id="4-5-3-添加域管理员"><a href="#4-5-3-添加域管理员" class="headerlink" title="4.5.3 添加域管理员"></a>4.5.3 添加域管理员</h3><h3 id="4-5-4-Empire下的令牌窃取"><a href="#4-5-4-Empire下的令牌窃取" class="headerlink" title="4.5.4 Empire下的令牌窃取"></a>4.5.4 Empire下的令牌窃取</h3><h3 id="4-5-5-针对令牌窃取提权的防御分析"><a href="#4-5-5-针对令牌窃取提权的防御分析" class="headerlink" title="4.5.5 针对令牌窃取提权的防御分析"></a>4.5.5 针对令牌窃取提权的防御分析</h3><h2 id="4-6-无凭证条件下的权限分析及防范"><a href="#4-6-无凭证条件下的权限分析及防范" class="headerlink" title="4.6 无凭证条件下的权限分析及防范"></a>4.6 无凭证条件下的权限分析及防范</h2><h3 id="4-6-1-LLMNR-和NetBIOS欺骗攻击的基本概念"><a href="#4-6-1-LLMNR-和NetBIOS欺骗攻击的基本概念" class="headerlink" title="4.6.1 LLMNR 和NetBIOS欺骗攻击的基本概念"></a>4.6.1 LLMNR 和NetBIOS欺骗攻击的基本概念</h3><h3 id="4-6-2-LLMNR和NetBIOS欺骗攻击分析"><a href="#4-6-2-LLMNR和NetBIOS欺骗攻击分析" class="headerlink" title="4.6.2 LLMNR和NetBIOS欺骗攻击分析"></a>4.6.2 LLMNR和NetBIOS欺骗攻击分析</h3>
+<p>之后使用Windows的内置工具<code>icacls</code>对目录权限进行判断，主要判断是否可写。本次以<code>phpstudy</code>为例，查看权限：</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220124223922142.png" alt="image-20220124223922142"></p>
+<p><code>Everyone:(OI)(CI)(F)</code>的意思是，对该文件夹，用户有读、写、删除其下文件、删除其子目录的权限。</p>
+<ul>
+<li>Everyone：用户对这个文件夹有完全控制权限。也就是说，所有用户都具有修改这个文件夹的权限- </li>
+<li>(M)：修改权限</li>
+<li>(F)：完全访问权限</li>
+<li>(CI)：容器继承，从属容器将继承访问控制项</li>
+<li>(OI)：对象继承，从属文件将继承访问控制项</li>
+</ul>
+<p>之后替换服务，将后门文件命名为原服务文件，重启服务即可获取SYSTEM权限的shell（也可以使用模块<code>exploit/windows/local/trusted_service_path</code>直接利用）。</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220124225715368.png" alt="image-20220124225715368"></p>
+<pre><code class="hljs powershell"><span class="hljs-built_in">sc</span> stop phpStudySrv
+<span class="hljs-built_in">sc</span> <span class="hljs-built_in">start</span> phpStudySrv</code></pre>
+
+<p>其中<code>phpStudyServer.exe</code>为木马文件，<code>phpStudyServer_bak.exe</code> 为原服务的备份文件。</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220124225918498.png" alt="image-20220124225918498"></p>
+<p>可以看到不一会儿会话就被关闭了，这是由于当—个进程在Windows操作系统中启动后，必须与跟务控制管理器进行通信，如果没有进行通信，服务控制管理器会认为出现了错误，进而终止这个进程。在渗透测试中，需要在终止载荷进程之前将它迁移到其他进程中（可以使用<code>set AutoRunScipt migrate -f</code>，自动迁移进程命令）</p>
+<h3 id="4-2-4-自动安装配置文件"><a href="#4-2-4-自动安装配置文件" class="headerlink" title="4.2.4 自动安装配置文件"></a>4.2.4 自动安装配置文件</h3><p>​        网络管理员在内网中给多台机器配置同一个环境时，通常不会逐台配置，而会使用脚本化批量部署的方法。在这一过程中，会使用安装配置文件。这些文件中包含所有的安装配置信息，其中的一些还可能包含本地管理员账号和密码等信息。这些文件列举如下（可以对整个系统进行检查）。</p>
+<pre><code class="hljs powershell">C:\sysprep.inf
+C:\sysprep\sysprep.xml
+C:\Windows\system32\sysprep.inf
+C:\Windows\system32\sysprep\sysprep.xml
+C:\unattend.xml
+C:\Windows\Panther\Unattend.xml
+C:\Windows\Panther\Unattended.xml
+C:\Windows\Panther\Unattend\Unattended.xml
+C:\Windows\Panther\Unattend\Unattend.xml
+C:\Windows\System32\Sysprep\unattend.xml
+C:\Windows\System32\Sysprep\Panther\unattend.xml</code></pre>
+
+<p>也可以执行如下命令，搜索 <code>Unattend.xml</code>文件，<code>Unattend.xml</code>属于应答文件（无人参与文件，可以理解作自动化安装系统文件），可用于在安装期间修改你的映像中的 Windows 设置。</p>
+<pre><code class="hljs powershell"><span class="hljs-built_in">dir</span> /b /s c:\Unattend.xml</code></pre>
+
+<p>环境搭建参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xiaoyunyun100fen/p/10231108.html">https://www.cnblogs.com/xiaoyunyun100fen/p/10231108.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/CasonChan/p/5544346.html">https://www.cnblogs.com/CasonChan/p/5544346.html</a></li>
+</ul>
+<p>本次以<code>win7</code>家庭版为例：测试使用<code>unattend.xml</code>如下：</p>
+<pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">unattend</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;urn:schemas-microsoft-com:unattend&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">settings</span> <span class="hljs-attr">pass</span>=<span class="hljs-string">&quot;windowsPE&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;Microsoft-Windows-International-Core-WinPE&quot;</span> <span class="hljs-attr">processorArchitecture</span>=<span class="hljs-string">&quot;x86&quot;</span> <span class="hljs-attr">publicKeyToken</span>=<span class="hljs-string">&quot;31bf3856ad364e35&quot;</span> <span class="hljs-attr">language</span>=<span class="hljs-string">&quot;neutral&quot;</span> <span class="hljs-attr">versionScope</span>=<span class="hljs-string">&quot;nonSxS&quot;</span> <span class="hljs-attr">xmlns:wcm</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/WMIConfig/2002/State&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SetupUILanguage</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">UILanguage</span>&gt;</span>zh-cn<span class="hljs-tag">&lt;/<span class="hljs-name">UILanguage</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">SetupUILanguage</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">InputLocale</span>&gt;</span>zh-cn<span class="hljs-tag">&lt;/<span class="hljs-name">InputLocale</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SystemLocale</span>&gt;</span>zh-cn<span class="hljs-tag">&lt;/<span class="hljs-name">SystemLocale</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">UILanguage</span>&gt;</span>zh-cn<span class="hljs-tag">&lt;/<span class="hljs-name">UILanguage</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">UserLocale</span>&gt;</span>zh-cn<span class="hljs-tag">&lt;/<span class="hljs-name">UserLocale</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;Microsoft-Windows-International-Core-WinPE&quot;</span> <span class="hljs-attr">processorArchitecture</span>=<span class="hljs-string">&quot;amd64&quot;</span> <span class="hljs-attr">publicKeyToken</span>=<span class="hljs-string">&quot;31bf3856ad364e35&quot;</span> <span class="hljs-attr">language</span>=<span class="hljs-string">&quot;neutral&quot;</span> <span class="hljs-attr">versionScope</span>=<span class="hljs-string">&quot;nonSxS&quot;</span> <span class="hljs-attr">xmlns:wcm</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/WMIConfig/2002/State&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SetupUILanguage</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">UILanguage</span>&gt;</span>zh-cn<span class="hljs-tag">&lt;/<span class="hljs-name">UILanguage</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">SetupUILanguage</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">InputLocale</span>&gt;</span>zh-cn<span class="hljs-tag">&lt;/<span class="hljs-name">InputLocale</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SystemLocale</span>&gt;</span>zh-cn<span class="hljs-tag">&lt;/<span class="hljs-name">SystemLocale</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">UILanguage</span>&gt;</span>zh-cn<span class="hljs-tag">&lt;/<span class="hljs-name">UILanguage</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">UserLocale</span>&gt;</span>zh-cn<span class="hljs-tag">&lt;/<span class="hljs-name">UserLocale</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;Microsoft-Windows-Setup&quot;</span> <span class="hljs-attr">processorArchitecture</span>=<span class="hljs-string">&quot;x86&quot;</span> <span class="hljs-attr">publicKeyToken</span>=<span class="hljs-string">&quot;31bf3856ad364e35&quot;</span> <span class="hljs-attr">language</span>=<span class="hljs-string">&quot;neutral&quot;</span> <span class="hljs-attr">versionScope</span>=<span class="hljs-string">&quot;nonSxS&quot;</span> <span class="hljs-attr">xmlns:wcm</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/WMIConfig/2002/State&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Diagnostics</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">OptIn</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">OptIn</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">Diagnostics</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">DiskConfiguration</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">WillShowUI</span>&gt;</span>OnError<span class="hljs-tag">&lt;/<span class="hljs-name">WillShowUI</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Disk</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">DiskID</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-name">DiskID</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">WillWipeDisk</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">WillWipeDisk</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">CreatePartitions</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">CreatePartition</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Order</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">Order</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Type</span>&gt;</span>Primary<span class="hljs-tag">&lt;/<span class="hljs-name">Type</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Size</span>&gt;</span>100<span class="hljs-tag">&lt;/<span class="hljs-name">Size</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">CreatePartition</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">CreatePartition</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Order</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">Order</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Type</span>&gt;</span>Primary<span class="hljs-tag">&lt;/<span class="hljs-name">Type</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Extend</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">Extend</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">CreatePartition</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">CreatePartitions</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ModifyPartitions</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ModifyPartition</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Format</span>&gt;</span>NTFS<span class="hljs-tag">&lt;/<span class="hljs-name">Format</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Label</span>&gt;</span>System Reserved<span class="hljs-tag">&lt;/<span class="hljs-name">Label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Order</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">Order</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Active</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">Active</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">PartitionID</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">PartitionID</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">TypeID</span>&gt;</span>0x27<span class="hljs-tag">&lt;/<span class="hljs-name">TypeID</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ModifyPartition</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ModifyPartition</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Active</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">Active</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Format</span>&gt;</span>NTFS<span class="hljs-tag">&lt;/<span class="hljs-name">Format</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Label</span>&gt;</span>OS<span class="hljs-tag">&lt;/<span class="hljs-name">Label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Letter</span>&gt;</span>C<span class="hljs-tag">&lt;/<span class="hljs-name">Letter</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Order</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">Order</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">PartitionID</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">PartitionID</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ModifyPartition</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ModifyPartitions</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">Disk</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">DiskConfiguration</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ImageInstall</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">OSImage</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">InstallTo</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">DiskID</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-name">DiskID</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">PartitionID</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">PartitionID</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">InstallTo</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">WillShowUI</span>&gt;</span>OnError<span class="hljs-tag">&lt;/<span class="hljs-name">WillShowUI</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">InstallToAvailablePartition</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">InstallToAvailablePartition</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">OSImage</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ImageInstall</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">UserData</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">AcceptEula</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">AcceptEula</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">FullName</span>&gt;</span>administrator<span class="hljs-tag">&lt;/<span class="hljs-name">FullName</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Organization</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">Organization</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">UserData</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">EnableFirewall</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">EnableFirewall</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;Microsoft-Windows-Setup&quot;</span> <span class="hljs-attr">processorArchitecture</span>=<span class="hljs-string">&quot;amd64&quot;</span> <span class="hljs-attr">publicKeyToken</span>=<span class="hljs-string">&quot;31bf3856ad364e35&quot;</span> <span class="hljs-attr">language</span>=<span class="hljs-string">&quot;neutral&quot;</span> <span class="hljs-attr">versionScope</span>=<span class="hljs-string">&quot;nonSxS&quot;</span> <span class="hljs-attr">xmlns:wcm</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/WMIConfig/2002/State&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Diagnostics</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">OptIn</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">OptIn</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">Diagnostics</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">DiskConfiguration</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">WillShowUI</span>&gt;</span>OnError<span class="hljs-tag">&lt;/<span class="hljs-name">WillShowUI</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Disk</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">DiskID</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-name">DiskID</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">WillWipeDisk</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">WillWipeDisk</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">CreatePartitions</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">CreatePartition</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Order</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">Order</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Type</span>&gt;</span>Primary<span class="hljs-tag">&lt;/<span class="hljs-name">Type</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Size</span>&gt;</span>100<span class="hljs-tag">&lt;/<span class="hljs-name">Size</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">CreatePartition</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">CreatePartition</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Order</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">Order</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Type</span>&gt;</span>Primary<span class="hljs-tag">&lt;/<span class="hljs-name">Type</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Extend</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">Extend</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">CreatePartition</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">CreatePartitions</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ModifyPartitions</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ModifyPartition</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Format</span>&gt;</span>NTFS<span class="hljs-tag">&lt;/<span class="hljs-name">Format</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Label</span>&gt;</span>System Reserved<span class="hljs-tag">&lt;/<span class="hljs-name">Label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Order</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">Order</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Active</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">Active</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">PartitionID</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">PartitionID</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">TypeID</span>&gt;</span>0x27<span class="hljs-tag">&lt;/<span class="hljs-name">TypeID</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ModifyPartition</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ModifyPartition</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Active</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">Active</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Format</span>&gt;</span>NTFS<span class="hljs-tag">&lt;/<span class="hljs-name">Format</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Label</span>&gt;</span>OS<span class="hljs-tag">&lt;/<span class="hljs-name">Label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Letter</span>&gt;</span>C<span class="hljs-tag">&lt;/<span class="hljs-name">Letter</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Order</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">Order</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">PartitionID</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">PartitionID</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ModifyPartition</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ModifyPartitions</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">Disk</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">DiskConfiguration</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ImageInstall</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">OSImage</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">InstallTo</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">DiskID</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-name">DiskID</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">PartitionID</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">PartitionID</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">InstallTo</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">WillShowUI</span>&gt;</span>OnError<span class="hljs-tag">&lt;/<span class="hljs-name">WillShowUI</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">InstallToAvailablePartition</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">InstallToAvailablePartition</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">OSImage</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ImageInstall</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">UserData</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">AcceptEula</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">AcceptEula</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">FullName</span>&gt;</span>administrator<span class="hljs-tag">&lt;/<span class="hljs-name">FullName</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Organization</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">Organization</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">UserData</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">EnableFirewall</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">EnableFirewall</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">settings</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">settings</span> <span class="hljs-attr">pass</span>=<span class="hljs-string">&quot;generalize&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">settings</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">settings</span> <span class="hljs-attr">pass</span>=<span class="hljs-string">&quot;generalize&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;Microsoft-Windows-Security-SPP&quot;</span> <span class="hljs-attr">processorArchitecture</span>=<span class="hljs-string">&quot;amd64&quot;</span> <span class="hljs-attr">publicKeyToken</span>=<span class="hljs-string">&quot;31bf3856ad364e35&quot;</span> <span class="hljs-attr">language</span>=<span class="hljs-string">&quot;neutral&quot;</span> <span class="hljs-attr">versionScope</span>=<span class="hljs-string">&quot;nonSxS&quot;</span> <span class="hljs-attr">xmlns:wcm</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/WMIConfig/2002/State&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SkipRearm</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">SkipRearm</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">settings</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;Microsoft-Windows-Security-SPP-UX&quot;</span> <span class="hljs-attr">processorArchitecture</span>=<span class="hljs-string">&quot;amd64&quot;</span> <span class="hljs-attr">publicKeyToken</span>=<span class="hljs-string">&quot;31bf3856ad364e35&quot;</span> <span class="hljs-attr">language</span>=<span class="hljs-string">&quot;neutral&quot;</span> <span class="hljs-attr">versionScope</span>=<span class="hljs-string">&quot;nonSxS&quot;</span> <span class="hljs-attr">xmlns:wcm</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/WMIConfig/2002/State&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SkipAutoActivation</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">SkipAutoActivation</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;Microsoft-Windows-Shell-Setup&quot;</span> <span class="hljs-attr">processorArchitecture</span>=<span class="hljs-string">&quot;amd64&quot;</span> <span class="hljs-attr">publicKeyToken</span>=<span class="hljs-string">&quot;31bf3856ad364e35&quot;</span> <span class="hljs-attr">language</span>=<span class="hljs-string">&quot;neutral&quot;</span> <span class="hljs-attr">versionScope</span>=<span class="hljs-string">&quot;nonSxS&quot;</span> <span class="hljs-attr">xmlns:wcm</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/WMIConfig/2002/State&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ComputerName</span>&gt;</span>-PC<span class="hljs-tag">&lt;/<span class="hljs-name">ComputerName</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ProductKey</span>&gt;</span>HYF8J-CVRMY-CM74G-RPHKF-PW487<span class="hljs-tag">&lt;/<span class="hljs-name">ProductKey</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">TimeZone</span>&gt;</span>China Standard Time<span class="hljs-tag">&lt;/<span class="hljs-name">TimeZone</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">settings</span> <span class="hljs-attr">pass</span>=<span class="hljs-string">&quot;oobeSystem&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;Microsoft-Windows-International-Core&quot;</span> <span class="hljs-attr">processorArchitecture</span>=<span class="hljs-string">&quot;x86&quot;</span> <span class="hljs-attr">publicKeyToken</span>=<span class="hljs-string">&quot;31bf3856ad364e35&quot;</span> <span class="hljs-attr">language</span>=<span class="hljs-string">&quot;neutral&quot;</span> <span class="hljs-attr">versionScope</span>=<span class="hljs-string">&quot;nonSxS&quot;</span> <span class="hljs-attr">xmlns:wcm</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/WMIConfig/2002/State&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">InputLocale</span>&gt;</span>zh-cn<span class="hljs-tag">&lt;/<span class="hljs-name">InputLocale</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">UILanguage</span>&gt;</span>zh-cn<span class="hljs-tag">&lt;/<span class="hljs-name">UILanguage</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">UserLocale</span>&gt;</span>zh-cn<span class="hljs-tag">&lt;/<span class="hljs-name">UserLocale</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;Microsoft-Windows-International-Core&quot;</span> <span class="hljs-attr">processorArchitecture</span>=<span class="hljs-string">&quot;amd64&quot;</span> <span class="hljs-attr">publicKeyToken</span>=<span class="hljs-string">&quot;31bf3856ad364e35&quot;</span> <span class="hljs-attr">language</span>=<span class="hljs-string">&quot;neutral&quot;</span> <span class="hljs-attr">versionScope</span>=<span class="hljs-string">&quot;nonSxS&quot;</span> <span class="hljs-attr">xmlns:wcm</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/WMIConfig/2002/State&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">InputLocale</span>&gt;</span>zh-cn<span class="hljs-tag">&lt;/<span class="hljs-name">InputLocale</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">UILanguage</span>&gt;</span>zh-cn<span class="hljs-tag">&lt;/<span class="hljs-name">UILanguage</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">UserLocale</span>&gt;</span>zh-cn<span class="hljs-tag">&lt;/<span class="hljs-name">UserLocale</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;Microsoft-Windows-Shell-Setup&quot;</span> <span class="hljs-attr">processorArchitecture</span>=<span class="hljs-string">&quot;x86&quot;</span> <span class="hljs-attr">publicKeyToken</span>=<span class="hljs-string">&quot;31bf3856ad364e35&quot;</span> <span class="hljs-attr">language</span>=<span class="hljs-string">&quot;neutral&quot;</span> <span class="hljs-attr">versionScope</span>=<span class="hljs-string">&quot;nonSxS&quot;</span> <span class="hljs-attr">xmlns:wcm</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/WMIConfig/2002/State&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">RegisteredOwner</span>&gt;</span>administrator<span class="hljs-tag">&lt;/<span class="hljs-name">RegisteredOwner</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">OOBE</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">HideEULAPage</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">HideEULAPage</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">NetworkLocation</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">NetworkLocation</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ProtectYourPC</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">ProtectYourPC</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">HideWirelessSetupInOOBE</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">HideWirelessSetupInOOBE</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SkipMachineOOBE</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">SkipMachineOOBE</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SkipUserOOBE</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">SkipUserOOBE</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">OOBE</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">DisableAutoDaylightTimeSet</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">DisableAutoDaylightTimeSet</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">FirstLogonCommands</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SynchronousCommand</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">RequiresUserInput</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">RequiresUserInput</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Order</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">Order</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Description</span>&gt;</span>Disable Auto Updates<span class="hljs-tag">&lt;/<span class="hljs-name">Description</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">CommandLine</span>&gt;</span>reg add &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update&quot; /v AUOptions /t REG_DWORD /d 1 /f<span class="hljs-tag">&lt;/<span class="hljs-name">CommandLine</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">SynchronousCommand</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SynchronousCommand</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Description</span>&gt;</span>Control Panel View<span class="hljs-tag">&lt;/<span class="hljs-name">Description</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Order</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">Order</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">CommandLine</span>&gt;</span>reg add &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel&quot; /v StartupPage /t REG_DWORD /d 1 /f<span class="hljs-tag">&lt;/<span class="hljs-name">CommandLine</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">RequiresUserInput</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">RequiresUserInput</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">SynchronousCommand</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SynchronousCommand</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Order</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">Order</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Description</span>&gt;</span>Control Panel Icon Size<span class="hljs-tag">&lt;/<span class="hljs-name">Description</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">RequiresUserInput</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">RequiresUserInput</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">CommandLine</span>&gt;</span>reg add &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel&quot; /v AllItemsIconView /t REG_DWORD /d 0 /f<span class="hljs-tag">&lt;/<span class="hljs-name">CommandLine</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">SynchronousCommand</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SynchronousCommand</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Order</span>&gt;</span>4<span class="hljs-tag">&lt;/<span class="hljs-name">Order</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">RequiresUserInput</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">RequiresUserInput</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">CommandLine</span>&gt;</span>cmd /C wmic useraccount where name=&quot;administrator&quot; set PasswordExpires=false<span class="hljs-tag">&lt;/<span class="hljs-name">CommandLine</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Description</span>&gt;</span>Password Never Expires<span class="hljs-tag">&lt;/<span class="hljs-name">Description</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">SynchronousCommand</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">FirstLogonCommands</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">AutoLogon</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Password</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Value</span>&gt;</span>123456<span class="hljs-tag">&lt;/<span class="hljs-name">Value</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">PlainText</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">PlainText</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">Password</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Enabled</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">Enabled</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Username</span>&gt;</span>administrator<span class="hljs-tag">&lt;/<span class="hljs-name">Username</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">AutoLogon</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">UserAccounts</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">LocalAccounts</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">LocalAccount</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Password</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Value</span>&gt;</span>123456<span class="hljs-tag">&lt;/<span class="hljs-name">Value</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">PlainText</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">PlainText</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">Password</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Description</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">Description</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">DisplayName</span>&gt;</span>administrator<span class="hljs-tag">&lt;/<span class="hljs-name">DisplayName</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Group</span>&gt;</span>Administrators<span class="hljs-tag">&lt;/<span class="hljs-name">Group</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Name</span>&gt;</span>administrator<span class="hljs-tag">&lt;/<span class="hljs-name">Name</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">LocalAccount</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">LocalAccounts</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">UserAccounts</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;Microsoft-Windows-Shell-Setup&quot;</span> <span class="hljs-attr">processorArchitecture</span>=<span class="hljs-string">&quot;amd64&quot;</span> <span class="hljs-attr">publicKeyToken</span>=<span class="hljs-string">&quot;31bf3856ad364e35&quot;</span> <span class="hljs-attr">language</span>=<span class="hljs-string">&quot;neutral&quot;</span> <span class="hljs-attr">versionScope</span>=<span class="hljs-string">&quot;nonSxS&quot;</span> <span class="hljs-attr">xmlns:wcm</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/WMIConfig/2002/State&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">RegisteredOwner</span>&gt;</span>administrator<span class="hljs-tag">&lt;/<span class="hljs-name">RegisteredOwner</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">OOBE</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">HideEULAPage</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">HideEULAPage</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">NetworkLocation</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">NetworkLocation</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ProtectYourPC</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">ProtectYourPC</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">HideWirelessSetupInOOBE</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">HideWirelessSetupInOOBE</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SkipMachineOOBE</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">SkipMachineOOBE</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SkipUserOOBE</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">SkipUserOOBE</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">OOBE</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">DisableAutoDaylightTimeSet</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">DisableAutoDaylightTimeSet</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">FirstLogonCommands</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SynchronousCommand</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">RequiresUserInput</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">RequiresUserInput</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Order</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">Order</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Description</span>&gt;</span>Disable Auto Updates<span class="hljs-tag">&lt;/<span class="hljs-name">Description</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">CommandLine</span>&gt;</span>reg add &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update&quot; /v AUOptions /t REG_DWORD /d 1 /f<span class="hljs-tag">&lt;/<span class="hljs-name">CommandLine</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">SynchronousCommand</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SynchronousCommand</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Description</span>&gt;</span>Control Panel View<span class="hljs-tag">&lt;/<span class="hljs-name">Description</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Order</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">Order</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">CommandLine</span>&gt;</span>reg add &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel&quot; /v StartupPage /t REG_DWORD /d 1 /f<span class="hljs-tag">&lt;/<span class="hljs-name">CommandLine</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">RequiresUserInput</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">RequiresUserInput</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">SynchronousCommand</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SynchronousCommand</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Order</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">Order</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Description</span>&gt;</span>Control Panel Icon Size<span class="hljs-tag">&lt;/<span class="hljs-name">Description</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">RequiresUserInput</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">RequiresUserInput</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">CommandLine</span>&gt;</span>reg add &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel&quot; /v AllItemsIconView /t REG_DWORD /d 0 /f<span class="hljs-tag">&lt;/<span class="hljs-name">CommandLine</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">SynchronousCommand</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">SynchronousCommand</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Order</span>&gt;</span>4<span class="hljs-tag">&lt;/<span class="hljs-name">Order</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">RequiresUserInput</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">RequiresUserInput</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">CommandLine</span>&gt;</span>cmd /C wmic useraccount where name=&quot;administrator&quot; set PasswordExpires=false<span class="hljs-tag">&lt;/<span class="hljs-name">CommandLine</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Description</span>&gt;</span>Password Never Expires<span class="hljs-tag">&lt;/<span class="hljs-name">Description</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">SynchronousCommand</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">FirstLogonCommands</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">AutoLogon</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Password</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Value</span>&gt;</span>123456<span class="hljs-tag">&lt;/<span class="hljs-name">Value</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">PlainText</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">PlainText</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">Password</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Enabled</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">Enabled</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Username</span>&gt;</span>administrator<span class="hljs-tag">&lt;/<span class="hljs-name">Username</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">AutoLogon</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">UserAccounts</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">LocalAccounts</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">LocalAccount</span> <span class="hljs-attr">wcm:action</span>=<span class="hljs-string">&quot;add&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Password</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Value</span>&gt;</span>123456<span class="hljs-tag">&lt;/<span class="hljs-name">Value</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">PlainText</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">PlainText</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">Password</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Description</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">Description</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">DisplayName</span>&gt;</span>administrator<span class="hljs-tag">&lt;/<span class="hljs-name">DisplayName</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Group</span>&gt;</span>Administrators<span class="hljs-tag">&lt;/<span class="hljs-name">Group</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Name</span>&gt;</span>administrator<span class="hljs-tag">&lt;/<span class="hljs-name">Name</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">LocalAccount</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">LocalAccounts</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">UserAccounts</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">settings</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">settings</span> <span class="hljs-attr">pass</span>=<span class="hljs-string">&quot;offlineServicing&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;Microsoft-Windows-LUA-Settings&quot;</span> <span class="hljs-attr">processorArchitecture</span>=<span class="hljs-string">&quot;x86&quot;</span> <span class="hljs-attr">publicKeyToken</span>=<span class="hljs-string">&quot;31bf3856ad364e35&quot;</span> <span class="hljs-attr">language</span>=<span class="hljs-string">&quot;neutral&quot;</span> <span class="hljs-attr">versionScope</span>=<span class="hljs-string">&quot;nonSxS&quot;</span> <span class="hljs-attr">xmlns:wcm</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/WMIConfig/2002/State&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">EnableLUA</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">EnableLUA</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">settings</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">settings</span> <span class="hljs-attr">pass</span>=<span class="hljs-string">&quot;offlineServicing&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">component</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;Microsoft-Windows-LUA-Settings&quot;</span> <span class="hljs-attr">processorArchitecture</span>=<span class="hljs-string">&quot;amd64&quot;</span> <span class="hljs-attr">publicKeyToken</span>=<span class="hljs-string">&quot;31bf3856ad364e35&quot;</span> <span class="hljs-attr">language</span>=<span class="hljs-string">&quot;neutral&quot;</span> <span class="hljs-attr">versionScope</span>=<span class="hljs-string">&quot;nonSxS&quot;</span> <span class="hljs-attr">xmlns:wcm</span>=<span class="hljs-string">&quot;http://schemas.microsoft.com/WMIConfig/2002/State&quot;</span> <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">EnableLUA</span>&gt;</span>false<span class="hljs-tag">&lt;/<span class="hljs-name">EnableLUA</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">component</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">settings</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">unattend</span>&gt;</span></code></pre>
+
+<p>放入目录：<code>C:\Windows\System32\sysprep</code>下，之后执行命令重启即可：</p>
+<pre><code class="hljs powershell">sysprep /generalize /oobe /shutdown /unattend:unattend.xml</code></pre>
+
+<p>主要关注该文件中存在的账户以及密码(明文或者<code>base64</code>编码)，可以使用<code>metasploit</code>模块<code>post/windows/gather/enum_unattend</code>:</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220125014428626.png" alt="image-20220125014428626"></p>
+<h3 id="4-2-5-计划任务"><a href="#4-2-5-计划任务" class="headerlink" title="4.2.5 计划任务"></a>4.2.5 计划任务</h3><p>查询计划任务：</p>
+<pre><code class="hljs powershell">schtasks /query /fo LIST /v</code></pre>
+
+<p><code>AccessChk</code> 是 <code>SysInterals</code> 套件中的一个工具，由<code>MarkRussinovich</code>编写，用于在Windows中进行一些系统或程序的高级查询、管理和故障排除工作，<code>AccessChk</code>下载地址:</p>
+<p>由于杀毒软件的检测等，攻击者会尽量避免接触目标机器的磁盘。而<code>AccessChk</code>是微软官方提供的工具，一般不会引起杀毒软件的报警，所以经常会被攻击者利用。如果攻击者对以高权限运行的任务所在的目录具有写权限，就可以使用恶意程序覆盖原来的程序。这样，在计划任务下次执行时，就会以高权限来运行恶意程序。第一次运行<code>SysIntemals</code>工具包里的工具时，会弹出一个许可协议对话框。在这里，可以使用参数 <code>/accepteula</code> 自动接受许可协议，命令如下。</p>
+<pre><code class="hljs powershell"><span class="hljs-comment">#查看指定目录的权限配置情况</span>
+accesschk.exe <span class="hljs-literal">-dqv</span> <span class="hljs-string">&quot;C:\Microsoft&quot;</span> /accepteula
+<span class="hljs-comment">#自动接受许可协议</span>
+accesschk.exe /accepteula
+<span class="hljs-comment">#列出某个驱动器下所有权限配置有缺陷的文件夹，命令如下。</span>
+accesschk.exe <span class="hljs-literal">-uwdqsUsersc</span>:\
+accesschk.exe <span class="hljs-literal">-uwdqs</span><span class="hljs-string">&quot;AuthenticatedUsers&quot;</span>c:\
+<span class="hljs-comment">#列出某个驱动器下所有权限配置有缺陷的文件，命令如下。</span>
+accesschk.exe <span class="hljs-literal">-uwqsUsersc</span>:\*.*
+accesschk.exe <span class="hljs-literal">-uwqs</span><span class="hljs-string">&quot;AuthenticatedU</span></code></pre>
+
+<h3 id="4-2-6-Empire-内置模块"><a href="#4-2-6-Empire-内置模块" class="headerlink" title="4.2.6 Empire 内置模块"></a>4.2.6 Empire 内置模块</h3><p><code>Empire</code> 内置了 <code>PowerUp</code> 的部分模块。输入<code>usemodule privesc/powerup</code>命令，然后按<code>Tab</code>键，查看<code>PowerUp</code>的模块列表。</p>
+<p><code>AIIChecks</code> 模块用于查找系统中的漏洞。<code>AllChecks</code> 模块可用于执行脚本、检查系统漏洞。</p>
+<pre><code class="hljs shell">usemodule privesc/powerup/allchecks
+execute</code></pre>
+
+<p><code>AllChecks</code>模块如下:</p>
+<ul>
+<li>没有被引号引起来的服务的路径</li>
+<li><code>ACL</code> 配置错误的服务（攻击者通常通过<code>service_*</code>利用它）</li>
+<li>服务的可执行文件的权限设置不当（攻击者通常通过<code>service_exe_*</code>利用它）</li>
+<li><code>Unattend.xml</code> 文件</li>
+<li>注册表键<code>AlwaysInstallElevated</code></li>
+<li>如果有<code> Autologon</code>凭证，都会留在注册表中</li>
+<li>加密的 <code>web.config</code> 字符串和应用程序池的密码。</li>
+<li><code>%PATH%.DLL</code>的劫持机会（攻击者通常通过 <code>write_dllhijacker</code> 利用它）</li>
+</ul>
+<h2 id="4-3-组策略首选项提权分析及防范"><a href="#4-3-组策略首选项提权分析及防范" class="headerlink" title="4.3 组策略首选项提权分析及防范"></a>4.3 组策略首选项提权分析及防范</h2><h3 id="4-3-1-组策略首选项提权简介"><a href="#4-3-1-组策略首选项提权简介" class="headerlink" title="4.3.1 组策略首选项提权简介"></a>4.3.1 组策略首选项提权简介</h3><h3 id="4-3-2-组策略首选项提权分析"><a href="#4-3-2-组策略首选项提权分析" class="headerlink" title="4.3.2 组策略首选项提权分析"></a>4.3.2 组策略首选项提权分析</h3><h3 id="4-4-3-针对组策略首选项提权的防御"><a href="#4-4-3-针对组策略首选项提权的防御" class="headerlink" title="4.4.3 针对组策略首选项提权的防御"></a>4.4.3 针对组策略首选项提权的防御</h3><h2 id="4-4-绕过UAC-提权分析及防范"><a href="#4-4-绕过UAC-提权分析及防范" class="headerlink" title="4.4 绕过UAC 提权分析及防范"></a>4.4 绕过UAC 提权分析及防范</h2><h3 id="4-4-1-UAC简介"><a href="#4-4-1-UAC简介" class="headerlink" title="4.4.1 UAC简介"></a>4.4.1 UAC简介</h3><h3 id="4-4-2-BypassUAC-模块"><a href="#4-4-2-BypassUAC-模块" class="headerlink" title="4.4.2 BypassUAC 模块"></a>4.4.2 BypassUAC 模块</h3><h3 id="4-4-3-RunAs-模块"><a href="#4-4-3-RunAs-模块" class="headerlink" title="4.4.3 RunAs 模块"></a>4.4.3 RunAs 模块</h3><h3 id="4-4-4-Nishang-中的Invoke-PsUACme"><a href="#4-4-4-Nishang-中的Invoke-PsUACme" class="headerlink" title="4.4.4 Nishang 中的Invoke-PsUACme"></a>4.4.4 Nishang 中的Invoke-PsUACme</h3><h3 id="4-4-5-Empire-中的BypassUAC模块"><a href="#4-4-5-Empire-中的BypassUAC模块" class="headerlink" title="4.4.5 Empire 中的BypassUAC模块"></a>4.4.5 Empire 中的BypassUAC模块</h3><h3 id="4-4-6-针对UAC提权的防御分析"><a href="#4-4-6-针对UAC提权的防御分析" class="headerlink" title="4.4.6 针对UAC提权的防御分析"></a>4.4.6 针对UAC提权的防御分析</h3><h2 id="4-5-令牌窃取分析及防范"><a href="#4-5-令牌窃取分析及防范" class="headerlink" title="4.5 令牌窃取分析及防范"></a>4.5 令牌窃取分析及防范</h2><h3 id="4-5-1-令牌窃取"><a href="#4-5-1-令牌窃取" class="headerlink" title="4.5.1 令牌窃取"></a>4.5.1 令牌窃取</h3><h3 id="4-5-2-Rotten-Potato-本地提权分析"><a href="#4-5-2-Rotten-Potato-本地提权分析" class="headerlink" title="4.5.2 Rotten Potato 本地提权分析"></a>4.5.2 Rotten Potato 本地提权分析</h3><h3 id="4-5-3-添加域管理员"><a href="#4-5-3-添加域管理员" class="headerlink" title="4.5.3 添加域管理员"></a>4.5.3 添加域管理员</h3><h3 id="4-5-4-Empire下的令牌窃取"><a href="#4-5-4-Empire下的令牌窃取" class="headerlink" title="4.5.4 Empire下的令牌窃取"></a>4.5.4 Empire下的令牌窃取</h3><h3 id="4-5-5-针对令牌窃取提权的防御分析"><a href="#4-5-5-针对令牌窃取提权的防御分析" class="headerlink" title="4.5.5 针对令牌窃取提权的防御分析"></a>4.5.5 针对令牌窃取提权的防御分析</h3><h2 id="4-6-无凭证条件下的权限分析及防范"><a href="#4-6-无凭证条件下的权限分析及防范" class="headerlink" title="4.6 无凭证条件下的权限分析及防范"></a>4.6 无凭证条件下的权限分析及防范</h2><h3 id="4-6-1-LLMNR-和NetBIOS欺骗攻击的基本概念"><a href="#4-6-1-LLMNR-和NetBIOS欺骗攻击的基本概念" class="headerlink" title="4.6.1 LLMNR 和NetBIOS欺骗攻击的基本概念"></a>4.6.1 LLMNR 和NetBIOS欺骗攻击的基本概念</h3><h3 id="4-6-2-LLMNR和NetBIOS欺骗攻击分析"><a href="#4-6-2-LLMNR和NetBIOS欺骗攻击分析" class="headerlink" title="4.6.2 LLMNR和NetBIOS欺骗攻击分析"></a>4.6.2 LLMNR和NetBIOS欺骗攻击分析</h3>
         </div>
 
     </div>
