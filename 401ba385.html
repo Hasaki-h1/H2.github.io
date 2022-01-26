@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>内网学习笔记4-权限提升分析及防御 | RainMaker</title>
+    <title>内网学习笔记四-权限提升分析及防御 | RainMaker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -131,7 +131,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckyszjy90007kq84z8zgz3q7v" class="article article-type-post" itemscope
+    <article id="post-ckyvojaga007ce04z9hgg1lkm" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -147,7 +147,7 @@
             
   
     <h1 class="article-title" itemprop="name">
-      内网学习笔记4-权限提升分析及防御
+      内网学习笔记四-权限提升分析及防御
     </h1>
   
 
@@ -407,7 +407,7 @@ tasklist /v | findstr &quot;calc.exe&quot;</code></pre>
 wmic service get name,displayname,pathname,startmode |findstr /i <span class="hljs-string">&quot;Auto&quot;</span> | findstr /i /v <span class="hljs-string">&quot;C:\Windows\\&quot;</span> | findstr /i /v <span class="hljs-string">&quot;&quot;</span><span class="hljs-string">&quot;</span>
 <span class="hljs-string">icacls &quot;</span>C:\Program Files\phpstudy\phpstudy_pro\\<span class="hljs-string">&quot;</span></code></pre>
 
-<p>之后使用Windows的内置工具<code>icacls</code>对目录权限进行判断，主要判断是否可写。本次以<code>phpstudy</code>为例，查看权限：</p>
+<p>之后使用Windows的内置工具<code>icacls</code>对目录权限进行判断，主要判断是否可写。本次以<code>phpstudy</code>为例，查看权限(<code>BUILTIN</code>代表本地组)：</p>
 <p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220124223922142.png" alt="image-20220124223922142"></p>
 <p><code>Everyone:(OI)(CI)(F)</code>的意思是，对该文件夹，用户有读、写、删除其下文件、删除其子目录的权限。</p>
 <ul>
@@ -750,28 +750,67 @@ C:\Windows\System32\Sysprep\Panther\unattend.xml</code></pre>
 
 <p>主要关注该文件中存在的账户以及密码(明文或者<code>base64</code>编码)，可以使用<code>metasploit</code>模块<code>post/windows/gather/enum_unattend</code>:</p>
 <p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220125014428626.png" alt="image-20220125014428626"></p>
+<p>虽然配置了密码，但是好像没生效，所以就是空密码了。</p>
 <h3 id="4-2-5-计划任务"><a href="#4-2-5-计划任务" class="headerlink" title="4.2.5 计划任务"></a>4.2.5 计划任务</h3><p>查询计划任务：</p>
-<pre><code class="hljs powershell">schtasks /query /fo LIST /v</code></pre>
+<pre><code class="hljs powershell"><span class="hljs-comment">#英文</span>
+schtasks /query /fo LIST /v | findstr /C:<span class="hljs-string">&quot;Task To Run&quot;</span> | findstr <span class="hljs-string">&quot;.exe&quot;</span>
+<span class="hljs-comment">#中文</span>
+schtasks /query /fo LIST /v | findstr /C:<span class="hljs-string">&quot;要运行的任务&quot;</span> | findstr <span class="hljs-string">&quot;.exe&quot;</span></code></pre>
 
-<p><code>AccessChk</code> 是 <code>SysInterals</code> 套件中的一个工具，由<code>MarkRussinovich</code>编写，用于在Windows中进行一些系统或程序的高级查询、管理和故障排除工作，<code>AccessChk</code>下载地址:</p>
-<p>由于杀毒软件的检测等，攻击者会尽量避免接触目标机器的磁盘。而<code>AccessChk</code>是微软官方提供的工具，一般不会引起杀毒软件的报警，所以经常会被攻击者利用。如果攻击者对以高权限运行的任务所在的目录具有写权限，就可以使用恶意程序覆盖原来的程序。这样，在计划任务下次执行时，就会以高权限来运行恶意程序。第一次运行<code>SysIntemals</code>工具包里的工具时，会弹出一个许可协议对话框。在这里，可以使用参数 <code>/accepteula</code> 自动接受许可协议，命令如下。</p>
-<pre><code class="hljs powershell"><span class="hljs-comment">#查看指定目录的权限配置情况</span>
-accesschk.exe <span class="hljs-literal">-dqv</span> <span class="hljs-string">&quot;C:\Microsoft&quot;</span> /accepteula
-<span class="hljs-comment">#自动接受许可协议</span>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220125153001541.png" alt="image-20220125153001541"></p>
+<p><code>AccessChk</code> 是 <code>SysInterals</code> 套件中的一个工具，由<code>MarkRussinovich</code>编写，用于在Windows中进行一些系统或程序的高级查询、管理和故障排除工作，<code>AccessChk</code>下载地址:<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sysinternals/downloads/accesschk">https://docs.microsoft.com/en-us/sysinternals/downloads/accesschk</a></p>
+<p>由于杀毒软件的检测等，攻击者会尽量避免接触目标机器的磁盘。而<code>AccessChk</code>是微软官方提供的工具，一般不会引起杀毒软件的报警，所以经常会被攻击者利用。<strong>如果攻击者对以高权限运行的任务所在的目录具有写权限，就可以使用恶意程序覆盖原来的程序。</strong>这样，在计划任务下次执行时，就会以高权限来运行恶意程序。第一次运行<code>SysIntemals</code>工具包里的工具时，会弹出一个许可协议对话框。在这里，可以使用参数 <code>/accepteula</code> 自动接受许可协议，命令如下。</p>
+<pre><code class="hljs powershell"><span class="hljs-comment">#自动接受许可协议</span>
 accesschk.exe /accepteula
-<span class="hljs-comment">#列出某个驱动器下所有权限配置有缺陷的文件夹，命令如下。</span>
-accesschk.exe <span class="hljs-literal">-uwdqsUsersc</span>:\
-accesschk.exe <span class="hljs-literal">-uwdqs</span><span class="hljs-string">&quot;AuthenticatedUsers&quot;</span>c:\
-<span class="hljs-comment">#列出某个驱动器下所有权限配置有缺陷的文件，命令如下。</span>
-accesschk.exe <span class="hljs-literal">-uwqsUsersc</span>:\*.*
-accesschk.exe <span class="hljs-literal">-uwqs</span><span class="hljs-string">&quot;AuthenticatedU</span></code></pre>
+<span class="hljs-comment">#查看指定目录的权限配置情况</span>
+accesschk.exe <span class="hljs-literal">-dqv</span> <span class="hljs-string">&quot;C:\Microsoft&quot;</span> /accepteula
+<span class="hljs-comment">#查看Everyone帐户对C:\下的权限配置情况</span>
+accesschk.exe <span class="hljs-literal">-uwq</span> <span class="hljs-string">&quot;Everyone&quot;</span> c:\
+<span class="hljs-comment">#列出AuthenticatedUsers账户的在C盘下的缺陷权限配置</span>
+accesschk.exe <span class="hljs-literal">-uwqs</span> <span class="hljs-string">&quot;AuthenticatedUsers&quot;</span> c:\*.*</code></pre>
+
+<p>参数说明：</p>
+<pre><code class="hljs powershell"><span class="hljs-literal">-d</span>	仅处理目录或顶级键
+<span class="hljs-literal">-e</span>	仅显示明确设置的完整性级别（仅限 Windows Vista 和更高版本）
+<span class="hljs-literal">-q</span>	省略横幅
+<span class="hljs-literal">-r</span>	仅显示具有读取权限的对象
+<span class="hljs-literal">-s</span>	递归
+<span class="hljs-literal">-t</span>	对象类型过滤器，例如<span class="hljs-string">&quot;section&quot;</span>
+<span class="hljs-literal">-u</span>	抑制错误
+<span class="hljs-literal">-v</span>	详细（包括 Windows Vista 完整性级别）
+<span class="hljs-literal">-w</span>	仅显示具有写入权限的对象
+……………………（不再一一列举）</code></pre>
+
+<ul>
+<li>目标环境有python3环境时可以使用以下脚本进行批量查找</li>
+</ul>
+<p>可以直接对要执行的计划任务进行筛选（计划任务模式不能为已禁用），默认生成<code>only_task_path.txt</code>(保存计划任务路径信息)以及<code>all_check.txt</code>（所有的检查结果）。</p>
+<p>repo: <a target="_blank" rel="noopener" href="https://github.com/SevenC-base/PostExploitation/tree/master/windows/%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E6%8F%90%E6%9D%83%E6%A3%80%E6%9F%A5%E8%84%9A%E6%9C%AC/AccessChk">https://github.com/SevenC-base/PostExploitation/tree/master/windows/%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E6%8F%90%E6%9D%83%E6%A3%80%E6%9F%A5%E8%84%9A%E6%9C%AC/AccessChk</a></p>
+<pre><code class="hljs powershell">python3 schtasks_check.py</code></pre>
+
+<ul>
+<li>在目标机器没有python环境时，可以导出计划任务详情，在本机借用以上脚本生成单独的计划任务路径信息，之后上次目标机器使用批处理对路径进行检查。</li>
+</ul>
+<pre><code class="hljs powershell"><span class="hljs-comment"># 导出目标机器计划任务情况，注意文件编码调整为UTF-8</span>
+schtasks /query /fo LIST /v &gt; task.txt
+<span class="hljs-comment"># 默认生成only_task_path.txt保存计划任务路径信息</span>
+python3 schtasks_check.py <span class="hljs-operator">-f</span> task.txt</code></pre>
+
+<p>之后去目标机器运行批处理，注意要有：<code>accesschk.exe</code></p>
+<pre><code class="hljs powershell">@<span class="hljs-built_in">echo</span> off 
+<span class="hljs-keyword">for</span> /f %%i <span class="hljs-keyword">in</span> (only_task_path.txt) <span class="hljs-keyword">do</span> <span class="hljs-built_in">echo</span> %%i &amp;&amp; accesschk.exe  /accepteula <span class="hljs-literal">-uwqv</span> %%i 
+pause</code></pre>
+
+
 
 <h3 id="4-2-6-Empire-内置模块"><a href="#4-2-6-Empire-内置模块" class="headerlink" title="4.2.6 Empire 内置模块"></a>4.2.6 Empire 内置模块</h3><p><code>Empire</code> 内置了 <code>PowerUp</code> 的部分模块。输入<code>usemodule privesc/powerup</code>命令，然后按<code>Tab</code>键，查看<code>PowerUp</code>的模块列表。</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220126223637695.png" alt="image-20220126223637695"></p>
 <p><code>AIIChecks</code> 模块用于查找系统中的漏洞。<code>AllChecks</code> 模块可用于执行脚本、检查系统漏洞。</p>
-<pre><code class="hljs shell">usemodule privesc/powerup/allchecks
+<pre><code class="hljs ruby">usemodule privesc/powerup/allchecks
 execute</code></pre>
 
-<p><code>AllChecks</code>模块如下:</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220126230507949.png" alt="image-20220126230507949"></p>
+<p><code>AllChecks</code>模块的应用对象如下:</p>
 <ul>
 <li>没有被引号引起来的服务的路径</li>
 <li><code>ACL</code> 配置错误的服务（攻击者通常通过<code>service_*</code>利用它）</li>
@@ -827,15 +866,15 @@ execute</code></pre>
     <section class="share">
         <div class="share-title">分享</div>
         <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=内网学习笔记4-权限提升分析及防御 - RainMaker&url=http://hasaki-h2.github.io/401ba385.html">
+            href="https://twitter.com/share?text=内网学习笔记四-权限提升分析及防御 - RainMaker&url=http://hasaki-h2.github.io/401ba385.html">
             <box-icon type='logo' name='twitter'></box-icon>
         </a>
         <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=内网学习笔记4-权限提升分析及防御 - RainMaker&u=http://hasaki-h2.github.io/401ba385.html">
+            href="https://www.facebook.com/sharer.php?title=内网学习笔记四-权限提升分析及防御 - RainMaker&u=http://hasaki-h2.github.io/401ba385.html">
             <box-icon name='facebook-square' type='logo' ></box-icon>
         </a>
         <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=内网学习笔记4-权限提升分析及防御 - RainMaker&url=http://hasaki-h2.github.io/401ba385.html&pic=">
+            href="https://service.weibo.com/share/share.php?title=内网学习笔记四-权限提升分析及防御 - RainMaker&url=http://hasaki-h2.github.io/401ba385.html&pic=">
             <div class="n-icon n-icon-weibo"></div>
         </a> -->
     </section>
@@ -920,7 +959,7 @@ execute</code></pre>
           </li>
         
           <li>
-            <a href="/401ba385.html">内网学习笔记4-权限提升分析及防御</a>
+            <a href="/401ba385.html">内网学习笔记四-权限提升分析及防御</a>
           </li>
         
           <li>
