@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import dayjs from 'dayjs'
 import { addNewClass, removeClass, throttle } from './class-module'
 ;(function () {
     let toggles = document.querySelectorAll('.cases .item')
@@ -31,7 +32,7 @@ import { addNewClass, removeClass, throttle } from './class-module'
 
     // 代码高亮
     document.querySelectorAll('pre code').forEach((block) => {
-        hljs.highlightBlock(block)
+        hljs.highlightElement(block)
     })
 
     // TOC
@@ -259,17 +260,13 @@ import { addNewClass, removeClass, throttle } from './class-module'
     // LazyLoad
     const lazyLoad = new LazyLoad()
 
-    // DisqusJS
-    if (window.aomori.disqusjs && window.aomori.disqusjs.enable) {
-        const dsqjs = new DisqusJS({
-            shortname: window.aomori.disqusjs.shortname,
-            siteName: window.aomori.disqusjs.siteName,
-            api: window.aomori.disqusjs.api,
-            apikey: window.aomori.disqusjs.apikey,
-            nesting: window.aomori.disqusjs.nesting,
-            nocomment: window.aomori.disqusjs.nocomment,
-            admin: window.aomori.disqusjs.admin,
-            adminLabel: window.aomori.disqusjs.adminLabel,
-        })
+    // Fxxk adblock
+    const ads = $('.adsbygoogle')
+    if (
+        window.isPost &&
+        ads.length > 0 &&
+        window.getComputedStyle(ads[0]).display === 'none'
+    ) {
+        $('.intersection-observer-ad').css('display', 'flex')
     }
 })()
