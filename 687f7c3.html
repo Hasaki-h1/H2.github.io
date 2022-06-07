@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>内网学习笔记五 | 域内横向移动分析及防御 | RainMaker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+
+    
+        <meta property="algolia:search" data-application-id="T8IRMXQO87" data-api-key="614acade121cd1054c73da7b48c66120" data-index-name="test">
+    
+
+    
+
+    
+
+    
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1637200696663.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1637200696663.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            valine: {
+                enable: true,
+                appId: "xClBvTvhGrfI2roMnMSLmHUm-gzGzoHsz",
+                appKey: "Qi9SH982uKy3x14sNYdKegyJ",
+            },
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = true
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+<body>
+	
+    <div class="container">
+    <header class="header">
+		<meta name="baidu-site-verification" content="code-YWFjIbmZen" />
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>RainMaker</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">Home</a>
+                
+                <a href="/archives">Archives</a>
+                
+                <a href="/friends">Friends</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+    <a class="social" target="_blank" href="">
+        <box-icon type='' name=''></box-icon>
+    </a>
+
+    <a class="social" target="_blank" href="">
+        <box-icon type='' name=''></box-icon>
+    </a>
+
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">Home</a>
+                    
+                    <a href="/archives">Archives</a>
+                    
+                    <a href="/friends">Friends</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-cl43rsujh0001v25y2lb0843p" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      内网学习笔记五 | 域内横向移动分析及防御
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2022-02-21T02:39:31.000Z" itemprop="datePublished">2022-02-21</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>,<a class="article-category-link" href="/categories/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/">横向移动</a>
+            </div>
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Intranet/" rel="tag">Intranet</a></li></ul>
+            </div>
+            
+
+            
+            <div class="article-busuanzi">
+                    有 <span id="busuanzi_value_page_pv">N</span> 人看过
+            </div>
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>​        域内横向移动技术是在复杂的内网攻击中被广泛使用的一种技术，尤其是在高级持续威胁 (<code>Advanced Persistent Threats</code>，<code>APT</code>）中。攻击者会利用该技术，以被攻陷的系统为跳板，访问其他域内主机，扩大资产范围（包括跳板机器中的文档和存储的凭证，以及通过跳板机器连接的数据库、域控制器或其他重要资产）。</p>
+<p>​        通过此类攻击手段，攻击者最终可能获取域控制器的访问权限，甚至完全控制基<code>Windows</code>操作系统的基础设施和与业务相关的关键账户。因此，必须使用强口令来保护特权用户不被用于横向移动攻击，从而避免域内其他机器沦陷。建议系统管理员定期修改密码，从而使攻击者获取的权限失效。</p>
+<h2 id="5-1-常用Windows-远程连接和相关命令"><a href="#5-1-常用Windows-远程连接和相关命令" class="headerlink" title="5.1 常用Windows 远程连接和相关命令"></a>5.1 常用Windows 远程连接和相关命令</h2><p>​        在渗透测试中，拿到目标计算机的用户明文密码或者 <code>NTLM Hash</code> 后，可以通过 <code>PTH</code>（<code>Pass the Hash</code>，凭据传递）的方法，将散列值或明文密码传送到目标机器中进行验证。与目标机器建立连接后，可以使用相关方法在远程 <code>Windows</code>操作系统中执行命令。在多层代理环境中进行渗透测试时，由于网络条件较差，无法使用图形化界面连接远程主机。此时，可以使用命令行的方式连接远程主机（最好使用 <code>Windows</code> 自带的方法对远程目标系统进行命令行下的连接操作）并执行相关命令。在实际的网络环境中，针对此类情况，网络管理员可以通过配置 <code>Windows</code> 系统自带的防火墙或组策略进行防御。</p>
+<h3 id="5-1-1-IPC"><a href="#5-1-1-IPC" class="headerlink" title="5.1.1 IPC"></a>5.1.1 IPC</h3><p>​        <code>IPC（</code>Internet Process Connection`）共享“命名管道”的资源，是为了实现进程间通信而开放的命名管道。IPC 可以通过验证用户名和密码获得相应的权限，通常在远程管理计算机和查看计算机的共享资源时使用。通过 ipc$，可以与目标机器建立连接。利用这个连接，不仅可以访问目标机器中的文件，进行上传、下载等操作，还可以在目标机器上运行其他命令，以获取目标机器的目录结构、用户列表等信息。</p>
+<p>建立连接：<code>net use \\192.168.100.190\ipc$ &quot;Aa123456@&quot; /user:administrator</code>，在命令行环境中输人命令<code>net use</code>，查看当前的连接:</p>
+<h3 id="5-1-2-Windows-自带工具获取远程主机信息"><a href="#5-1-2-Windows-自带工具获取远程主机信息" class="headerlink" title="5.1.2 Windows 自带工具获取远程主机信息"></a>5.1.2 Windows 自带工具获取远程主机信息</h3><h3 id="5-1-3-计划任务"><a href="#5-1-3-计划任务" class="headerlink" title="5.1.3 计划任务"></a>5.1.3 计划任务</h3><h2 id="5-2-Windows-系统散列值获取分析与防范"><a href="#5-2-Windows-系统散列值获取分析与防范" class="headerlink" title="5.2 Windows 系统散列值获取分析与防范"></a>5.2 Windows 系统散列值获取分析与防范</h2><h3 id="5-2-1-LM-Hash-和NTLM-Hash"><a href="#5-2-1-LM-Hash-和NTLM-Hash" class="headerlink" title="5.2.1 LM Hash 和NTLM Hash"></a>5.2.1 LM Hash 和NTLM Hash</h3><h3 id="5-2-2-单机密码抓取与防范"><a href="#5-2-2-单机密码抓取与防范" class="headerlink" title="5.2.2 单机密码抓取与防范"></a>5.2.2 单机密码抓取与防范</h3><h3 id="5-2-3-使用Hashcat-获取密码"><a href="#5-2-3-使用Hashcat-获取密码" class="headerlink" title="5.2.3 使用Hashcat 获取密码"></a>5.2.3 使用Hashcat 获取密码</h3><h3 id="5-2-4-如何防范攻击者抓取明文密码"><a href="#5-2-4-如何防范攻击者抓取明文密码" class="headerlink" title="5.2.4 如何防范攻击者抓取明文密码"></a>5.2.4 如何防范攻击者抓取明文密码</h3><h2 id="5-3-hash传递攻击分析与防范"><a href="#5-3-hash传递攻击分析与防范" class="headerlink" title="5.3 hash传递攻击分析与防范"></a>5.3 hash传递攻击分析与防范</h2><h3 id="5-3-1-哈希传递攻击的概念"><a href="#5-3-1-哈希传递攻击的概念" class="headerlink" title="5.3.1 哈希传递攻击的概念"></a>5.3.1 哈希传递攻击的概念</h3><h3 id="5-3-2-哈希传递攻击分析"><a href="#5-3-2-哈希传递攻击分析" class="headerlink" title="5.3.2 哈希传递攻击分析"></a>5.3.2 哈希传递攻击分析</h3><h3 id="5-3-3-更新KB2871997-补丁产生的影响"><a href="#5-3-3-更新KB2871997-补丁产生的影响" class="headerlink" title="5.3.3 更新KB2871997 补丁产生的影响"></a>5.3.3 更新KB2871997 补丁产生的影响</h3><h2 id="5-4-票据传递攻击分析与防范"><a href="#5-4-票据传递攻击分析与防范" class="headerlink" title="5.4 票据传递攻击分析与防范"></a>5.4 票据传递攻击分析与防范</h2><h3 id="5-4-1-使用mimikatz-进行票据传递"><a href="#5-4-1-使用mimikatz-进行票据传递" class="headerlink" title="5.4.1 使用mimikatz 进行票据传递"></a>5.4.1 使用mimikatz 进行票据传递</h3><h3 id="5-4-2-使用kekeo-进行票据传递"><a href="#5-4-2-使用kekeo-进行票据传递" class="headerlink" title="5.4.2 使用kekeo 进行票据传递"></a>5.4.2 使用kekeo 进行票据传递</h3><h3 id="5-4-3-如何防范票据传递攻击"><a href="#5-4-3-如何防范票据传递攻击" class="headerlink" title="5.4.3 如何防范票据传递攻击"></a>5.4.3 如何防范票据传递攻击</h3><h2 id="5-5-PsExec-的使用"><a href="#5-5-PsExec-的使用" class="headerlink" title="5.5 PsExec 的使用"></a>5.5 PsExec 的使用</h2><h3 id="5-5-1-PsTools-工具包中的PsExec"><a href="#5-5-1-PsTools-工具包中的PsExec" class="headerlink" title="5.5.1 PsTools 工具包中的PsExec"></a>5.5.1 PsTools 工具包中的PsExec</h3><h3 id="5-5-2-Metasploit-中的psexec-模块"><a href="#5-5-2-Metasploit-中的psexec-模块" class="headerlink" title="5.5.2 Metasploit 中的psexec 模块"></a>5.5.2 Metasploit 中的psexec 模块</h3><h2 id="5-6-WMI-的使用"><a href="#5-6-WMI-的使用" class="headerlink" title="5.6 WMI 的使用"></a>5.6 WMI 的使用</h2><h3 id="5-6-1-基本命令"><a href="#5-6-1-基本命令" class="headerlink" title="5.6.1 基本命令"></a>5.6.1 基本命令</h3><h3 id="5-6-2-impactket-工具包中的wmiexec"><a href="#5-6-2-impactket-工具包中的wmiexec" class="headerlink" title="5.6.2 impactket 工具包中的wmiexec"></a>5.6.2 impactket 工具包中的wmiexec</h3><h3 id="5-6-3-wmiexec-vbs"><a href="#5-6-3-wmiexec-vbs" class="headerlink" title="5.6.3 wmiexec.vbs"></a>5.6.3 wmiexec.vbs</h3><h3 id="5-6-4-Invoke-WmiCommand"><a href="#5-6-4-Invoke-WmiCommand" class="headerlink" title="5.6.4 Invoke-WmiCommand"></a>5.6.4 Invoke-WmiCommand</h3><h3 id="5-6-5-Invoke-WMIMethod"><a href="#5-6-5-Invoke-WMIMethod" class="headerlink" title="5.6.5 Invoke-WMIMethod"></a>5.6.5 Invoke-WMIMethod</h3><h2 id="5-7-永恒之蓝漏洞分析与防范"><a href="#5-7-永恒之蓝漏洞分析与防范" class="headerlink" title="5.7 永恒之蓝漏洞分析与防范"></a>5.7 永恒之蓝漏洞分析与防范</h2>
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+<div class="article-copyright hairline">
+  <p>
+    本作品采用 <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a> 进行许可。
+  </p>
+</div>
+
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/f9f7ea1f.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          内网学习笔记八 | 权限维持分析及防御
+        
+      </div>
+    </a>
+  
+  
+    <a href="/1ed1a532.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">向日葵RCE复现</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=内网学习笔记五 | 域内横向移动分析及防御 - RainMaker&url=http://hasaki-h2.github.io/687f7c3.html">
+            <box-icon type='logo' name='twitter'></box-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=内网学习笔记五 | 域内横向移动分析及防御 - RainMaker&u=http://hasaki-h2.github.io/687f7c3.html">
+            <box-icon name='facebook-square' type='logo' ></box-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=内网学习笔记五 | 域内横向移动分析及防御 - RainMaker&url=http://hasaki-h2.github.io/687f7c3.html&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+<section class="comments">
+    <div id="valine-container"></div>
+</section>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+
+
+<script src="./js/busuanzi.pure.mini.js"></script>
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar sidebar-search-fix">
+                
+
+    <div class="search">
+    <div class="has-icon-right">
+        <input type="text" class="form-input" id="search" placeholder="SEARCH" autocomplete="off">
+        <div class="form-icon">
+            <box-icon name='search' color="#3c4859"></box-icon>
+        </div>
+    </div>
+    <div class="search-result" id="search-ps"></div>
+</div>
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E6%B8%97%E9%80%8F/">Web渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/">横向移动</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%AF%E6%BA%90%E5%8F%8D%E5%88%B6/">溯源反制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91/">脚本开发</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARL/" rel="tag">ARL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access/" rel="tag">Access</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bugku/" rel="tag">Bugku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Burpsuite/" rel="tag">Burpsuite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cap-Pwd/" rel="tag">Cap_Pwd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CobaltStrike/" rel="tag">CobaltStrike</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Empire/" rel="tag">Empire</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GetShell/" rel="tag">GetShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Goby/" rel="tag">Goby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intranet/" rel="tag">Intranet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lfi/" rel="tag">Lfi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4j/" rel="tag">Log4j</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PTE/" rel="tag">PTE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Priviledge/" rel="tag">Priviledge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pth/" rel="tag">Pth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql/" rel="tag">Sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VulLab/" rel="tag">VulLab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xff/" rel="tag">Xff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xray/" rel="tag">Xray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/896645eb.html">内网学习笔记七 | 跨域攻击分析及防御</a>
+          </li>
+        
+          <li>
+            <a href="/83b61d10.html">内网学习笔记六 | 域控制器安全</a>
+          </li>
+        
+          <li>
+            <a href="/f9f7ea1f.html">内网学习笔记八 | 权限维持分析及防御</a>
+          </li>
+        
+          <li>
+            <a href="/687f7c3.html">内网学习笔记五 | 域内横向移动分析及防御</a>
+          </li>
+        
+          <li>
+            <a href="/1ed1a532.html">向日葵RCE复现</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            RainMaker &copy; 2022<br>
+            Powered By Hexo · Theme By <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Aomori</a>
+        </div>
+    </div>
+
+</footer>
+
+
+
+
+
+
+<script src="/dist/build.js?1637200696663.js"></script>
+
+
+<script src="/dist/custom.js?1637200696663.js"></script>
+
+
+
+<!-- 百度链接提交 -->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+
+
+<!-- Baidu Analytics-->
+<script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?df9a1971c34200c9a339305db5b13a60";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+</body>
+
+</html>

