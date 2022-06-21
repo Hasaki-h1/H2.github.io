@@ -1123,31 +1123,59 @@ revtoself</code></pre>
 <li>使用加密链路<code>SSL/TLS</code>传输令牌，以防止被中间人窃听。</li>
 </ul>
 <h2 id="4-6-无凭证条件下的权限分析及防范"><a href="#4-6-无凭证条件下的权限分析及防范" class="headerlink" title="4.6 无凭证条件下的权限分析及防范"></a>4.6 无凭证条件下的权限分析及防范</h2><p>​        在本节的实验中，假设已经进人目标网络，但没有获得任何凭证，使用<code>LLMNR</code> 和 <code>NetBIOS</code> 欺骗攻击对目标网络进行渗透测试。</p>
-<h3 id="4-6-1-LLMNR-和NetBIOS欺骗攻击的基本概念"><a href="#4-6-1-LLMNR-和NetBIOS欺骗攻击的基本概念" class="headerlink" title="4.6.1 LLMNR 和NetBIOS欺骗攻击的基本概念"></a>4.6.1 <code>LLMNR</code> 和<code>NetBIOS</code>欺骗攻击的基本概念</h3><h5 id="1-LLMNR"><a href="#1-LLMNR" class="headerlink" title="1.  LLMNR"></a>1.  <code>LLMNR</code></h5><p>​        本地链路多播名称解析（<code>LLMNR</code>）是一种域名系统数据包格式。当局域网中的 <code>DNS</code> 服务器不可用时，<code>DNS</code>客户端会使用<code>LLMNR</code>解析本地网段中机器的名称，直到<code>DNS</code>服务器恢复正常为止。从 <code>Windows Vista</code> 版本开始支持 <code>LLMNR</code>。<code>LLMNR</code> 支持 <code>IPv6</code>。</p>
+<h3 id="4-6-1-LLMNR-和NetBIOS欺骗攻击的基本概念"><a href="#4-6-1-LLMNR-和NetBIOS欺骗攻击的基本概念" class="headerlink" title="4.6.1 LLMNR 和NetBIOS欺骗攻击的基本概念"></a>4.6.1 <code>LLMNR</code> 和<code>NetBIOS</code>欺骗攻击的基本概念</h3><h4 id="1-LLMNR"><a href="#1-LLMNR" class="headerlink" title="1.  LLMNR"></a>1.  <code>LLMNR</code></h4><p>​      本地链路多播名称解析（<code>LLMNR—Link-Local Multicast Name Resolution</code>）是一种域名系统数据包格式。当局域网中的 <code>DNS</code> 服务器不可用时，<code>DNS</code>客户端会使用<code>LLMNR</code>解析本地网段中机器的名称，直到<code>DNS</code>服务器恢复正常为止。从 <code>Windows Vista</code> 版本开始支持 <code>LLMNR</code>。<code>LLMNR</code> 支持 <code>IPv6</code>。</p>
 <p><code>LLMNR</code> 的工作流程如下。</p>
 <ol>
 <li><code>DNS</code> 客户端在自己的内部名称缓存中查询名称。</li>
 <li>如果没有找到，主机将向主<code>DNS</code>发送名称查询请求。</li>
 <li>如果主<code>DNS</code>没有回应或者收到了错误的信息，主机会向备<code>DNS</code>发送查询请求。</li>
 <li>如果备<code>DNS</code>没有回应或者收到了错误的信息，将使用<code>LLMNR</code>进行解析。</li>
-<li>主机通过 <code>UDP</code> 协议向组播地址 <code>224.0.0.252</code> 的 <code>5355</code> 端口发送多播查询请求，以获取主机名所对应的 <code>IP</code> 地址。查询范围仅限于本地子网。</li>
+<li>主机通过 <code>UDP</code> 协议向组播地址 <strong><code>224.0.0.252</code></strong> 的 <strong><code>5355</code></strong> 端口发送多播查询请求，以获取主机名所对应的 <code>IP</code> 地址。查询范围仅限于本地子网。</li>
 <li>本地子网中所有支持 <code>LLMNR</code> 的主机在收到查询请求后，会对比自己的主机名。如果不同，就丢弃；如果相同，就向查询主机发送包含自己 <code>IP</code> 地址的单播信息。</li>
 </ol>
-<h4 id="2-NetBIOS"><a href="#2-NetBIOS" class="headerlink" title="2.NetBIOS"></a>2.<code>NetBIOS</code></h4><p>​        <code>NetBIOS</code>是一种网络协议，一般用在由十几台计算机组成的局域网中（根据<code>NetBIOS</code>协议广播获得计算机名称，并将其解析为相应的 <code>IP</code> 地址）。在 <code>Windows NT</code> 以后版本的所有操作系统中均可使用<code>NetBIOS</code>。但是，<code>NetBIOS</code>不支持<code>IPv6</code>。</p>
+<h4 id="2-NetBIOS"><a href="#2-NetBIOS" class="headerlink" title="2. NetBIOS"></a>2. <code>NetBIOS</code></h4><p>​        <code>NetBIOS</code>是一种网络协议，一般用在由十几台计算机组成的局域网中（根据<code>NetBIOS</code>协议广播获得计算机名称，并将其解析为相应的 <code>IP</code> 地址）。在 <code>Windows NT</code> 以后版本的所有操作系统中均可使用<code>NetBIOS</code>。但是，<code>NetBIOS</code>不支持<code>IPv6</code>。</p>
 <p><code>NetBIOS</code>提供的三种服务如下：</p>
 <ul>
-<li><code>NetBIOS-NS</code>（名称服务）：主要用于名称注册和解析，以启动会话和分发数据报。该服务需要使用域名服务器来注册<code>NetBIOS</code>的名称。默认监听<code>UDP</code> 137端口，也可以使用<code>TCP</code> 137 端口。</li>
-<li><code>Datagram Distribution Service</code>（数据报分发服务）：无连接服务。该服务负责进行错误检测和恢复，默认监听 <code>UDP</code> 138 端口。</li>
-<li><code>Session Service</code>（会话服务）：允许两台计算机建立连接，允许电子邮件跨越多个数据包进行传输，提供错误检测和恢复机制。默认使用<code>TCP</code> 139端口。</li>
+<li><code>NetBIOS-NS</code>（<strong>名称服务</strong>）：主要用于名称注册和解析，以启动会话和分发数据报。该服务需要使用域名服务器来注册<code>NetBIOS</code>的名称。默认监听<code>UDP</code> 137端口，也可以使用<code>TCP</code> 137 端口。</li>
+<li><code>Datagram Distribution Service</code>（<strong>数据报分发服务</strong>）：无连接服务。该服务负责进行错误检测和恢复，默认监听 <code>UDP</code> 138 端口。</li>
+<li><code>Session Service</code>（<strong>会话服务</strong>）：允许两台计算机建立连接，允许电子邮件跨越多个数据包进行传输，提供错误检测和恢复机制。默认使用<code>TCP</code> 139端口。</li>
 </ul>
-<h4 id="3-Net-NTLM-Hash"><a href="#3-Net-NTLM-Hash" class="headerlink" title="3. Net-NTLM Hash"></a>3. <code>Net-NTLM Hash</code></h4><p>​        <code>Net-NTLM Hash</code> 与<code>NTLM Hash</code>不同。<br>​        <code>NTLM Hash</code>是指<code>Windows</code>操作系统的<code>Security Account Manager </code>中保存的用户密码散列值。<code>NTLM Hash</code>通常保存在<code>Windows</code>的<code>SAM</code>文件或者<code>NTDS.DIT</code>数据库中，用于对访问资源的用户进行身份验证。</p>
+<h4 id="3-Net-NTLM-Hash"><a href="#3-Net-NTLM-Hash" class="headerlink" title="3.  Net-NTLM Hash"></a>3.  <code>Net-NTLM Hash</code></h4><p>​        <code>Net-NTLM Hash</code> 与<code>NTLM Hash</code>不同。<br>​        <code>NTLM Hash</code>是指<code>Windows</code>操作系统的<code>Security Account Manager </code>中保存的用户密码散列值。<code>NTLM Hash</code>通常保存在<code>Windows</code>的<code>SAM</code>文件或者<code>NTDS.DIT</code>数据库中，用于对访问资源的用户进行身份验证。</p>
 <p>​        <code>Net-NTLM Hash</code> 是指在网络环境中经过 <code>NTLM</code> 认证的散列值。挑战/响应验证中的“<strong>响应</strong>”就包含<code>Net-NTLM Hash</code>。使用<code>Responder</code>抓取的通常就是<code>Net-NTLM Hash</code>。攻击者无法使用该散列值进行哈希传递攻击，只能在使用<code>Hashcat</code>等工具得到明文后进行横向移动攻击。</p>
 <h3 id="4-6-2-LLMNR和NetBIOS欺骗攻击分析"><a href="#4-6-2-LLMNR和NetBIOS欺骗攻击分析" class="headerlink" title="4.6.2 LLMNR和NetBIOS欺骗攻击分析"></a>4.6.2 <code>LLMNR</code>和<code>NetBIOS</code>欺骗攻击分析</h3><p>​        假设目标网络的<code>DNS</code>服务器因发生故障而无法提供服务时，会退回<code>LLMNR</code>和<code>NBT-NS</code>进行计算机名解析。下面使用<code>Responder</code>工具进行渗透测试。<code>Responder</code>是监听<code>LLMNR</code>和<code>NBT-NS</code>协议的工具之一，能够抓取网络中所有的<code>LLMNR</code>和<code>NBT-NS</code>请求并进行响应，获取最初的账户凭证。<code>Responder</code>可以利用内置<code>SMB</code>认证服务器、<code>MSSQL</code>认证服务器、<code>HTTP</code>认证服务器、<code>HTTPS</code>认证服务器、<code>LDAP</code> 认证服务器、<code>DNS</code>服务器、<code>WPAD</code> 代理服务器，以及 <code>FTP</code>、<code>POP3</code>、<code>IMAP</code>、<code>SMTP</code> 等服务器，收集目标网络中计算机的凭据，还可以通过 <code>Multi-Relay</code> 功能在目标系统中执行命令。</p>
-<h5 id="1-下载和运行"><a href="#1-下载和运行" class="headerlink" title="1.下载和运行"></a>1.下载和运行</h5><p><code>Responder</code>是使用<code>Python</code>语言编写的，<code>repo</code>：</p>
-<h5 id="2-监听模式"><a href="#2-监听模式" class="headerlink" title="2. 监听模式"></a>2. 监听模式</h5><p>进人目标网络后，如果没有获得任何目标系统的相关信息和重要凭证，可以开启 <code>Responder</code> 的监听模式。<code>Responder</code> 只会对网络中的流量进行分析，不会主动响应任何请求。使用<code>Responder</code>查看网络是如何在没有主动定位任何主机的情况下运行的，如图所示。</p>
+<p>​        <code>NetBIOS</code>是从 <code>Windows 2000</code> 开始启用的，<code>LLNNR</code> 是作为 <code>windows Vista</code>以上的系统开始启用的协议，还有就是 <code>NetBIOS</code>是Windows进行通信的API，LLMNR是网络协议，但是两者主要功能是一样的。在系统进行名称解析会进行以下的步骤：</p>
+<ol>
+<li>检查以确认请求是否针对本地计算机名称。</li>
+<li>检查最近成功解析的名称的本地缓存。</li>
+<li>搜索本地hosts文件当中解析。</li>
+<li>查询 DNS 服务器。</li>
+<li>如果启用了 LLMNR，则在本地子网中广播 LLMNR 查询以请求其对等方进行解析。</li>
+<li>如果启用了 NetBIOS，如果名称不在本地 NetBIOS 缓存中，则尝试通过向本地子网广播 NetBIOS-NS 查询来解析 NetBIOS 名称。如果这样配置，此步骤可能会使用 Windows Internet 名称服务 (WINS) 服务器以及 LAN 管理器主机 (LMHOSTS) 文件。</li>
+</ol>
+<p><strong>WPAD:</strong></p>
+<p><strong>Web 代理自动发现 (WPAD) 协议</strong>是组织允许员工通过代理服务器访问互联网，以提高性能、确保安全和跟踪流量。连接到公司网络的用户需要知道特定 URL 的代理服务器，客户端使用 DHCP 和/或 DNS 发现方法来定位配置文件的 URL 的一种方法。 一旦配置文件的检测和下载完成，就可以执行它来确定指定 URL 的代理。在IE在网络设置打勾就表示启用了wpad，默认是不开启的，但是在 Windows 10 中WPAD 默认是启用的。</p>
+<h5 id="1-下载和运行"><a href="#1-下载和运行" class="headerlink" title="1.下载和运行"></a>1.下载和运行</h5><p><code>Responder</code>是使用<code>Python</code>语言编写的，<code>repo</code>：<a target="_blank" rel="noopener" href="https://github.com/lgandx/Responder">https://github.com/lgandx/Responder</a></p>
+<h5 id="2-监听模式"><a href="#2-监听模式" class="headerlink" title="2. 监听模式"></a>2. 监听模式</h5><p>进人目标网络后，如果没有获得任何目标系统的相关信息和重要凭证，可以开启 <code>Responder</code> 的监听模式。<code>Responder</code> 只会对网络中的流量进行分析，不会主动响应任何请求。使用<code>Responder</code>查看网络是如何在没有主动定位任何主机的情况下运行的，如图所示：</p>
+<pre><code class="hljs bash"><span class="hljs-comment"># kali执行</span>
+responder -I eth0  --lm -Pv</code></pre>
+
 <p><code>ON</code>代表针对该服务数据包的监听，<code>OFF</code>代表关闭监听。由此可以分析出网络中存在的<code>IP</code>地址段、机器名等。</p>
+<img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220622001954594.png" alt="image-20220622001954594" style="zoom:50%;" />
+
+
+
 <h5 id="3-渗透测试"><a href="#3-渗透测试" class="headerlink" title="3. 渗透测试"></a>3. 渗透测试</h5><p>​        在使用 <code>Responder</code> 对网络进行分析之后，可以利用<code>SMB</code>协议获取目标网络中计算机的<code>Net-NTLM Hash</code>。如果用户输入了错误的计算机名，在<code>DNS</code>服务器上进行的名称查询操作将会失败，名称解析请求将被退回，使用<code>NBT-NS</code>和<code>LLMNR</code>进行解析。</p>
-<p>​        在渗透测试中，使用<code>Responder</code>并启动回应请求功能，<code>Responder</code>会自动回应客户端的请求并声明自己就是被输入了错误计算机名的那台机器,然后尝试建立<code>SMB</code>连接。客户端会发送自己的 <code>Net-NTLM Hash</code> 进行身份验证，此时将得到目标机器的 <code>Net-NTLM Hash</code>，如图所示。</p>
+<p>​        在渗透测试中，使用<code>Responder</code>并启动回应请求功能，<code>Responder</code>会自动回应客户端的请求并声明自己就是被输入了错误计算机名的那台机器，然后尝试建立<code>SMB</code>连接。客户端会发送自己的 <code>Net-NTLM Hash</code> 进行身份验证，此时将得到目标机器的 <code>Net-NTLM Hash</code>，如图所示：</p>
+<p>Windows 7 访问共享服务：</p>
+<img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220622001712801.png" alt="image-20220622001712801" style="zoom:50%;" />
+
+<p>可以看到访问之后抓取到认证凭据：</p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220622001930793.png" alt="image-20220622001930793"></p>
+<p>保存凭据为hash.txt，使用hashcat进行爆破：</p>
+<pre><code class="hljs bash"><span class="hljs-comment"># 成功爆破出密码为123</span>
+hashcat -m 5600 hash.txt passwd.txt</code></pre>
+
+<img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220622002313653.png" alt="image-20220622002313653" style="zoom:50%;" />
 
         </div>
 

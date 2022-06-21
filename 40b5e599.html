@@ -246,7 +246,7 @@
 <p>​        我是谁?   一对当前机器角色的判断。</p>
 <p>​        这是哪?   一对当前机器所处网络环境的拓扑结构进行分析和判断。</p>
 <p>​        我在哪?   一对当前机器所处区域的判断。</p>
-<h2 id="2-2-收集本机信息"><a href="#2-2-收集本机信息" class="headerlink" title="2. 2 收集本机信息"></a>2. 2 收集本机信息</h2><p>​        本机信息：操作系统、权限、内网IP段、杀毒软件、端口、服务、补丁更新频率、网络连接、共享、会话等。</p>
+<h2 id="2-2-收集本机信息"><a href="#2-2-收集本机信息" class="headerlink" title="2.2 收集本机信息"></a>2.2 收集本机信息</h2><p>​        本机信息：操作系统、权限、内网IP段、杀毒软件、端口、服务、补丁更新频率、网络连接、共享、会话等。</p>
 <h3 id="2-2-1-手动搜集信息"><a href="#2-2-1-手动搜集信息" class="headerlink" title="2.2.1 手动搜集信息"></a>2.2.1 手动搜集信息</h3><pre><code class="hljs powershell"><span class="hljs-comment">#查询网络配置信息</span>
 ipconfig    /all
 netstat <span class="hljs-literal">-ano</span> | findstr ESTABLISHED
@@ -419,7 +419,7 @@ usemodule situational_awareness/host/computerdetails</code></pre>
 <h3 id="3-查询指定用户的详细信息"><a href="#3-查询指定用户的详细信息" class="headerlink" title="3. 查询指定用户的详细信息"></a>3. 查询指定用户的详细信息</h3><pre><code class="hljs plaintext">net user XXX /domain</code></pre>
 
 <p>可以查询到当前用户的权限，组，登录时间等信息。</p>
-<h2 id="2-4-判断是否存在域"><a href="#2-4-判断是否存在域" class="headerlink" title="2.4. 判断是否存在域"></a>2.4. 判断是否存在域</h2><h3 id="1-Ipconfig"><a href="#1-Ipconfig" class="headerlink" title="1. Ipconfig"></a>1. Ipconfig</h3><pre><code class="hljs powershell">ipconfig /all
+<h2 id="2-4-判断是否存在域"><a href="#2-4-判断是否存在域" class="headerlink" title="2.4 判断是否存在域"></a>2.4 判断是否存在域</h2><h3 id="1-Ipconfig"><a href="#1-Ipconfig" class="headerlink" title="1. Ipconfig"></a>1. Ipconfig</h3><pre><code class="hljs powershell">ipconfig /all
 
 <span class="hljs-comment">#通过反向解析查询命令</span>
 nslookup test.com</code></pre>
@@ -440,7 +440,7 @@ nslookup test.com</code></pre>
 <p>不存在域，当前网络环境为工作组。</p>
 <img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220607201421267.png" alt="image-20220607201421267" style="zoom: 67%;" />
 
-<h2 id="2-5-探测域内存活主机"><a href="#2-5-探测域内存活主机" class="headerlink" title="2.5. 探测域内存活主机"></a>2.5. 探测域内存活主机</h2><h3 id="2-5-1-利用NetBIOS快速探测内网"><a href="#2-5-1-利用NetBIOS快速探测内网" class="headerlink" title="2.5.1 利用NetBIOS快速探测内网"></a>2.5.1 利用NetBIOS快速探测内网</h3><p>​        NetBIOS是局域网程序使用的一种应用程序编程接口（API），为程序提供了请求低级别服务 的统一的命令集，为局域网提供了网络及其他特殊功能。几乎所有的局域网都是在NetBIOS协议 的基础上工作的。NetBIOS也是计算机的标识名，主要用于局域网中计算机的互访。NetBIOS的 工作流程就是正常的机器名解析查询应答过程，因此推荐优先使用。</p>
+<h2 id="2-5-探测域内存活主机"><a href="#2-5-探测域内存活主机" class="headerlink" title="2.5 探测域内存活主机"></a>2.5 探测域内存活主机</h2><h3 id="2-5-1-利用NetBIOS快速探测内网"><a href="#2-5-1-利用NetBIOS快速探测内网" class="headerlink" title="2.5.1 利用NetBIOS快速探测内网"></a>2.5.1 利用NetBIOS快速探测内网</h3><p>​        NetBIOS是局域网程序使用的一种应用程序编程接口（API），为程序提供了请求低级别服务 的统一的命令集，为局域网提供了网络及其他特殊功能。几乎所有的局域网都是在NetBIOS协议 的基础上工作的。NetBIOS也是计算机的标识名，主要用于局域网中计算机的互访。NetBIOS的 工作流程就是正常的机器名解析查询应答过程，因此推荐优先使用。</p>
 <p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/images-master/3b292df5e0fe9925bc31581f48f849df8db1cb13db66" alt="img"></p>
 <p>nbtscan是—个命令行工具，用于扫描本地或远程 TCP/IP 网络上的开放 NetBIOS 名称服务器。nbtscan有Windows和Linux两个版本，体积小，不需要安装特殊的库或DLL就能使用。</p>
 <p>repo：</p>
