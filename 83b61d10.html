@@ -8,7 +8,7 @@
     
     <title>内网学习笔记六 | 域控制器安全 | RainMaker</title>
 
-    <meta name="description" content="RainMaker">
+    <meta name="description" content="&lt;p&gt;​        在通常情况下，即使拥有管理员权限，也无法读取域控制器中的&lt;code&gt;C:\Windows\NTDS\ntds.dit&lt;/code&gt;文件（活动目录始终访问这个文件，所以文件被禁止读取）。使用 Windows 本地卷影拷贝服务，就可以获得文件的副本。在本章中，将介绍常用的提取 ntds.dit文件的方法，并对非法提取&lt;code&gt;ntds.dit&lt;/code&gt; 文件、通过 &lt;code&gt;MS14-068&lt;/code&gt;漏洞攻击域控制器等恶意行为给出防范建议。">
     <meta name="keywords" content="">
 
     
@@ -16,17 +16,17 @@
     <meta property="og:locale" content="cn" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content= "内网学习笔记六 | 域控制器安全 | RainMaker"  />
-    <meta property="og:description" content= "RainMaker" />
+    <meta property="og:description" content= "&lt;p&gt;​        在通常情况下，即使拥有管理员权限，也无法读取域控制器中的&lt;code&gt;C:\Windows\NTDS\ntds.dit&lt;/code&gt;文件（活动目录始终访问这个文件，所以文件被禁止读取）。使用 Windows 本地卷影拷贝服务，就可以获得文件的副本。在本章中，将介绍常用的提取 ntds.dit文件的方法，并对非法提取&lt;code&gt;ntds.dit&lt;/code&gt; 文件、通过 &lt;code&gt;MS14-068&lt;/code&gt;漏洞攻击域控制器等恶意行为给出防范建议。" />
     <meta property="og:url" content="http://hasaki-h2.github.io/83b61d10.html" />
     <meta property="og:site_name" content="" />
     <meta property="article:author" content="" />
     <meta property="article:publisher" content="" />
-    <meta property="og:description" content="RainMaker" />
+    <meta property="og:description" content="&lt;p&gt;​        在通常情况下，即使拥有管理员权限，也无法读取域控制器中的&lt;code&gt;C:\Windows\NTDS\ntds.dit&lt;/code&gt;文件（活动目录始终访问这个文件，所以文件被禁止读取）。使用 Windows 本地卷影拷贝服务，就可以获得文件的副本。在本章中，将介绍常用的提取 ntds.dit文件的方法，并对非法提取&lt;code&gt;ntds.dit&lt;/code&gt; 文件、通过 &lt;code&gt;MS14-068&lt;/code&gt;漏洞攻击域控制器等恶意行为给出防范建议。" />
     <meta name="twitter:title" content="内网学习笔记六 | 域控制器安全 | RainMaker"/>
-    <meta name="twitter:description" content="RainMaker"/>
+    <meta name="twitter:description" content="&lt;p&gt;​        在通常情况下，即使拥有管理员权限，也无法读取域控制器中的&lt;code&gt;C:\Windows\NTDS\ntds.dit&lt;/code&gt;文件（活动目录始终访问这个文件，所以文件被禁止读取）。使用 Windows 本地卷影拷贝服务，就可以获得文件的副本。在本章中，将介绍常用的提取 ntds.dit文件的方法，并对非法提取&lt;code&gt;ntds.dit&lt;/code&gt; 文件、通过 &lt;code&gt;MS14-068&lt;/code&gt;漏洞攻击域控制器等恶意行为给出防范建议。"/>
     <script type="application/ld+json">
         {
-            "description": "RainMaker",
+            "description": "&lt;p&gt;​        在通常情况下，即使拥有管理员权限，也无法读取域控制器中的&lt;code&gt;C:\Windows\NTDS\ntds.dit&lt;/code&gt;文件（活动目录始终访问这个文件，所以文件被禁止读取）。使用 Windows 本地卷影拷贝服务，就可以获得文件的副本。在本章中，将介绍常用的提取 ntds.dit文件的方法，并对非法提取&lt;code&gt;ntds.dit&lt;/code&gt; 文件、通过 &lt;code&gt;MS14-068&lt;/code&gt;漏洞攻击域控制器等恶意行为给出防范建议。",
             "author": { "@type": "Person", "name": "" },
             "@type": "BlogPosting",
             "url": "http://hasaki-h2.github.io/83b61d10.html",
@@ -235,7 +235,7 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <p>​        在通常情况下，即使拥有管理员权限，也无法读取域控制器中的<code>C:\Windows\NTDS\ntds.dit</code>文件（活动目录始终访问这个文件，所以文件被禁止读取）。使用 Windows 本地卷影拷贝服务，就可以获得文件的副本。在本章中，将介绍常用的提取 ntds.dit文件的方法，并对非法提取<code>ntds.dit</code> 文件、通过 <code>MS14-068</code>漏洞攻击域控制器等恶意行为给出防范建议。</p>
+            <p>​        在通常情况下，即使拥有管理员权限，也无法读取域控制器中的<code>C:\Windows\NTDS\ntds.dit</code>文件（活动目录始终访问这个文件，所以文件被禁止读取）。使用 Windows 本地卷影拷贝服务，就可以获得文件的副本。在本章中，将介绍常用的提取 ntds.dit文件的方法，并对非法提取<code>ntds.dit</code> 文件、通过 <code>MS14-068</code>漏洞攻击域控制器等恶意行为给出防范建议。<span id="more"></span></p>
 <h2 id="6-1-使用卷影拷贝服务提取ntds-dit"><a href="#6-1-使用卷影拷贝服务提取ntds-dit" class="headerlink" title="6.1  使用卷影拷贝服务提取ntds.dit"></a>6.1  使用卷影拷贝服务提取ntds.dit</h2><h3 id="6-1-1-通过ntdsutil-exe-提取ntds-dit"><a href="#6-1-1-通过ntdsutil-exe-提取ntds-dit" class="headerlink" title="6.1.1 通过ntdsutil.exe 提取ntds.dit"></a>6.1.1 通过ntdsutil.exe 提取ntds.dit</h3><h3 id="6-1-2-利用vssadmin提取ntds-dit"><a href="#6-1-2-利用vssadmin提取ntds-dit" class="headerlink" title="6.1.2 利用vssadmin提取ntds.dit"></a>6.1.2 利用vssadmin提取ntds.dit</h3><h3 id="6-1-3-利用vssown-vbs脚本提取ntds-dit"><a href="#6-1-3-利用vssown-vbs脚本提取ntds-dit" class="headerlink" title="6.1.3 利用vssown.vbs脚本提取ntds.dit"></a>6.1.3 利用vssown.vbs脚本提取ntds.dit</h3><h3 id="6-1-4-使用ntdsutil的IFM创建卷影拷贝"><a href="#6-1-4-使用ntdsutil的IFM创建卷影拷贝" class="headerlink" title="6.1.4 使用ntdsutil的IFM创建卷影拷贝"></a>6.1.4 使用ntdsutil的IFM创建卷影拷贝</h3><h3 id="6-1-5-使用diskshadow导出ntds-dit"><a href="#6-1-5-使用diskshadow导出ntds-dit" class="headerlink" title="6.1.5 使用diskshadow导出ntds.dit"></a>6.1.5 使用diskshadow导出ntds.dit</h3><h3 id="6-1-6-监控卷影拷贝服务的使用情况"><a href="#6-1-6-监控卷影拷贝服务的使用情况" class="headerlink" title="6.1.6 监控卷影拷贝服务的使用情况"></a>6.1.6 监控卷影拷贝服务的使用情况</h3><h2 id="6-2-导出ntds-dit中的散列值"><a href="#6-2-导出ntds-dit中的散列值" class="headerlink" title="6.2 导出ntds.dit中的散列值"></a>6.2 导出ntds.dit中的散列值</h2><h3 id="6-2-1-使用esedbexport恢复ntds-dit"><a href="#6-2-1-使用esedbexport恢复ntds-dit" class="headerlink" title="6.2.1 使用esedbexport恢复ntds.dit"></a>6.2.1 使用esedbexport恢复ntds.dit</h3><h3 id="6-2-2-使用impacket工具包导出散列值"><a href="#6-2-2-使用impacket工具包导出散列值" class="headerlink" title="6.2.2 使用impacket工具包导出散列值"></a>6.2.2 使用impacket工具包导出散列值</h3><h3 id="6-2-3-在Windows下解析ntds-dit并导出域账号和域散列值"><a href="#6-2-3-在Windows下解析ntds-dit并导出域账号和域散列值" class="headerlink" title="6.2.3 在Windows下解析ntds.dit并导出域账号和域散列值"></a>6.2.3 在Windows下解析ntds.dit并导出域账号和域散列值</h3><h2 id="6-3-利用dcsync获取域散列值"><a href="#6-3-利用dcsync获取域散列值" class="headerlink" title="6.3 利用dcsync获取域散列值"></a>6.3 利用dcsync获取域散列值</h2><h3 id="6-3-1-使用mimikatz-转储域散列值"><a href="#6-3-1-使用mimikatz-转储域散列值" class="headerlink" title="6.3.1 使用mimikatz 转储域散列值"></a>6.3.1 使用mimikatz 转储域散列值</h3><h3 id="6-3-2-使用dcsync获取域账号和域散列值"><a href="#6-3-2-使用dcsync获取域账号和域散列值" class="headerlink" title="6.3.2 使用dcsync获取域账号和域散列值"></a>6.3.2 使用dcsync获取域账号和域散列值</h3><h2 id="6-4-使用metasploit获取域散列值"><a href="#6-4-使用metasploit获取域散列值" class="headerlink" title="6.4 使用metasploit获取域散列值"></a>6.4 使用metasploit获取域散列值</h2><ol>
 <li>Psexec_ntdsgrab模块使用</li>
 <li>基于meterpreter会话获取域账号和域散列值</li>
@@ -376,7 +376,7 @@
   <div class="widget-wrap widget-tags">
     <div class="widget-title"><span>Tags</span></div>
     <div class="widget-inner">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARL/" rel="tag">ARL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access/" rel="tag">Access</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bugku/" rel="tag">Bugku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Burpsuite/" rel="tag">Burpsuite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cap-Pwd/" rel="tag">Cap_Pwd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CobaltStrike/" rel="tag">CobaltStrike</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Empire/" rel="tag">Empire</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GetShell/" rel="tag">GetShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Goby/" rel="tag">Goby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intranet/" rel="tag">Intranet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lfi/" rel="tag">Lfi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4j/" rel="tag">Log4j</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PTE/" rel="tag">PTE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Priviledge/" rel="tag">Priviledge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pth/" rel="tag">Pth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql/" rel="tag">Sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VulLab/" rel="tag">VulLab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xff/" rel="tag">Xff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xray/" rel="tag">Xray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARL/" rel="tag">ARL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access/" rel="tag">Access</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bugku/" rel="tag">Bugku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Burpsuite/" rel="tag">Burpsuite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cap-Pwd/" rel="tag">Cap_Pwd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CobaltStrike/" rel="tag">CobaltStrike</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Empire/" rel="tag">Empire</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GetShell/" rel="tag">GetShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Goby/" rel="tag">Goby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intranet/" rel="tag">Intranet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lfi/" rel="tag">Lfi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4j/" rel="tag">Log4j</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PTE/" rel="tag">PTE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Priviledge/" rel="tag">Priviledge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pth/" rel="tag">Pth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql/" rel="tag">Sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VulLab/" rel="tag">VulLab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebShell/" rel="tag">WebShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xff/" rel="tag">Xff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xray/" rel="tag">Xray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
     </div>
   </div>
 
@@ -387,6 +387,10 @@
     <div class="widget-title"><span>Recent Posts</span></div>
     <div class="widget-inner">
       <ul>
+        
+          <li>
+            <a href="/4c0f1c5d.html">畸形jsp木马解码小记</a>
+          </li>
         
           <li>
             <a href="/896645eb.html">内网学习笔记七 | 跨域攻击分析及防御</a>
@@ -402,10 +406,6 @@
         
           <li>
             <a href="/687f7c3.html">内网学习笔记五 | 域内横向移动分析及防御</a>
-          </li>
-        
-          <li>
-            <a href="/1ed1a532.html">向日葵RCE复现</a>
           </li>
         
       </ul>

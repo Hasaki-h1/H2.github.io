@@ -8,7 +8,7 @@
     
     <title>内网学习笔记五 | 域内横向移动分析及防御 | RainMaker</title>
 
-    <meta name="description" content="RainMaker">
+    <meta name="description" content="&lt;p&gt;​        域内横向移动技术是在复杂的内网攻击中被广泛使用的一种技术，尤其是在高级持续威胁 (&lt;code&gt;Advanced Persistent Threats&lt;/code&gt;，&lt;code&gt;APT&lt;/code&gt;）中。攻击者会利用该技术，以被攻陷的系统为跳板，访问其他域内主机，扩大资产范围（包括跳板机器中的文档和存储的凭证，以及通过跳板机器连接的数据库、域控制器或其他重要资产）。&lt;/p&gt;">
     <meta name="keywords" content="">
 
     
@@ -16,17 +16,17 @@
     <meta property="og:locale" content="cn" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content= "内网学习笔记五 | 域内横向移动分析及防御 | RainMaker"  />
-    <meta property="og:description" content= "RainMaker" />
+    <meta property="og:description" content= "&lt;p&gt;​        域内横向移动技术是在复杂的内网攻击中被广泛使用的一种技术，尤其是在高级持续威胁 (&lt;code&gt;Advanced Persistent Threats&lt;/code&gt;，&lt;code&gt;APT&lt;/code&gt;）中。攻击者会利用该技术，以被攻陷的系统为跳板，访问其他域内主机，扩大资产范围（包括跳板机器中的文档和存储的凭证，以及通过跳板机器连接的数据库、域控制器或其他重要资产）。&lt;/p&gt;" />
     <meta property="og:url" content="http://hasaki-h2.github.io/687f7c3.html" />
     <meta property="og:site_name" content="" />
     <meta property="article:author" content="" />
     <meta property="article:publisher" content="" />
-    <meta property="og:description" content="RainMaker" />
+    <meta property="og:description" content="&lt;p&gt;​        域内横向移动技术是在复杂的内网攻击中被广泛使用的一种技术，尤其是在高级持续威胁 (&lt;code&gt;Advanced Persistent Threats&lt;/code&gt;，&lt;code&gt;APT&lt;/code&gt;）中。攻击者会利用该技术，以被攻陷的系统为跳板，访问其他域内主机，扩大资产范围（包括跳板机器中的文档和存储的凭证，以及通过跳板机器连接的数据库、域控制器或其他重要资产）。&lt;/p&gt;" />
     <meta name="twitter:title" content="内网学习笔记五 | 域内横向移动分析及防御 | RainMaker"/>
-    <meta name="twitter:description" content="RainMaker"/>
+    <meta name="twitter:description" content="&lt;p&gt;​        域内横向移动技术是在复杂的内网攻击中被广泛使用的一种技术，尤其是在高级持续威胁 (&lt;code&gt;Advanced Persistent Threats&lt;/code&gt;，&lt;code&gt;APT&lt;/code&gt;）中。攻击者会利用该技术，以被攻陷的系统为跳板，访问其他域内主机，扩大资产范围（包括跳板机器中的文档和存储的凭证，以及通过跳板机器连接的数据库、域控制器或其他重要资产）。&lt;/p&gt;"/>
     <script type="application/ld+json">
         {
-            "description": "RainMaker",
+            "description": "&lt;p&gt;​        域内横向移动技术是在复杂的内网攻击中被广泛使用的一种技术，尤其是在高级持续威胁 (&lt;code&gt;Advanced Persistent Threats&lt;/code&gt;，&lt;code&gt;APT&lt;/code&gt;）中。攻击者会利用该技术，以被攻陷的系统为跳板，访问其他域内主机，扩大资产范围（包括跳板机器中的文档和存储的凭证，以及通过跳板机器连接的数据库、域控制器或其他重要资产）。&lt;/p&gt;",
             "author": { "@type": "Person", "name": "" },
             "@type": "BlogPosting",
             "url": "http://hasaki-h2.github.io/687f7c3.html",
@@ -236,9 +236,11 @@
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
             <p>​        域内横向移动技术是在复杂的内网攻击中被广泛使用的一种技术，尤其是在高级持续威胁 (<code>Advanced Persistent Threats</code>，<code>APT</code>）中。攻击者会利用该技术，以被攻陷的系统为跳板，访问其他域内主机，扩大资产范围（包括跳板机器中的文档和存储的凭证，以及通过跳板机器连接的数据库、域控制器或其他重要资产）。</p>
+<span id="more"></span>
+
 <p>​        通过此类攻击手段，攻击者最终可能获取域控制器的访问权限，甚至完全控制基<code>Windows</code>操作系统的基础设施和与业务相关的关键账户。因此，必须使用强口令来保护特权用户不被用于横向移动攻击，从而避免域内其他机器沦陷。建议系统管理员定期修改密码，从而使攻击者获取的权限失效。</p>
 <h2 id="5-1-常用Windows-远程连接和相关命令"><a href="#5-1-常用Windows-远程连接和相关命令" class="headerlink" title="5.1 常用Windows 远程连接和相关命令"></a>5.1 常用Windows 远程连接和相关命令</h2><p>​        在渗透测试中，拿到目标计算机的用户明文密码或者 <code>NTLM Hash</code> 后，可以通过 <code>PTH</code>（<code>Pass the Hash</code>，凭据传递）的方法，将散列值或明文密码传送到目标机器中进行验证。与目标机器建立连接后，可以使用相关方法在远程 <code>Windows</code>操作系统中执行命令。在多层代理环境中进行渗透测试时，由于网络条件较差，无法使用图形化界面连接远程主机。此时，可以使用命令行的方式连接远程主机（最好使用 <code>Windows</code> 自带的方法对远程目标系统进行命令行下的连接操作）并执行相关命令。在实际的网络环境中，针对此类情况，网络管理员可以通过配置 <code>Windows</code> 系统自带的防火墙或组策略进行防御。</p>
-<h3 id="5-1-1-IPC"><a href="#5-1-1-IPC" class="headerlink" title="5.1.1 IPC"></a>5.1.1 IPC</h3><p>​        <code>IPC（</code>Internet Process Connection`）共享“命名管道”的资源，是为了实现进程间通信而开放的命名管道。IPC 可以通过验证用户名和密码获得相应的权限，通常在远程管理计算机和查看计算机的共享资源时使用。通过 ipc$，可以与目标机器建立连接。利用这个连接，不仅可以访问目标机器中的文件，进行上传、下载等操作，还可以在目标机器上运行其他命令，以获取目标机器的目录结构、用户列表等信息。</p>
+<h3 id="5-1-1-IPC"><a href="#5-1-1-IPC" class="headerlink" title="5.1.1 IPC"></a>5.1.1 IPC</h3><p>​        <code>IPC（Internet Process Connection)</code>  共享“命名管道”的资源，是为了实现进程间通信而开放的命名管道。IPC 可以通过验证用户名和密码获得相应的权限，通常在远程管理计算机和查看计算机的共享资源时使用。通过 ipc$，可以与目标机器建立连接。利用这个连接，不仅可以访问目标机器中的文件，进行上传、下载等操作，还可以在目标机器上运行其他命令，以获取目标机器的目录结构、用户列表等信息。</p>
 <p>建立连接：<code>net use \\192.168.100.190\ipc$ &quot;Aa123456@&quot; /user:administrator</code>，在命令行环境中输人命令<code>net use</code>，查看当前的连接:</p>
 <h3 id="5-1-2-Windows-自带工具获取远程主机信息"><a href="#5-1-2-Windows-自带工具获取远程主机信息" class="headerlink" title="5.1.2 Windows 自带工具获取远程主机信息"></a>5.1.2 Windows 自带工具获取远程主机信息</h3><h3 id="5-1-3-计划任务"><a href="#5-1-3-计划任务" class="headerlink" title="5.1.3 计划任务"></a>5.1.3 计划任务</h3><h2 id="5-2-Windows-系统散列值获取分析与防范"><a href="#5-2-Windows-系统散列值获取分析与防范" class="headerlink" title="5.2 Windows 系统散列值获取分析与防范"></a>5.2 Windows 系统散列值获取分析与防范</h2><h3 id="5-2-1-LM-Hash-和NTLM-Hash"><a href="#5-2-1-LM-Hash-和NTLM-Hash" class="headerlink" title="5.2.1 LM Hash 和NTLM Hash"></a>5.2.1 LM Hash 和NTLM Hash</h3><h3 id="5-2-2-单机密码抓取与防范"><a href="#5-2-2-单机密码抓取与防范" class="headerlink" title="5.2.2 单机密码抓取与防范"></a>5.2.2 单机密码抓取与防范</h3><h3 id="5-2-3-使用Hashcat-获取密码"><a href="#5-2-3-使用Hashcat-获取密码" class="headerlink" title="5.2.3 使用Hashcat 获取密码"></a>5.2.3 使用Hashcat 获取密码</h3><h3 id="5-2-4-如何防范攻击者抓取明文密码"><a href="#5-2-4-如何防范攻击者抓取明文密码" class="headerlink" title="5.2.4 如何防范攻击者抓取明文密码"></a>5.2.4 如何防范攻击者抓取明文密码</h3><h2 id="5-3-hash传递攻击分析与防范"><a href="#5-3-hash传递攻击分析与防范" class="headerlink" title="5.3 hash传递攻击分析与防范"></a>5.3 hash传递攻击分析与防范</h2><h3 id="5-3-1-哈希传递攻击的概念"><a href="#5-3-1-哈希传递攻击的概念" class="headerlink" title="5.3.1 哈希传递攻击的概念"></a>5.3.1 哈希传递攻击的概念</h3><h3 id="5-3-2-哈希传递攻击分析"><a href="#5-3-2-哈希传递攻击分析" class="headerlink" title="5.3.2 哈希传递攻击分析"></a>5.3.2 哈希传递攻击分析</h3><h3 id="5-3-3-更新KB2871997-补丁产生的影响"><a href="#5-3-3-更新KB2871997-补丁产生的影响" class="headerlink" title="5.3.3 更新KB2871997 补丁产生的影响"></a>5.3.3 更新KB2871997 补丁产生的影响</h3><h2 id="5-4-票据传递攻击分析与防范"><a href="#5-4-票据传递攻击分析与防范" class="headerlink" title="5.4 票据传递攻击分析与防范"></a>5.4 票据传递攻击分析与防范</h2><h3 id="5-4-1-使用mimikatz-进行票据传递"><a href="#5-4-1-使用mimikatz-进行票据传递" class="headerlink" title="5.4.1 使用mimikatz 进行票据传递"></a>5.4.1 使用mimikatz 进行票据传递</h3><h3 id="5-4-2-使用kekeo-进行票据传递"><a href="#5-4-2-使用kekeo-进行票据传递" class="headerlink" title="5.4.2 使用kekeo 进行票据传递"></a>5.4.2 使用kekeo 进行票据传递</h3><h3 id="5-4-3-如何防范票据传递攻击"><a href="#5-4-3-如何防范票据传递攻击" class="headerlink" title="5.4.3 如何防范票据传递攻击"></a>5.4.3 如何防范票据传递攻击</h3><h2 id="5-5-PsExec-的使用"><a href="#5-5-PsExec-的使用" class="headerlink" title="5.5 PsExec 的使用"></a>5.5 PsExec 的使用</h2><h3 id="5-5-1-PsTools-工具包中的PsExec"><a href="#5-5-1-PsTools-工具包中的PsExec" class="headerlink" title="5.5.1 PsTools 工具包中的PsExec"></a>5.5.1 PsTools 工具包中的PsExec</h3><h3 id="5-5-2-Metasploit-中的psexec-模块"><a href="#5-5-2-Metasploit-中的psexec-模块" class="headerlink" title="5.5.2 Metasploit 中的psexec 模块"></a>5.5.2 Metasploit 中的psexec 模块</h3><h2 id="5-6-WMI-的使用"><a href="#5-6-WMI-的使用" class="headerlink" title="5.6 WMI 的使用"></a>5.6 WMI 的使用</h2><h3 id="5-6-1-基本命令"><a href="#5-6-1-基本命令" class="headerlink" title="5.6.1 基本命令"></a>5.6.1 基本命令</h3><h3 id="5-6-2-impactket-工具包中的wmiexec"><a href="#5-6-2-impactket-工具包中的wmiexec" class="headerlink" title="5.6.2 impactket 工具包中的wmiexec"></a>5.6.2 impactket 工具包中的wmiexec</h3><h3 id="5-6-3-wmiexec-vbs"><a href="#5-6-3-wmiexec-vbs" class="headerlink" title="5.6.3 wmiexec.vbs"></a>5.6.3 wmiexec.vbs</h3><h3 id="5-6-4-Invoke-WmiCommand"><a href="#5-6-4-Invoke-WmiCommand" class="headerlink" title="5.6.4 Invoke-WmiCommand"></a>5.6.4 Invoke-WmiCommand</h3><h3 id="5-6-5-Invoke-WMIMethod"><a href="#5-6-5-Invoke-WMIMethod" class="headerlink" title="5.6.5 Invoke-WMIMethod"></a>5.6.5 Invoke-WMIMethod</h3><h2 id="5-7-永恒之蓝漏洞分析与防范"><a href="#5-7-永恒之蓝漏洞分析与防范" class="headerlink" title="5.7 永恒之蓝漏洞分析与防范"></a>5.7 永恒之蓝漏洞分析与防范</h2>
         </div>
@@ -365,7 +367,7 @@
   <div class="widget-wrap widget-tags">
     <div class="widget-title"><span>Tags</span></div>
     <div class="widget-inner">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARL/" rel="tag">ARL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access/" rel="tag">Access</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bugku/" rel="tag">Bugku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Burpsuite/" rel="tag">Burpsuite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cap-Pwd/" rel="tag">Cap_Pwd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CobaltStrike/" rel="tag">CobaltStrike</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Empire/" rel="tag">Empire</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GetShell/" rel="tag">GetShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Goby/" rel="tag">Goby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intranet/" rel="tag">Intranet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lfi/" rel="tag">Lfi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4j/" rel="tag">Log4j</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PTE/" rel="tag">PTE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Priviledge/" rel="tag">Priviledge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pth/" rel="tag">Pth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql/" rel="tag">Sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VulLab/" rel="tag">VulLab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xff/" rel="tag">Xff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xray/" rel="tag">Xray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARL/" rel="tag">ARL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access/" rel="tag">Access</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bugku/" rel="tag">Bugku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Burpsuite/" rel="tag">Burpsuite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cap-Pwd/" rel="tag">Cap_Pwd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CobaltStrike/" rel="tag">CobaltStrike</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Empire/" rel="tag">Empire</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GetShell/" rel="tag">GetShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Goby/" rel="tag">Goby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intranet/" rel="tag">Intranet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lfi/" rel="tag">Lfi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4j/" rel="tag">Log4j</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PTE/" rel="tag">PTE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Priviledge/" rel="tag">Priviledge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pth/" rel="tag">Pth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql/" rel="tag">Sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VulLab/" rel="tag">VulLab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebShell/" rel="tag">WebShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xff/" rel="tag">Xff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xray/" rel="tag">Xray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
     </div>
   </div>
 
@@ -376,6 +378,10 @@
     <div class="widget-title"><span>Recent Posts</span></div>
     <div class="widget-inner">
       <ul>
+        
+          <li>
+            <a href="/4c0f1c5d.html">畸形jsp木马解码小记</a>
+          </li>
         
           <li>
             <a href="/896645eb.html">内网学习笔记七 | 跨域攻击分析及防御</a>
@@ -391,10 +397,6 @@
         
           <li>
             <a href="/687f7c3.html">内网学习笔记五 | 域内横向移动分析及防御</a>
-          </li>
-        
-          <li>
-            <a href="/1ed1a532.html">向日葵RCE复现</a>
           </li>
         
       </ul>

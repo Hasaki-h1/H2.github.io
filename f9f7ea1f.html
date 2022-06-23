@@ -8,7 +8,7 @@
     
     <title>内网学习笔记八 | 权限维持分析及防御 | RainMaker</title>
 
-    <meta name="description" content="RainMaker">
+    <meta name="description" content="&lt;p&gt;​        后门（backdoor），本意是指在建筑物的背面开设的门，通常比较隐蔽。在信息安全领域，后门是指通过绕过安全控制措施获取对程序或系统访问权限的方法。简单地说，后门就是一个留在目标主机上的软件，它可以使攻击者随时与目标主机进行连接。">
     <meta name="keywords" content="">
 
     
@@ -16,17 +16,17 @@
     <meta property="og:locale" content="cn" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content= "内网学习笔记八 | 权限维持分析及防御 | RainMaker"  />
-    <meta property="og:description" content= "RainMaker" />
+    <meta property="og:description" content= "&lt;p&gt;​        后门（backdoor），本意是指在建筑物的背面开设的门，通常比较隐蔽。在信息安全领域，后门是指通过绕过安全控制措施获取对程序或系统访问权限的方法。简单地说，后门就是一个留在目标主机上的软件，它可以使攻击者随时与目标主机进行连接。" />
     <meta property="og:url" content="http://hasaki-h2.github.io/f9f7ea1f.html" />
     <meta property="og:site_name" content="" />
     <meta property="article:author" content="" />
     <meta property="article:publisher" content="" />
-    <meta property="og:description" content="RainMaker" />
+    <meta property="og:description" content="&lt;p&gt;​        后门（backdoor），本意是指在建筑物的背面开设的门，通常比较隐蔽。在信息安全领域，后门是指通过绕过安全控制措施获取对程序或系统访问权限的方法。简单地说，后门就是一个留在目标主机上的软件，它可以使攻击者随时与目标主机进行连接。" />
     <meta name="twitter:title" content="内网学习笔记八 | 权限维持分析及防御 | RainMaker"/>
-    <meta name="twitter:description" content="RainMaker"/>
+    <meta name="twitter:description" content="&lt;p&gt;​        后门（backdoor），本意是指在建筑物的背面开设的门，通常比较隐蔽。在信息安全领域，后门是指通过绕过安全控制措施获取对程序或系统访问权限的方法。简单地说，后门就是一个留在目标主机上的软件，它可以使攻击者随时与目标主机进行连接。"/>
     <script type="application/ld+json">
         {
-            "description": "RainMaker",
+            "description": "&lt;p&gt;​        后门（backdoor），本意是指在建筑物的背面开设的门，通常比较隐蔽。在信息安全领域，后门是指通过绕过安全控制措施获取对程序或系统访问权限的方法。简单地说，后门就是一个留在目标主机上的软件，它可以使攻击者随时与目标主机进行连接。",
             "author": { "@type": "Person", "name": "" },
             "@type": "BlogPosting",
             "url": "http://hasaki-h2.github.io/f9f7ea1f.html",
@@ -235,7 +235,8 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <p>后门（backdoor），本意是指在建筑物的背面开设的门，通常比较隐蔽。在信息安全领域，后门是指通过绕过安全控制措施获取对程序或系统访问权限的方法。简单地说，后门就是一个留在目标主机上的软件，它可以使攻击者随时与目标主机进行连接。在大多数情况下，后门是一个运行在目标主机上的隐藏进程。因为后门可能允许一个普通的、未经授权的用户控制计算机，所以攻击者经常使用后门来控制服务器（比一般的攻击手段更具隐蔽性）。攻击者在提升权限之后，往往会通过建立后门来维持对目标主机的控制权。这样一来，即使修复了被攻击者利用的系统漏洞，攻击者还是可以通过后门继续控制目标系统。因此，如果我们能够了解攻击者在系统中建立后门的方法和思路，就可以在发现系统被人侵后快速找到攻击者留下的后门并将其清除。</p>
+            <p>​        后门（backdoor），本意是指在建筑物的背面开设的门，通常比较隐蔽。在信息安全领域，后门是指通过绕过安全控制措施获取对程序或系统访问权限的方法。简单地说，后门就是一个留在目标主机上的软件，它可以使攻击者随时与目标主机进行连接。<span id="more"></span></p>
+<p>​        在大多数情况下，后门是一个运行在目标主机上的隐藏进程。因为后门可能允许一个普通的、未经授权的用户控制计算机，所以攻击者经常使用后门来控制服务器（比一般的攻击手段更具隐蔽性）。攻击者在提升权限之后，往往会通过建立后门来维持对目标主机的控制权。这样一来，即使修复了被攻击者利用的系统漏洞，攻击者还是可以通过后门继续控制目标系统。因此，如果我们能够了解攻击者在系统中建立后门的方法和思路，就可以在发现系统被人侵后快速找到攻击者留下的后门并将其清除。</p>
 <h2 id="8-1-操作系统后门分析与防范"><a href="#8-1-操作系统后门分析与防范" class="headerlink" title="8.1 操作系统后门分析与防范"></a>8.1 操作系统后门分析与防范</h2><h3 id="8-1-1-粘滞键后门"><a href="#8-1-1-粘滞键后门" class="headerlink" title="8.1.1 粘滞键后门"></a>8.1.1 粘滞键后门</h3><h3 id="8-1-2-注册表注入后门"><a href="#8-1-2-注册表注入后门" class="headerlink" title="8.1.2 注册表注入后门"></a>8.1.2 注册表注入后门</h3><h3 id="8-1-3-计划任务后门"><a href="#8-1-3-计划任务后门" class="headerlink" title="8.1.3 计划任务后门"></a>8.1.3 计划任务后门</h3><ol>
 <li>在metasploit 中模拟计划任务后门</li>
 <li>在powerSploit中模拟计划任务后门</li>
@@ -366,7 +367,7 @@
   <div class="widget-wrap widget-tags">
     <div class="widget-title"><span>Tags</span></div>
     <div class="widget-inner">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARL/" rel="tag">ARL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access/" rel="tag">Access</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bugku/" rel="tag">Bugku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Burpsuite/" rel="tag">Burpsuite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cap-Pwd/" rel="tag">Cap_Pwd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CobaltStrike/" rel="tag">CobaltStrike</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Empire/" rel="tag">Empire</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GetShell/" rel="tag">GetShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Goby/" rel="tag">Goby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intranet/" rel="tag">Intranet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lfi/" rel="tag">Lfi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4j/" rel="tag">Log4j</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PTE/" rel="tag">PTE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Priviledge/" rel="tag">Priviledge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pth/" rel="tag">Pth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql/" rel="tag">Sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VulLab/" rel="tag">VulLab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xff/" rel="tag">Xff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xray/" rel="tag">Xray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARL/" rel="tag">ARL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access/" rel="tag">Access</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bugku/" rel="tag">Bugku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Burpsuite/" rel="tag">Burpsuite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cap-Pwd/" rel="tag">Cap_Pwd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CobaltStrike/" rel="tag">CobaltStrike</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Empire/" rel="tag">Empire</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GetShell/" rel="tag">GetShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Goby/" rel="tag">Goby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intranet/" rel="tag">Intranet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lfi/" rel="tag">Lfi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4j/" rel="tag">Log4j</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PTE/" rel="tag">PTE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Priviledge/" rel="tag">Priviledge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pth/" rel="tag">Pth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql/" rel="tag">Sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VulLab/" rel="tag">VulLab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebShell/" rel="tag">WebShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xff/" rel="tag">Xff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xray/" rel="tag">Xray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
     </div>
   </div>
 
@@ -377,6 +378,10 @@
     <div class="widget-title"><span>Recent Posts</span></div>
     <div class="widget-inner">
       <ul>
+        
+          <li>
+            <a href="/4c0f1c5d.html">畸形jsp木马解码小记</a>
+          </li>
         
           <li>
             <a href="/896645eb.html">内网学习笔记七 | 跨域攻击分析及防御</a>
@@ -392,10 +397,6 @@
         
           <li>
             <a href="/687f7c3.html">内网学习笔记五 | 域内横向移动分析及防御</a>
-          </li>
-        
-          <li>
-            <a href="/1ed1a532.html">向日葵RCE复现</a>
           </li>
         
       </ul>

