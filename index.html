@@ -302,74 +302,7 @@ class="article article-type-post"
     <div class="article-entry post-inner-html">
         
         <h1 id="一、14Finger简介"><a href="#一、14Finger简介" class="headerlink" title="一、14Finger简介"></a>一、14Finger简介</h1><p>​        14Finger是一款功能齐全的Web指纹扫描和分享平台，基于vue3+django前后端分离的web架构，并集成了长亭出品的rad爬虫的功能，内置了一万多条互联网开源的指纹信息。</p>
-<p>repo: <a target="_blank" rel="noopener" href="https://github.com/b1ackc4t/14Finger">https://github.com/b1ackc4t/14Finger</a></p>
-<ul>
-<li><strong>基于强大的rad爬虫</strong>分析指纹，不局限于当前页面</li>
-<li>能够<strong>执行js脚本</strong>，动态js加载的应用也能扫描，比如Vue应用</li>
-<li><strong>多线程</strong>，<strong>多进程</strong>，速度尚可</li>
-<li><strong>人性化的指纹提交</strong>功能，指纹种类和信息划分精细，可供用户打造出自己的无敌指纹库</li>
-<li><strong>批量爬虫</strong>、<strong>批量指纹</strong>，均在后台处理，无需前台等待</li>
-</ul>
-<h1 id="二、环境配置"><a href="#二、环境配置" class="headerlink" title="二、环境配置"></a>二、环境配置</h1><p>基础环境：</p>
-<ul>
-<li>Kali Linux version 5.15.0-kali3-amd64 (Debian)</li>
-<li>Python3.10</li>
-</ul>
-<p>安装依赖环境：</p>
-<ul>
-<li>mysql</li>
-<li>redis</li>
-<li>Celery</li>
-</ul>
-<p>1.安装命令如下：</p>
-<pre><code class="hljs bash">apt install mariadb-server redis python3-dev libmysqld-dev 
-mysql_secure_installation</code></pre>
-
-<p>2.服务启动后配置redis密码</p>
-<pre><code class="hljs plaintext"># 方法1，临时设置密码
-# redis 默认用户名为default
-redis-cli
-config set requirepass 123456
-# 方法2，配置文件永久设置，取消requirepass注释并设置密码
-vim /etc/redis/redis.conf</code></pre>
-
-<p>3.之后就是修改_14Finger/setting.py的数据库配置为自己的数据库配置</p>
-<pre><code class="hljs json">DATABASES = &#123;
-    &#x27;default&#x27;: &#123;
-        &#x27;ENGINE&#x27;: &#x27;django.db.backends.mysql&#x27;,
-        &#x27;NAME&#x27;: &#x27;<span class="hljs-number">14</span>finger&#x27;,
-        &#x27;USER&#x27;: &#x27;root&#x27;,
-        &#x27;PASSWORD&#x27;: &#x27;<span class="hljs-number">123456</span>&#x27;,
-        &#x27;HOST&#x27;: &#x27;<span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>&#x27;,
-        &#x27;PORT&#x27;: &#x27;<span class="hljs-number">3306</span>&#x27;,
-    &#125;
-&#125;
-# celery配置
-CELERY_BROKER_URL = &#x27;redis:<span class="hljs-comment">//default:123456@127.0.0.1:6379/1&#x27;</span>
-CELERY_RESULT_BACKEND = &#x27;redis:<span class="hljs-comment">//default:123456@127.0.0.1:6379/2&#x27;</span></code></pre>
-
-<p>4.导入14finger.sql文件：</p>
-<pre><code class="hljs bash">mysql -uroot -p 
-create database 14finger;
-use 14finger;
-<span class="hljs-built_in">source</span> /root/Desktop/14Finger-master/14finger.sql</code></pre>
-
-<p>5.下载前端源码并启动，<a target="_blank" rel="noopener" href="https://github.com/b1ackc4t/14Finger-client">https://github.com/b1ackc4t/14Finger-client</a></p>
-<pre><code class="hljs bash">npm install
-npm run dev</code></pre>
-
-<p>6.下载启动后端，<a target="_blank" rel="noopener" href="https://github.com/b1ackc4t/14Finger">https://github.com/b1ackc4t/14Finger</a></p>
-<pre><code class="hljs bash"><span class="hljs-comment"># python依赖环境安装失败可能是由于少装了apt依赖</span>
-python -m pip install -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
-python manage.py runserver</code></pre>
-
-<p>7.celery执行</p>
-<pre><code class="hljs bash"><span class="hljs-comment"># apt安装的celery会导致报错</span>
-/usr/<span class="hljs-built_in">local</span>/bin/celery -A core.celery_pak.main worker -l info</code></pre>
-
-<h1 id="三、配置结果"><a href="#三、配置结果" class="headerlink" title="三、配置结果"></a>三、配置结果</h1><p><strong>初始管理员用户名/密码：admin/admin，b1ackc4t/123456</strong>，初始反应较慢，整体配置不难，就是踩了一些小坑，为了后续师傅们少走弯路，简单记录一下。</p>
-<p><img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20230202000733351.png" alt="image-20230202000733351"></p>
-
+<p>repo: <a target="_blank" rel="noopener" href="https://github.com/b1ackc4t/14Finger">https://github.com/b1ackc4t/14Finger</a>
         
     </div>
     </div>
